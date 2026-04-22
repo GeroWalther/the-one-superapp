@@ -1,0 +1,94 @@
+{
+  "nav": {
+    "features": "Features",
+    "about": "Über uns",
+    "joinNow": "Zugang zur Bewerbung",
+    "download": "Download"
+  },
+  "hero": {
+    "title": "Die Premium Super App",
+    "titleHighlight": "für Ihr Leben",
+    "subtitle": "für fundierte Entscheidungen & kuratierte Verbindungen",
+    "clarity": "Clarity before decisions.",
+    "cta": "Zugang zur Bewerbung"
+  },
+  "join": {
+    "title": "Jetzt bewerben",
+    "tagline": "Qualität vor Quantität",
+    "memberHeading": "Mitglied Bewerbung",
+    "partnerHeading": "Partner / Unternehmen Bewerbung",
+    "name": "Name",
+    "email": "E-Mail",
+    "phone": "Telefon",
+    "country": "Land",
+    "message": "Nachricht (optional)",
+    "companyBrand": "Unternehmen & Brand Daten",
+    "officeAddress": "Office Adresse",
+    "ownerName": "Eigentümer Name",
+    "contactPerson": "Ansprechpartner",
+    "partnerArea": "Partnerbereich",
+    "shortDescription": "Kurzbeschreibung",
+    "expectations": "Welche Erwartungen haben Sie an TheONE SUPER APP?",
+    "role": "Ich bin",
+    "member": "Mitglied",
+    "partner": "Partner",
+    "submit": "Bewerbung absenden"
+  },
+  "about": {
+    "title": "Was ist TheONE",
+    "description": "TheONE ist eine <strong>Decision Infrastructure</strong>, die Menschen, Partner und Services verbindet, um fundierte Entscheidungen zu ermöglichen."
+  },
+  "aboutPage": {
+    "title": "Über TheONE",
+    "tagline": "Qualität vor Quantität.",
+    "intro": "TheONE ist eine einzigartige SUPER APP mit Power-AI-Unterstützung und einer unabhängigen Decision Infrastructure für Premium Services, Longevity, Health, Insurance, Real Estate, Beauty, Wellness Resorts, Hotels, High-End-Clinics und Lifestyle.",
+    "mission": "TheONE SUPER APP wurde entwickelt, um Klarheit zu schaffen, bevor Entscheidungen getroffen werden. Wir stellen eine digitale Infrastruktur zur Verfügung, deren Ziel es ist, Entscheidungsklarheit in Bereichen zu schaffen, in denen Komplexität, Unsicherheit und Informationsüberfluss dominieren.",
+    "philosophy": "Partner und Unternehmen nutzen TheONE, um Teil eines kuratierten Ökosystems zu sein, das auf Qualität, Vertrauen und langfristige Beziehungen ausgerichtet ist – nicht auf Werbung, Rankings oder kurzfristige Sichtbarkeit.",
+    "partnersTitle": "Unsere Partner",
+    "partnersBody": "Wir arbeiten ausschließlich mit ausgewählten Häusern, Kliniken, Resorts und Experten zusammen, die denselben Anspruch an Qualität, Diskretion und Exzellenz teilen. Jede Aufnahme erfolgt über einen strukturierten Bewerbungsprozess.",
+    "approachTitle": "Unser Ansatz",
+    "approachBody": "Wir bauen keine weitere Listing-Plattform. TheONE ist eine Decision Infrastructure – eine kuratierte Schicht zwischen Ihnen und den wichtigsten Entscheidungen Ihres Lebens: Gesundheit, Vermögen, Wohnen, Lifestyle."
+  },
+  "features": {
+    "decision": "Entscheidung",
+    "decisionDesc": "KI-Unterstützung",
+    "connection": "Verbindung",
+    "connectionDesc": "Messenger & Daten",
+    "transaction": "Transaktion",
+    "transactionDesc": "TheONE Pay"
+  },
+  "services": {
+    "healthLongevity": "Health & Longevity",
+    "beautySkincare": "Beauty & Skincare",
+    "luxuryHotels": "Luxury Hotels",
+    "lifestyle": "Lifestyle",
+    "realEstate": "Real Estate",
+    "wellnessResorts": "Wellness Resorts",
+    "insurance": "Insurance"
+  },
+  "benefits": {
+    "title": "<em>Exklusive</em> <strong>Vorteile</strong> <em>&</em> <strong>Services</strong>",
+    "subtitle": "Optimieren Sie Ihre Gesundheit und verlängern Sie Ihr Leben.",
+    "exclusiveAccess": "Exklusiver Zugang",
+    "exclusiveAccessDesc": "Nur für Partner & Mitglieder",
+    "innovativeTech": "Innovativste Technologie",
+    "innovativeTechDesc": "Decision Infrastructure & AI",
+    "maxSuccess": "Maximaler Erfolg",
+    "maxSuccessDesc": "Optimierte Gesundheit & Erfolg"
+  },
+  "cta": {
+    "discover": "Entdecken Sie Health <em>&</em> Longevity",
+    "discoverSub": "Starten Sie jetzt in eine neue Ära.",
+    "partner": "Partner werden",
+    "member": "Mitglied beitreten",
+    "secure": "100% Sicher",
+    "discreet": "Diskret",
+    "trustworthy": "Vertrauenswürdig"
+  },
+  "footer": {
+    "copyright": "© 2025 The One App",
+    "privacy": "Datenschutz",
+    "imprint": "Impressum",
+    "waitlistNote": "Zugang aktuell nur über Warteliste und Einladung."
+  }
+}

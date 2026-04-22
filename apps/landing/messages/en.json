@@ -1,0 +1,94 @@
+{
+  "nav": {
+    "features": "Features",
+    "about": "About",
+    "joinNow": "Apply for Access",
+    "download": "Download"
+  },
+  "hero": {
+    "title": "The Premium Super App",
+    "titleHighlight": "for Your Life",
+    "subtitle": "for informed decisions & curated connections",
+    "clarity": "Clarity before decisions.",
+    "cta": "Apply for Access"
+  },
+  "join": {
+    "title": "Apply Now",
+    "tagline": "Quality before quantity",
+    "memberHeading": "Member Application",
+    "partnerHeading": "Partner / Company Application",
+    "name": "Name",
+    "email": "Email",
+    "phone": "Phone",
+    "country": "Country",
+    "message": "Message (optional)",
+    "companyBrand": "Company & Brand Details",
+    "officeAddress": "Office Address",
+    "ownerName": "Owner Name",
+    "contactPerson": "Contact Person",
+    "partnerArea": "Partner Category",
+    "shortDescription": "Short Description",
+    "expectations": "What are your expectations for TheONE SUPER APP?",
+    "role": "I am a",
+    "member": "Member",
+    "partner": "Partner",
+    "submit": "Submit Application"
+  },
+  "about": {
+    "title": "What is TheONE",
+    "description": "TheONE is a <strong>Decision Infrastructure</strong> that connects people, partners, and services to enable informed decisions."
+  },
+  "aboutPage": {
+    "title": "About TheONE",
+    "tagline": "Quality before quantity.",
+    "intro": "TheONE is a unique SUPER APP with Power-AI support and an independent Decision Infrastructure for Premium Services, Longevity, Health, Insurance, Real Estate, Beauty, Wellness Resorts, Hotels, high-end clinics and Lifestyle.",
+    "mission": "TheONE SUPER APP was built to create clarity before decisions are made. We provide a digital infrastructure whose purpose is to deliver decision clarity in areas where complexity, uncertainty, and information overload dominate.",
+    "philosophy": "Partners and companies use TheONE to be part of a curated ecosystem focused on quality, trust, and long-term relationships — not on advertising, rankings, or short-term visibility.",
+    "partnersTitle": "Our Partners",
+    "partnersBody": "We work exclusively with selected houses, clinics, resorts, and experts who share the same commitment to quality, discretion, and excellence. Every onboarding follows a structured application process.",
+    "approachTitle": "Our Approach",
+    "approachBody": "We are not building another listing platform. TheONE is a Decision Infrastructure — a curated layer between you and the most important decisions in your life: health, wealth, living, lifestyle."
+  },
+  "features": {
+    "decision": "Decision",
+    "decisionDesc": "AI Support",
+    "connection": "Connection",
+    "connectionDesc": "Messenger & Data",
+    "transaction": "Transaction",
+    "transactionDesc": "TheONE Pay"
+  },
+  "services": {
+    "healthLongevity": "Health & Longevity",
+    "beautySkincare": "Beauty & Skincare",
+    "luxuryHotels": "Luxury Hotels",
+    "lifestyle": "Lifestyle",
+    "realEstate": "Real Estate",
+    "wellnessResorts": "Wellness Resorts",
+    "insurance": "Insurance"
+  },
+  "benefits": {
+    "title": "<em>Exclusive</em> <strong>Benefits</strong> <em>&</em> <strong>Services</strong>",
+    "subtitle": "Optimize your health and extend your life.",
+    "exclusiveAccess": "Exclusive Access",
+    "exclusiveAccessDesc": "For partners & members only",
+    "innovativeTech": "Innovative Technology",
+    "innovativeTechDesc": "Decision Infrastructure & AI",
+    "maxSuccess": "Maximum Success",
+    "maxSuccessDesc": "Optimized health & success"
+  },
+  "cta": {
+    "discover": "Discover Health <em>&</em> Longevity",
+    "discoverSub": "Start a new era today.",
+    "partner": "Become a Partner",
+    "member": "Join as Member",
+    "secure": "100% Secure",
+    "discreet": "Discreet",
+    "trustworthy": "Trustworthy"
+  },
+  "footer": {
+    "copyright": "\u00a9 2025 The One App",
+    "privacy": "Privacy Policy",
+    "imprint": "Imprint",
+    "waitlistNote": "Access currently only via waitlist and invitation."
+  }
+}
