@@ -388,7 +388,7 @@
       "contactPhone": "Kontakttelefon",
       "publishedLabel": "Für Mitglieder sichtbar. Abwählen, um den Eintrag auszublenden, ohne ihn zu löschen.",
       "imagesTitle": "Fotos",
-      "imagesHint": "Bis zu {max}. Das erste dient als Titelbild. JPEG, PNG, WebP, GIF oder HEIC, je max. 5 MB.",
+      "imagesHint": "Bis zu {max}. Das erste dient als Titelbild. JPEG, PNG, WebP, GIF oder HEIC, je max. 4 MB.",
       "imageAdd": "Foto hinzufügen",
       "imageCover": "Titelbild",
       "imageRemove": "Foto entfernen",
@@ -414,7 +414,7 @@
         "forbidden": "Sie können dieses Profil nicht bearbeiten.",
         "noFile": "Es wurde keine Datei ausgewählt.",
         "tooManyImages": "Sie haben die maximale Anzahl an Fotos erreicht.",
-        "imageTooLarge": "Dieses Bild ist größer als 5 MB.",
+        "imageTooLarge": "Dieses Bild ist größer als 4 MB.",
         "imageUnsupported": "Diese Datei ist kein unterstütztes Bild. Bitte JPEG, PNG, WebP, GIF oder HEIC verwenden.",
         "storageNotConfigured": "Der Bildspeicher ist noch nicht konfiguriert.",
         "serverError": "Auf unserer Seite ist etwas schiefgegangen. Bitte erneut versuchen."

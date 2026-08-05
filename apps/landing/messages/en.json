@@ -388,7 +388,7 @@
       "contactPhone": "Contact phone",
       "publishedLabel": "Visible to members. Uncheck to hide your listing without deleting it.",
       "imagesTitle": "Photographs",
-      "imagesHint": "Up to {max}. The first is used as your cover image. JPEG, PNG, WebP, GIF or HEIC, max 5 MB each.",
+      "imagesHint": "Up to {max}. The first is used as your cover image. JPEG, PNG, WebP, GIF or HEIC, max 4 MB each.",
       "imageAdd": "Add a photograph",
       "imageCover": "Cover",
       "imageRemove": "Remove photograph",
@@ -414,7 +414,7 @@
         "forbidden": "You cannot edit this profile.",
         "noFile": "No file was selected.",
         "tooManyImages": "You have reached the maximum number of photographs.",
-        "imageTooLarge": "That image is larger than 5 MB.",
+        "imageTooLarge": "That image is larger than 4 MB.",
         "imageUnsupported": "That file is not a supported image. Use JPEG, PNG, WebP, GIF or HEIC.",
         "storageNotConfigured": "Image storage is not configured yet.",
         "serverError": "Something went wrong on our side. Please try again."

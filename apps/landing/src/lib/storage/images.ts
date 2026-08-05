@@ -10,7 +10,15 @@ import { del, put } from "@vercel/blob";
  * leading bytes, and the size by counting what actually arrived.
  */
 
-export const MAX_IMAGE_BYTES = 5 * 1024 * 1024;
+/**
+ * Kept under Vercel's ~4.5 MB serverless request-body cap on purpose.
+ *
+ * A limit above the platform's is a limit that never applies: the request is
+ * killed at the edge with a bare 413 before any of this code runs, so the
+ * member sees an opaque failure instead of "that image is too large" — and the
+ * 5 MB the interface promised was never actually available.
+ */
+export const MAX_IMAGE_BYTES = 4 * 1024 * 1024;
 export const MAX_IMAGES_PER_PARTNER = 8;
 
 export function isImageStorageConfigured(): boolean {
