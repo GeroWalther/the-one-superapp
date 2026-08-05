@@ -282,5 +282,154 @@
     "imprint": "Impressum",
     "secure": "100% Sicher",
     "waitlistNote": "Zugang ausschließlich über Bewerbung und Einladung."
+  },
+  "login": {
+    "eyebrow": "Mitglieder & Administration",
+    "title": "Anmelden",
+    "subtitle": "Verwenden Sie den Benutzernamen, den Sie bei der Einrichtung gewählt haben.",
+    "identifier": "Benutzername oder E-Mail",
+    "identifierPlaceholder": "ihrname",
+    "password": "Passwort",
+    "showPassword": "Passwort anzeigen",
+    "hidePassword": "Passwort verbergen",
+    "submit": "Anmelden",
+    "submitting": "Anmeldung läuft…",
+    "forgot": "Passwort vergessen?",
+    "noAccount": "Noch kein Mitglied?",
+    "apply": "Zugang beantragen",
+    "errors": {
+      "identifierRequired": "Bitte geben Sie Benutzernamen oder E-Mail an.",
+      "passwordRequired": "Bitte geben Sie Ihr Passwort ein.",
+      "invalidCredentials": "Diese Angaben passen zu keinem Konto.",
+      "accountSuspended": "Dieses Konto wurde gesperrt. Bitte kontaktieren Sie uns.",
+      "rateLimited": "Zu viele Versuche. Bitte warten Sie einen Moment und versuchen Sie es erneut.",
+      "serverError": "Auf unserer Seite ist etwas schiefgelaufen. Bitte versuchen Sie es erneut."
+    }
+  },
+  "account": {
+    "eyebrow": "Ihr Konto",
+    "title": "Konto",
+    "greeting": "Hallo, {name}",
+    "status": "Status",
+    "username": "Benutzername",
+    "plan": "Tarif",
+    "perMonth": " pro Monat",
+    "perYear": " pro Jahr",
+    "freeMonths": "Freimonate",
+    "freeMonthsValue": "{months} Monate geschenkt",
+    "awaitingPaymentNote": "Ihr Zugang ist freigegeben. Wählen Sie eine Zahlungsmethode, um Ihr Konto zu aktivieren — €{price} pro Monat für Mitglieder.",
+    "signOut": "Abmelden",
+    "statuses": {
+      "awaiting_payment": "Freigegeben — Zahlung ausstehend",
+      "active": "Aktiv",
+      "past_due": "Zahlung überfällig",
+      "canceled": "Gekündigt",
+      "suspended": "Gesperrt"
+    }
+  },
+  "admin": {
+    "nav": {
+      "badge": "Admin",
+      "queue": "Bewerbungen",
+      "invitations": "Einladungen",
+      "signOut": "Abmelden"
+    },
+    "type": {
+      "member": "Mitglied",
+      "partner": "Partner"
+    },
+    "status": {
+      "pending": "Offen",
+      "approved": "Angenommen",
+      "declined": "Abgelehnt"
+    },
+    "tier": {
+      "large": "Große Organisation",
+      "small": "Kleines Unternehmen"
+    },
+    "invitationStatus": {
+      "sent": "Gesendet",
+      "redeemed": "Eingelöst",
+      "revoked": "Zurückgezogen",
+      "expired": "Abgelaufen"
+    },
+    "queue": {
+      "title": "Bewerbungen",
+      "pendingCount": "{count} warten auf eine Entscheidung.",
+      "allClear": "Nichts wartet auf eine Entscheidung.",
+      "filterAll": "Alle",
+      "filterPending": "Offen",
+      "filterApproved": "Angenommen",
+      "filterDeclined": "Abgelehnt",
+      "search": "Suchen",
+      "searchPlaceholder": "Name oder E-Mail",
+      "empty": "Keine Bewerbungen in dieser Ansicht."
+    },
+    "detail": {
+      "back": "Zurück zu den Bewerbungen",
+      "submitted": "Eingereicht {date}",
+      "email": "E-Mail",
+      "phone": "Telefon",
+      "internalReason": "Interner Ablehnungsgrund",
+      "invitedWithMonths": "Eingeladen — {months} Monate kostenfrei",
+      "invitedReferral": "Von einem Mitglied empfohlen",
+      "reviewedOn": "Geprüft {date}",
+      "assignedTier": "Zugewiesene Stufe: {tier}",
+      "already": {
+        "pending": "Wartet auf eine Entscheidung.",
+        "approved": "Angenommen. Der Aktivierungslink wurde versendet.",
+        "declined": "Abgelehnt. E-Mail und Telefonnummer sind gesperrt."
+      }
+    },
+    "decision": {
+      "title": "Entscheidung",
+      "approve": "Annehmen",
+      "decline": "Ablehnen",
+      "working": "Wird verarbeitet…",
+      "tierQuestion": "Welche Partnerstufe?",
+      "tierHint": "Legt den Preis fest. Der Bewerber kann dies nicht ändern.",
+      "perYear": "Jahr",
+      "memberPlanNote": "Mitglieder zahlen nach Abschluss €{price} pro Monat.",
+      "approveConfirm": "Annehmen und Aktivierungslink senden",
+      "approveNote": "Die Person erhält einen einmalig gültigen Link für Benutzername und Passwort.",
+      "internalReason": "Grund (intern)",
+      "internalReasonHint": "Wird im Audit-Log gespeichert. Geht nie an den Bewerber.",
+      "applicantMessage": "Nachricht an den Bewerber (optional)",
+      "applicantMessageHint": "Wird in die Absage-E-Mail übernommen, falls ausgefüllt.",
+      "declineConfirm": "Ablehnen und sperren",
+      "declineWarning": "Sperrt diese E-Mail-Adresse und Telefonnummer dauerhaft für weitere Bewerbungen.",
+      "approvedDone": "Angenommen.",
+      "approvedDoneNote": "Der Aktivierungslink wurde versendet.",
+      "declinedDone": "Abgelehnt.",
+      "declinedDoneNote": "Der Bewerber wurde benachrichtigt, E-Mail und Telefonnummer sind gesperrt."
+    },
+    "invitations": {
+      "title": "Einladungen",
+      "subtitle": "Eingeladene Personen überspringen die Prüfung und starten mit Freimonaten.",
+      "formTitle": "Jemanden einladen",
+      "formNote": "Eine Einladung von Ihnen nimmt die Person direkt an und gewährt {months} Monate kostenfrei.",
+      "email": "E-Mail-Adresse",
+      "roleQuestion": "Einladen als",
+      "note": "Notiz (optional)",
+      "noteHint": "Nur für Ihre Unterlagen. Wird dem Empfänger nicht gezeigt.",
+      "send": "Einladung senden",
+      "sending": "Wird gesendet…",
+      "sent": "Einladung gesendet.",
+      "revoke": "Zurückziehen",
+      "empty": "Noch keine Einladungen.",
+      "byAdmin": "Admin-Einladung — {months} Monate kostenfrei",
+      "byMember": "Empfohlen von {name}"
+    },
+    "errors": {
+      "forbidden": "Sie sind nicht als Administrator angemeldet.",
+      "notPending": "Diese Bewerbung wurde bereits entschieden.",
+      "tierRequired": "Bitte wählen Sie vor der Annahme eine Partnerstufe.",
+      "reasonRequired": "Bitte hinterlegen Sie einen Grund.",
+      "emailInvalid": "Bitte geben Sie eine gültige E-Mail-Adresse an.",
+      "roleRequired": "Bitte wählen Sie Mitglied oder Partner.",
+      "alreadyMember": "Diese Adresse hat bereits ein Konto.",
+      "alreadyInvited": "Für diese Adresse liegt bereits eine offene Einladung vor.",
+      "serverError": "Auf unserer Seite ist etwas schiefgelaufen. Bitte versuchen Sie es erneut."
+    }
   }
 }

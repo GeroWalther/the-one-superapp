@@ -1,15 +1,17 @@
 import { SignJWT, jwtVerify } from "jose";
+import { ROLES, type Role } from "../domain";
 
-/* This module is deliberately free of `next/headers` so that `proxy.ts` can
-   import `decrypt` for its optimistic check without pulling the request-scoped
-   cookie APIs into the proxy. Cookie writes live in `session-cookie.ts`. */
+/**
+ * Web session tokens. Free of `next/headers` so anything outside a request
+ * scope can verify one; cookie writes live in `session-cookie.ts`.
+ */
 
 export const SESSION_COOKIE = "theone_session";
 export const SESSION_MAX_AGE_SECONDS = 60 * 60 * 24 * 7; // 7 days
 
 export type SessionPayload = {
-  userId: string;
-  role: "member" | "partner";
+  accountId: string;
+  role: Role;
 };
 
 function encodedKey(): Uint8Array {
@@ -42,12 +44,12 @@ export async function decrypt(
       algorithms: ["HS256"],
     });
 
-    if (typeof payload.userId !== "string") return null;
+    if (typeof payload.accountId !== "string") return null;
+    // An unrecognised role must be rejected outright rather than quietly
+    // degraded to a valid one.
+    if (!ROLES.includes(payload.role as Role)) return null;
 
-    return {
-      userId: payload.userId,
-      role: payload.role === "partner" ? "partner" : "member",
-    };
+    return { accountId: payload.accountId, role: payload.role as Role };
   } catch {
     // Expired, tampered with, or signed by a rotated secret.
     return null;

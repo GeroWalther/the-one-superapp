@@ -282,5 +282,154 @@
     "imprint": "Imprint",
     "secure": "100% Secure",
     "waitlistNote": "Access is by application and invitation only."
+  },
+  "login": {
+    "eyebrow": "Members & administrators",
+    "title": "Sign in",
+    "subtitle": "Use the username you chose when you set up your access.",
+    "identifier": "Username or email",
+    "identifierPlaceholder": "yourname",
+    "password": "Password",
+    "showPassword": "Show password",
+    "hidePassword": "Hide password",
+    "submit": "Sign in",
+    "submitting": "Signing in…",
+    "forgot": "Forgotten your password?",
+    "noAccount": "Not a member yet?",
+    "apply": "Apply for access",
+    "errors": {
+      "identifierRequired": "Please enter your username or email.",
+      "passwordRequired": "Please enter your password.",
+      "invalidCredentials": "Those details do not match an account.",
+      "accountSuspended": "This account has been suspended. Please contact us.",
+      "rateLimited": "Too many attempts. Please wait a little while and try again.",
+      "serverError": "Something went wrong on our side. Please try again."
+    }
+  },
+  "account": {
+    "eyebrow": "Your account",
+    "title": "Account",
+    "greeting": "Hello, {name}",
+    "status": "Status",
+    "username": "Username",
+    "plan": "Plan",
+    "perMonth": " per month",
+    "perYear": " per year",
+    "freeMonths": "Free months",
+    "freeMonthsValue": "{months} months on us",
+    "awaitingPaymentNote": "Your access is approved. Choose a payment method to activate your account — €{price} per month for members.",
+    "signOut": "Sign out",
+    "statuses": {
+      "awaiting_payment": "Approved — awaiting payment",
+      "active": "Active",
+      "past_due": "Payment overdue",
+      "canceled": "Cancelled",
+      "suspended": "Suspended"
+    }
+  },
+  "admin": {
+    "nav": {
+      "badge": "Admin",
+      "queue": "Applications",
+      "invitations": "Invitations",
+      "signOut": "Sign out"
+    },
+    "type": {
+      "member": "Member",
+      "partner": "Partner"
+    },
+    "status": {
+      "pending": "Pending",
+      "approved": "Approved",
+      "declined": "Declined"
+    },
+    "tier": {
+      "large": "Large organisation",
+      "small": "Small business"
+    },
+    "invitationStatus": {
+      "sent": "Sent",
+      "redeemed": "Redeemed",
+      "revoked": "Revoked",
+      "expired": "Expired"
+    },
+    "queue": {
+      "title": "Applications",
+      "pendingCount": "{count} waiting for a decision.",
+      "allClear": "Nothing waiting for a decision.",
+      "filterAll": "All",
+      "filterPending": "Pending",
+      "filterApproved": "Approved",
+      "filterDeclined": "Declined",
+      "search": "Search",
+      "searchPlaceholder": "Name or email",
+      "empty": "No applications match this view."
+    },
+    "detail": {
+      "back": "Back to applications",
+      "submitted": "Submitted {date}",
+      "email": "Email",
+      "phone": "Phone",
+      "internalReason": "Internal decline reason",
+      "invitedWithMonths": "Invited — {months} months free",
+      "invitedReferral": "Referred by a member",
+      "reviewedOn": "Reviewed {date}",
+      "assignedTier": "Assigned tier: {tier}",
+      "already": {
+        "pending": "Awaiting a decision.",
+        "approved": "Approved. The activation link has been emailed.",
+        "declined": "Declined. Email and phone are blocklisted."
+      }
+    },
+    "decision": {
+      "title": "Decision",
+      "approve": "Approve",
+      "decline": "Decline",
+      "working": "Working…",
+      "tierQuestion": "Which partnership tier?",
+      "tierHint": "This sets what they are charged. It cannot be changed from the applicant's side.",
+      "perYear": "year",
+      "memberPlanNote": "Members are charged €{price} per month once they complete payment.",
+      "approveConfirm": "Approve and send activation link",
+      "approveNote": "They receive a single-use link to choose a username and password.",
+      "internalReason": "Reason (internal)",
+      "internalReasonHint": "Recorded in the audit log. Never sent to the applicant.",
+      "applicantMessage": "Message to the applicant (optional)",
+      "applicantMessageHint": "Included in the decline email if you write one.",
+      "declineConfirm": "Decline and blocklist",
+      "declineWarning": "This permanently blocks this email address and phone number from applying again.",
+      "approvedDone": "Approved.",
+      "approvedDoneNote": "The activation link has been emailed.",
+      "declinedDone": "Declined.",
+      "declinedDoneNote": "The applicant has been emailed and their email and phone are blocklisted."
+    },
+    "invitations": {
+      "title": "Invitations",
+      "subtitle": "People you invite skip the review queue and start with free months.",
+      "formTitle": "Invite someone",
+      "formNote": "An invitation from you approves them on submit and grants {months} months free.",
+      "email": "Email address",
+      "roleQuestion": "Invite them as",
+      "note": "Note (optional)",
+      "noteHint": "For your own records. Not shown to the recipient.",
+      "send": "Send invitation",
+      "sending": "Sending…",
+      "sent": "Invitation sent.",
+      "revoke": "Revoke",
+      "empty": "No invitations yet.",
+      "byAdmin": "Admin invitation — {months} months free",
+      "byMember": "Referred by {name}"
+    },
+    "errors": {
+      "forbidden": "You are not signed in as an administrator.",
+      "notPending": "This application has already been decided.",
+      "tierRequired": "Choose a partnership tier before approving.",
+      "reasonRequired": "Please record a reason.",
+      "emailInvalid": "Please enter a valid email address.",
+      "roleRequired": "Please choose member or partner.",
+      "alreadyMember": "That address already has an account.",
+      "alreadyInvited": "That address already has an open invitation.",
+      "serverError": "Something went wrong on our side. Please try again."
+    }
   }
 }

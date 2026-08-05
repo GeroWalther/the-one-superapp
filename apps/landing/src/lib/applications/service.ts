@@ -20,9 +20,11 @@ import { ACTIVATION_TTL_DAYS, issueToken } from "../auth/tokens";
 import { sendMailSafely } from "../mail/mailer";
 import {
   applicationApprovedEmail,
+  applicationDeclinedEmail,
   applicationReceivedEmail,
 } from "../mail/templates";
 import { siteUrl } from "../urls";
+import { recordAdminAction } from "../admin/audit";
 
 /**
  * The application lifecycle: submit → (admin review) → approve.
@@ -255,6 +257,7 @@ export async function approveApplication(input: {
   applicationId: string;
   partnerTier?: PartnerTier | null;
   reviewedByAccountId: ObjectId | null;
+  actorEmail: string;
 }): Promise<{ ok: boolean; reason?: string }> {
   if (!ObjectId.isValid(input.applicationId)) {
     return { ok: false, reason: "not_found" };
@@ -262,6 +265,8 @@ export async function approveApplication(input: {
 
   const collection = await applications();
 
+  /* The `status: "pending"` filter is the concurrency guard: two admins
+     clicking approve at the same moment produce one decision and one email. */
   const doc = await collection.findOneAndUpdate(
     { _id: new ObjectId(input.applicationId), status: "pending" },
     {
@@ -277,6 +282,95 @@ export async function approveApplication(input: {
 
   if (!doc) return { ok: false, reason: "not_pending" };
 
+  await recordAdminAction({
+    actorAccountId: input.reviewedByAccountId,
+    actorEmail: input.actorEmail,
+    action: "application.approved",
+    targetType: "application",
+    targetId: doc._id,
+    detail: input.partnerTier ? `tier=${input.partnerTier}` : null,
+  });
+
   await sendApprovalEmail(doc);
+  return { ok: true };
+}
+
+/* ========================================================================== *
+ * Decline
+ * ========================================================================== */
+
+export async function declineApplication(input: {
+  applicationId: string;
+  internalReason: string;
+  applicantMessage?: string;
+  reviewedByAccountId: ObjectId | null;
+  actorEmail: string;
+}): Promise<{ ok: boolean; reason?: string }> {
+  if (!ObjectId.isValid(input.applicationId)) {
+    return { ok: false, reason: "not_found" };
+  }
+
+  const collection = await applications();
+
+  const doc = await collection.findOneAndUpdate(
+    { _id: new ObjectId(input.applicationId), status: "pending" },
+    {
+      $set: {
+        status: "declined",
+        reviewedAt: new Date(),
+        reviewedByAccountId: input.reviewedByAccountId,
+        internalReason: input.internalReason,
+      },
+    },
+    { returnDocument: "after" },
+  );
+
+  if (!doc) return { ok: false, reason: "not_pending" };
+
+  /* Block the email and the phone independently, so changing one does not get
+     the applicant back in. Upserts rather than inserts: the same number may
+     already be blocked from an earlier application, and that is not an error. */
+  const blocked = await blocklist();
+  await Promise.all(
+    (
+      [
+        { kind: "email" as const, hash: doc.emailHash },
+        { kind: "phone" as const, hash: doc.phoneHash },
+      ] satisfies { kind: "email" | "phone"; hash: string }[]
+    ).map((entry) =>
+      blocked.updateOne(
+        { kind: entry.kind, hash: entry.hash },
+        {
+          $setOnInsert: {
+            _id: new ObjectId(),
+            kind: entry.kind,
+            hash: entry.hash,
+            applicationId: doc._id,
+            createdAt: new Date(),
+          },
+        },
+        { upsert: true },
+      ),
+    ),
+  );
+
+  await recordAdminAction({
+    actorAccountId: input.reviewedByAccountId,
+    actorEmail: input.actorEmail,
+    action: "application.declined",
+    targetType: "application",
+    targetId: doc._id,
+    detail: input.internalReason,
+  });
+
+  await sendMailSafely(
+    applicationDeclinedEmail({
+      locale: doc.locale,
+      to: doc.email,
+      name: doc.displayName,
+      applicantMessage: input.applicantMessage || undefined,
+    }),
+  );
+
   return { ok: true };
 }
