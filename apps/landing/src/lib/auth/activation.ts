@@ -3,8 +3,10 @@ import { ObjectId } from "mongodb";
 import {
   applications,
   entitlementGrants,
+  partnerProfiles,
   type ApplicationDoc,
 } from "../db/collections";
+import { CATEGORY_TO_FOCUS, type PartnerApplicationInput } from "../domain";
 import {
   UsernameTakenError,
   createAccount,
@@ -95,6 +97,10 @@ export async function activateAccount(input: {
         invitedByAccountId: application.inviterAccountId,
       });
 
+      if (application.type === "partner") {
+        await createPartnerProfile(account.id, application);
+      }
+
       if (application.grantedFreeMonths > 0) {
         await recordEntitlement({
           accountId: new ObjectId(account.id),
@@ -119,6 +125,47 @@ export async function activateAccount(input: {
     console.error("[activation] failed:", error);
     return { ok: false, reason: "error" };
   }
+}
+
+/**
+ * Builds the partner's public listing from what they already told us during
+ * intake, so a newly activated partner is discoverable immediately rather than
+ * waiting on a second form they have no reason to expect.
+ */
+async function createPartnerProfile(
+  accountId: string,
+  application: ApplicationDoc,
+): Promise<void> {
+  const data = application.data as PartnerApplicationInput;
+  const collection = await partnerProfiles();
+  const now = new Date();
+
+  await collection.updateOne(
+    { accountId: new ObjectId(accountId) },
+    {
+      $setOnInsert: {
+        _id: new ObjectId(),
+        accountId: new ObjectId(accountId),
+        name: data.brandName || data.companyName,
+        category: data.category,
+        focusArea: CATEGORY_TO_FOCUS[data.category],
+        description: data.serviceDescription,
+        targetClientele: data.targetClientele || null,
+        city: data.city,
+        country: data.country,
+        street: data.street,
+        postalCode: data.postalCode,
+        website: data.website || null,
+        contactEmail: application.email,
+        contactPhone: application.phone,
+        images: [],
+        published: true,
+        createdAt: now,
+        updatedAt: now,
+      },
+    },
+    { upsert: true },
+  );
 }
 
 export async function recordEntitlement(input: {

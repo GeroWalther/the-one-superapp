@@ -89,6 +89,23 @@ export type PartnerCategory = (typeof PARTNER_CATEGORIES)[number];
 /** Informational only — it helps the admin choose a tier, it does not set one. */
 export const TEAM_SIZES = ["1-5", "6-20", "21-100", "100+"] as const;
 
+/**
+ * Maps a partner's own category onto the focus areas members pick during
+ * enrolment, so "I care about health" surfaces clinics and practices without
+ * either side having to know the other's vocabulary.
+ */
+export const CATEGORY_TO_FOCUS: Record<PartnerCategory, FocusArea> = {
+  clinic: "health",
+  practice: "health",
+  hotel: "hotels",
+  resort: "wellness",
+  wellness: "wellness",
+  beauty: "beauty",
+  realEstate: "property",
+  insurance: "insurance",
+  other: "lifestyle",
+};
+
 /* ========================================================================== *
  * Pricing
  * ========================================================================== */

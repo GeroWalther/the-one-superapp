@@ -4,6 +4,7 @@ import type { Collection, ObjectId } from "mongodb";
 import { getDb } from "../mongodb";
 import type {
   AccountStatus,
+  PartnerCategory,
   ApplicantType,
   ApplicationStatus,
   InvitationKind,
@@ -161,6 +162,97 @@ export type AuthTokenDoc = {
   expiresAt: Date;
 };
 
+
+/* ========================================================================== *
+ * Mobile app collections
+ * ========================================================================== */
+
+/** The public face of a partner, shown to members in the app. */
+export type PartnerProfileDoc = {
+  _id: ObjectId;
+  accountId: ObjectId;
+  name: string;
+  category: PartnerCategory;
+  /** Which member focus area this partner serves — drives matching. */
+  focusArea: string;
+  description: string;
+  targetClientele: string | null;
+  city: string;
+  country: string;
+  street: string | null;
+  postalCode: string | null;
+  website: string | null;
+  contactEmail: string;
+  contactPhone: string;
+  images: string[];
+  /** Hidden partners keep their data but disappear from search. */
+  published: boolean;
+  createdAt: Date;
+  updatedAt: Date;
+};
+
+export type SavedPartnerDoc = {
+  _id: ObjectId;
+  accountId: ObjectId;
+  partnerProfileId: ObjectId;
+  createdAt: Date;
+};
+
+export type ConversationDoc = {
+  _id: ObjectId;
+  /** Sorted, so a pair always produces the same lookup key. */
+  participantIds: ObjectId[];
+  lastMessageAt: Date;
+  lastMessagePreview: string;
+  createdAt: Date;
+};
+
+export type MessageDoc = {
+  _id: ObjectId;
+  conversationId: ObjectId;
+  senderId: ObjectId;
+  body: string;
+  readBy: ObjectId[];
+  createdAt: Date;
+};
+
+export type AiMessage = {
+  role: "user" | "assistant";
+  content: string;
+  createdAt: Date;
+};
+
+export type AiThreadDoc = {
+  _id: ObjectId;
+  accountId: ObjectId;
+  title: string;
+  messages: AiMessage[];
+  createdAt: Date;
+  updatedAt: Date;
+};
+
+/** A booking the assistant made on a member's behalf. */
+export type AppointmentRequestDoc = {
+  _id: ObjectId;
+  accountId: ObjectId;
+  partnerProfileId: ObjectId;
+  summary: string;
+  preferredTiming: string | null;
+  status: "requested" | "acknowledged" | "declined";
+  createdAt: Date;
+};
+
+/** Long-lived, revocable iOS sessions. Only the hash is stored. */
+export type RefreshTokenDoc = {
+  _id: ObjectId;
+  accountId: ObjectId;
+  tokenHash: string;
+  device: string | null;
+  revokedAt: Date | null;
+  createdAt: Date;
+  expiresAt: Date;
+};
+
 /* ========================================================================== *
  * Hashing
  * ========================================================================== */
@@ -231,6 +323,39 @@ async function ensureIndexes(): Promise<void> {
       // Mongo reaps expired tokens on its own; no cleanup job to forget about.
       { key: { expiresAt: 1 }, expireAfterSeconds: 0 },
     ]),
+
+    db.collection<PartnerProfileDoc>("partnerProfiles").createIndexes([
+      { key: { accountId: 1 }, unique: true },
+      { key: { published: 1, category: 1 } },
+      { key: { published: 1, focusArea: 1 } },
+      { key: { name: "text", description: "text", city: "text" } },
+    ]),
+
+    db
+      .collection<SavedPartnerDoc>("savedPartners")
+      .createIndex({ accountId: 1, partnerProfileId: 1 }, { unique: true }),
+
+    db
+      .collection<ConversationDoc>("conversations")
+      .createIndexes([
+        { key: { participantIds: 1, lastMessageAt: -1 } },
+      ]),
+
+    db
+      .collection<MessageDoc>("messages")
+      .createIndex({ conversationId: 1, createdAt: 1 }),
+
+    db.collection<AiThreadDoc>("aiThreads").createIndex({ accountId: 1, updatedAt: -1 }),
+
+    db
+      .collection<AppointmentRequestDoc>("appointmentRequests")
+      .createIndexes([{ key: { accountId: 1, createdAt: -1 } }, { key: { partnerProfileId: 1 } }]),
+
+    db.collection<RefreshTokenDoc>("refreshTokens").createIndexes([
+      { key: { tokenHash: 1 }, unique: true },
+      { key: { accountId: 1 } },
+      { key: { expiresAt: 1 }, expireAfterSeconds: 0 },
+    ]),
   ]);
 }
 
@@ -252,3 +377,12 @@ export const entitlementGrants = () =>
   collection<EntitlementGrantDoc>("entitlementGrants");
 export const adminAuditLog = () => collection<AdminAuditDoc>("adminAuditLog");
 export const authTokens = () => collection<AuthTokenDoc>("authTokens");
+export const partnerProfiles = () =>
+  collection<PartnerProfileDoc>("partnerProfiles");
+export const savedPartners = () => collection<SavedPartnerDoc>("savedPartners");
+export const conversations = () => collection<ConversationDoc>("conversations");
+export const messages = () => collection<MessageDoc>("messages");
+export const aiThreads = () => collection<AiThreadDoc>("aiThreads");
+export const appointmentRequests = () =>
+  collection<AppointmentRequestDoc>("appointmentRequests");
+export const refreshTokens = () => collection<RefreshTokenDoc>("refreshTokens");
