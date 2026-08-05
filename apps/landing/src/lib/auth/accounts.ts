@@ -47,7 +47,13 @@ export function toPublicAccount(doc: AccountDoc): PublicAccount {
     username: doc.username,
     email: doc.email,
     displayName: doc.displayName,
-    firstName: doc.displayName.split(" ")[0] || doc.displayName,
+    /* Only a person has a first name. Splitting a partner's display name gives
+       "Hello, Zurich" for Zurich Dental Institute, so organisations keep their
+       full name. */
+    firstName:
+      doc.role === "partner"
+        ? doc.displayName
+        : doc.displayName.split(" ")[0] || doc.displayName,
     locale: doc.locale,
     partnerTier: doc.partnerTier,
     freeMonthsGranted: doc.freeMonthsGranted,

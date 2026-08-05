@@ -1,14 +1,10 @@
 import "server-only";
 import { ObjectId } from "mongodb";
 import type Anthropic from "@anthropic-ai/sdk";
-import {
-  appointmentRequests,
-  partnerProfiles,
-  applications,
-} from "../db/collections";
+import { appointmentRequests, partnerProfiles } from "../db/collections";
 import type { PublicAccount } from "../auth/accounts";
-import type { MemberApplicationInput } from "../domain";
 import { getPartner, searchPartners, setSaved } from "../api/partners";
+import { getMemberProfile } from "../profile/service";
 import { openConversation, sendMessage } from "../api/chat";
 
 /**
@@ -127,31 +123,29 @@ export async function runAssistantTool(
   try {
     switch (name) {
       case "get_member_profile": {
-        const collection = await applications();
-        const application = await collection.findOne({
-          email: account.email,
-          type: "member",
-        });
+        /* Prefers what the member has since edited over what they wrote at
+           enrolment. Someone who moves to Munich and updates their profile must
+           not keep being sent to clinics in Zurich. */
+        const profile = await getMemberProfile(account.id);
 
-        if (!application) {
+        if (!profile) {
           return {
             content: JSON.stringify({
               displayName: account.displayName,
-              note: "No enrolment answers on file for this account.",
+              note: "No profile on file for this account.",
             }),
           };
         }
 
-        const data = application.data as MemberApplicationInput;
         return {
           content: JSON.stringify({
-            displayName: account.displayName,
-            city: data.city,
-            country: data.country,
-            focusAreas: data.focusAreas,
-            goal: data.goal,
-            horizon: data.horizon,
-            context: data.context || null,
+            displayName: profile.displayName,
+            city: profile.city || null,
+            country: profile.country || null,
+            focusAreas: profile.focusAreas,
+            goal: profile.goal,
+            context: profile.context || null,
+            source: profile.edited ? "profile" : "enrolment answers",
           }),
         };
       }

@@ -108,3 +108,53 @@ enum APIError: LocalizedError, Sendable {
         }
     }
 }
+
+/// A member's editable profile. Distinct from `Account`, which is identity and
+/// billing state the member cannot change from the app.
+struct MemberProfile: Codable, Sendable {
+    var displayName: String
+    var country: String
+    var city: String
+    var focusAreas: [String]
+    var goal: String
+    var context: String?
+
+    /// False while these are still the answers given at enrolment.
+    let edited: Bool?
+}
+
+struct MeResponse: Decodable, Sendable {
+    let account: Account
+    let profile: MemberProfile?
+}
+
+struct ProfileResponse: Decodable, Sendable {
+    let profile: MemberProfile
+}
+
+/// The option lists the profile editor offers. Mirrors `FOCUS_AREAS` and
+/// `GOALS` in the web app's domain module — the server validates against its
+/// own copy, so a drift here shows up as a rejected save rather than bad data.
+enum ProfileOptions {
+    static let focusAreas = [
+        "health", "hotels", "property", "lifestyle", "beauty", "wellness", "insurance",
+    ]
+    static let goals = ["clarity", "access", "longevity", "network"]
+
+    static func label(_ raw: String) -> String {
+        switch raw {
+        case "health": return "Health & Longevity"
+        case "hotels": return "Luxury Hotels"
+        case "property": return "Real Estate"
+        case "lifestyle": return "Lifestyle"
+        case "beauty": return "Beauty & Skincare"
+        case "wellness": return "Wellness Resorts"
+        case "insurance": return "Insurance"
+        case "clarity": return "Clarity before a decision"
+        case "access": return "Access to vetted providers"
+        case "longevity": return "Longevity and health span"
+        case "network": return "Network and introductions"
+        default: return raw.capitalized
+        }
+    }
+}

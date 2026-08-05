@@ -89,9 +89,30 @@ export type AccountDoc = {
   /** Set once this account has earned its referrer a credit, so it counts once. */
   referralCreditedAt: Date | null;
 
+  /**
+   * What the member has since edited about themselves.
+   *
+   * Deliberately not written back onto their `application`: that document is
+   * the record an administrator reviewed and approved, and rewriting it would
+   * mean the audit trail no longer shows what was actually decided on. Absent
+   * until they first edit, at which point these values take precedence over
+   * their original enrolment answers.
+   */
+  profile?: MemberProfile;
+
   createdAt: Date;
   updatedAt: Date;
   lastLoginAt: Date | null;
+};
+
+export type MemberProfile = {
+  city: string | null;
+  country: string | null;
+  focusAreas: string[];
+  goal: string | null;
+  /** Free text the member wants the assistant to know about them. */
+  context: string | null;
+  updatedAt: Date;
 };
 
 /** One document per blocked value, so an email and a phone never collide on one key. */

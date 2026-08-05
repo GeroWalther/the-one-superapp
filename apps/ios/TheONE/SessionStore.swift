@@ -63,10 +63,19 @@ final class SessionStore {
         }
     }
 
+    /// Re-reads the account after something changes it elsewhere in the app —
+    /// a profile edit renames the member, and the header would otherwise keep
+    /// showing the old name until the next launch.
+    func refreshAccount() async {
+        guard case .signedIn = state else { return }
+        if let response: MeResponse = try? await APIClient.shared.send("/me") {
+            state = .signedIn(response.account)
+        }
+    }
+
     func signOut() async {
         await APIClient.shared.logout()
         state = .signedOut
     }
 
-    private struct MeResponse: Decodable { let account: Account }
 }

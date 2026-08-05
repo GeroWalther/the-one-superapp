@@ -4,6 +4,8 @@ struct ProfileView: View {
     @Environment(SessionStore.self) private var session
     @State private var tip: String?
     @State private var loadingTip = false
+    @State private var profile: MemberProfile?
+    @State private var editing = false
 
     private let accountURL = URL(string: "https://theone-superapp.vercel.app/en/account")!
 
@@ -61,10 +63,47 @@ struct ProfileView: View {
                         }
                         .glassCard(padding: 0)
 
-                        // Billing, referrals, and profile edits live on the web,
-                        // where they already exist and where Stripe's flows run.
+                        if let profile {
+                            VStack(alignment: .leading, spacing: 10) {
+                                Text("YOUR PROFILE")
+                                    .font(.system(size: 10, weight: .semibold))
+                                    .tracking(2)
+                                    .foregroundStyle(Theme.aqua)
+
+                                Text("\(profile.city), \(profile.country)")
+                                    .font(.system(size: 14))
+                                    .foregroundStyle(Theme.ink)
+
+                                if !profile.focusAreas.isEmpty {
+                                    Text(profile.focusAreas.map(ProfileOptions.label).joined(separator: " · "))
+                                        .font(.system(size: 13))
+                                        .foregroundStyle(Theme.inkSoft)
+                                }
+
+                                if let context = profile.context, !context.isEmpty {
+                                    Text(context)
+                                        .font(.system(size: 13))
+                                        .foregroundStyle(Theme.inkSoft)
+                                }
+
+                                Button {
+                                    editing = true
+                                } label: {
+                                    Text("Edit profile")
+                                }
+                                .buttonStyle(GhostButtonStyle())
+                                .padding(.top, 4)
+                            }
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .glassCard()
+                        }
+
+                        // Billing and Stripe's own flows stay on the web, where
+                        // they already exist.
                         Link(destination: accountURL) {
-                            Text("Manage account & billing")
+                            Text(account.role == "partner"
+                                 ? "Manage listing & billing"
+                                 : "Manage account & billing")
                         }
                         .buttonStyle(GhostButtonStyle())
 
@@ -82,7 +121,20 @@ struct ProfileView: View {
             .paperBackground()
             .navigationTitle("Profile")
         }
-        .task { await loadTip() }
+        .task {
+            await loadTip()
+            await loadProfile()
+        }
+        .sheet(isPresented: $editing) {
+            if let profile {
+                EditProfileView(initial: profile) { updated in
+                    self.profile = updated
+                    // The header shows the display name, so a rename has to
+                    // reach the session too or the two disagree on screen.
+                    Task { await session.refreshAccount() }
+                }
+            }
+        }
     }
 
     private func detailRow(_ label: String, _ value: String) -> some View {
@@ -106,6 +158,11 @@ struct ProfileView: View {
         // not be configured on this deployment.
         let response: TipResponse? = try? await APIClient.shared.send("/tips/daily")
         tip = response?.tip
+    }
+
+    private func loadProfile() async {
+        let response: MeResponse? = try? await APIClient.shared.send("/me")
+        profile = response?.profile
     }
 
     private struct TipResponse: Decodable { let tip: String }

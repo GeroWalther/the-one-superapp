@@ -11,6 +11,10 @@ import { logout } from "@/app/actions/auth";
 import { listInvitations } from "@/lib/admin/invitations";
 import { freeMonthsForReferrals, planFor } from "@/lib/domain";
 import { isTestActivationEnabled } from "@/lib/billing/testMode";
+import { MemberProfilePanel } from "@/components/account/MemberProfilePanel";
+import { PartnerProfilePanel } from "@/components/account/PartnerProfilePanel";
+import { getMemberProfile, getPartnerProfileFor } from "@/lib/profile/service";
+import { MAX_IMAGES_PER_PARTNER } from "@/lib/storage/images";
 
 export async function generateMetadata({
   params,
@@ -36,6 +40,13 @@ export default async function AccountPage({
     inviterAccountId: new ObjectId(account.id),
     limit: 25,
   });
+
+  /* Only one of these is ever used, but fetching both keeps the branch below to
+     a single readable conditional. */
+  const memberProfile =
+    account.role === "member" ? await getMemberProfile(account.id) : null;
+  const partnerProfile =
+    account.role === "partner" ? await getPartnerProfileFor(account.id) : null;
 
   const priceLabel = plan
     ? `€${(plan.amountCents / 100).toLocaleString("de-DE")}${
@@ -79,6 +90,42 @@ export default async function AccountPage({
               invitations={invitations}
               canInvite={account.status === "active"}
             />
+
+            {memberProfile && (
+              <div className="sm:col-span-2">
+                <MemberProfilePanel
+                  initial={{
+                    displayName: memberProfile.displayName,
+                    country: memberProfile.country,
+                    city: memberProfile.city,
+                    focusAreas: memberProfile.focusAreas,
+                    goal: memberProfile.goal,
+                    context: memberProfile.context ?? "",
+                  }}
+                />
+              </div>
+            )}
+
+            {partnerProfile && (
+              <PartnerProfilePanel
+                images={partnerProfile.images}
+                maxImages={MAX_IMAGES_PER_PARTNER}
+                initial={{
+                  name: partnerProfile.name,
+                  category: partnerProfile.category,
+                  description: partnerProfile.description,
+                  targetClientele: partnerProfile.targetClientele ?? "",
+                  street: partnerProfile.street ?? "",
+                  postalCode: partnerProfile.postalCode ?? "",
+                  city: partnerProfile.city,
+                  country: partnerProfile.country,
+                  website: partnerProfile.website ?? "",
+                  contactEmail: partnerProfile.contactEmail,
+                  contactPhone: partnerProfile.contactPhone,
+                  published: partnerProfile.published,
+                }}
+              />
+            )}
           </div>
 
           <form action={logout} className="mt-8">

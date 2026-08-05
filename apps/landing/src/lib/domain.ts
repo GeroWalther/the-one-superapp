@@ -289,6 +289,56 @@ export const MemberApplicationSchema = z.object({
   consent: consentField,
 });
 
+/* ========================================================================== *
+ * Profile editing
+ *
+ * Separate from the application schemas on purpose. An application is a
+ * one-time submission reviewed by an administrator; a profile is edited
+ * repeatedly afterwards, and the two carry different fields — a member cannot
+ * revise their date of birth or how they heard about us, and a partner cannot
+ * quietly change the company that was vetted.
+ * ========================================================================== */
+
+export const MemberProfileSchema = z.object({
+  displayName: z.string().trim().min(2, { error: "nameShort" }).max(80),
+  country: z.string().trim().min(2, { error: "countryRequired" }).max(60),
+  city: z.string().trim().min(2, { error: "cityRequired" }).max(60),
+  focusAreas: z
+    .array(z.enum(FOCUS_AREAS))
+    .min(1, { error: "focusRequired" })
+    .max(FOCUS_AREAS.length),
+  goal: z.enum(GOALS, { error: "goalRequired" }),
+  context: optionalText(1000),
+});
+
+export type MemberProfileInput = z.infer<typeof MemberProfileSchema>;
+
+/* `companyName` is absent by design: the legal entity is what was approved. */
+export const PartnerProfileSchema = z.object({
+  name: z.string().trim().min(2, { error: "nameShort" }).max(120),
+  category: z.enum(PARTNER_CATEGORIES, { error: "categoryRequired" }),
+  description: z
+    .string()
+    .trim()
+    .min(50, { error: "descriptionShort" })
+    .max(2000),
+  targetClientele: optionalText(600),
+  street: z.string().trim().min(2, { error: "streetRequired" }).max(120),
+  postalCode: z.string().trim().min(2, { error: "postalRequired" }).max(16),
+  city: z.string().trim().min(2, { error: "cityRequired" }).max(60),
+  country: z.string().trim().min(2, { error: "countryRequired" }).max(60),
+  website: z
+    .union([z.url({ error: "websiteInvalid" }), z.literal("")])
+    .optional(),
+  contactEmail: emailField,
+  contactPhone: phoneField,
+  /* Hiding is reversible and self-service; deleting the listing is not, and is
+     deliberately left to an administrator. */
+  published: z.boolean(),
+});
+
+export type PartnerProfileInput = z.infer<typeof PartnerProfileSchema>;
+
 export const PartnerApplicationSchema = z.object({
   type: z.literal("partner"),
   companyName: z.string().trim().min(2, { error: "companyRequired" }).max(120),

@@ -151,6 +151,10 @@ async function upsertAccount({ username, email, displayName, role, tier }) {
         isTestAccount: true,
         updatedAt: now,
       },
+      /* Cleared, not just overwritten: an edited profile takes precedence over
+         enrolment answers, so leaving one behind means re-seeding does not
+         actually restore the state the script claims to. */
+      $unset: { profile: "" },
       $setOnInsert: { _id: new ObjectId(), createdAt: now, lastLoginAt: null },
     },
     { upsert: true, returnDocument: "after" },
