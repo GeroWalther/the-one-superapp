@@ -116,6 +116,7 @@ export async function createAccount(input: {
     successfulReferrals: 0,
     referralFreeMonthsGranted: 0,
     invitedByAccountId: input.invitedByAccountId ?? null,
+    referralCreditedAt: null,
 
     createdAt: now,
     updatedAt: now,

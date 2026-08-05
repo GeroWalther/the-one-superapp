@@ -310,14 +310,9 @@
     "eyebrow": "Ihr Konto",
     "title": "Konto",
     "greeting": "Hallo, {name}",
-    "status": "Status",
-    "username": "Benutzername",
-    "plan": "Tarif",
+    "statusLine": "{status} · angemeldet als {username}",
     "perMonth": " pro Monat",
     "perYear": " pro Jahr",
-    "freeMonths": "Freimonate",
-    "freeMonthsValue": "{months} Monate geschenkt",
-    "awaitingPaymentNote": "Ihr Zugang ist freigegeben. Wählen Sie eine Zahlungsmethode, um Ihr Konto zu aktivieren — €{price} pro Monat für Mitglieder.",
     "signOut": "Abmelden",
     "statuses": {
       "awaiting_payment": "Freigegeben — Zahlung ausstehend",
@@ -325,6 +320,58 @@
       "past_due": "Zahlung überfällig",
       "canceled": "Gekündigt",
       "suspended": "Gesperrt"
+    },
+    "billing": {
+      "title": "Tarif & Abrechnung",
+      "trialNote": "Ihre ersten {months} Monate sind kostenfrei. Ihre Karte wird jetzt hinterlegt, die erste Abbuchung erfolgt nach Ablauf des Freizeitraums.",
+      "pastDue": "Die letzte Zahlung ist fehlgeschlagen. Bitte aktualisieren Sie Ihre Zahlungsmethode.",
+      "startCheckout": "Zahlungsmethode wählen",
+      "managePlan": "Tarif & Rechnungen verwalten",
+      "working": "Wird geöffnet…",
+      "stripeNote": "Die Zahlung wickelt Stripe ab. Wir sehen Ihre Kartendaten nie.",
+      "portalNote": "Karte ändern, Rechnungen herunterladen oder über Stripe kündigen.",
+      "errors": {
+        "billingNotConfigured": "Zahlungen sind auf dieser Installation noch nicht konfiguriert.",
+        "alreadyActive": "Dieses Konto ist bereits aktiv.",
+        "noPlan": "Diesem Konto ist kein Tarif zugeordnet. Bitte kontaktieren Sie uns.",
+        "noCustomer": "Es besteht noch kein Abrechnungsdatensatz — bitte zuerst die Zahlung abschließen.",
+        "notSignedIn": "Bitte melden Sie sich erneut an.",
+        "serverError": "Etwas ist schiefgelaufen. Bitte versuchen Sie es erneut."
+      }
+    },
+    "referrals": {
+      "title": "Einladen & profitieren",
+      "subtitle": "Laden Sie Personen ein, für die Sie wirklich bürgen würden. Sobald sie aktiv sind, erhalten Sie Freimonate.",
+      "count": "{count} aktive Empfehlungen",
+      "next": "Noch {remaining} für {months} Freimonate",
+      "maxed": "Alle Prämien freigeschaltet",
+      "earned": "Bisher {months} Freimonate erhalten",
+      "tier": "{referrals} Empfehlungen → {months} Monate kostenfrei",
+      "email": "E-Mail-Adresse",
+      "roleQuestion": "Einladen als",
+      "asMember": "Mitglied",
+      "asPartner": "Partner",
+      "send": "Einladung senden",
+      "sending": "Wird gesendet…",
+      "sent": "Einladung gesendet.",
+      "reviewNote": "Die Bewerbung wird weiterhin von uns geprüft. Prämien zählen erst, wenn das Konto aktiv ist.",
+      "needsActive": "Empfehlungen sind möglich, sobald Ihr eigenes Konto aktiv ist.",
+      "revoke": "Zurückziehen",
+      "status": {
+        "sent": "Eingeladen",
+        "redeemed": "Beworben",
+        "revoked": "Zurückgezogen",
+        "expired": "Abgelaufen"
+      },
+      "errors": {
+        "emailInvalid": "Bitte geben Sie eine gültige E-Mail-Adresse an.",
+        "alreadyMember": "Diese Adresse hat bereits ein Konto.",
+        "alreadyInvited": "Für diese Adresse liegt bereits eine offene Einladung vor.",
+        "notActive": "Ihr Konto muss aktiv sein, um Einladungen zu senden.",
+        "notSignedIn": "Bitte melden Sie sich erneut an.",
+        "rateLimited": "Sie haben zuletzt viele Einladungen versendet. Bitte später erneut versuchen.",
+        "serverError": "Etwas ist schiefgelaufen. Bitte versuchen Sie es erneut."
+      }
     }
   },
   "admin": {

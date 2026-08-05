@@ -85,6 +85,8 @@ export type AccountDoc = {
   successfulReferrals: number;
   referralFreeMonthsGranted: number;
   invitedByAccountId: ObjectId | null;
+  /** Set once this account has earned its referrer a credit, so it counts once. */
+  referralCreditedAt: Date | null;
 
   createdAt: Date;
   updatedAt: Date;

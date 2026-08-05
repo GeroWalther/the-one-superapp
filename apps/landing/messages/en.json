@@ -310,14 +310,9 @@
     "eyebrow": "Your account",
     "title": "Account",
     "greeting": "Hello, {name}",
-    "status": "Status",
-    "username": "Username",
-    "plan": "Plan",
+    "statusLine": "{status} · signed in as {username}",
     "perMonth": " per month",
     "perYear": " per year",
-    "freeMonths": "Free months",
-    "freeMonthsValue": "{months} months on us",
-    "awaitingPaymentNote": "Your access is approved. Choose a payment method to activate your account — €{price} per month for members.",
     "signOut": "Sign out",
     "statuses": {
       "awaiting_payment": "Approved — awaiting payment",
@@ -325,6 +320,58 @@
       "past_due": "Payment overdue",
       "canceled": "Cancelled",
       "suspended": "Suspended"
+    },
+    "billing": {
+      "title": "Plan & billing",
+      "trialNote": "Your first {months} months are free. Your card is collected now and the first charge lands when the free period ends.",
+      "pastDue": "The last payment did not go through. Update your payment method to restore access.",
+      "startCheckout": "Choose a payment method",
+      "managePlan": "Manage plan & invoices",
+      "working": "Opening…",
+      "stripeNote": "Payment is handled by Stripe. We never see your card details.",
+      "portalNote": "Change your card, download invoices, or cancel through Stripe.",
+      "errors": {
+        "billingNotConfigured": "Payments are not configured on this deployment yet.",
+        "alreadyActive": "This account is already active.",
+        "noPlan": "No plan is assigned to this account. Please contact us.",
+        "noCustomer": "No billing record exists yet — complete checkout first.",
+        "notSignedIn": "Please sign in again.",
+        "serverError": "Something went wrong. Please try again."
+      }
+    },
+    "referrals": {
+      "title": "Invite & earn",
+      "subtitle": "Invite people you would genuinely vouch for. When they go live, you earn free months.",
+      "count": "{count} live referrals",
+      "next": "{remaining} more for {months} free months",
+      "maxed": "Every reward unlocked",
+      "earned": "{months} free months earned so far",
+      "tier": "{referrals} referrals → {months} months free",
+      "email": "Their email address",
+      "roleQuestion": "Invite them as",
+      "asMember": "Member",
+      "asPartner": "Partner",
+      "send": "Send invitation",
+      "sending": "Sending…",
+      "sent": "Invitation sent.",
+      "reviewNote": "Their application is still reviewed by us. Rewards count once they go live.",
+      "needsActive": "Referrals unlock once your own account is active.",
+      "revoke": "Revoke",
+      "status": {
+        "sent": "Invited",
+        "redeemed": "Applied",
+        "revoked": "Revoked",
+        "expired": "Expired"
+      },
+      "errors": {
+        "emailInvalid": "Please enter a valid email address.",
+        "alreadyMember": "That address already has an account.",
+        "alreadyInvited": "That address already has an open invitation.",
+        "notActive": "Your account must be active to send invitations.",
+        "notSignedIn": "Please sign in again.",
+        "rateLimited": "You have sent a lot of invitations recently. Please try again later.",
+        "serverError": "Something went wrong. Please try again."
+      }
     }
   },
   "admin": {

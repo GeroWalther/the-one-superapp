@@ -103,6 +103,7 @@ try {
       successfulReferrals: 0,
       referralFreeMonthsGranted: 0,
       invitedByAccountId: null,
+      referralCreditedAt: null,
       createdAt: now,
       updatedAt: now,
       lastLoginAt: null,
