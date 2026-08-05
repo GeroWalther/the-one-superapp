@@ -8,11 +8,11 @@ import { SERVICES } from "@/lib/services";
  * chose during enrolment, which get a gold edge and a badge.
  */
 export function ServicesSection({ highlight = [] }: { highlight?: string[] }) {
-  const t = useTranslations("members");
+  const t = useTranslations("verticals");
   const tServices = useTranslations("services");
 
   return (
-    <section id="services" className="scroll-mt-24 py-20 sm:py-24">
+    <section id="verticals" className="scroll-mt-24 py-20 sm:py-24">
       <div className="mx-auto max-w-6xl px-6 lg:px-8">
         <div data-reveal className="mx-auto max-w-2xl text-center">
           <p className="eyebrow">{t("eyebrow")}</p>

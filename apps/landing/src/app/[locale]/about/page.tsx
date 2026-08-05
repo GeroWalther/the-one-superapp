@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { getTranslations } from "next-intl/server";
-import { MemberHeader } from "@/components/MemberHeader";
+import { ArrowRight } from "lucide-react";
+import { SiteHeader } from "@/components/SiteHeader";
 import { Footer } from "@/components/Footer";
-import { requireMember } from "@/lib/dal";
 
 export async function generateMetadata({
   params,
@@ -20,12 +21,12 @@ export default async function AboutPage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  const member = await requireMember(locale);
   const t = await getTranslations({ locale, namespace: "aboutPage" });
+  const tEnroll = await getTranslations({ locale, namespace: "enroll" });
 
   return (
     <>
-      <MemberHeader name={member.fullName} />
+      <SiteHeader />
 
       <main className="grain relative flex-1 overflow-hidden pb-24 pt-[126px] sm:pt-[150px]">
         <div className="aurora opacity-70" />
@@ -47,18 +48,13 @@ export default async function AboutPage({
             data-reveal-delay="100"
             className="mt-10 space-y-6 text-[15px] leading-[1.85] text-mist-dim"
           >
-            <p className="text-[16.5px] leading-[1.8] text-mist">
-              {t("intro")}
-            </p>
+            <p className="text-[16.5px] leading-[1.8] text-mist">{t("intro")}</p>
             <p>{t("mission")}</p>
             <p>{t("philosophy")}</p>
           </div>
 
           <div className="mt-14 grid gap-4 sm:grid-cols-2">
-            <article
-              data-reveal
-              className="glass-soft lift rounded-[22px] p-7"
-            >
+            <article data-reveal className="glass-soft lift rounded-[22px] p-7">
               <h2 className="font-display text-[23px] font-medium text-mist">
                 {t("partnersTitle")}
               </h2>
@@ -79,6 +75,16 @@ export default async function AboutPage({
                 {t("approachBody")}
               </p>
             </article>
+          </div>
+
+          <div data-reveal className="mt-14 text-center">
+            <Link
+              href={`/${locale}/enroll`}
+              className="btn btn-gold px-7 py-3 text-[15px]"
+            >
+              {tEnroll("chooser.title")}
+              <ArrowRight className="h-4 w-4" strokeWidth={1.8} />
+            </Link>
           </div>
         </section>
       </main>

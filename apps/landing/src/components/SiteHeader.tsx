@@ -30,8 +30,9 @@ export function SiteHeader() {
   }, [menuOpen]);
 
   const links = [
+    { href: `/${locale}#verticals`, label: t("inside") },
+    { href: `/${locale}#process`, label: t("process") },
     { href: `/${locale}#philosophy`, label: t("philosophy") },
-    { href: `/${locale}#inside`, label: t("inside") },
   ];
 
   return (
@@ -57,13 +58,6 @@ export function SiteHeader() {
           ))}
 
           <LocaleSwitcher />
-
-          <Link
-            href={`/${locale}/login`}
-            className="text-[13px] text-mist-dim transition-colors hover:text-mist"
-          >
-            {t("login")}
-          </Link>
 
           <Link
             href={`/${locale}/enroll`}
@@ -104,13 +98,6 @@ export function SiteHeader() {
                 {link.label}
               </Link>
             ))}
-            <Link
-              href={`/${locale}/login`}
-              onClick={() => setMenuOpen(false)}
-              className="rounded-xl px-3 py-3 text-[15px] text-mist-dim transition-colors hover:bg-white/5 hover:text-mist"
-            >
-              {t("login")}
-            </Link>
           </nav>
 
           <Link

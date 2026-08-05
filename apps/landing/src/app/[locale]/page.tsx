@@ -1,36 +1,27 @@
-import { redirect } from "next/navigation";
 import { SiteHeader } from "@/components/SiteHeader";
 import { HeroSection } from "@/components/HeroSection";
 import { PillarsSection } from "@/components/PillarsSection";
-import { LockedPreviewSection } from "@/components/LockedPreviewSection";
+import { ServicesSection } from "@/components/ServicesSection";
+import { ProcessSection } from "@/components/ProcessSection";
+import { BenefitsSection } from "@/components/BenefitsSection";
 import { PhilosophySection } from "@/components/PhilosophySection";
 import { Footer } from "@/components/Footer";
-import { getCurrentMember } from "@/lib/dal";
 
 /**
- * The public teaser. Members never land here — the proxy redirects them, and
- * this second check covers the case where the cookie is valid but the account
- * behind it has changed.
+ * The public marketing site. Everything here is deliberately visible: the
+ * product is sold on what is inside it, and access is controlled by the
+ * application process rather than by hiding the offering.
  */
-export default async function HomePage({
-  params,
-}: {
-  params: Promise<{ locale: string }>;
-}) {
-  const { locale } = await params;
-  const member = await getCurrentMember();
-
-  if (member) {
-    redirect(`/${locale}/members`);
-  }
-
+export default function HomePage() {
   return (
     <>
       <SiteHeader />
       <main className="flex-1">
         <HeroSection />
         <PillarsSection />
-        <LockedPreviewSection />
+        <ServicesSection />
+        <ProcessSection />
+        <BenefitsSection />
         <PhilosophySection />
       </main>
       <Footer />

@@ -76,7 +76,7 @@ export function HeroSection() {
                 <ArrowRight className="h-4 w-4" strokeWidth={1.8} />
               </Link>
               <Link
-                href={`/${locale}/login`}
+                href={`/${locale}#process`}
                 className="btn btn-ghost w-full px-7 py-3 text-[15px] sm:w-auto"
               >
                 {t("ctaSecondary")}
