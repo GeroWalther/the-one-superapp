@@ -181,7 +181,13 @@ export async function runAssistantTool(
           accountId,
           partnerId: String(input.partnerId ?? ""),
         });
-        if (!partner) return { content: "No such partner.", isError: true };
+        if (!partner) {
+          return {
+            content:
+              "No partner with that id. The id may be from an earlier turn, which is not preserved. Call search_partners now and use the exact `id` it returns.",
+            isError: true,
+          };
+        }
         return { content: JSON.stringify(partner) };
       }
 
@@ -201,7 +207,17 @@ export async function runAssistantTool(
           accountId,
           partnerId: String(input.partnerId ?? ""),
         });
-        if (!partner) return { content: "No such partner.", isError: true };
+        /* The likeliest cause is an ID carried over from an earlier turn, which
+           the thread does not preserve. Say what to do about it — a bare "no
+           such partner" reads as "this partner does not exist" and has been
+           enough to make the assistant retract a correct recommendation. */
+        if (!partner) {
+          return {
+            content:
+              "No partner with that id. The id may be from an earlier turn, which is not preserved. Call search_partners now and use the exact `id` it returns.",
+            isError: true,
+          };
+        }
 
         const summary = String(input.summary ?? "").trim();
         if (!summary) {

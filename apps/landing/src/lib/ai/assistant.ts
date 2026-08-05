@@ -31,6 +31,17 @@ function thinkingFor(model: string): { type: "adaptive" } | undefined {
   return model.startsWith("claude-haiku") ? undefined : { type: "adaptive" };
 }
 
+/**
+ * `output_config.effort` is likewise not universal — Haiku 4.5 rejects it with a
+ * 400, which silently turned the daily tip into a 503 the moment the model
+ * changed. Same rule as thinking: derive it, never hardcode it.
+ */
+function effortFor(
+  model: string,
+): { effort: "low" } | undefined {
+  return model.startsWith("claude-haiku") ? undefined : { effort: "low" };
+}
+
 let client: Anthropic | null | undefined;
 
 export function isAssistantConfigured(): boolean {
@@ -56,6 +67,8 @@ Call get_member_profile before giving personal recommendations. Their focus area
 
 # Acting
 You can save partners and request appointments. Ask before you act on the member's behalf, then do it properly: name the partner, say what you sent, and give them the direct contact details too so they are never dependent on you.
+
+Partner IDs are only valid within the turn that produced them — earlier turns in this conversation are replayed to you as plain text, so an ID you used before is gone. Before calling save_partner or request_appointment, call search_partners in this turn and use the exact id from its result. Never reconstruct or guess an ID, and never conclude a partner does not exist because an ID failed.
 
 # Health, money, and law
 You are not a doctor, financial adviser, or lawyer. Help members think clearly, ask the questions worth asking, and reach the right professional — do not diagnose, prescribe, or give individual financial or legal advice. For anything that sounds like an emergency, say so first and tell them to call local emergency services.
@@ -200,7 +213,9 @@ export async function dailyTip(account: PublicAccount): Promise<string | null> {
     const response = await client.messages.create({
       model: ASSISTANT_MODEL,
       max_tokens: 300,
-      output_config: { effort: "low" },
+      ...(effortFor(ASSISTANT_MODEL)
+        ? { output_config: effortFor(ASSISTANT_MODEL) }
+        : {}),
       system: systemPrompt(account),
       tools: ASSISTANT_TOOLS,
       tool_choice: { type: "tool", name: "get_member_profile" },
@@ -233,7 +248,9 @@ export async function dailyTip(account: PublicAccount): Promise<string | null> {
     const followUp = await client.messages.create({
       model: ASSISTANT_MODEL,
       max_tokens: 300,
-      output_config: { effort: "low" },
+      ...(effortFor(ASSISTANT_MODEL)
+        ? { output_config: effortFor(ASSISTANT_MODEL) }
+        : {}),
       system: systemPrompt(account),
       tools: ASSISTANT_TOOLS,
       messages: [
