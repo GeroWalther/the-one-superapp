@@ -18,11 +18,24 @@ function clientPromise(): Promise<MongoClient> {
   }
 
   if (!globalForMongo._mongoClientPromise) {
-    globalForMongo._mongoClientPromise = new MongoClient(uri, {
+    const promise = new MongoClient(uri, {
       // Keep the pool small: serverless instances are many and short-lived.
       maxPoolSize: 10,
       serverSelectionTimeoutMS: 10_000,
     }).connect();
+
+    /* A *rejected* promise must never stay cached. A warm serverless instance
+       lives for many requests, so caching the failure means it keeps replaying
+       that one bad connection long after the database is reachable again —
+       turning a transient outage into an outage that only a redeploy clears.
+       Dropping it here lets the next request try again. */
+    promise.catch(() => {
+      if (globalForMongo._mongoClientPromise === promise) {
+        globalForMongo._mongoClientPromise = undefined;
+      }
+    });
+
+    globalForMongo._mongoClientPromise = promise;
   }
 
   return globalForMongo._mongoClientPromise;
