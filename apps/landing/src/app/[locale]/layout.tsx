@@ -47,7 +47,7 @@ export default async function LocaleLayout({
     <html
       lang={locale}
       className={`${cormorant.variable} ${inter.variable} h-full antialiased`}
-      style={{ colorScheme: "dark" }}
+      style={{ colorScheme: "light" }}
     >
       <head>
         {/* Without JS the reveal observer never runs, which would leave every
@@ -56,7 +56,7 @@ export default async function LocaleLayout({
           <style>{`[data-reveal]{opacity:1!important;transform:none!important}`}</style>
         </noscript>
       </head>
-      <body className="min-h-full flex flex-col bg-ink-900 font-sans text-mist">
+      <body className="min-h-full flex flex-col bg-paper font-sans text-ink">
         <NextIntlClientProvider locale={locale} messages={messages}>
           {children}
           <ScrollReveal />

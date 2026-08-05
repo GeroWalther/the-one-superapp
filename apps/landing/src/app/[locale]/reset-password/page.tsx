@@ -33,24 +33,23 @@ export default async function ResetPasswordPage({
     <>
       <SiteHeader />
       <main className="grain relative flex-1 overflow-hidden pb-24 pt-[122px] sm:pt-[150px]">
-        <div className="aurora aurora--deep opacity-80">
-          <span className="aurora-bloom" />
+        <div className="silk">
         </div>
         <div data-reveal className="relative mx-auto max-w-md px-6 lg:px-8">
           {valid && token ? (
             <ResetPasswordForm token={token} />
           ) : (
-            <div className="glass edge-gold rounded-[26px] px-7 py-9 text-center sm:px-9">
+            <div className="glass edge-accent rounded-[26px] px-7 py-9 text-center sm:px-9">
               <span className="mx-auto grid h-14 w-14 place-items-center rounded-full border border-destructive/30 bg-destructive/10">
                 <AlertTriangle
                   className="h-6 w-6 text-destructive"
                   strokeWidth={1.5}
                 />
               </span>
-              <h1 className="mt-6 font-display text-[24px] font-light text-mist">
+              <h1 className="mt-6 font-display text-[24px] font-light text-ink">
                 {t("invalidTitle")}
               </h1>
-              <p className="mt-3 text-[13.5px] leading-[1.7] text-mist-dim">
+              <p className="mt-3 text-[13.5px] leading-[1.7] text-ink-soft">
                 {t("invalidBody")}
               </p>
             </div>

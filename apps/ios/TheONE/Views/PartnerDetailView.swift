@@ -15,27 +15,27 @@ struct PartnerDetailView: View {
                     VStack(alignment: .leading, spacing: 6) {
                         Text(partner.name)
                             .font(.system(size: 27, weight: .light, design: .serif))
-                            .foregroundStyle(Theme.mist)
+                            .foregroundStyle(Theme.ink)
                         Text([partner.street, partner.postalCode, partner.city, partner.country]
                             .compactMap { $0 }
                             .joined(separator: ", "))
                             .font(.system(size: 13))
-                            .foregroundStyle(Theme.mistFaint)
+                            .foregroundStyle(Theme.inkFaint)
                     }
 
                     Text(partner.description)
                         .font(.system(size: 15))
-                        .foregroundStyle(Theme.mistDim)
+                        .foregroundStyle(Theme.inkSoft)
 
                     if let clientele = partner.targetClientele, !clientele.isEmpty {
                         VStack(alignment: .leading, spacing: 5) {
                             Text("TYPICAL CLIENTS")
                                 .font(.system(size: 10, weight: .semibold))
                                 .tracking(2)
-                                .foregroundStyle(Theme.gold)
+                                .foregroundStyle(Theme.aqua)
                             Text(clientele)
                                 .font(.system(size: 14))
-                                .foregroundStyle(Theme.mistDim)
+                                .foregroundStyle(Theme.inkSoft)
                         }
                     }
 
@@ -55,7 +55,7 @@ struct PartnerDetailView: View {
                     } label: {
                         Text(openingChat ? "Opening…" : "Message this partner")
                     }
-                    .buttonStyle(GoldButtonStyle())
+                    .buttonStyle(PrimaryButtonStyle())
                     .disabled(openingChat)
 
                     if let error {
@@ -66,12 +66,12 @@ struct PartnerDetailView: View {
                 }
                 .padding(20)
             } else if error != nil {
-                Text(error ?? "").foregroundStyle(Theme.mistDim).padding(40)
+                Text(error ?? "").foregroundStyle(Theme.inkSoft).padding(40)
             } else {
-                ProgressView().tint(Theme.gold).padding(60)
+                ProgressView().tint(Theme.aqua).padding(60)
             }
         }
-        .inkBackground()
+        .paperBackground()
         .navigationBarTitleDisplayMode(.inline)
         .navigationDestination(item: $conversationId) { id in
             ConversationView(conversationId: id, title: partner?.name ?? "Partner")
@@ -83,11 +83,11 @@ struct PartnerDetailView: View {
         HStack(spacing: 12) {
             Image(systemName: icon)
                 .font(.system(size: 13))
-                .foregroundStyle(Theme.teal)
+                .foregroundStyle(Theme.aqua)
                 .frame(width: 22)
             Text(label)
                 .font(.system(size: 14.5))
-                .foregroundStyle(Theme.mist)
+                .foregroundStyle(Theme.ink)
             Spacer()
         }
         .contentShape(Rectangle())

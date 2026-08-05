@@ -26,13 +26,13 @@ export function FieldShell({
     <div className="block">
       <label
         htmlFor={htmlFor}
-        className="mb-2 block text-[13px] font-medium text-mist"
+        className="mb-2 block text-[13px] font-medium text-ink"
       >
         {label}
       </label>
       {children}
       {hint && !error && (
-        <span className="mt-1.5 block text-[11.5px] text-mist-faint">
+        <span className="mt-1.5 block text-[11.5px] text-ink-faint">
           {hint}
         </span>
       )}
@@ -143,8 +143,8 @@ export function ChipRadio({
 }) {
   return (
     <fieldset>
-      <legend className="text-[13.5px] font-medium text-mist">{legend}</legend>
-      {hint && <p className="mt-1 text-[12px] text-mist-faint">{hint}</p>}
+      <legend className="text-[13.5px] font-medium text-ink">{legend}</legend>
+      {hint && <p className="mt-1 text-[12px] text-ink-faint">{hint}</p>}
       <div className="mt-3 flex flex-wrap gap-2">
         {options.map((option) => {
           const isSelected = selected === option.value;
@@ -152,7 +152,7 @@ export function ChipRadio({
             <label
               key={option.value}
               data-selected={isSelected}
-              className="chip focus-within:ring-2 focus-within:ring-teal-400/40"
+              className="chip focus-within:ring-2 focus-within:ring-aqua-500/40"
             >
               <input
                 type="radio"
@@ -192,8 +192,8 @@ export function ChipCheckboxes({
 }) {
   return (
     <fieldset>
-      <legend className="text-[13.5px] font-medium text-mist">{legend}</legend>
-      {hint && <p className="mt-1 text-[12px] text-mist-faint">{hint}</p>}
+      <legend className="text-[13.5px] font-medium text-ink">{legend}</legend>
+      {hint && <p className="mt-1 text-[12px] text-ink-faint">{hint}</p>}
       <div className="mt-3 flex flex-wrap gap-2">
         {options.map((option) => {
           const isSelected = selected.includes(option.value);
@@ -201,7 +201,7 @@ export function ChipCheckboxes({
             <label
               key={option.value}
               data-selected={isSelected}
-              className="chip focus-within:ring-2 focus-within:ring-teal-400/40"
+              className="chip focus-within:ring-2 focus-within:ring-aqua-500/40"
             >
               <input
                 type="checkbox"
@@ -248,13 +248,13 @@ export function ConsentCheckbox({
         <span
           className={`mt-[2px] grid h-[18px] w-[18px] shrink-0 place-items-center rounded-[6px] border transition-colors ${
             checked
-              ? "border-gold-300 bg-gold-300"
-              : "border-white/30 bg-white/5"
+              ? "border-aqua-500 bg-aqua-500"
+              : "border-line bg-paper-soft"
           }`}
         >
-          {checked && <Check className="h-3 w-3 text-ink-900" strokeWidth={3} />}
+          {checked && <Check className="h-3 w-3 text-paper" strokeWidth={3} />}
         </span>
-        <span className="text-[12.5px] leading-[1.6] text-mist-dim">
+        <span className="text-[12.5px] leading-[1.6] text-ink-soft">
           {label}
         </span>
       </label>
@@ -277,8 +277,8 @@ export function StepProgress({
           key={index}
           className={`h-[3px] flex-1 rounded-full transition-colors duration-500 ${
             index + 1 <= current
-              ? "bg-gradient-to-r from-gold-400 to-gold-200"
-              : "bg-white/10"
+              ? "bg-gradient-to-r from-aqua-500 to-aqua-200"
+              : "bg-paper-soft"
           }`}
         />
       ))}

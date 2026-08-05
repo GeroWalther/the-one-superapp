@@ -76,19 +76,19 @@ export default async function EnrollChooserPage({
             href={path.href}
             className="glass-soft lift group flex flex-col rounded-[22px] p-7"
           >
-            <span className="grid h-12 w-12 place-items-center rounded-full border border-gold-300/25 bg-gold-300/10">
-              <path.icon className="h-5 w-5 text-gold-300" strokeWidth={1.4} />
+            <span className="grid h-12 w-12 place-items-center rounded-full border border-aqua-500/25 bg-aqua-500/10">
+              <path.icon className="h-5 w-5 text-aqua-500" strokeWidth={1.4} />
             </span>
-            <h2 className="mt-5 font-display text-[22px] font-medium text-mist">
+            <h2 className="mt-5 font-display text-[22px] font-medium text-ink">
               {path.title}
             </h2>
-            <p className="mt-2.5 flex-1 text-[13.5px] leading-[1.7] text-mist-dim">
+            <p className="mt-2.5 flex-1 text-[13.5px] leading-[1.7] text-ink-soft">
               {path.desc}
             </p>
-            <p className="mt-4 text-[11px] uppercase tracking-[0.16em] text-mist-faint">
+            <p className="mt-4 text-[11px] uppercase tracking-[0.16em] text-ink-faint">
               {path.meta}
             </p>
-            <span className="mt-5 inline-flex items-center gap-2 text-[13.5px] font-medium text-gold-300">
+            <span className="mt-5 inline-flex items-center gap-2 text-[13.5px] font-medium text-aqua-500">
               {t("chooser.start")}
               <ArrowRight
                 className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1"
@@ -99,7 +99,7 @@ export default async function EnrollChooserPage({
         ))}
       </div>
 
-      <p className="mt-8 text-center text-[12.5px] leading-[1.7] text-mist-faint">
+      <p className="mt-8 text-center text-[12.5px] leading-[1.7] text-ink-faint">
         {t("chooser.process")}
       </p>
     </EnrollShell>

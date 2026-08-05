@@ -25,14 +25,14 @@ export function ForgotPasswordForm() {
      addresses exist would turn this form into a membership checker. */
   if (state?.ok) {
     return (
-      <div className="glass edge-gold w-full rounded-[26px] px-7 py-9 text-center sm:px-9">
-        <span className="mx-auto grid h-14 w-14 place-items-center rounded-full border border-gold-300/30 bg-gold-300/10">
-          <MailCheck className="h-6 w-6 text-gold-300" strokeWidth={1.5} />
+      <div className="glass edge-accent w-full rounded-[26px] px-7 py-9 text-center sm:px-9">
+        <span className="mx-auto grid h-14 w-14 place-items-center rounded-full border border-aqua-500/30 bg-aqua-500/10">
+          <MailCheck className="h-6 w-6 text-aqua-500" strokeWidth={1.5} />
         </span>
-        <h2 className="mt-6 font-display text-[24px] font-light text-mist">
+        <h2 className="mt-6 font-display text-[24px] font-light text-ink">
           {t("sentTitle")}
         </h2>
-        <p className="mt-3 text-[13.5px] leading-[1.7] text-mist-dim">
+        <p className="mt-3 text-[13.5px] leading-[1.7] text-ink-soft">
           {t("sentBody")}
         </p>
         <Link
@@ -46,12 +46,12 @@ export function ForgotPasswordForm() {
   }
 
   return (
-    <div className="glass edge-gold w-full rounded-[26px] px-6 py-8 sm:px-9 sm:py-10">
+    <div className="glass edge-accent w-full rounded-[26px] px-6 py-8 sm:px-9 sm:py-10">
       <p className="eyebrow">{t("eyebrow")}</p>
-      <h1 className="mt-3 font-display text-[30px] font-light text-mist">
+      <h1 className="mt-3 font-display text-[30px] font-light text-ink">
         {t("title")}
       </h1>
-      <p className="mt-2 text-[13.5px] text-mist-dim">{t("subtitle")}</p>
+      <p className="mt-2 text-[13.5px] text-ink-soft">{t("subtitle")}</p>
 
       <form action={formAction} className="mt-8 space-y-5">
         <input type="hidden" name="locale" value={locale} />
@@ -71,16 +71,16 @@ export function ForgotPasswordForm() {
         <button
           type="submit"
           disabled={pending}
-          className="btn btn-gold w-full py-3 text-[14.5px]"
+          className="btn btn-primary w-full py-3 text-[14.5px]"
         >
           {pending ? t("submitting") : t("submit")}
         </button>
       </form>
 
-      <p className="mt-6 text-center text-[12.5px] text-mist-faint">
+      <p className="mt-6 text-center text-[12.5px] text-ink-faint">
         <Link
           href={`/${locale}/login`}
-          className="text-gold-300 underline-offset-4 transition-colors hover:text-gold-200 hover:underline"
+          className="text-aqua-500 underline-offset-4 transition-colors hover:text-aqua-700 hover:underline"
         >
           {t("backToLogin")}
         </Link>
@@ -106,12 +106,12 @@ export function ResetPasswordForm({ token }: { token: string }) {
   ];
 
   return (
-    <div className="glass edge-gold w-full rounded-[26px] px-6 py-8 sm:px-9 sm:py-10">
+    <div className="glass edge-accent w-full rounded-[26px] px-6 py-8 sm:px-9 sm:py-10">
       <p className="eyebrow">{t("eyebrow")}</p>
-      <h1 className="mt-3 font-display text-[30px] font-light text-mist">
+      <h1 className="mt-3 font-display text-[30px] font-light text-ink">
         {t("title")}
       </h1>
-      <p className="mt-2 text-[13.5px] text-mist-dim">{t("subtitle")}</p>
+      <p className="mt-2 text-[13.5px] text-ink-soft">{t("subtitle")}</p>
 
       <form action={formAction} className="mt-8 space-y-6">
         <input type="hidden" name="locale" value={locale} />
@@ -136,7 +136,7 @@ export function ResetPasswordForm({ token }: { token: string }) {
         <button
           type="submit"
           disabled={pending}
-          className="btn btn-gold w-full py-3 text-[14.5px]"
+          className="btn btn-primary w-full py-3 text-[14.5px]"
         >
           {pending ? t("submitting") : t("submit")}
         </button>

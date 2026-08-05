@@ -32,7 +32,7 @@ export function PasswordField({
 
   return (
     <div>
-      <label htmlFor={name} className="mb-2 block text-[13px] font-medium text-mist">
+      <label htmlFor={name} className="mb-2 block text-[13px] font-medium text-ink">
         {label}
       </label>
       <div className="relative">
@@ -50,7 +50,7 @@ export function PasswordField({
           type="button"
           onClick={() => setShow((current) => !current)}
           aria-label={label}
-          className="absolute right-3 top-1/2 -translate-y-1/2 rounded-md p-1.5 text-mist-faint transition-colors hover:text-mist"
+          className="absolute right-3 top-1/2 -translate-y-1/2 rounded-md p-1.5 text-ink-faint transition-colors hover:text-ink"
         >
           {show ? (
             <EyeOff className="h-4 w-4" strokeWidth={1.6} />
@@ -65,7 +65,7 @@ export function PasswordField({
           <li
             key={rule.label}
             className={`flex items-center gap-2 text-[11.5px] ${
-              rule.met ? "text-teal-300" : "text-mist-faint"
+              rule.met ? "text-aqua-500" : "text-ink-faint"
             }`}
           >
             {rule.met ? (

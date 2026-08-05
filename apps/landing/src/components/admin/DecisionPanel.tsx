@@ -47,14 +47,14 @@ export function DecisionPanel({
       <div
         className={`rounded-2xl border px-6 py-5 ${
           approved
-            ? "border-teal-400/40 bg-teal-400/10"
-            : "border-white/12 bg-white/5"
+            ? "border-aqua-500/40 bg-aqua-500/10"
+            : "border-line bg-paper-soft"
         }`}
       >
-        <p className="text-[14px] font-medium text-mist">
+        <p className="text-[14px] font-medium text-ink">
           {approved ? t("decision.approvedDone") : t("decision.declinedDone")}
         </p>
-        <p className="mt-1.5 text-[13px] text-mist-dim">
+        <p className="mt-1.5 text-[13px] text-ink-soft">
           {approved
             ? t("decision.approvedDoneNote")
             : t("decision.declinedDoneNote")}
@@ -65,7 +65,7 @@ export function DecisionPanel({
 
   return (
     <div className="glass-soft rounded-2xl p-6">
-      <h2 className="text-[15px] font-semibold text-mist">
+      <h2 className="text-[15px] font-semibold text-ink">
         {t("decision.title")}
       </h2>
 
@@ -119,7 +119,7 @@ export function DecisionPanel({
               />
             </div>
           ) : (
-            <p className="text-[13px] leading-[1.7] text-mist-dim">
+            <p className="text-[13px] leading-[1.7] text-ink-soft">
               {t("decision.memberPlanNote", {
                 price: (PLANS.member.amountCents / 100).toString(),
               })}
@@ -137,11 +137,11 @@ export function DecisionPanel({
           <button
             type="submit"
             disabled={approving}
-            className="btn btn-gold w-full py-2.5 text-[14px]"
+            className="btn btn-primary w-full py-2.5 text-[14px]"
           >
             {approving ? t("decision.working") : t("decision.approveConfirm")}
           </button>
-          <p className="text-center text-[12px] text-mist-faint">
+          <p className="text-center text-[12px] text-ink-faint">
             {t("decision.approveNote")}
           </p>
         </form>

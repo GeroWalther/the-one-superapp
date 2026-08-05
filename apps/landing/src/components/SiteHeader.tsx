@@ -39,7 +39,7 @@ export function SiteHeader() {
     <header
       className={`fixed inset-x-0 top-0 z-50 transition-all duration-500 ${
         scrolled
-          ? "border-b border-white/8 bg-ink-900/80 backdrop-blur-xl"
+          ? "border-b border-line bg-paper/80 backdrop-blur-xl"
           : "border-b border-transparent"
       }`}
     >
@@ -51,7 +51,7 @@ export function SiteHeader() {
             <Link
               key={link.href}
               href={link.href}
-              className="text-[13px] text-mist-dim transition-colors hover:text-mist"
+              className="text-[13px] text-ink-soft transition-colors hover:text-ink"
             >
               {link.label}
             </Link>
@@ -61,7 +61,7 @@ export function SiteHeader() {
 
           <Link
             href={`/${locale}/enroll`}
-            className="btn btn-gold px-5 py-2 text-[12.5px]"
+            className="btn btn-primary px-5 py-2 text-[12.5px]"
           >
             {t("joinNow")}
           </Link>
@@ -74,7 +74,7 @@ export function SiteHeader() {
             onClick={() => setMenuOpen((open) => !open)}
             aria-expanded={menuOpen}
             aria-label={t("menu")}
-            className="grid h-10 w-10 place-items-center rounded-full border border-white/12 bg-white/5 text-mist"
+            className="grid h-10 w-10 place-items-center rounded-full border border-line bg-paper-soft text-ink"
           >
             {menuOpen ? (
               <X className="h-[18px] w-[18px]" strokeWidth={1.6} />
@@ -86,14 +86,14 @@ export function SiteHeader() {
       </div>
 
       {menuOpen && (
-        <div className="border-t border-white/8 bg-ink-900/97 px-6 pb-8 pt-6 backdrop-blur-xl md:hidden">
+        <div className="border-t border-line bg-paper/97 px-6 pb-8 pt-6 backdrop-blur-xl md:hidden">
           <nav className="flex flex-col gap-1">
             {links.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
                 onClick={() => setMenuOpen(false)}
-                className="rounded-xl px-3 py-3 text-[15px] text-mist-dim transition-colors hover:bg-white/5 hover:text-mist"
+                className="rounded-xl px-3 py-3 text-[15px] text-ink-soft transition-colors hover:bg-paper-soft hover:text-ink"
               >
                 {link.label}
               </Link>
@@ -103,7 +103,7 @@ export function SiteHeader() {
           <Link
             href={`/${locale}/enroll`}
             onClick={() => setMenuOpen(false)}
-            className="btn btn-gold mt-5 w-full py-3 text-[14px]"
+            className="btn btn-primary mt-5 w-full py-3 text-[14px]"
           >
             {t("joinNow")}
           </Link>

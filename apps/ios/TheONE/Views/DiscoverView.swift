@@ -77,13 +77,13 @@ struct DiscoverView: View {
                     filters
 
                     if model.isLoading && model.partners.isEmpty {
-                        ProgressView().tint(Theme.gold).padding(.top, 40)
+                        ProgressView().tint(Theme.aqua).padding(.top, 40)
                     } else if model.partners.isEmpty {
                         Text(model.savedOnly
                              ? "Nothing saved yet."
                              : "No partners match this search.")
                             .font(.system(size: 14))
-                            .foregroundStyle(Theme.mistDim)
+                            .foregroundStyle(Theme.inkSoft)
                             .padding(.top, 40)
                     }
 
@@ -99,7 +99,7 @@ struct DiscoverView: View {
                 .padding(.horizontal, 16)
                 .padding(.bottom, 20)
             }
-            .inkBackground()
+            .paperBackground()
             .navigationTitle("Discover")
             .navigationDestination(for: PartnerSummary.self) { partner in
                 PartnerDetailView(partnerId: partner.id)
@@ -133,12 +133,12 @@ struct DiscoverView: View {
         Button(action: action) {
             Text(label)
                 .font(.system(size: 13, weight: active ? .semibold : .regular))
-                .foregroundStyle(active ? Theme.ink : Theme.mistDim)
+                .foregroundStyle(active ? Theme.onAccent : Theme.inkSoft)
                 .padding(.horizontal, 14)
                 .padding(.vertical, 7)
                 .background(
                     Capsule()
-                        .fill(active ? AnyShapeStyle(Theme.goldSoft) : AnyShapeStyle(Color.white.opacity(0.06)))
+                        .fill(active ? AnyShapeStyle(Theme.aquaSoft) : AnyShapeStyle(Theme.paperSoft))
                 )
         }
     }
@@ -153,15 +153,15 @@ struct PartnerRow: View {
             VStack(alignment: .leading, spacing: 4) {
                 Text(partner.name)
                     .font(.system(size: 16, weight: .medium))
-                    .foregroundStyle(Theme.mist)
+                    .foregroundStyle(Theme.ink)
 
                 Text("\(partner.city), \(partner.country)")
                     .font(.system(size: 12.5))
-                    .foregroundStyle(Theme.mistFaint)
+                    .foregroundStyle(Theme.inkFaint)
 
                 Text(partner.description)
                     .font(.system(size: 13))
-                    .foregroundStyle(Theme.mistDim)
+                    .foregroundStyle(Theme.inkSoft)
                     .lineLimit(2)
                     .padding(.top, 2)
             }
@@ -171,7 +171,7 @@ struct PartnerRow: View {
             Button(action: onToggleSaved) {
                 Image(systemName: partner.saved ? "bookmark.fill" : "bookmark")
                     .font(.system(size: 16))
-                    .foregroundStyle(partner.saved ? Theme.gold : Theme.mistFaint)
+                    .foregroundStyle(partner.saved ? Theme.aqua : Theme.inkFaint)
             }
             .buttonStyle(.plain)
             .accessibilityLabel(partner.saved ? "Remove bookmark" : "Save partner")

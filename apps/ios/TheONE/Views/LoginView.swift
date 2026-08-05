@@ -18,17 +18,17 @@ struct LoginView: View {
                 Text("MEMBERS & PARTNERS")
                     .font(.system(size: 10, weight: .semibold))
                     .tracking(3)
-                    .foregroundStyle(Theme.gold)
+                    .foregroundStyle(Theme.aqua)
                     .padding(.top, 34)
 
                 Text("Sign in")
                     .font(.system(size: 32, weight: .light, design: .serif))
-                    .foregroundStyle(Theme.mist)
+                    .foregroundStyle(Theme.ink)
                     .padding(.top, 8)
 
                 Text("Only live accounts can use the app.")
                     .font(.system(size: 14))
-                    .foregroundStyle(Theme.mistDim)
+                    .foregroundStyle(Theme.inkSoft)
                     .padding(.top, 6)
 
                 VStack(spacing: 16) {
@@ -56,7 +56,7 @@ struct LoginView: View {
                                 showPassword.toggle()
                             } label: {
                                 Image(systemName: showPassword ? "eye.slash" : "eye")
-                                    .foregroundStyle(Theme.mistFaint)
+                                    .foregroundStyle(Theme.inkFaint)
                             }
                             .accessibilityLabel(showPassword ? "Hide password" : "Show password")
                         }
@@ -75,7 +75,7 @@ struct LoginView: View {
                     } label: {
                         Text(session.isWorking ? "Signing in…" : "Sign in")
                     }
-                    .buttonStyle(GoldButtonStyle())
+                    .buttonStyle(PrimaryButtonStyle())
                     .disabled(session.isWorking || identifier.isEmpty || password.isEmpty)
                     .opacity(identifier.isEmpty || password.isEmpty ? 0.6 : 1)
                 }
@@ -85,14 +85,14 @@ struct LoginView: View {
                 VStack(spacing: 10) {
                     Text("Not a member yet?")
                         .font(.system(size: 13))
-                        .foregroundStyle(Theme.mistFaint)
+                        .foregroundStyle(Theme.inkFaint)
 
                     // Enrolment is a long, reviewed form with payment at the
                     // end, so it lives on the web rather than being rebuilt
                     // here where it would immediately drift.
                     Link("Apply for access", destination: enrolURL)
                         .font(.system(size: 14, weight: .medium))
-                        .foregroundStyle(Theme.gold)
+                        .foregroundStyle(Theme.aqua)
                 }
                 .padding(.top, 26)
 
@@ -101,7 +101,7 @@ struct LoginView: View {
             .padding(.horizontal, 24)
             .frame(maxWidth: .infinity)
         }
-        .inkBackground()
+        .paperBackground()
         .scrollDismissesKeyboard(.interactively)
     }
 
@@ -112,18 +112,18 @@ struct LoginView: View {
         VStack(alignment: .leading, spacing: 7) {
             Text(label)
                 .font(.system(size: 13, weight: .medium))
-                .foregroundStyle(Theme.mist)
+                .foregroundStyle(Theme.ink)
             content()
                 .font(.system(size: 16))
-                .foregroundStyle(Theme.mist)
+                .foregroundStyle(Theme.ink)
                 .padding(.horizontal, 14)
                 .padding(.vertical, 12)
                 .background(
                     RoundedRectangle(cornerRadius: 12, style: .continuous)
-                        .fill(Color.white.opacity(0.05))
+                        .fill(Theme.paperSoft)
                         .overlay(
                             RoundedRectangle(cornerRadius: 12, style: .continuous)
-                                .stroke(Color.white.opacity(0.12), lineWidth: 1)
+                                .stroke(Theme.line, lineWidth: 1)
                         )
                 )
         }

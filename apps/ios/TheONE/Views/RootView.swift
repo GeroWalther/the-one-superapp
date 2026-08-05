@@ -9,10 +9,10 @@ struct RootView: View {
             case .loading:
                 VStack(spacing: 18) {
                     Wordmark(size: 30)
-                    ProgressView().tint(Theme.gold)
+                    ProgressView().tint(Theme.aqua)
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .inkBackground()
+                .paperBackground()
 
             case .signedOut:
                 LoginView()
@@ -22,7 +22,9 @@ struct RootView: View {
             }
         }
         .environment(session)
-        .preferredColorScheme(.dark)
+        // Pinned rather than adaptive: the palette is a single light set, so a
+        // system dark mode would recolour the chrome and leave the content light.
+        .preferredColorScheme(.light)
         .task { await session.restore() }
         .animation(.easeInOut(duration: 0.25), value: session.state)
     }
@@ -44,6 +46,6 @@ struct MainTabs: View {
                 ProfileView()
             }
         }
-        .tint(Theme.gold)
+        .tint(Theme.aqua)
     }
 }

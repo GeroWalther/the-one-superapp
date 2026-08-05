@@ -12,11 +12,12 @@ import type { MailMessage } from "./mailer";
 
 export type Locale = "de" | "en";
 
-const INK = "#04070a";
-const PANEL = "#0b1319";
-const MIST = "#e9f1f1";
-const MIST_DIM = "#9db0b2";
-const GOLD = "#cfb582";
+const PAGE = "#f2f5f6";
+const PANEL = "#ffffff";
+const INK = "#2b3440";
+const INK_SOFT = "#5a6572";
+const INK_FAINT = "#8b95a1";
+const ACCENT = "#2e9ca8";
 
 function escapeHtml(value: string): string {
   return value
@@ -39,40 +40,40 @@ function layout(options: {
   const body = paragraphs
     .map(
       (text) =>
-        `<p style="margin:0 0 16px;font-size:15px;line-height:1.7;color:${MIST_DIM};">${text}</p>`,
+        `<p style="margin:0 0 16px;font-size:15px;line-height:1.7;color:${INK_SOFT};">${text}</p>`,
     )
     .join("");
 
   const button = cta
     ? `<table role="presentation" cellpadding="0" cellspacing="0" style="margin:28px 0 8px;">
-         <tr><td style="border-radius:999px;background:${GOLD};">
-           <a href="${escapeHtml(cta.url)}" style="display:inline-block;padding:13px 30px;font-size:15px;font-weight:600;color:${INK};text-decoration:none;border-radius:999px;">${escapeHtml(cta.label)}</a>
+         <tr><td style="border-radius:999px;background:${ACCENT};">
+           <a href="${escapeHtml(cta.url)}" style="display:inline-block;padding:13px 30px;font-size:15px;font-weight:600;color:#ffffff;text-decoration:none;border-radius:999px;">${escapeHtml(cta.label)}</a>
          </td></tr>
        </table>`
     : "";
 
   const foot = footNote
-    ? `<p style="margin:22px 0 0;font-size:12px;line-height:1.6;color:#64787c;">${footNote}</p>`
+    ? `<p style="margin:22px 0 0;font-size:12px;line-height:1.6;color:${INK_FAINT};">${footNote}</p>`
     : "";
 
   return `<!doctype html>
-<html><body style="margin:0;padding:0;background:${INK};">
+<html><body style="margin:0;padding:0;background:${PAGE};">
 <span style="display:none;max-height:0;overflow:hidden;opacity:0;">${escapeHtml(preheader)}</span>
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:${INK};padding:36px 16px;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:${PAGE};padding:36px 16px;">
   <tr><td align="center">
-    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:560px;background:${PANEL};border:1px solid rgba(255,255,255,0.08);border-radius:20px;">
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:560px;background:${PANEL};border:1px solid #e2e8ea;border-radius:20px;">
       <tr><td style="padding:36px 34px 34px;">
-        <p style="margin:0 0 22px;font-size:19px;letter-spacing:0.02em;color:${MIST};">
-          <span style="font-weight:300;">The</span><span style="font-weight:600;color:${GOLD};">ONE</span>
+        <p style="margin:0 0 22px;font-size:19px;letter-spacing:0.02em;color:${INK};">
+          <span style="font-weight:300;">The</span><span style="font-weight:600;color:${ACCENT};">ONE</span>
         </p>
-        <p style="margin:0 0 10px;font-size:10px;font-weight:600;letter-spacing:0.3em;text-transform:uppercase;color:${GOLD};">${escapeHtml(eyebrow)}</p>
-        <h1 style="margin:0 0 20px;font-size:26px;line-height:1.25;font-weight:400;color:${MIST};">${escapeHtml(heading)}</h1>
+        <p style="margin:0 0 10px;font-size:10px;font-weight:600;letter-spacing:0.3em;text-transform:uppercase;color:${ACCENT};">${escapeHtml(eyebrow)}</p>
+        <h1 style="margin:0 0 20px;font-size:26px;line-height:1.25;font-weight:400;color:${INK};">${escapeHtml(heading)}</h1>
         ${body}
         ${button}
         ${foot}
       </td></tr>
     </table>
-    <p style="margin:20px 0 0;font-size:11px;color:#4c5a5d;">© 2025 The One App</p>
+    <p style="margin:20px 0 0;font-size:11px;color:${INK_FAINT};">© 2025 The One App</p>
   </td></tr>
 </table>
 </body></html>`;
@@ -148,8 +149,8 @@ export function applicationApprovedEmail(input: {
 
   const freeLine = input.freeMonths
     ? de
-      ? `<strong style="color:${GOLD};">Ihre ersten ${input.freeMonths} Monate sind kostenfrei.</strong>`
-      : `<strong style="color:${GOLD};">Your first ${input.freeMonths} months are free.</strong>`
+      ? `<strong style="color:${ACCENT};">Ihre ersten ${input.freeMonths} Monate sind kostenfrei.</strong>`
+      : `<strong style="color:${ACCENT};">Your first ${input.freeMonths} months are free.</strong>`
     : null;
 
   const paragraphs = (
@@ -206,7 +207,7 @@ export function applicationDeclinedEmail(input: {
       ? "vielen Dank für Ihr Interesse an TheONE. Nach sorgfältiger Prüfung können wir Ihre Bewerbung derzeit leider nicht annehmen."
       : "thank you for your interest in TheONE. After careful review we are unable to accept your application at this time.",
     ...(input.applicantMessage
-      ? [`<em style="color:${MIST};">${escapeHtml(input.applicantMessage)}</em>`]
+      ? [`<em style="color:${INK};">${escapeHtml(input.applicantMessage)}</em>`]
       : []),
     de
       ? "Wir bitten um Ihr Verständnis, dass wir diese Entscheidung nicht weiter kommentieren."
@@ -265,7 +266,7 @@ export function invitationEmail(input: {
             ? `TheONE lädt Sie persönlich als ${roleWord} ein. Zugang gibt es sonst nur auf Bewerbung.`
             : `${escapeHtml(input.inviterName ?? "Ein Mitglied")} hat Sie als ${roleWord} für TheONE vorgeschlagen.`,
           input.freeMonths
-            ? `<strong style="color:${GOLD};">Ihre ersten ${input.freeMonths} Monate sind kostenfrei.</strong>`
+            ? `<strong style="color:${ACCENT};">Ihre ersten ${input.freeMonths} Monate sind kostenfrei.</strong>`
             : null,
           isAdmin
             ? "Füllen Sie das kurze Aufnahmeformular aus — Ihr Zugang wird direkt freigegeben."
@@ -276,7 +277,7 @@ export function invitationEmail(input: {
             ? `TheONE is inviting you personally as a ${roleWord}. Access is otherwise by application only.`
             : `${escapeHtml(input.inviterName ?? "A member")} has put you forward as a ${roleWord} of TheONE.`,
           input.freeMonths
-            ? `<strong style="color:${GOLD};">Your first ${input.freeMonths} months are free.</strong>`
+            ? `<strong style="color:${ACCENT};">Your first ${input.freeMonths} months are free.</strong>`
             : null,
           isAdmin
             ? "Complete the short intake form and your access opens straight away."
@@ -366,12 +367,12 @@ export function referralRewardEmail(input: {
   const paragraphs = de
     ? [
         `${input.referrals} von Ihnen eingeladene Personen sind jetzt aktive Mitglieder von TheONE.`,
-        `Dafür schreiben wir Ihnen <strong style="color:${GOLD};">${input.addedFreeMonths} weitere kostenfreie Monate</strong> gut — insgesamt ${input.totalFreeMonths}.`,
+        `Dafür schreiben wir Ihnen <strong style="color:${ACCENT};">${input.addedFreeMonths} weitere kostenfreie Monate</strong> gut — insgesamt ${input.totalFreeMonths}.`,
         "Die Gutschrift ist bereits auf Ihrem Konto hinterlegt und verlängert Ihre nächste Abrechnung.",
       ]
     : [
         `${input.referrals} people you invited are now active on TheONE.`,
-        `We have credited you <strong style="color:${GOLD};">${input.addedFreeMonths} more free months</strong> — ${input.totalFreeMonths} in total.`,
+        `We have credited you <strong style="color:${ACCENT};">${input.addedFreeMonths} more free months</strong> — ${input.totalFreeMonths} in total.`,
         "The credit is already on your account and pushes back your next billing date.",
       ];
 

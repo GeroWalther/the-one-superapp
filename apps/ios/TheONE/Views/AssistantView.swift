@@ -130,7 +130,7 @@ struct AssistantView: View {
 
                 composer
             }
-            .inkBackground()
+            .paperBackground()
             .navigationTitle("Assistant")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
@@ -181,11 +181,11 @@ struct AssistantView: View {
         VStack(alignment: .leading, spacing: 12) {
             Text("Ask me anything")
                 .font(.system(size: 26, weight: .light, design: .serif))
-                .foregroundStyle(Theme.mist)
+                .foregroundStyle(Theme.ink)
 
             Text("I know TheONE's verified partners and what you told us when you applied. Tell me what you need — or just describe the problem.")
                 .font(.system(size: 14))
-                .foregroundStyle(Theme.mistDim)
+                .foregroundStyle(Theme.inkSoft)
 
             VStack(alignment: .leading, spacing: 8) {
                 ForEach([
@@ -198,16 +198,16 @@ struct AssistantView: View {
                     } label: {
                         Text(example)
                             .font(.system(size: 13.5))
-                            .foregroundStyle(Theme.goldSoft)
+                            .foregroundStyle(Theme.aquaSoft)
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .padding(.horizontal, 14)
                             .padding(.vertical, 11)
                             .background(
                                 RoundedRectangle(cornerRadius: 14, style: .continuous)
-                                    .fill(Theme.gold.opacity(0.10))
+                                    .fill(Theme.aqua.opacity(0.10))
                                     .overlay(
                                         RoundedRectangle(cornerRadius: 14, style: .continuous)
-                                            .stroke(Theme.gold.opacity(0.25), lineWidth: 1)
+                                            .stroke(Theme.aqua.opacity(0.25), lineWidth: 1)
                                     )
                             )
                     }
@@ -236,24 +236,24 @@ struct AssistantView: View {
             } label: {
                 Image(systemName: speech.isListening ? "waveform.circle.fill" : "mic")
                     .font(.system(size: 21))
-                    .foregroundStyle(speech.isListening ? Theme.teal : Theme.mistDim)
+                    .foregroundStyle(speech.isListening ? Theme.aqua : Theme.inkSoft)
                     .frame(width: 42, height: 42)
-                    .background(Circle().fill(Color.white.opacity(0.06)))
+                    .background(Circle().fill(Theme.paperSoft))
             }
             .accessibilityLabel(speech.isListening ? "Stop dictation" : "Dictate")
 
             TextField("Message", text: $model.draft, axis: .vertical)
                 .lineLimit(1...5)
                 .font(.system(size: 16))
-                .foregroundStyle(Theme.mist)
+                .foregroundStyle(Theme.ink)
                 .padding(.horizontal, 14)
                 .padding(.vertical, 11)
                 .background(
                     RoundedRectangle(cornerRadius: 20, style: .continuous)
-                        .fill(Color.white.opacity(0.05))
+                        .fill(Theme.paperSoft)
                         .overlay(
                             RoundedRectangle(cornerRadius: 20, style: .continuous)
-                                .stroke(Color.white.opacity(0.12), lineWidth: 1)
+                                .stroke(Theme.line, lineWidth: 1)
                         )
                 )
 
@@ -268,9 +268,9 @@ struct AssistantView: View {
             } label: {
                 Image(systemName: "arrow.up")
                     .font(.system(size: 17, weight: .semibold))
-                    .foregroundStyle(Theme.ink)
+                    .foregroundStyle(Theme.onAccent)
                     .frame(width: 42, height: 42)
-                    .background(Circle().fill(Theme.gold))
+                    .background(Circle().fill(Theme.aqua))
             }
             .disabled(model.isStreaming || model.draft.trimmingCharacters(in: .whitespaces).isEmpty)
             .opacity(model.draft.trimmingCharacters(in: .whitespaces).isEmpty ? 0.5 : 1)
@@ -289,24 +289,24 @@ private struct TurnBubble: View {
         VStack(alignment: turn.role == .user ? .trailing : .leading, spacing: 6) {
             if let tool = turn.runningTool {
                 HStack(spacing: 6) {
-                    ProgressView().controlSize(.mini).tint(Theme.teal)
+                    ProgressView().controlSize(.mini).tint(Theme.aqua)
                     Text(label(for: tool))
                         .font(.system(size: 12))
-                        .foregroundStyle(Theme.teal)
+                        .foregroundStyle(Theme.aqua)
                 }
             }
 
             if !turn.text.isEmpty {
                 Text(turn.text)
                     .font(.system(size: 15.5))
-                    .foregroundStyle(turn.role == .user ? Theme.ink : Theme.mist)
+                    .foregroundStyle(turn.role == .user ? Theme.onAccent : Theme.ink)
                     .padding(.horizontal, 14)
                     .padding(.vertical, 11)
                     .background(
                         RoundedRectangle(cornerRadius: 18, style: .continuous)
                             .fill(turn.role == .user
-                                  ? AnyShapeStyle(Theme.goldSoft)
-                                  : AnyShapeStyle(Color.white.opacity(0.06)))
+                                  ? AnyShapeStyle(Theme.aquaSoft)
+                                  : AnyShapeStyle(Theme.paperSoft))
                     )
                     .frame(maxWidth: 300, alignment: turn.role == .user ? .trailing : .leading)
             }

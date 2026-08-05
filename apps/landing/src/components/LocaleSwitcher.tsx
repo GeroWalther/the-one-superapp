@@ -23,7 +23,7 @@ export function LocaleSwitcher() {
   }
 
   return (
-    <div className="inline-flex items-center rounded-full border border-white/12 bg-white/5 p-[3px] backdrop-blur">
+    <div className="inline-flex items-center rounded-full border border-line bg-paper-soft p-[3px] backdrop-blur">
       {routing.locales.map((locale) => {
         const isActive = current === locale;
         return (
@@ -33,8 +33,8 @@ export function LocaleSwitcher() {
             aria-current={isActive ? "true" : undefined}
             className={
               isActive
-                ? "rounded-full bg-gold-300 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-ink-900"
-                : "rounded-full px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-mist-faint transition-colors hover:text-mist"
+                ? "rounded-full bg-aqua-500 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-paper"
+                : "rounded-full px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-ink-faint transition-colors hover:text-ink"
             }
           >
             {locale}

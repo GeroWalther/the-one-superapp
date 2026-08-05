@@ -14,7 +14,7 @@ export function Wordmark({
       className="group inline-flex items-center gap-3"
       aria-label="TheONE"
     >
-      <span className="relative block overflow-hidden rounded-[13px] ring-1 ring-white/15 transition-transform duration-500 group-hover:scale-105">
+      <span className="relative block overflow-hidden rounded-[13px] ring-1 ring-line transition-transform duration-500 group-hover:scale-105">
         <Image
           src="/images/app-icon.jpeg"
           alt=""
@@ -23,11 +23,11 @@ export function Wordmark({
           priority
           className="block"
         />
-        <span className="pointer-events-none absolute inset-0 bg-gradient-to-tr from-transparent via-white/10 to-white/25 opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+        <span className="pointer-events-none absolute inset-0 bg-gradient-to-tr from-transparent to-aqua-500/15 opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
       </span>
-      <span className="font-display text-[19px] leading-none tracking-[0.02em] text-mist">
+      <span className="font-display text-[20px] leading-none tracking-[0.04em] text-ink">
         <span className="font-light">The</span>
-        <span className="font-semibold text-gradient-gold">ONE</span>
+        <span className="font-semibold text-accent">ONE</span>
       </span>
     </Link>
   );

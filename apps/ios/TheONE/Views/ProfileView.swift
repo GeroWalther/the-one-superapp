@@ -14,19 +14,19 @@ struct ProfileView: View {
                     VStack(spacing: 16) {
                         VStack(spacing: 8) {
                             Circle()
-                                .fill(Theme.gold.opacity(0.18))
+                                .fill(Theme.aqua.opacity(0.18))
                                 .frame(width: 68, height: 68)
                                 .overlay(
                                     Text(String(account.firstName.prefix(1)))
                                         .font(.system(size: 26, weight: .semibold))
-                                        .foregroundStyle(Theme.gold)
+                                        .foregroundStyle(Theme.aqua)
                                 )
                             Text(account.displayName)
                                 .font(.system(size: 22, weight: .light, design: .serif))
-                                .foregroundStyle(Theme.mist)
+                                .foregroundStyle(Theme.ink)
                             Text("@\(account.username) · \(account.role.capitalized)")
                                 .font(.system(size: 13))
-                                .foregroundStyle(Theme.mistFaint)
+                                .foregroundStyle(Theme.inkFaint)
                         }
                         .padding(.top, 12)
 
@@ -35,27 +35,27 @@ struct ProfileView: View {
                                 Text("TODAY")
                                     .font(.system(size: 10, weight: .semibold))
                                     .tracking(2)
-                                    .foregroundStyle(Theme.gold)
+                                    .foregroundStyle(Theme.aqua)
                                 Text(tip)
                                     .font(.system(size: 15))
-                                    .foregroundStyle(Theme.mist)
+                                    .foregroundStyle(Theme.ink)
                             }
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .glassCard()
                         } else if loadingTip {
-                            ProgressView().tint(Theme.gold).padding(.vertical, 12)
+                            ProgressView().tint(Theme.aqua).padding(.vertical, 12)
                         }
 
                         VStack(spacing: 0) {
                             detailRow("Email", account.email)
-                            Divider().overlay(Color.white.opacity(0.08))
+                            Divider().overlay(Theme.line)
                             detailRow("Status", account.status.replacingOccurrences(of: "_", with: " ").capitalized)
                             if account.successfulReferrals > 0 {
-                                Divider().overlay(Color.white.opacity(0.08))
+                                Divider().overlay(Theme.line)
                                 detailRow("Referrals", "\(account.successfulReferrals)")
                             }
                             if account.freeMonthsGranted > 0 {
-                                Divider().overlay(Color.white.opacity(0.08))
+                                Divider().overlay(Theme.line)
                                 detailRow("Free months", "\(account.freeMonthsGranted)")
                             }
                         }
@@ -79,7 +79,7 @@ struct ProfileView: View {
                     .padding(.bottom, 30)
                 }
             }
-            .inkBackground()
+            .paperBackground()
             .navigationTitle("Profile")
         }
         .task { await loadTip() }
@@ -89,11 +89,11 @@ struct ProfileView: View {
         HStack {
             Text(label)
                 .font(.system(size: 13))
-                .foregroundStyle(Theme.mistFaint)
+                .foregroundStyle(Theme.inkFaint)
             Spacer()
             Text(value)
                 .font(.system(size: 14))
-                .foregroundStyle(Theme.mist)
+                .foregroundStyle(Theme.ink)
         }
         .padding(.horizontal, 16)
         .padding(.vertical, 13)

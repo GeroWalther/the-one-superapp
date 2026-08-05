@@ -6,10 +6,10 @@ import { InviteForm } from "@/components/admin/InviteForm";
 import type { InvitationStatus } from "@/lib/domain";
 
 const STATUS_STYLES: Record<InvitationStatus, string> = {
-  sent: "border-gold-300/40 bg-gold-300/10 text-gold-200",
-  redeemed: "border-teal-400/40 bg-teal-400/10 text-teal-300",
-  revoked: "border-white/12 bg-white/5 text-mist-faint",
-  expired: "border-white/12 bg-white/5 text-mist-faint",
+  sent: "border-aqua-500/40 bg-aqua-100 text-aqua-700",
+  redeemed: "border-emerald-600/30 bg-emerald-50 text-emerald-700",
+  revoked: "border-line bg-paper-soft text-ink-faint",
+  expired: "border-line bg-paper-soft text-ink-faint",
 };
 
 export default async function AdminInvitationsPage({
@@ -23,10 +23,10 @@ export default async function AdminInvitationsPage({
 
   return (
     <div>
-      <h1 className="font-display text-[30px] font-light text-mist">
+      <h1 className="font-display text-[30px] font-light text-ink">
         {t("invitations.title")}
       </h1>
-      <p className="mt-1.5 text-[13.5px] text-mist-dim">
+      <p className="mt-1.5 text-[13.5px] text-ink-soft">
         {t("invitations.subtitle")}
       </p>
 
@@ -35,7 +35,7 @@ export default async function AdminInvitationsPage({
 
         <div>
           {rows.length === 0 ? (
-            <p className="glass-soft rounded-2xl px-6 py-12 text-center text-[14px] text-mist-dim">
+            <p className="glass-soft rounded-2xl px-6 py-12 text-center text-[14px] text-ink-soft">
               {t("invitations.empty")}
             </p>
           ) : (
@@ -45,18 +45,18 @@ export default async function AdminInvitationsPage({
                   key={row.id}
                   className="glass-soft flex flex-wrap items-center gap-3 rounded-2xl px-5 py-4"
                 >
-                  <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full border border-white/10 bg-white/5">
+                  <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full border border-line bg-paper-soft">
                     <Gift
-                      className="h-4 w-4 text-mist-dim"
+                      className="h-4 w-4 text-ink-soft"
                       strokeWidth={1.5}
                     />
                   </span>
 
                   <span className="min-w-0 flex-1">
-                    <span className="block truncate text-[14px] text-mist">
+                    <span className="block truncate text-[14px] text-ink">
                       {row.invitedEmail}
                     </span>
-                    <span className="mt-0.5 block text-[12px] text-mist-faint">
+                    <span className="mt-0.5 block text-[12px] text-ink-faint">
                       {t(`type.${row.role}`)}
                       {" · "}
                       {row.kind === "admin"
@@ -80,7 +80,7 @@ export default async function AdminInvitationsPage({
                       <input type="hidden" name="invitationId" value={row.id} />
                       <button
                         type="submit"
-                        className="flex items-center gap-1.5 rounded-lg px-2.5 py-1.5 text-[12.5px] text-mist-faint transition-colors hover:bg-white/5 hover:text-mist"
+                        className="flex items-center gap-1.5 rounded-lg px-2.5 py-1.5 text-[12.5px] text-ink-faint transition-colors hover:bg-paper-soft hover:text-ink"
                       >
                         <Undo2 className="h-3.5 w-3.5" strokeWidth={1.6} />
                         {t("invitations.revoke")}

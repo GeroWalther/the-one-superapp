@@ -38,19 +38,19 @@ export function ActivationForm({
   const passwordError = state?.errors?.password?.[0];
 
   return (
-    <div className="glass edge-gold w-full rounded-[26px] px-6 py-8 sm:px-9 sm:py-10">
+    <div className="glass edge-accent w-full rounded-[26px] px-6 py-8 sm:px-9 sm:py-10">
       <div className="flex items-center gap-3">
-        <span className="grid h-11 w-11 shrink-0 place-items-center rounded-full border border-gold-300/30 bg-gold-300/10">
-          <KeyRound className="h-5 w-5 text-gold-300" strokeWidth={1.5} />
+        <span className="grid h-11 w-11 shrink-0 place-items-center rounded-full border border-aqua-500/30 bg-aqua-500/10">
+          <KeyRound className="h-5 w-5 text-aqua-500" strokeWidth={1.5} />
         </span>
         <div>
-          <p className="text-[13px] text-mist-dim">{t("forEmail")}</p>
-          <p className="text-[14.5px] font-medium text-mist">{email}</p>
+          <p className="text-[13px] text-ink-soft">{t("forEmail")}</p>
+          <p className="text-[14.5px] font-medium text-ink">{email}</p>
         </div>
       </div>
 
       {freeMonths > 0 && (
-        <p className="mt-5 rounded-xl border border-gold-300/30 bg-gold-300/10 px-4 py-3 text-[13px] text-gold-200">
+        <p className="mt-5 rounded-xl border border-aqua-500/30 bg-aqua-500/10 px-4 py-3 text-[13px] text-aqua-700">
           {t("freeMonths", { months: freeMonths })}
         </p>
       )}
@@ -87,7 +87,7 @@ export function ActivationForm({
         <button
           type="submit"
           disabled={pending}
-          className="btn btn-gold w-full py-3 text-[14.5px]"
+          className="btn btn-primary w-full py-3 text-[14.5px]"
         >
           {pending ? t("submitting") : t("submit")}
         </button>

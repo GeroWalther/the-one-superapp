@@ -9,15 +9,15 @@ struct MessagesView: View {
         NavigationStack {
             Group {
                 if isLoading && conversations.isEmpty {
-                    ProgressView().tint(Theme.gold)
+                    ProgressView().tint(Theme.aqua)
                 } else if conversations.isEmpty {
                     VStack(spacing: 10) {
                         Text("No conversations yet")
                             .font(.system(size: 20, weight: .light, design: .serif))
-                            .foregroundStyle(Theme.mist)
+                            .foregroundStyle(Theme.ink)
                         Text("Message a partner from their page, or let the assistant put you in touch.")
                             .font(.system(size: 14))
-                            .foregroundStyle(Theme.mistDim)
+                            .foregroundStyle(Theme.inkSoft)
                             .multilineTextAlignment(.center)
                             .padding(.horizontal, 40)
                     }
@@ -37,7 +37,7 @@ struct MessagesView: View {
                 }
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .inkBackground()
+            .paperBackground()
             .navigationTitle("Messages")
             .navigationDestination(for: ConversationSummary.self) { conversation in
                 ConversationView(
@@ -53,30 +53,30 @@ struct MessagesView: View {
     private func row(_ conversation: ConversationSummary) -> some View {
         HStack(spacing: 12) {
             Circle()
-                .fill(Theme.gold.opacity(0.18))
+                .fill(Theme.aqua.opacity(0.18))
                 .frame(width: 40, height: 40)
                 .overlay(
                     Text(String(conversation.counterpartName.prefix(1)))
                         .font(.system(size: 15, weight: .semibold))
-                        .foregroundStyle(Theme.gold)
+                        .foregroundStyle(Theme.aqua)
                 )
 
             VStack(alignment: .leading, spacing: 3) {
                 Text(conversation.counterpartName)
                     .font(.system(size: 15.5, weight: .medium))
-                    .foregroundStyle(Theme.mist)
+                    .foregroundStyle(Theme.ink)
                 Text(conversation.lastMessagePreview.isEmpty
                      ? "No messages yet"
                      : conversation.lastMessagePreview)
                     .font(.system(size: 13))
-                    .foregroundStyle(Theme.mistFaint)
+                    .foregroundStyle(Theme.inkFaint)
                     .lineLimit(1)
             }
 
             Spacer()
 
             if conversation.unread {
-                Circle().fill(Theme.teal).frame(width: 8, height: 8)
+                Circle().fill(Theme.aqua).frame(width: 8, height: 8)
             }
         }
         .glassCard(padding: 14)
@@ -129,15 +129,15 @@ struct ConversationView: View {
                 TextField("Message", text: $draft, axis: .vertical)
                     .lineLimit(1...5)
                     .font(.system(size: 16))
-                    .foregroundStyle(Theme.mist)
+                    .foregroundStyle(Theme.ink)
                     .padding(.horizontal, 14)
                     .padding(.vertical, 11)
                     .background(
                         RoundedRectangle(cornerRadius: 20, style: .continuous)
-                            .fill(Color.white.opacity(0.05))
+                            .fill(Theme.paperSoft)
                             .overlay(
                                 RoundedRectangle(cornerRadius: 20, style: .continuous)
-                                    .stroke(Color.white.opacity(0.12), lineWidth: 1)
+                                    .stroke(Theme.line, lineWidth: 1)
                             )
                     )
 
@@ -146,9 +146,9 @@ struct ConversationView: View {
                 } label: {
                     Image(systemName: "arrow.up")
                         .font(.system(size: 17, weight: .semibold))
-                        .foregroundStyle(Theme.ink)
+                        .foregroundStyle(Theme.onAccent)
                         .frame(width: 42, height: 42)
-                        .background(Circle().fill(Theme.gold))
+                        .background(Circle().fill(Theme.aqua))
                 }
                 .disabled(isSending || draft.trimmingCharacters(in: .whitespaces).isEmpty)
                 .opacity(draft.trimmingCharacters(in: .whitespaces).isEmpty ? 0.5 : 1)
@@ -158,7 +158,7 @@ struct ConversationView: View {
             .padding(.vertical, 12)
             .background(.ultraThinMaterial)
         }
-        .inkBackground()
+        .paperBackground()
         .navigationTitle(title)
         .navigationBarTitleDisplayMode(.inline)
         .task { await load() }
@@ -169,14 +169,14 @@ struct ConversationView: View {
             if message.mine { Spacer(minLength: 50) }
             Text(message.body)
                 .font(.system(size: 15.5))
-                .foregroundStyle(message.mine ? Theme.ink : Theme.mist)
+                .foregroundStyle(message.mine ? Theme.onAccent : Theme.ink)
                 .padding(.horizontal, 14)
                 .padding(.vertical, 10)
                 .background(
                     RoundedRectangle(cornerRadius: 18, style: .continuous)
                         .fill(message.mine
-                              ? AnyShapeStyle(Theme.goldSoft)
-                              : AnyShapeStyle(Color.white.opacity(0.07)))
+                              ? AnyShapeStyle(Theme.aquaSoft)
+                              : AnyShapeStyle(Theme.paperSoft))
                 )
             if !message.mine { Spacer(minLength: 50) }
         }

@@ -4,10 +4,15 @@ import { Building2, ChevronRight, Gift, UserRound } from "lucide-react";
 import { countByStatus, listApplications } from "@/lib/admin/queue";
 import type { ApplicantType, ApplicationStatus } from "@/lib/domain";
 
+/**
+ * Pending is the only status that asks something of the reviewer, so it is the
+ * only one that gets a filled chip — a tint would make it read the same as
+ * "approved" at a glance, which is the mistake this scan is meant to avoid.
+ */
 const STATUS_STYLES: Record<ApplicationStatus, string> = {
-  pending: "border-gold-300/40 bg-gold-300/10 text-gold-200",
-  approved: "border-teal-400/40 bg-teal-400/10 text-teal-300",
-  declined: "border-white/12 bg-white/5 text-mist-faint",
+  pending: "border-aqua-600 bg-aqua-500 text-white",
+  approved: "border-emerald-600/30 bg-emerald-50 text-emerald-700",
+  declined: "border-line bg-paper-soft text-ink-faint",
 };
 
 function isStatus(value: string | undefined): value is ApplicationStatus {
@@ -70,10 +75,10 @@ export default async function AdminQueuePage({
     <div>
       <div className="flex flex-wrap items-end justify-between gap-4">
         <div>
-          <h1 className="font-display text-[30px] font-light text-mist">
+          <h1 className="font-display text-[30px] font-light text-ink">
             {t("queue.title")}
           </h1>
-          <p className="mt-1.5 text-[13.5px] text-mist-dim">
+          <p className="mt-1.5 text-[13.5px] text-ink-soft">
             {counts.pending > 0
               ? t("queue.pendingCount", { count: counts.pending })
               : t("queue.allClear")}
@@ -107,14 +112,14 @@ export default async function AdminQueuePage({
           >
             {filter.label}
             {filter.count !== undefined && (
-              <span className="text-mist-faint">{filter.count}</span>
+              <span className="text-ink-faint">{filter.count}</span>
             )}
           </Link>
         ))}
       </div>
 
       {rows.length === 0 ? (
-        <p className="glass-soft mt-8 rounded-2xl px-6 py-12 text-center text-[14px] text-mist-dim">
+        <p className="glass-soft mt-8 rounded-2xl px-6 py-12 text-center text-[14px] text-ink-soft">
           {t("queue.empty")}
         </p>
       ) : (
@@ -123,17 +128,17 @@ export default async function AdminQueuePage({
             <li key={row.id}>
               <Link
                 href={`/${locale}/admin/applications/${row.id}`}
-                className="glass-soft group flex items-center gap-4 rounded-2xl px-5 py-4 transition-colors hover:border-white/20"
+                className="glass-soft group flex items-center gap-4 rounded-2xl px-5 py-4 transition-colors hover:border-line"
               >
-                <span className="grid h-10 w-10 shrink-0 place-items-center rounded-full border border-white/10 bg-white/5">
+                <span className="grid h-10 w-10 shrink-0 place-items-center rounded-full border border-line bg-paper-soft">
                   {row.type === "partner" ? (
                     <Building2
-                      className="h-[17px] w-[17px] text-mist-dim"
+                      className="h-[17px] w-[17px] text-ink-soft"
                       strokeWidth={1.5}
                     />
                   ) : (
                     <UserRound
-                      className="h-[17px] w-[17px] text-mist-dim"
+                      className="h-[17px] w-[17px] text-ink-soft"
                       strokeWidth={1.5}
                     />
                   )}
@@ -141,22 +146,22 @@ export default async function AdminQueuePage({
 
                 <span className="min-w-0 flex-1">
                   <span className="flex flex-wrap items-center gap-2">
-                    <span className="truncate text-[14.5px] font-medium text-mist">
+                    <span className="truncate text-[14.5px] font-medium text-ink">
                       {row.displayName}
                     </span>
                     {row.viaInvitation && (
                       <Gift
-                        className="h-3.5 w-3.5 shrink-0 text-gold-300"
+                        className="h-3.5 w-3.5 shrink-0 text-aqua-500"
                         strokeWidth={1.6}
                       />
                     )}
                   </span>
-                  <span className="mt-0.5 block truncate text-[12.5px] text-mist-faint">
+                  <span className="mt-0.5 block truncate text-[12.5px] text-ink-faint">
                     {row.email} · {row.phone}
                   </span>
                 </span>
 
-                <span className="hidden text-[12px] text-mist-faint sm:block">
+                <span className="hidden text-[12px] text-ink-faint sm:block">
                   {new Date(row.createdAt).toLocaleDateString(locale)}
                 </span>
 
@@ -167,7 +172,7 @@ export default async function AdminQueuePage({
                 </span>
 
                 <ChevronRight
-                  className="h-4 w-4 shrink-0 text-mist-faint transition-transform group-hover:translate-x-0.5"
+                  className="h-4 w-4 shrink-0 text-ink-faint transition-transform group-hover:translate-x-0.5"
                   strokeWidth={1.6}
                 />
               </Link>

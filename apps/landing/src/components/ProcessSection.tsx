@@ -23,14 +23,14 @@ export function ProcessSection() {
       <div className="mx-auto max-w-5xl px-6 lg:px-8">
         <div data-reveal className="mx-auto max-w-2xl text-center">
           <p className="eyebrow">{t("eyebrow")}</p>
-          <h2 className="mt-4 font-display text-[30px] font-light leading-tight text-mist sm:text-[38px]">
+          <h2 className="mt-4 font-display text-[30px] font-light leading-tight text-ink sm:text-[38px]">
             {t.rich("title", {
               em: (chunks) => (
-                <em className="text-gradient-gold not-italic">{chunks}</em>
+                <em className="text-accent not-italic">{chunks}</em>
               ),
             })}
           </h2>
-          <p className="mt-4 text-[14.5px] leading-[1.75] text-mist-dim">
+          <p className="mt-4 text-[14.5px] leading-[1.75] text-ink-soft">
             {t("subtitle")}
           </p>
         </div>
@@ -43,19 +43,19 @@ export function ProcessSection() {
               data-reveal-delay={`${index * 90}`}
               className="glass-soft lift relative rounded-[20px] p-6"
             >
-              <span className="absolute right-5 top-5 font-display text-[34px] font-light leading-none text-white/8">
+              <span className="absolute right-5 top-5 font-display text-[34px] font-light leading-none text-ink/10">
                 {index + 1}
               </span>
-              <span className="grid h-11 w-11 place-items-center rounded-full border border-teal-400/25 bg-teal-400/10">
+              <span className="grid h-11 w-11 place-items-center rounded-full border border-aqua-500/25 bg-aqua-500/10">
                 <step.icon
-                  className="h-[18px] w-[18px] text-teal-300"
+                  className="h-[18px] w-[18px] text-aqua-500"
                   strokeWidth={1.4}
                 />
               </span>
-              <h3 className="mt-5 text-[15px] font-semibold text-mist">
+              <h3 className="mt-5 text-[15px] font-semibold text-ink">
                 {step.title}
               </h3>
-              <p className="mt-2 text-[13px] leading-[1.7] text-mist-dim">
+              <p className="mt-2 text-[13px] leading-[1.7] text-ink-soft">
                 {step.desc}
               </p>
             </li>
@@ -65,12 +65,12 @@ export function ProcessSection() {
         <div data-reveal className="mt-12 text-center">
           <Link
             href={`/${locale}/enroll`}
-            className="btn btn-gold px-7 py-3 text-[15px]"
+            className="btn btn-primary px-7 py-3 text-[15px]"
           >
             {t("cta")}
             <ArrowRight className="h-4 w-4" strokeWidth={1.8} />
           </Link>
-          <p className="mt-4 text-[12.5px] text-mist-faint">{t("ctaNote")}</p>
+          <p className="mt-4 text-[12.5px] text-ink-faint">{t("ctaNote")}</p>
         </div>
       </div>
     </section>

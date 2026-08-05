@@ -47,7 +47,7 @@ export function PhoneMockup() {
         <div className="absolute -right-[3px] top-[152px] h-[66px] w-[3px] rounded-r-sm bg-gradient-to-l from-[#3a3f42] to-[#0f1112]" />
 
         <div className="rounded-[43px] bg-black p-[2px]">
-          <div className="relative overflow-hidden rounded-[41px] bg-ink-800">
+          <div className="relative overflow-hidden rounded-[41px] bg-paper-soft">
             {/* Screen glow + reflection */}
             <div className="pointer-events-none absolute inset-x-0 top-0 z-20 h-40 bg-[radial-gradient(ellipse_at_50%_0%,rgba(79,209,192,0.16),transparent_70%)]" />
             <div className="pointer-events-none absolute inset-0 z-20 rounded-[41px] bg-gradient-to-br from-white/12 via-transparent to-transparent opacity-60" />
@@ -55,31 +55,31 @@ export function PhoneMockup() {
             {/* Status bar + dynamic island */}
             <div className="relative flex h-10 items-center justify-center pt-2.5">
               <div className="h-[23px] w-[86px] rounded-full bg-black" />
-              <span className="absolute left-5 top-3 text-[9.5px] font-medium text-mist">
+              <span className="absolute left-5 top-3 text-[9.5px] font-medium text-ink">
                 9:41
               </span>
               <div className="absolute right-5 top-[13px] flex items-center gap-[3px]">
-                <div className="h-[7px] w-[9px] rounded-[1px] bg-mist/85" />
-                <div className="h-[6px] w-[10px] rounded-[1px] bg-mist/85" />
-                <div className="relative h-[7px] w-[14px] rounded-[2px] border border-mist/85">
-                  <div className="absolute left-[1px] top-[1px] h-[3px] w-[8px] rounded-[1px] bg-mist/85" />
+                <div className="h-[7px] w-[9px] rounded-[1px] bg-ink/85" />
+                <div className="h-[6px] w-[10px] rounded-[1px] bg-ink/85" />
+                <div className="relative h-[7px] w-[14px] rounded-[2px] border border-ink/85">
+                  <div className="absolute left-[1px] top-[1px] h-[3px] w-[8px] rounded-[1px] bg-ink/85" />
                 </div>
               </div>
             </div>
 
             <div className="px-3.5 pb-3 pt-3">
               <p className="text-center font-display text-[15px] leading-none tracking-wide">
-                <span className="font-light text-mist">The</span>
-                <span className="text-gradient-gold font-semibold">ONE</span>
+                <span className="font-light text-ink">The</span>
+                <span className="text-accent font-semibold">ONE</span>
               </p>
 
               {/* AI prompt bar */}
-              <div className="mt-3.5 flex items-center gap-2 rounded-full border border-white/10 bg-white/6 px-3 py-2">
+              <div className="mt-3.5 flex items-center gap-2 rounded-full border border-line bg-paper-soft px-3 py-2">
                 <Sparkles
-                  className="h-3 w-3 shrink-0 text-teal-400"
+                  className="h-3 w-3 shrink-0 text-aqua-500"
                   strokeWidth={1.8}
                 />
-                <span className="truncate text-[9px] text-mist-faint">
+                <span className="truncate text-[9px] text-ink-faint">
                   Which longevity clinic fits me?
                 </span>
               </div>
@@ -88,7 +88,7 @@ export function PhoneMockup() {
                 {cards.map((card) => (
                   <div
                     key={card.label}
-                    className="relative h-[74px] overflow-hidden rounded-[13px] ring-1 ring-white/8"
+                    className="relative h-[74px] overflow-hidden rounded-[13px] ring-1 ring-line"
                   >
                     <Image
                       src={card.src}
@@ -112,7 +112,7 @@ export function PhoneMockup() {
             </div>
 
             <div className="flex h-6 items-center justify-center pb-1.5">
-              <div className="h-[4px] w-[96px] rounded-full bg-white/25" />
+              <div className="h-[4px] w-[96px] rounded-full bg-paper-soft" />
             </div>
           </div>
         </div>

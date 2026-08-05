@@ -126,16 +126,16 @@ export function PartnerEnrollForm({ inviteCode }: { inviteCode?: string }) {
   ];
 
   return (
-    <div className="glass edge-gold w-full rounded-[26px] px-6 py-8 sm:px-9 sm:py-10">
+    <div className="glass edge-accent w-full rounded-[26px] px-6 py-8 sm:px-9 sm:py-10">
       <StepProgress total={TOTAL_STEPS} current={form.step} />
 
-      <p className="mt-4 text-[11px] uppercase tracking-[0.2em] text-mist-faint">
+      <p className="mt-4 text-[11px] uppercase tracking-[0.2em] text-ink-faint">
         {t("nav.step", { current: form.step, total: TOTAL_STEPS })}
       </p>
-      <h2 className="mt-2 font-display text-[26px] font-light text-mist sm:text-[30px]">
+      <h2 className="mt-2 font-display text-[26px] font-light text-ink sm:text-[30px]">
         {steps[form.step - 1].title}
       </h2>
-      <p className="mt-1.5 text-[13.5px] text-mist-dim">
+      <p className="mt-1.5 text-[13.5px] text-ink-soft">
         {steps[form.step - 1].desc}
       </p>
 
@@ -372,7 +372,7 @@ export function PartnerEnrollForm({ inviteCode }: { inviteCode?: string }) {
             <button
               type="button"
               onClick={form.goNext}
-              className="btn btn-gold flex-1 py-2.5 text-[14.5px]"
+              className="btn btn-primary flex-1 py-2.5 text-[14.5px]"
             >
               {t("nav.continue")}
               <ArrowRight className="h-4 w-4" strokeWidth={1.8} />
@@ -381,7 +381,7 @@ export function PartnerEnrollForm({ inviteCode }: { inviteCode?: string }) {
             <button
               type="submit"
               disabled={pending}
-              className="btn btn-gold flex-1 py-2.5 text-[14.5px]"
+              className="btn btn-primary flex-1 py-2.5 text-[14.5px]"
             >
               {pending ? (
                 t("nav.submitting")

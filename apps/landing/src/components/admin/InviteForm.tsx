@@ -26,10 +26,10 @@ export function InviteForm() {
 
   return (
     <div className="glass-soft rounded-2xl p-6">
-      <h2 className="text-[15px] font-semibold text-mist">
+      <h2 className="text-[15px] font-semibold text-ink">
         {t("invitations.formTitle")}
       </h2>
-      <p className="mt-1.5 text-[13px] leading-[1.6] text-mist-dim">
+      <p className="mt-1.5 text-[13px] leading-[1.6] text-ink-soft">
         {t("invitations.formNote", { months: ADMIN_INVITE_FREE_MONTHS })}
       </p>
 
@@ -75,7 +75,7 @@ export function InviteForm() {
         />
 
         {state?.ok ? (
-          <p className="rounded-xl border border-teal-400/35 bg-teal-400/10 px-4 py-3 text-[13px] text-teal-300">
+          <p className="rounded-xl border border-aqua-500/35 bg-aqua-500/10 px-4 py-3 text-[13px] text-aqua-500">
             {t("invitations.sent")}
           </p>
         ) : (
@@ -87,7 +87,7 @@ export function InviteForm() {
         <button
           type="submit"
           disabled={pending}
-          className="btn btn-gold w-full py-2.5 text-[14px]"
+          className="btn btn-primary w-full py-2.5 text-[14px]"
         >
           {pending ? (
             t("invitations.sending")

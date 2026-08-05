@@ -27,17 +27,17 @@ export function BenefitsSection() {
       <div className="mx-auto max-w-5xl px-6 lg:px-8">
         <div data-reveal className="mx-auto max-w-xl text-center">
           <p className="eyebrow">{t("eyebrow")}</p>
-          <h2 className="mt-4 font-display text-[28px] font-light leading-tight text-mist sm:text-[36px]">
+          <h2 className="mt-4 font-display text-[28px] font-light leading-tight text-ink sm:text-[36px]">
             {t.rich("title", {
               em: (chunks) => (
-                <em className="font-light italic text-mist-dim">{chunks}</em>
+                <em className="font-light italic text-ink-soft">{chunks}</em>
               ),
               strong: (chunks) => (
-                <span className="text-gradient-gold font-medium">{chunks}</span>
+                <span className="text-accent font-medium">{chunks}</span>
               ),
             })}
           </h2>
-          <p className="mt-4 text-[14px] text-mist-dim">{t("subtitle")}</p>
+          <p className="mt-4 text-[14px] text-ink-soft">{t("subtitle")}</p>
         </div>
 
         <div className="mt-14 grid gap-4 sm:grid-cols-3">
@@ -48,16 +48,16 @@ export function BenefitsSection() {
               data-reveal-delay={`${index * 110}`}
               className="glass-soft lift rounded-[20px] p-6 text-center"
             >
-              <span className="mx-auto grid h-14 w-14 place-items-center rounded-full border border-gold-300/22 bg-gold-300/8">
+              <span className="mx-auto grid h-14 w-14 place-items-center rounded-full border border-aqua-500/22 bg-aqua-500/8">
                 <benefit.icon
-                  className="h-5 w-5 text-gold-300"
+                  className="h-5 w-5 text-aqua-500"
                   strokeWidth={1.3}
                 />
               </span>
-              <h3 className="mt-5 text-[14.5px] font-semibold text-mist">
+              <h3 className="mt-5 text-[14.5px] font-semibold text-ink">
                 {benefit.title}
               </h3>
-              <p className="mt-1.5 text-[12.5px] text-mist-dim">
+              <p className="mt-1.5 text-[12.5px] text-ink-soft">
                 {benefit.desc}
               </p>
             </div>

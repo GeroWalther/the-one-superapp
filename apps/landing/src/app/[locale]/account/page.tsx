@@ -46,14 +46,14 @@ export default async function AccountPage({
     <>
       <SiteHeader />
       <main className="grain relative flex-1 overflow-hidden pb-24 pt-[122px] sm:pt-[150px]">
-        <div className="aurora opacity-70" />
+        <div className="aurora" />
 
         <div className="relative mx-auto max-w-3xl px-6 lg:px-8">
           <p className="eyebrow">{t("eyebrow")}</p>
-          <h1 className="mt-4 font-display text-[34px] font-light text-mist sm:text-[40px]">
+          <h1 className="mt-4 font-display text-[34px] font-light text-ink sm:text-[40px]">
             {t("greeting", { name: account.firstName })}
           </h1>
-          <p className="mt-2 text-[13.5px] text-mist-dim">
+          <p className="mt-2 text-[13.5px] text-ink-soft">
             {t("statusLine", {
               status: t(`statuses.${account.status}`),
               username: account.username,

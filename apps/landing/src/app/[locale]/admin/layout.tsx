@@ -32,17 +32,17 @@ export default async function AdminLayout({
   ];
 
   return (
-    <div className="flex min-h-screen flex-col bg-ink-900">
-      <header className="border-b border-white/8 bg-ink-800/60 backdrop-blur">
+    <div className="flex min-h-screen flex-col bg-paper">
+      <header className="border-b border-line bg-paper-soft/60 backdrop-blur">
         <div className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-4 px-5 lg:px-8">
           <div className="flex items-center gap-6">
             <Link
               href={`/${locale}/admin`}
-              className="font-display text-[17px] leading-none text-mist"
+              className="font-display text-[17px] leading-none text-ink"
             >
               <span className="font-light">The</span>
-              <span className="text-gradient-gold font-semibold">ONE</span>
-              <span className="ml-2 text-[11px] uppercase tracking-[0.2em] text-mist-faint">
+              <span className="text-accent font-semibold">ONE</span>
+              <span className="ml-2 text-[11px] uppercase tracking-[0.2em] text-ink-faint">
                 {t("nav.badge")}
               </span>
             </Link>
@@ -52,7 +52,7 @@ export default async function AdminLayout({
                 <Link
                   key={link.href}
                   href={link.href}
-                  className="flex items-center gap-2 rounded-lg px-3 py-1.5 text-[13px] text-mist-dim transition-colors hover:bg-white/5 hover:text-mist"
+                  className="flex items-center gap-2 rounded-lg px-3 py-1.5 text-[13px] text-ink-soft transition-colors hover:bg-paper-soft hover:text-ink"
                 >
                   <link.icon className="h-4 w-4" strokeWidth={1.6} />
                   {link.label}
@@ -62,14 +62,14 @@ export default async function AdminLayout({
           </div>
 
           <div className="flex items-center gap-4">
-            <span className="hidden text-[12.5px] text-mist-faint sm:inline">
+            <span className="hidden text-[12.5px] text-ink-faint sm:inline">
               {account.email}
             </span>
             <form action={logout}>
               <input type="hidden" name="locale" value={locale} />
               <button
                 type="submit"
-                className="flex items-center gap-1.5 text-[13px] text-mist-faint transition-colors hover:text-mist"
+                className="flex items-center gap-1.5 text-[13px] text-ink-faint transition-colors hover:text-ink"
               >
                 <LogOut className="h-[15px] w-[15px]" strokeWidth={1.6} />
                 {t("nav.signOut")}
@@ -78,12 +78,12 @@ export default async function AdminLayout({
           </div>
         </div>
 
-        <nav className="flex items-center gap-1 border-t border-white/8 px-5 py-2 sm:hidden">
+        <nav className="flex items-center gap-1 border-t border-line px-5 py-2 sm:hidden">
           {links.map((link) => (
             <Link
               key={link.href}
               href={link.href}
-              className="flex items-center gap-2 rounded-lg px-3 py-1.5 text-[13px] text-mist-dim"
+              className="flex items-center gap-2 rounded-lg px-3 py-1.5 text-[13px] text-ink-soft"
             >
               <link.icon className="h-4 w-4" strokeWidth={1.6} />
               {link.label}

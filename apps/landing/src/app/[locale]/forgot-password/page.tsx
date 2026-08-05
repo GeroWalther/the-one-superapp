@@ -19,8 +19,7 @@ export default async function ForgotPasswordPage() {
     <>
       <SiteHeader />
       <main className="grain relative flex-1 overflow-hidden pb-24 pt-[122px] sm:pt-[150px]">
-        <div className="aurora aurora--deep opacity-80">
-          <span className="aurora-bloom" />
+        <div className="silk">
         </div>
         <div data-reveal className="relative mx-auto max-w-md px-6 lg:px-8">
           <ForgotPasswordForm />

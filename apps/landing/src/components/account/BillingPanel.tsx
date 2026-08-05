@@ -39,22 +39,22 @@ export function BillingPanel({
 
   return (
     <section className="glass-soft rounded-2xl px-6 py-5">
-      <h2 className="flex items-center gap-2 text-[15px] font-semibold text-mist">
-        <CreditCard className="h-4 w-4 text-gold-300" strokeWidth={1.6} />
+      <h2 className="flex items-center gap-2 text-[15px] font-semibold text-ink">
+        <CreditCard className="h-4 w-4 text-aqua-500" strokeWidth={1.6} />
         {t("billing.title")}
       </h2>
 
       {planLabel && (
-        <p className="mt-3 text-[14px] text-mist">
+        <p className="mt-3 text-[14px] text-ink">
           {planLabel}
           {priceLabel && (
-            <span className="text-mist-dim"> — {priceLabel}</span>
+            <span className="text-ink-soft"> — {priceLabel}</span>
           )}
         </p>
       )}
 
       {freeMonths > 0 && needsPayment && (
-        <p className="mt-3 rounded-xl border border-gold-300/30 bg-gold-300/10 px-4 py-3 text-[13px] leading-[1.6] text-gold-200">
+        <p className="mt-3 rounded-xl border border-aqua-500/30 bg-aqua-500/10 px-4 py-3 text-[13px] leading-[1.6] text-aqua-700">
           {t("billing.trialNote", { months: freeMonths })}
         </p>
       )}
@@ -78,11 +78,11 @@ export function BillingPanel({
           <button
             type="submit"
             disabled={checkingOut}
-            className="btn btn-gold w-full py-2.5 text-[14px]"
+            className="btn btn-primary w-full py-2.5 text-[14px]"
           >
             {checkingOut ? t("billing.working") : t("billing.startCheckout")}
           </button>
-          <p className="mt-3 text-center text-[12px] text-mist-faint">
+          <p className="mt-3 text-center text-[12px] text-ink-faint">
             {t("billing.stripeNote")}
           </p>
         </form>
@@ -104,7 +104,7 @@ export function BillingPanel({
             {openingPortal ? t("billing.working") : t("billing.managePlan")}
             <ExternalLink className="h-3.5 w-3.5" strokeWidth={1.7} />
           </button>
-          <p className="mt-3 text-center text-[12px] leading-[1.6] text-mist-faint">
+          <p className="mt-3 text-center text-[12px] leading-[1.6] text-ink-faint">
             {t("billing.portalNote")}
           </p>
         </form>

@@ -26,19 +26,19 @@ export function LoginForm({ next }: { next?: string }) {
   const passwordError = state?.errors?.password?.[0];
 
   return (
-    <div className="glass edge-gold w-full rounded-[26px] px-6 py-8 sm:px-9 sm:py-10">
+    <div className="glass edge-accent w-full rounded-[26px] px-6 py-8 sm:px-9 sm:py-10">
       <p className="eyebrow">{t("eyebrow")}</p>
-      <h1 className="mt-3 font-display text-[30px] font-light text-mist sm:text-[34px]">
+      <h1 className="mt-3 font-display text-[30px] font-light text-ink sm:text-[34px]">
         {t("title")}
       </h1>
-      <p className="mt-2 text-[13.5px] text-mist-dim">{t("subtitle")}</p>
+      <p className="mt-2 text-[13.5px] text-ink-soft">{t("subtitle")}</p>
 
       <form action={formAction} className="mt-8 space-y-5">
         <input type="hidden" name="locale" value={locale} />
         {next && <input type="hidden" name="next" value={next} />}
 
         <label className="block">
-          <span className="mb-2 block text-[13px] font-medium text-mist">
+          <span className="mb-2 block text-[13px] font-medium text-ink">
             {t("identifier")}
           </span>
           <input
@@ -58,7 +58,7 @@ export function LoginForm({ next }: { next?: string }) {
         </label>
 
         <label className="block">
-          <span className="mb-2 block text-[13px] font-medium text-mist">
+          <span className="mb-2 block text-[13px] font-medium text-ink">
             {t("password")}
           </span>
           <span className="relative block">
@@ -75,7 +75,7 @@ export function LoginForm({ next }: { next?: string }) {
               type="button"
               onClick={() => setShowPassword((show) => !show)}
               aria-label={showPassword ? t("hidePassword") : t("showPassword")}
-              className="absolute right-3 top-1/2 -translate-y-1/2 rounded-md p-1.5 text-mist-faint transition-colors hover:text-mist"
+              className="absolute right-3 top-1/2 -translate-y-1/2 rounded-md p-1.5 text-ink-faint transition-colors hover:text-ink"
             >
               {showPassword ? (
                 <EyeOff className="h-4 w-4" strokeWidth={1.6} />
@@ -96,7 +96,7 @@ export function LoginForm({ next }: { next?: string }) {
         <button
           type="submit"
           disabled={pending}
-          className="btn btn-gold w-full py-3 text-[14.5px]"
+          className="btn btn-primary w-full py-3 text-[14.5px]"
         >
           {pending ? (
             t("submitting")
@@ -109,11 +109,11 @@ export function LoginForm({ next }: { next?: string }) {
         </button>
       </form>
 
-      <div className="mt-6 space-y-2 text-center text-[12.5px] text-mist-faint">
+      <div className="mt-6 space-y-2 text-center text-[12.5px] text-ink-faint">
         <p>
           <Link
             href={`/${locale}/forgot-password`}
-            className="text-gold-300 underline-offset-4 transition-colors hover:text-gold-200 hover:underline"
+            className="text-aqua-500 underline-offset-4 transition-colors hover:text-aqua-700 hover:underline"
           >
             {t("forgot")}
           </Link>
@@ -122,7 +122,7 @@ export function LoginForm({ next }: { next?: string }) {
           {t("noAccount")}{" "}
           <Link
             href={`/${locale}/enroll`}
-            className="text-gold-300 underline-offset-4 transition-colors hover:text-gold-200 hover:underline"
+            className="text-aqua-500 underline-offset-4 transition-colors hover:text-aqua-700 hover:underline"
           >
             {t("apply")}
           </Link>
