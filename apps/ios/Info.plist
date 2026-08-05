@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>TheONE uses the microphone so you can speak to your concierge instead of typing.</string>
+	<key>NSSpeechRecognitionUsageDescription</key>
+	<string>Speech is recognised on your device so you can talk to your concierge. Audio is not sent to Apple when on-device recognition is available.</string>
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<!-- Allows the simulator to reach the local development server.
+		     Production traffic still requires HTTPS. -->
+		<key>NSAllowsLocalNetworking</key>
+		<true/>
+	</dict>
+	<key>UILaunchScreen</key>
+	<dict>
+		<key>UIColorName</key>
+		<string></string>
+	</dict>
+</dict>
+</plist>
