@@ -140,6 +140,10 @@ export type AdminAuditDoc = {
   action:
     | "application.approved"
     | "application.declined"
+    /* Reissuing an activation link hands out a credential, so it is audited
+       like any other decision — "who let this person in" must stay answerable
+       even when the link did not come from the original approval. */
+    | "application.activationLinkReissued"
     | "invitation.created"
     | "invitation.revoked"
     | "account.suspended"

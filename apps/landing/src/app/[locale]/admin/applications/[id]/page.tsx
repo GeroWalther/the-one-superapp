@@ -4,6 +4,8 @@ import { getTranslations } from "next-intl/server";
 import { ArrowLeft, Gift } from "lucide-react";
 import { getApplication } from "@/lib/admin/queue";
 import { DecisionPanel } from "@/components/admin/DecisionPanel";
+import { ActivationLinkPanel } from "@/components/admin/ActivationLinkPanel";
+import { isMailConfigured } from "@/lib/mail/mailer";
 import type {
   MemberApplicationInput,
   PartnerApplicationInput,
@@ -203,6 +205,10 @@ export default async function ApplicationDetailPage({
                 </p>
               )}
             </div>
+          )}
+
+          {application.status === "approved" && !isMailConfigured() && (
+            <ActivationLinkPanel applicationId={application.id} />
           )}
         </div>
       </div>

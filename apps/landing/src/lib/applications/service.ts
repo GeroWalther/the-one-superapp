@@ -232,25 +232,62 @@ export async function submitApplication(input: {
  * dashboard and by admin-invitation auto-approval so both produce an identical
  * account state.
  */
-export async function sendApprovalEmail(doc: ApplicationDoc): Promise<void> {
+export async function sendApprovalEmail(doc: ApplicationDoc): Promise<string> {
   const token = await issueToken({
     purpose: "activation",
     applicationId: doc._id,
     ttlMs: ACTIVATION_TTL_DAYS * 24 * 60 * 60 * 1000,
   });
 
+  const activationUrl = siteUrl(
+    `/${doc.locale}/activate?token=${encodeURIComponent(token)}`,
+  );
+
   await sendMailSafely(
     applicationApprovedEmail({
       locale: doc.locale,
       to: doc.email,
       name: doc.displayName,
-      activationUrl: siteUrl(
-        `/${doc.locale}/activate?token=${encodeURIComponent(token)}`,
-      ),
+      activationUrl,
       freeMonths: doc.grantedFreeMonths,
       expiresInDays: ACTIVATION_TTL_DAYS,
     }),
   );
+
+  /* Returned, not just sent. Until a mail provider is configured the emails go
+     to a log nobody watching the dashboard can read, and an approval whose link
+     cannot be retrieved is an approval that does nothing. */
+  return activationUrl;
+}
+
+/**
+ * Issues a fresh activation link for an already-approved application.
+ *
+ * Needed whenever the email did not reach the applicant — no mail provider
+ * configured, a bounce, a spam folder. Tokens are single-use and expiring, so
+ * handing out another one costs nothing, and an applicant who already completed
+ * activation is stopped by the unique email index on `accounts` rather than by
+ * this function withholding a link.
+ */
+export async function issueActivationLink(
+  applicationId: string,
+): Promise<string | null> {
+  if (!ObjectId.isValid(applicationId)) return null;
+
+  const collection = await applications();
+  const doc = await collection.findOne({
+    _id: new ObjectId(applicationId),
+    status: "approved",
+  });
+  if (!doc) return null;
+
+  const token = await issueToken({
+    purpose: "activation",
+    applicationId: doc._id,
+    ttlMs: ACTIVATION_TTL_DAYS * 24 * 60 * 60 * 1000,
+  });
+
+  return siteUrl(`/${doc.locale}/activate?token=${encodeURIComponent(token)}`);
 }
 
 export async function approveApplication(input: {
@@ -258,7 +295,7 @@ export async function approveApplication(input: {
   partnerTier?: PartnerTier | null;
   reviewedByAccountId: ObjectId | null;
   actorEmail: string;
-}): Promise<{ ok: boolean; reason?: string }> {
+}): Promise<{ ok: boolean; reason?: string; activationUrl?: string }> {
   if (!ObjectId.isValid(input.applicationId)) {
     return { ok: false, reason: "not_found" };
   }
@@ -291,8 +328,8 @@ export async function approveApplication(input: {
     detail: input.partnerTier ? `tier=${input.partnerTier}` : null,
   });
 
-  await sendApprovalEmail(doc);
-  return { ok: true };
+  const activationUrl = await sendApprovalEmail(doc);
+  return { ok: true, activationUrl };
 }
 
 /* ========================================================================== *

@@ -337,7 +337,9 @@
         "noCustomer": "Es besteht noch kein Abrechnungsdatensatz — bitte zuerst die Zahlung abschließen.",
         "notSignedIn": "Bitte melden Sie sich erneut an.",
         "serverError": "Etwas ist schiefgelaufen. Bitte versuchen Sie es erneut."
-      }
+      },
+      "testActivate": "Konto aktivieren (Testmodus)",
+      "testNote": "Testmodus: Es wird keine Zahlung eingezogen und keine Karte benötigt. Diese Option verschwindet, sobald Stripe-Schlüssel hinterlegt sind."
     },
     "referrals": {
       "title": "Einladen & profitieren",
@@ -426,7 +428,11 @@
         "pending": "Wartet auf eine Entscheidung.",
         "approved": "Angenommen. Der Aktivierungslink wurde versendet.",
         "declined": "Abgelehnt. E-Mail und Telefonnummer sind gesperrt."
-      }
+      },
+      "activationLinkTitle": "Aktivierungslink",
+      "activationLinkNote": "Es ist kein Mailanbieter konfiguriert, die Zusage-E-Mail wurde daher nicht zugestellt. Erzeugen Sie einen neuen Einmal-Link und senden Sie ihn selbst an den Bewerber.",
+      "activationLinkShow": "Aktivierungslink erzeugen",
+      "activationLinkWorking": "Wird erzeugt…"
     },
     "decision": {
       "title": "Entscheidung",

@@ -337,7 +337,9 @@
         "noCustomer": "No billing record exists yet — complete checkout first.",
         "notSignedIn": "Please sign in again.",
         "serverError": "Something went wrong. Please try again."
-      }
+      },
+      "testActivate": "Activate account (test mode)",
+      "testNote": "Test mode: no payment is taken and no card is required. This option disappears as soon as Stripe keys are configured."
     },
     "referrals": {
       "title": "Invite & earn",
@@ -426,7 +428,11 @@
         "pending": "Awaiting a decision.",
         "approved": "Approved. The activation link has been emailed.",
         "declined": "Declined. Email and phone are blocklisted."
-      }
+      },
+      "activationLinkTitle": "Activation link",
+      "activationLinkNote": "No mail provider is configured, so the approval email was not delivered. Generate a fresh single-use link and send it to the applicant yourself.",
+      "activationLinkShow": "Generate activation link",
+      "activationLinkWorking": "Generating…"
     },
     "decision": {
       "title": "Decision",

@@ -81,6 +81,11 @@ class ResendMailer implements Mailer {
 
 let cached: Mailer | undefined;
 
+/** True when mail actually leaves the building rather than going to a log. */
+export function isMailConfigured(): boolean {
+  return Boolean(process.env.RESEND_API_KEY && process.env.MAIL_FROM);
+}
+
 export function getMailer(): Mailer {
   if (cached) return cached;
 

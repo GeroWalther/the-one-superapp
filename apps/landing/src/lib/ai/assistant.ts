@@ -11,7 +11,25 @@ import { ASSISTANT_TOOLS, runAssistantTool } from "./tools";
  * caller's own identity rather than anything the client could forge.
  */
 
-export const ASSISTANT_MODEL = "claude-opus-5";
+/**
+ * Overridable so the tier can change without a deploy — Haiku while testing,
+ * `claude-opus-5` when quality of advice starts to matter more than cost.
+ */
+export const ASSISTANT_MODEL =
+  process.env.ANTHROPIC_MODEL ?? "claude-haiku-4-5";
+
+/**
+ * Extended thinking is configured differently across model generations —
+ * `{type: "adaptive"}` on 4.6-and-newer, `budget_tokens` before that — and each
+ * rejects the other's shape with a 400. Deriving it from the model means
+ * changing `ANTHROPIC_MODEL` cannot silently break every assistant request.
+ *
+ * Haiku gets none: it is the cheap, fast tier, and paying thinking latency on
+ * every turn would spend exactly what choosing Haiku was meant to save.
+ */
+function thinkingFor(model: string): { type: "adaptive" } | undefined {
+  return model.startsWith("claude-haiku") ? undefined : { type: "adaptive" };
+}
 
 let client: Anthropic | null | undefined;
 
@@ -101,7 +119,9 @@ export async function* runAssistant(input: {
             cache_control: { type: "ephemeral" },
           },
         ],
-        thinking: { type: "adaptive" },
+        ...(thinkingFor(ASSISTANT_MODEL)
+          ? { thinking: thinkingFor(ASSISTANT_MODEL) }
+          : {}),
         tools: ASSISTANT_TOOLS,
         messages,
       });

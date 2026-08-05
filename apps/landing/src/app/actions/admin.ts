@@ -12,8 +12,10 @@ import {
 import {
   approveApplication,
   declineApplication,
+  issueActivationLink,
 } from "@/lib/applications/service";
 import { createInvitation, revokeInvitation } from "@/lib/admin/invitations";
+import { recordAdminAction } from "@/lib/admin/audit";
 import { getCurrentAccount } from "@/lib/auth/dal";
 import type { Locale } from "@/lib/db/collections";
 
@@ -159,4 +161,35 @@ export async function revokeInvitationAction(formData: FormData): Promise<void> 
   });
 
   revalidatePath("/[locale]/admin/invitations", "page");
+}
+
+/**
+ * Reveals a fresh activation link for an approved application.
+ *
+ * The reviewer needs this whenever the email did not arrive — most obviously
+ * before a mail provider is configured at all, when every approval would
+ * otherwise dead-end. Admin-gated, and it re-checks the role rather than
+ * trusting that the button was only rendered for admins.
+ */
+export async function revealActivationLinkAction(
+  _state: FormState,
+  formData: FormData,
+): Promise<FormState> {
+  const actor = await requireAdminActor();
+  if (!actor) return { message: "forbidden" };
+
+  const applicationId = String(formData.get("applicationId") ?? "");
+  const activationUrl = await issueActivationLink(applicationId);
+  if (!activationUrl) return { message: "serverError" };
+
+  await recordAdminAction({
+    actorAccountId: new ObjectId(actor.id),
+    actorEmail: actor.email,
+    action: "application.activationLinkReissued",
+    targetType: "application",
+    targetId: new ObjectId(applicationId),
+    detail: null,
+  });
+
+  return { ok: true, activationUrl };
 }

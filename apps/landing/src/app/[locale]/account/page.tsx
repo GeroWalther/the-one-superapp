@@ -10,6 +10,7 @@ import { requireAccount } from "@/lib/auth/dal";
 import { logout } from "@/app/actions/auth";
 import { listInvitations } from "@/lib/admin/invitations";
 import { freeMonthsForReferrals, planFor } from "@/lib/domain";
+import { isTestActivationEnabled } from "@/lib/billing/testMode";
 
 export async function generateMetadata({
   params,
@@ -67,6 +68,7 @@ export default async function AccountPage({
               priceLabel={priceLabel}
               freeMonths={account.freeMonthsGranted}
               hasCustomer={Boolean(account.stripeCustomerId)}
+              testMode={isTestActivationEnabled()}
             />
 
             <ReferralPanel

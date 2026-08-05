@@ -4,6 +4,7 @@ import { useActionState } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import { CreditCard, ExternalLink } from "lucide-react";
 import {
+  activateWithoutPaymentAction,
   openBillingPortalAction,
   startCheckoutAction,
 } from "@/app/actions/billing";
@@ -16,12 +17,15 @@ export function BillingPanel({
   priceLabel,
   freeMonths,
   hasCustomer,
+  testMode = false,
 }: {
   status: AccountStatus;
   planLabel: string | null;
   priceLabel: string | null;
   freeMonths: number;
   hasCustomer: boolean;
+  /** Stripe is unconfigured and the test bypass is on — see lib/billing/testMode. */
+  testMode?: boolean;
 }) {
   const t = useTranslations("account");
   const locale = useLocale();
@@ -34,6 +38,10 @@ export function BillingPanel({
     FormState,
     FormData
   >(openBillingPortalAction, undefined);
+  const [testState, testAction, activatingTest] = useActionState<
+    FormState,
+    FormData
+  >(activateWithoutPaymentAction, undefined);
 
   const needsPayment = status === "awaiting_payment" || status === "canceled";
 
@@ -65,7 +73,31 @@ export function BillingPanel({
         </p>
       )}
 
-      {needsPayment ? (
+      {needsPayment && testMode ? (
+        /* Stripe is unconfigured, so the real checkout button could only ever
+           return "not configured". Offer the thing that works instead, labelled
+           so nobody mistakes it for a payment. */
+        <form action={testAction} className="mt-5">
+          <input type="hidden" name="locale" value={locale} />
+          <FormAlert
+            message={
+              testState?.message
+                ? t(`billing.errors.${testState.message}`)
+                : undefined
+            }
+          />
+          <button
+            type="submit"
+            disabled={activatingTest}
+            className="btn btn-primary w-full py-2.5 text-[14px]"
+          >
+            {activatingTest ? t("billing.working") : t("billing.testActivate")}
+          </button>
+          <p className="mt-3 text-center text-[12px] leading-[1.6] text-ink-faint">
+            {t("billing.testNote")}
+          </p>
+        </form>
+      ) : needsPayment ? (
         <form action={checkoutAction} className="mt-5">
           <input type="hidden" name="locale" value={locale} />
           <FormAlert

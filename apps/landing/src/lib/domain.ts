@@ -390,5 +390,8 @@ export type FormState =
       errors?: Record<string, string[] | undefined>;
       message?: string;
       ok?: boolean;
+      /* Set only by admin approval, and only while no mail provider is
+         configured — see approveApplicationAction. */
+      activationUrl?: string;
     }
   | undefined;
