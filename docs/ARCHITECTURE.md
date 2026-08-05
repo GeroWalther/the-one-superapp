@@ -225,17 +225,27 @@ visible "not configured" errors rather than silent failure.
 
 ## 9. Build phases
 
-| Phase | Delivers |
-|---|---|
-| 0 | This document, shared types, application schemas, mailer, rate limiting |
-| 1 | Member + partner intake forms, blocklist enforcement, confirmation email |
-| 2 | Admin dashboard, approve/decline, partner tiering, audit log, admin invitations |
-| 3 | Activation tokens, credential setup, login by username/email, password reset |
-| 4 | Stripe checkout, webhooks, billing portal, free-month entitlements |
-| 5 | Mobile REST API |
-| 6 | AI assistant with tool use |
-| 7 | iOS app |
-| 8 | Deploy and verify |
+All eight phases are built. Each was verified against a live database before
+the next began.
+
+| Phase | Delivers | Verified by |
+|---|---|---|
+| 0 | This document, domain model, mailer, rate limiting | unit checks on schemas and referral maths |
+| 1 | Member + partner intake, blocklist, confirmation email | 37 browser checks |
+| 2 | Admin dashboard, approve/decline, tiering, audit log, invitations | 35 browser checks |
+| 3 | Activation tokens, credential setup, password reset | 27 browser checks |
+| 4 | Stripe checkout, webhooks, portal, referral rewards | 27 checks on signed webhooks |
+| 5 | Mobile REST API | 36 API checks |
+| 6 | AI assistant with tool use | structural; live responses need a key |
+| 7 | iOS app | 2 XCUITests against the real API |
+| 8 | Deploy | production smoke checks |
+
+### What is not verifiable without keys
+
+Live Stripe charges, real email delivery, and actual Claude responses cannot be
+exercised here. The code paths around them are tested — signed webhooks, the
+mailer interface, the assistant's SSE envelope and tool loop — but the calls to
+those vendors themselves are not.
 
 ---
 
@@ -243,7 +253,11 @@ visible "not configured" errors rather than silent failure.
 
 Deliberately not built yet, and worth tracking:
 
-- **Push notifications** for chat need an Apple Developer account and APNs keys.
+- **Push notifications** for chat need an Apple Developer account and APNs
+  keys. Chat currently loads on view and on pull-to-refresh.
+- **Partner profile editing.** Listings are generated from the intake form at
+  activation; partners cannot yet edit them or upload images.
+- **Admin invitation reminders.** An unredeemed invitation simply expires.
 - **GDPR.** This platform stores health-adjacent personal data about EU
   residents. A real privacy policy, a data-export path, and a deletion path are
   legal requirements before launch — the footer links are still placeholders.
