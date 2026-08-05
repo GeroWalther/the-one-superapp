@@ -1,22 +1,31 @@
 import type { Metadata } from "next";
 import { NextIntlClientProvider, hasLocale } from "next-intl";
 import { notFound } from "next/navigation";
-import { Cormorant_Garamond } from "next/font/google";
+import { Cormorant_Garamond, Inter } from "next/font/google";
 import { routing } from "@/i18n/routing";
+import { ScrollReveal } from "@/components/ScrollReveal";
 import "../globals.css";
 
+/* Display face — used for headlines and the wordmark. */
 const cormorant = Cormorant_Garamond({
   subsets: ["latin"],
-  variable: "--font-sans",
+  variable: "--font-display",
   display: "swap",
   style: ["normal", "italic"],
   weight: ["300", "400", "500", "600", "700"],
 });
 
+/* UI face — everything else. Serif body copy at 13px was hurting legibility. */
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-sans",
+  display: "swap",
+});
+
 export const metadata: Metadata = {
-  title: "TheONE - Die Premium Super App",
+  title: "TheONE — The Premium Super App",
   description:
-    "Die Premium Super App für fundierte Entscheidungen & kuratierte Verbindungen",
+    "A private decision infrastructure for health, longevity, wealth and lifestyle. Access by application only.",
 };
 
 export default async function LocaleLayout({
@@ -37,12 +46,20 @@ export default async function LocaleLayout({
   return (
     <html
       lang={locale}
-      className={`${cormorant.variable} h-full antialiased`}
-      style={{ colorScheme: "light" }}
+      className={`${cormorant.variable} ${inter.variable} h-full antialiased`}
+      style={{ colorScheme: "dark" }}
     >
-      <body className="min-h-full flex flex-col font-sans bg-white text-[#1a1a2e]">
+      <head>
+        {/* Without JS the reveal observer never runs, which would leave every
+            `[data-reveal]` section stuck at opacity 0. */}
+        <noscript>
+          <style>{`[data-reveal]{opacity:1!important;transform:none!important}`}</style>
+        </noscript>
+      </head>
+      <body className="min-h-full flex flex-col bg-ink-900 font-sans text-mist">
         <NextIntlClientProvider locale={locale} messages={messages}>
           {children}
+          <ScrollReveal />
         </NextIntlClientProvider>
       </body>
     </html>

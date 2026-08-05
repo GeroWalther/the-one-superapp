@@ -1,44 +1,192 @@
 {
   "nav": {
-    "features": "Features",
+    "philosophy": "Philosophie",
+    "inside": "Innen",
     "about": "Über uns",
-    "joinNow": "Zugang zur Bewerbung",
-    "download": "Download"
+    "overview": "Überblick",
+    "services": "Services",
+    "joinNow": "Zugang beantragen",
+    "login": "Mitglieder-Login",
+    "logout": "Abmelden",
+    "menu": "Menü"
   },
   "hero": {
-    "title": "Die Premium Super App",
-    "titleHighlight": "für Ihr Leben",
-    "subtitle": "für fundierte Entscheidungen & kuratierte Verbindungen",
+    "eyebrow": "Nur auf Bewerbung",
+    "titleLine1": "Die Premium Super App",
+    "titleAccent": "für Ihr Leben",
+    "subtitle": "Eine private Infrastruktur für die Entscheidungen, auf die es wirklich ankommt — Gesundheit, Longevity, Vermögen, Immobilien und Lifestyle. Kuratiert, diskret und nicht öffentlich zugänglich.",
     "clarity": "Clarity before decisions.",
-    "cta": "Zugang zur Bewerbung"
+    "cta": "Zugang beantragen",
+    "ctaSecondary": "Mitglieder-Login",
+    "stat1Value": "7",
+    "stat1Label": "Kuratierte Bereiche",
+    "stat2Value": "100%",
+    "stat2Label": "Geprüfte Partner",
+    "stat3Value": "24/7",
+    "stat3Label": "KI-Entscheidungshilfe"
   },
-  "join": {
-    "title": "Jetzt bewerben",
-    "tagline": "Qualität vor Quantität",
-    "memberHeading": "Mitglied Bewerbung",
-    "partnerHeading": "Partner / Unternehmen Bewerbung",
-    "name": "Name",
-    "email": "E-Mail",
-    "phone": "Telefon",
-    "country": "Land",
-    "message": "Nachricht (optional)",
-    "companyBrand": "Unternehmen & Brand Daten",
-    "officeAddress": "Office Adresse",
-    "ownerName": "Eigentümer Name",
-    "contactPerson": "Ansprechpartner",
-    "partnerArea": "Partnerbereich",
-    "shortDescription": "Kurzbeschreibung",
-    "expectations": "Welche Erwartungen haben Sie an TheONE SUPER APP?",
-    "role": "Ich bin",
-    "member": "Mitglied",
-    "partner": "Partner",
-    "submit": "Bewerbung absenden"
+  "pillars": {
+    "eyebrow": "Die Architektur",
+    "title": "Drei Ebenen. <em>Eine</em> Entscheidung.",
+    "subtitle": "Jeder Teil von TheONE existiert, um Rauschen aus einer Entscheidung zu nehmen, die Sie nur einmal treffen.",
+    "decisionTitle": "Entscheidung",
+    "decisionDesc": "Power-AI, die Ihre Optionen gegen geprüfte Daten abwägt — nicht gegen Werbung.",
+    "connectionTitle": "Verbindung",
+    "connectionDesc": "Verschlüsselte Kommunikation und ein kuratiertes Netzwerk aus Häusern, Kliniken und Experten.",
+    "transactionTitle": "Transaktion",
+    "transactionDesc": "TheONE Pay schließt den Kreis — buchen, bezahlen und dokumentieren an einem Ort."
+  },
+  "teaser": {
+    "eyebrow": "Nur für Mitglieder",
+    "title": "Was <em>hinter</em> der Tür liegt",
+    "subtitle": "Sieben kuratierte Bereiche, Haus für Haus geprüft. Sichtbar für Mitglieder.",
+    "locked": "Gesperrt",
+    "unlockTitle": "Das gesamte Ökosystem freischalten",
+    "unlockBody": "Beantworten Sie einige kurze Fragen und Ihr Zugang öffnet sich sofort.",
+    "unlockCta": "Bewerbung starten",
+    "haveAccount": "Bereits Mitglied?",
+    "signIn": "Anmelden"
+  },
+  "philosophy": {
+    "eyebrow": "Unsere Philosophie",
+    "quote": "Wir bauen keine weitere Listing-Plattform. TheONE ist eine Decision Infrastructure — eine kuratierte Schicht zwischen Ihnen und den wichtigsten Entscheidungen Ihres Lebens.",
+    "attribution": "TheONE — Qualität vor Quantität",
+    "point1Title": "Keine Werbung",
+    "point1Desc": "Niemand kauft sich nach oben. Platzierung wird durch Prüfung verdient.",
+    "point2Title": "Keine Rankings",
+    "point2Desc": "Wir passen zu Ihrer Situation, nicht zu einer Rangliste für jemand anderen.",
+    "point3Title": "Keine Preisgabe",
+    "point3Desc": "Ihre Anfragen bleiben privat. Partner sehen nur, was Sie teilen möchten."
+  },
+  "enroll": {
+    "eyebrow": "Mitgliedschaftsbewerbung",
+    "title": "Beantragen Sie Ihren Zugang",
+    "subtitle": "Vier kurze Schritte. Ihr Zugang öffnet sich, sobald Sie fertig sind.",
+    "stepLabel": "Schritt {current} von {total}",
+    "step1Title": "Ihre Identität",
+    "step1Desc": "So wird der Concierge Sie ansprechen.",
+    "step2Title": "Ihr Profil",
+    "step2Desc": "Sagen Sie uns, wie Sie TheONE nutzen möchten.",
+    "step3Title": "Ihr Fokus",
+    "step3Desc": "Damit wir die richtigen Häuser zuerst zeigen.",
+    "step4Title": "Ihr Zeitrahmen",
+    "step4Desc": "Zwei letzte Fragen, dann sind Sie drin.",
+    "fullName": "Vollständiger Name",
+    "fullNamePlaceholder": "Alexandra Reinhardt",
+    "email": "E-Mail-Adresse",
+    "emailPlaceholder": "sie@beispiel.de",
+    "password": "Passwort",
+    "passwordPlaceholder": "Mindestens 8 Zeichen",
+    "passwordHint": "Mindestens 8 Zeichen, davon ein Buchstabe und eine Ziffer.",
+    "showPassword": "Passwort anzeigen",
+    "hidePassword": "Passwort verbergen",
+    "roleQuestion": "Wie möchten Sie TheONE beitreten?",
+    "roleMember": "Als Mitglied",
+    "roleMemberDesc": "Ich suche Klarheit und Zugang für mich selbst.",
+    "rolePartner": "Als Partner",
+    "rolePartnerDesc": "Ich vertrete ein Haus, eine Klinik, ein Resort oder eine Praxis.",
+    "country": "Wohnsitzland",
+    "countryPlaceholder": "Schweiz",
+    "focusQuestion": "Welche Bereiche sind Ihnen aktuell am wichtigsten?",
+    "focusHint": "Mehrfachauswahl möglich.",
+    "goalQuestion": "Was führt Sie zu TheONE?",
+    "horizonQuestion": "Wann möchten Sie handeln?",
+    "referralQuestion": "Wie haben Sie uns gefunden?",
+    "note": "Sollten wir etwas wissen? (optional)",
+    "notePlaceholder": "Eine Entscheidung, die Sie abwägen, ein Spezialist, den Sie suchen…",
+    "consent": "Ich bin einverstanden, dass TheONE meine Antworten speichert, um meinen Zugang zu kuratieren.",
+    "back": "Zurück",
+    "continue": "Weiter",
+    "submit": "Anmeldung abschließen",
+    "submitting": "Zugang wird erstellt…",
+    "haveAccount": "Bereits Mitglied?",
+    "signIn": "Anmelden",
+    "options": {
+      "focus": {
+        "health": "Health & Longevity",
+        "hotels": "Luxushotels",
+        "property": "Immobilien",
+        "lifestyle": "Lifestyle & Reisen",
+        "beauty": "Beauty & Skincare",
+        "wellness": "Wellness Resorts",
+        "insurance": "Versicherungen"
+      },
+      "goal": {
+        "clarity": "Klarheit vor einer konkreten Entscheidung",
+        "access": "Zugang zu geprüften Spezialisten",
+        "longevity": "Ein langfristiger Longevity-Plan",
+        "network": "Kuratierte Verbindungen"
+      },
+      "horizon": {
+        "now": "In den nächsten Wochen",
+        "quarter": "In drei bis sechs Monaten",
+        "year": "Irgendwann dieses Jahr",
+        "exploring": "Ich orientiere mich noch"
+      },
+      "referral": {
+        "invitation": "Eine persönliche Einladung",
+        "member": "Ein bestehendes Mitglied",
+        "press": "Presse oder eine Veranstaltung",
+        "search": "Suchmaschine",
+        "social": "Social Media",
+        "other": "Woanders"
+      }
+    },
+    "errors": {
+      "nameShort": "Bitte geben Sie Ihren vollständigen Namen an.",
+      "emailInvalid": "Bitte geben Sie eine gültige E-Mail-Adresse an.",
+      "emailTaken": "Mit dieser E-Mail-Adresse besteht bereits ein Konto.",
+      "passwordLength": "Verwenden Sie mindestens 8 Zeichen.",
+      "passwordLetter": "Fügen Sie mindestens einen Buchstaben hinzu.",
+      "passwordNumber": "Fügen Sie mindestens eine Ziffer hinzu.",
+      "roleRequired": "Bitte wählen Sie, wie Sie beitreten möchten.",
+      "countryRequired": "Bitte geben Sie Ihr Land an.",
+      "focusRequired": "Wählen Sie mindestens einen Bereich.",
+      "goalRequired": "Bitte wählen Sie eine Option.",
+      "horizonRequired": "Bitte wählen Sie eine Option.",
+      "referralRequired": "Bitte wählen Sie eine Option.",
+      "consentRequired": "Bitte stimmen Sie zu, um fortzufahren.",
+      "serverError": "Auf unserer Seite ist etwas schiefgelaufen. Bitte versuchen Sie es erneut."
+    }
+  },
+  "login": {
+    "eyebrow": "Mitglieder",
+    "title": "Willkommen zurück",
+    "subtitle": "Melden Sie sich an, um Ihre Decision Infrastructure zu öffnen.",
+    "email": "E-Mail-Adresse",
+    "emailPlaceholder": "sie@beispiel.de",
+    "password": "Passwort",
+    "passwordPlaceholder": "Ihr Passwort",
+    "submit": "Anmelden",
+    "submitting": "Anmeldung läuft…",
+    "noAccount": "Noch kein Mitglied?",
+    "apply": "Zugang beantragen",
+    "errors": {
+      "emailInvalid": "Bitte geben Sie eine gültige E-Mail-Adresse an.",
+      "passwordRequired": "Bitte geben Sie Ihr Passwort ein.",
+      "invalidCredentials": "Diese Zugangsdaten passen zu keinem Konto.",
+      "serverError": "Auf unserer Seite ist etwas schiefgelaufen. Bitte versuchen Sie es erneut."
+    }
+  },
+  "members": {
+    "eyebrow": "Ihr Zugang ist offen",
+    "greeting": "Willkommen, <accent>{name}</accent>",
+    "subtitle": "Ihre Infrastruktur ist auf die von Ihnen gewählten Bereiche ausgerichtet. Alles unten ist freigeschaltet.",
+    "roleMember": "Mitglied",
+    "rolePartner": "Partner",
+    "memberSince": "Mitglied seit {date}",
+    "yourFocus": "Ihr Fokus",
+    "yourGoal": "Ihr Ziel",
+    "yourHorizon": "Ihr Zeitrahmen",
+    "exploreTitle": "Ihre Bereiche entdecken",
+    "exploreSubtitle": "Jedes Haus unten hat unseren Prüfprozess durchlaufen."
   },
   "about": {
     "title": "Was ist TheONE",
     "description": "TheONE ist eine <strong>Decision Infrastructure</strong>, die Menschen, Partner und Services verbindet, um fundierte Entscheidungen zu ermöglichen."
   },
   "aboutPage": {
+    "eyebrow": "Über uns",
     "title": "Über TheONE",
     "tagline": "Qualität vor Quantität.",
     "intro": "TheONE ist eine einzigartige SUPER APP mit Power-AI-Unterstützung und einer unabhängigen Decision Infrastructure für Premium Services, Longevity, Health, Insurance, Real Estate, Beauty, Wellness Resorts, Hotels, High-End-Clinics und Lifestyle.",
@@ -67,6 +215,7 @@
     "insurance": "Insurance"
   },
   "benefits": {
+    "eyebrow": "Warum Mitglieder bleiben",
     "title": "<em>Exklusive</em> <strong>Vorteile</strong> <em>&</em> <strong>Services</strong>",
     "subtitle": "Optimieren Sie Ihre Gesundheit und verlängern Sie Ihr Leben.",
     "exclusiveAccess": "Exklusiver Zugang",
@@ -79,8 +228,6 @@
   "cta": {
     "discover": "Entdecken Sie Health <em>&</em> Longevity",
     "discoverSub": "Starten Sie jetzt in eine neue Ära.",
-    "partner": "Partner werden",
-    "member": "Mitglied beitreten",
     "secure": "100% Sicher",
     "discreet": "Diskret",
     "trustworthy": "Vertrauenswürdig"
@@ -89,6 +236,7 @@
     "copyright": "© 2025 The One App",
     "privacy": "Datenschutz",
     "imprint": "Impressum",
-    "waitlistNote": "Zugang aktuell nur über Warteliste und Einladung."
+    "secure": "100% Sicher",
+    "waitlistNote": "Zugang aktuell nur über Bewerbung und Einladung."
   }
 }

@@ -1,19 +1,37 @@
-import { Header } from "@/components/Header";
+import { redirect } from "next/navigation";
+import { SiteHeader } from "@/components/SiteHeader";
 import { HeroSection } from "@/components/HeroSection";
-import { BenefitsSection } from "@/components/BenefitsSection";
-import { GalleryCtaSection } from "@/components/GalleryCtaSection";
-import { Mockup2Section } from "@/components/Mockup2Section";
+import { PillarsSection } from "@/components/PillarsSection";
+import { LockedPreviewSection } from "@/components/LockedPreviewSection";
+import { PhilosophySection } from "@/components/PhilosophySection";
 import { Footer } from "@/components/Footer";
+import { getCurrentMember } from "@/lib/dal";
 
-export default function HomePage() {
+/**
+ * The public teaser. Members never land here — the proxy redirects them, and
+ * this second check covers the case where the cookie is valid but the account
+ * behind it has changed.
+ */
+export default async function HomePage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  const member = await getCurrentMember();
+
+  if (member) {
+    redirect(`/${locale}/members`);
+  }
+
   return (
     <>
-      <Header />
+      <SiteHeader />
       <main className="flex-1">
         <HeroSection />
-        <BenefitsSection />
-        <GalleryCtaSection />
-        <Mockup2Section />
+        <PillarsSection />
+        <LockedPreviewSection />
+        <PhilosophySection />
       </main>
       <Footer />
     </>

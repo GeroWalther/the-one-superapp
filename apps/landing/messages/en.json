@@ -1,44 +1,192 @@
 {
   "nav": {
-    "features": "Features",
+    "philosophy": "Philosophy",
+    "inside": "Inside",
     "about": "About",
+    "overview": "Overview",
+    "services": "Services",
     "joinNow": "Apply for Access",
-    "download": "Download"
+    "login": "Member Login",
+    "logout": "Sign out",
+    "menu": "Menu"
   },
   "hero": {
-    "title": "The Premium Super App",
-    "titleHighlight": "for Your Life",
-    "subtitle": "for informed decisions & curated connections",
+    "eyebrow": "By application only",
+    "titleLine1": "The Premium Super App",
+    "titleAccent": "for Your Life",
+    "subtitle": "One private infrastructure for the decisions that actually matter — health, longevity, wealth, property and lifestyle. Curated, discreet, and closed to the public.",
     "clarity": "Clarity before decisions.",
-    "cta": "Apply for Access"
+    "cta": "Apply for Access",
+    "ctaSecondary": "Member Login",
+    "stat1Value": "7",
+    "stat1Label": "Curated verticals",
+    "stat2Value": "100%",
+    "stat2Label": "Vetted partners",
+    "stat3Value": "24/7",
+    "stat3Label": "AI decision support"
   },
-  "join": {
-    "title": "Apply Now",
-    "tagline": "Quality before quantity",
-    "memberHeading": "Member Application",
-    "partnerHeading": "Partner / Company Application",
-    "name": "Name",
-    "email": "Email",
-    "phone": "Phone",
-    "country": "Country",
-    "message": "Message (optional)",
-    "companyBrand": "Company & Brand Details",
-    "officeAddress": "Office Address",
-    "ownerName": "Owner Name",
-    "contactPerson": "Contact Person",
-    "partnerArea": "Partner Category",
-    "shortDescription": "Short Description",
-    "expectations": "What are your expectations for TheONE SUPER APP?",
-    "role": "I am a",
-    "member": "Member",
-    "partner": "Partner",
-    "submit": "Submit Application"
+  "pillars": {
+    "eyebrow": "The architecture",
+    "title": "Three layers. <em>One</em> decision.",
+    "subtitle": "Every part of TheONE exists to remove noise from a choice you only make once.",
+    "decisionTitle": "Decision",
+    "decisionDesc": "Power-AI that weighs your options against verified data — not advertising.",
+    "connectionTitle": "Connection",
+    "connectionDesc": "Encrypted messaging and a curated network of houses, clinics and experts.",
+    "transactionTitle": "Transaction",
+    "transactionDesc": "TheONE Pay closes the loop — book, settle and document in one place."
+  },
+  "teaser": {
+    "eyebrow": "Members only",
+    "title": "What lives <em>behind</em> the door",
+    "subtitle": "Seven curated verticals, each one vetted house by house. Visible to members.",
+    "locked": "Locked",
+    "unlockTitle": "Unlock the full ecosystem",
+    "unlockBody": "Answer a handful of short questions and your access opens immediately.",
+    "unlockCta": "Begin your application",
+    "haveAccount": "Already a member?",
+    "signIn": "Sign in"
+  },
+  "philosophy": {
+    "eyebrow": "Our philosophy",
+    "quote": "We are not building another listing platform. TheONE is a decision infrastructure — a curated layer between you and the most important choices of your life.",
+    "attribution": "TheONE — Quality before quantity",
+    "point1Title": "No advertising",
+    "point1Desc": "Nobody buys their way to the top. Placement is earned through verification.",
+    "point2Title": "No rankings",
+    "point2Desc": "We match to your situation, not to a leaderboard built for someone else.",
+    "point3Title": "No exposure",
+    "point3Desc": "Your enquiries stay private. Partners see only what you choose to share."
+  },
+  "enroll": {
+    "eyebrow": "Membership application",
+    "title": "Request your access",
+    "subtitle": "Four short steps. Your access opens the moment you finish.",
+    "stepLabel": "Step {current} of {total}",
+    "step1Title": "Your identity",
+    "step1Desc": "This is how the concierge will address you.",
+    "step2Title": "Your profile",
+    "step2Desc": "Tell us how you intend to use TheONE.",
+    "step3Title": "Your focus",
+    "step3Desc": "So we surface the right houses first.",
+    "step4Title": "Your timing",
+    "step4Desc": "Two last questions, then you are in.",
+    "fullName": "Full name",
+    "fullNamePlaceholder": "Alexandra Reinhardt",
+    "email": "Email address",
+    "emailPlaceholder": "you@example.com",
+    "password": "Password",
+    "passwordPlaceholder": "At least 8 characters",
+    "passwordHint": "Minimum 8 characters, including a letter and a number.",
+    "showPassword": "Show password",
+    "hidePassword": "Hide password",
+    "roleQuestion": "How would you join TheONE?",
+    "roleMember": "As a member",
+    "roleMemberDesc": "I am looking for clarity and access for myself.",
+    "rolePartner": "As a partner",
+    "rolePartnerDesc": "I represent a house, clinic, resort or practice.",
+    "country": "Country of residence",
+    "countryPlaceholder": "Switzerland",
+    "focusQuestion": "Which areas matter most to you right now?",
+    "focusHint": "Select all that apply.",
+    "goalQuestion": "What brings you to TheONE?",
+    "horizonQuestion": "When are you looking to act?",
+    "referralQuestion": "How did you find us?",
+    "note": "Anything we should know? (optional)",
+    "notePlaceholder": "A decision you are weighing, a specialist you are looking for…",
+    "consent": "I agree that TheONE may store my answers to curate my access.",
+    "back": "Back",
+    "continue": "Continue",
+    "submit": "Complete enrolment",
+    "submitting": "Creating your access…",
+    "haveAccount": "Already a member?",
+    "signIn": "Sign in",
+    "options": {
+      "focus": {
+        "health": "Health & Longevity",
+        "hotels": "Luxury Hotels",
+        "property": "Real Estate",
+        "lifestyle": "Lifestyle & Travel",
+        "beauty": "Beauty & Skincare",
+        "wellness": "Wellness Resorts",
+        "insurance": "Insurance"
+      },
+      "goal": {
+        "clarity": "Clarity before a specific decision",
+        "access": "Access to vetted specialists",
+        "longevity": "A long-term longevity plan",
+        "network": "Curated connections"
+      },
+      "horizon": {
+        "now": "Within the next weeks",
+        "quarter": "In three to six months",
+        "year": "Sometime this year",
+        "exploring": "Still exploring"
+      },
+      "referral": {
+        "invitation": "A personal invitation",
+        "member": "An existing member",
+        "press": "Press or an event",
+        "search": "Search",
+        "social": "Social media",
+        "other": "Somewhere else"
+      }
+    },
+    "errors": {
+      "nameShort": "Please enter your full name.",
+      "emailInvalid": "Please enter a valid email address.",
+      "emailTaken": "An account with this email already exists.",
+      "passwordLength": "Use at least 8 characters.",
+      "passwordLetter": "Include at least one letter.",
+      "passwordNumber": "Include at least one number.",
+      "roleRequired": "Please choose how you would join.",
+      "countryRequired": "Please enter your country.",
+      "focusRequired": "Choose at least one area.",
+      "goalRequired": "Please pick one.",
+      "horizonRequired": "Please pick one.",
+      "referralRequired": "Please pick one.",
+      "consentRequired": "Please accept to continue.",
+      "serverError": "Something went wrong on our side. Please try again."
+    }
+  },
+  "login": {
+    "eyebrow": "Members",
+    "title": "Welcome back",
+    "subtitle": "Sign in to open your decision infrastructure.",
+    "email": "Email address",
+    "emailPlaceholder": "you@example.com",
+    "password": "Password",
+    "passwordPlaceholder": "Your password",
+    "submit": "Sign in",
+    "submitting": "Signing in…",
+    "noAccount": "Not a member yet?",
+    "apply": "Apply for access",
+    "errors": {
+      "emailInvalid": "Please enter a valid email address.",
+      "passwordRequired": "Please enter your password.",
+      "invalidCredentials": "Those credentials do not match an account.",
+      "serverError": "Something went wrong on our side. Please try again."
+    }
+  },
+  "members": {
+    "eyebrow": "Your access is open",
+    "greeting": "Welcome, <accent>{name}</accent>",
+    "subtitle": "Your infrastructure is configured around the areas you selected. Everything below is unlocked.",
+    "roleMember": "Member",
+    "rolePartner": "Partner",
+    "memberSince": "Member since {date}",
+    "yourFocus": "Your focus",
+    "yourGoal": "Your goal",
+    "yourHorizon": "Your timing",
+    "exploreTitle": "Explore your verticals",
+    "exploreSubtitle": "Every house below has passed our verification process."
   },
   "about": {
     "title": "What is TheONE",
     "description": "TheONE is a <strong>Decision Infrastructure</strong> that connects people, partners, and services to enable informed decisions."
   },
   "aboutPage": {
+    "eyebrow": "About",
     "title": "About TheONE",
     "tagline": "Quality before quantity.",
     "intro": "TheONE is a unique SUPER APP with Power-AI support and an independent Decision Infrastructure for Premium Services, Longevity, Health, Insurance, Real Estate, Beauty, Wellness Resorts, Hotels, high-end clinics and Lifestyle.",
@@ -67,6 +215,7 @@
     "insurance": "Insurance"
   },
   "benefits": {
+    "eyebrow": "Why members stay",
     "title": "<em>Exclusive</em> <strong>Benefits</strong> <em>&</em> <strong>Services</strong>",
     "subtitle": "Optimize your health and extend your life.",
     "exclusiveAccess": "Exclusive Access",
@@ -79,16 +228,15 @@
   "cta": {
     "discover": "Discover Health <em>&</em> Longevity",
     "discoverSub": "Start a new era today.",
-    "partner": "Become a Partner",
-    "member": "Join as Member",
     "secure": "100% Secure",
     "discreet": "Discreet",
     "trustworthy": "Trustworthy"
   },
   "footer": {
-    "copyright": "\u00a9 2025 The One App",
+    "copyright": "© 2025 The One App",
     "privacy": "Privacy Policy",
     "imprint": "Imprint",
-    "waitlistNote": "Access currently only via waitlist and invitation."
+    "secure": "100% Secure",
+    "waitlistNote": "Access currently only via application and invitation."
   }
 }
