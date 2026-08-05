@@ -431,5 +431,71 @@
       "alreadyInvited": "That address already has an open invitation.",
       "serverError": "Something went wrong on our side. Please try again."
     }
+  },
+  "activate": {
+    "eyebrow": "Set up your access",
+    "title": "Choose your credentials",
+    "subtitle": "One last step before payment. These are the details you will use to sign in, here and in the app.",
+    "forEmail": "Setting up access for",
+    "freeMonths": "Your first {months} months are free. Billing starts after that.",
+    "username": "Username",
+    "usernameHint": "3–24 characters: letters, numbers, underscore, or dot.",
+    "password": "Password",
+    "ruleLength": "At least 10 characters",
+    "ruleLower": "A lowercase letter",
+    "ruleUpper": "An uppercase letter",
+    "ruleNumber": "A number",
+    "submit": "Create my access",
+    "submitting": "Creating your access…",
+    "invalidTitle": "This link is no longer valid",
+    "invalidBody": "Activation links can be used once and expire after 14 days. If you have already set up your access, sign in instead. Otherwise, contact us and we will send a fresh link.",
+    "errors": {
+      "usernameLength": "Use between 3 and 24 characters.",
+      "usernameChars": "Only letters, numbers, underscore, and dot.",
+      "usernameTaken": "That username is already taken. Please choose another.",
+      "passwordLength": "Use at least 10 characters.",
+      "passwordLower": "Include a lowercase letter.",
+      "passwordUpper": "Include an uppercase letter.",
+      "passwordNumber": "Include a number.",
+      "linkInvalid": "This activation link is no longer valid.",
+      "alreadyActivated": "An account already exists for this address. Try signing in.",
+      "serverError": "Something went wrong on our side. Please try again."
+    }
+  },
+  "forgotPassword": {
+    "eyebrow": "Password",
+    "title": "Forgotten your password?",
+    "subtitle": "Enter the email address on your account and we will send you a reset link.",
+    "email": "Email address",
+    "submit": "Send reset link",
+    "submitting": "Sending…",
+    "sentTitle": "Check your inbox",
+    "sentBody": "If that address belongs to an account, a reset link is on its way. It expires in 60 minutes.",
+    "backToLogin": "Back to sign in",
+    "errors": {
+      "emailInvalid": "Please enter a valid email address."
+    }
+  },
+  "resetPassword": {
+    "eyebrow": "Password",
+    "title": "Choose a new password",
+    "subtitle": "Pick something you have not used elsewhere.",
+    "password": "New password",
+    "ruleLength": "At least 10 characters",
+    "ruleLower": "A lowercase letter",
+    "ruleUpper": "An uppercase letter",
+    "ruleNumber": "A number",
+    "submit": "Set new password",
+    "submitting": "Saving…",
+    "invalidTitle": "This link is no longer valid",
+    "invalidBody": "Reset links can be used once and expire after 60 minutes. Request a new one from the sign-in page.",
+    "errors": {
+      "passwordLength": "Use at least 10 characters.",
+      "passwordLower": "Include a lowercase letter.",
+      "passwordUpper": "Include an uppercase letter.",
+      "passwordNumber": "Include a number.",
+      "linkInvalid": "This reset link is no longer valid.",
+      "serverError": "Something went wrong on our side. Please try again."
+    }
   }
 }

@@ -77,6 +77,20 @@ export async function consumeToken(
   return doc ?? null;
 }
 
+/**
+ * Puts a consumed token back into play.
+ *
+ * Activation spends the token before creating the account, because a token
+ * spent twice is worse than one spent zero times. If the account creation then
+ * fails for a recoverable reason — the username was taken in the seconds since
+ * the form loaded — the applicant must not be locked out of their own
+ * invitation, so the token is released for a retry.
+ */
+export async function releaseToken(tokenId: ObjectId): Promise<void> {
+  const collection = await authTokens();
+  await collection.updateOne({ _id: tokenId }, { $set: { usedAt: null } });
+}
+
 /** Invalidates every outstanding token of a purpose — used after a password change. */
 export async function revokeTokensFor(
   accountId: ObjectId,

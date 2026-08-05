@@ -111,6 +111,14 @@ export function LoginForm({ next }: { next?: string }) {
 
       <div className="mt-6 space-y-2 text-center text-[12.5px] text-mist-faint">
         <p>
+          <Link
+            href={`/${locale}/forgot-password`}
+            className="text-gold-300 underline-offset-4 transition-colors hover:text-gold-200 hover:underline"
+          >
+            {t("forgot")}
+          </Link>
+        </p>
+        <p>
           {t("noAccount")}{" "}
           <Link
             href={`/${locale}/enroll`}
