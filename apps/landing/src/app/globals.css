@@ -255,6 +255,60 @@
   box-shadow: 0 18px 40px -22px rgba(43, 52, 64, 0.35);
 }
 
+/**
+ * The application card.
+ *
+ * Borrows the app icon directly: its mint-to-white wash, its teal edge, and its
+ * squircle corner. The form is the one place a visitor commits to something, so
+ * it should look like the product they are committing to rather than a generic
+ * white panel.
+ */
+.card-brand {
+  position: relative;
+  border-radius: 34px;
+  border: 1px solid var(--aqua-200);
+  background:
+    linear-gradient(180deg, rgba(230, 243, 245, 0.55) 0%, #ffffff 42%),
+    #ffffff;
+  box-shadow:
+    0 1px 2px rgba(43, 52, 64, 0.04),
+    0 24px 60px -28px rgba(34, 126, 137, 0.35);
+}
+
+/* Teal hairline along the top edge, echoing the icon's rim. */
+.card-brand::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 2px;
+  border-radius: 34px 34px 0 0;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--aqua-400) 22%,
+    var(--aqua-500) 50%,
+    var(--aqua-400) 78%,
+    transparent 100%
+  );
+}
+
+/* Same language, one step quieter — for the two choice cards. */
+.card-brand-soft {
+  border-radius: 28px;
+  border: 1px solid var(--aqua-200);
+  background: linear-gradient(180deg, rgba(230, 243, 245, 0.4) 0%, #ffffff 55%), #ffffff;
+  box-shadow: 0 1px 2px rgba(43, 52, 64, 0.04);
+  transition:
+    transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.35s ease;
+}
+.card-brand-soft:hover {
+  transform: translateY(-3px);
+  border-color: var(--aqua-400);
+  box-shadow: 0 20px 44px -24px rgba(34, 126, 137, 0.42);
+}
+
 /* The aqua band used for the pull-quote */
 .band-accent {
   background: linear-gradient(

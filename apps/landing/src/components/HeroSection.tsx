@@ -1,11 +1,10 @@
-import Link from "next/link";
-import { useLocale, useTranslations } from "next-intl";
-import { ArrowRight, ShieldCheck } from "lucide-react";
-import { PhoneMockup } from "./PhoneMockup";
+import Image from "next/image";
+import { useTranslations } from "next-intl";
+import { Building2, ShieldCheck, UserRound } from "lucide-react";
 
 export function HeroSection() {
   const t = useTranslations("hero");
-  const locale = useLocale();
+  const tEnroll = useTranslations("enroll");
 
   const stats = [
     { value: t("stat1Value"), label: t("stat1Label") },
@@ -14,9 +13,8 @@ export function HeroSection() {
   ];
 
   return (
-    <section className="grain relative overflow-hidden pb-24 pt-[132px] sm:pb-28 lg:pb-36 lg:pt-[150px]">
-      <div className="silk">
-      </div>
+    <section className="grain relative overflow-hidden pb-20 pt-[122px] sm:pb-24 lg:pt-[140px]">
+      <div className="silk"></div>
 
       {/* Fine grid, masked to a soft ellipse. Aqua rather than ink — on paper a
           grey grid reads as dirt, a tinted one reads as structure. */}
@@ -33,84 +31,104 @@ export function HeroSection() {
         }}
       />
 
-      <div className="relative mx-auto max-w-6xl px-6 lg:px-8">
-        <div className="flex flex-col items-center gap-16 lg:flex-row lg:items-center lg:gap-10">
-          <div className="max-w-xl flex-1 text-center lg:text-left">
-            <span
-              data-reveal
-              className="inline-flex items-center gap-2 rounded-full border border-aqua-500/25 bg-aqua-500/10 px-3.5 py-1.5"
-            >
-              <span className="pulse-ring block h-1.5 w-1.5 rounded-full bg-aqua-500" />
-              <span className="eyebrow">{t("eyebrow")}</span>
-            </span>
-
-            <h1
-              data-reveal
-              data-reveal-delay="80"
-              className="mt-7 font-display text-[42px] font-light leading-[1.04] tracking-[-0.02em] text-ink sm:text-[56px] lg:text-[64px]"
-            >
-              {t("titleLine1")}
-              <span className="text-accent mt-1 block italic">
-                {t("titleAccent")}
-              </span>
-            </h1>
-
-            <p
-              data-reveal
-              data-reveal-delay="160"
-              className="mx-auto mt-6 max-w-lg text-[15px] leading-[1.75] text-ink-soft lg:mx-0"
-            >
-              {t("subtitle")}
-            </p>
-
+      <div className="relative mx-auto max-w-3xl px-6 text-center lg:px-8">
+        {/* The mark leads. It is the strongest brand asset here, and a visitor
+            who arrives from an ad or an app listing should recognise it before
+            reading a word. */}
+        <div data-reveal className="flex justify-center">
+          <div className="float-slow relative">
             <div
-              data-reveal
-              data-reveal-delay="240"
-              className="mt-9 flex flex-col items-center gap-3 sm:flex-row lg:justify-start"
-            >
-              <Link
-                href={`/${locale}/enroll`}
-                className="btn btn-primary w-full px-7 py-3 text-[15px] sm:w-auto"
-              >
-                {t("cta")}
-                <ArrowRight className="h-4 w-4" strokeWidth={1.8} />
-              </Link>
-              <Link
-                href={`/${locale}#process`}
-                className="btn btn-ghost w-full px-7 py-3 text-[15px] sm:w-auto"
-              >
-                {t("ctaSecondary")}
-              </Link>
-            </div>
-
-            <p
-              data-reveal
-              data-reveal-delay="300"
-              className="mt-6 flex items-center justify-center gap-2 text-[12px] italic text-ink-faint lg:justify-start"
-            >
-              <ShieldCheck
-                className="h-3.5 w-3.5 text-aqua-500"
-                strokeWidth={1.6}
-              />
-              {t("clarity")}
-            </p>
-          </div>
-
-          <div
-            data-reveal
-            data-reveal-delay="200"
-            className="flex flex-1 justify-center lg:justify-end"
-          >
-            <div className="float-slow">
-              <PhoneMockup />
-            </div>
+              aria-hidden="true"
+              className="absolute -inset-8 rounded-full bg-aqua-200/40 blur-3xl"
+            />
+            <Image
+              src="/images/theone-logo.png"
+              alt="TheONE Super App"
+              width={168}
+              height={168}
+              priority
+              className="relative rounded-[34px] shadow-[0_28px_60px_-28px_rgba(34,126,137,0.55)] sm:h-[184px] sm:w-[184px]"
+            />
           </div>
         </div>
 
-        <dl
+        <span
+          data-reveal
+          data-reveal-delay="60"
+          className="mt-9 inline-flex items-center gap-2 rounded-full border border-aqua-500/25 bg-aqua-500/10 px-3.5 py-1.5"
+        >
+          <span className="pulse-ring block h-1.5 w-1.5 rounded-full bg-aqua-500" />
+          <span className="eyebrow">{t("eyebrow")}</span>
+        </span>
+
+        <h1
           data-reveal
           data-reveal-delay="120"
-          className="mt-20 grid grid-cols-3 gap-px overflow-hidden rounded-2xl border border-line bg-line shadow-[0_1px_2px_rgba(43,52,64,.04)] sm:mt-24"
+          className="mt-6 font-display text-[42px] font-light leading-[1.04] tracking-[-0.02em] text-ink sm:text-[56px] lg:text-[62px]"
+        >
+          {t("titleLine1")}
+          <span className="text-accent mt-1 block italic">
+            {t("titleAccent")}
+          </span>
+        </h1>
+
+        <p
+          data-reveal
+          data-reveal-delay="180"
+          className="mx-auto mt-6 max-w-xl text-[15px] leading-[1.75] text-ink-soft"
+        >
+          {t("subtitle")}
+        </p>
+
+        {/* Two doors rather than one. "Apply" alone made a partner wonder
+            whether the platform was for them at all. */}
+        <div
+          data-reveal
+          data-reveal-delay="240"
+          className="mt-10 grid gap-3 sm:grid-cols-2"
+        >
+          <a href="#apply" className="card-brand-soft group flex items-center gap-4 p-5 text-left">
+            <span className="grid h-11 w-11 shrink-0 place-items-center rounded-full border border-aqua-500/25 bg-aqua-500/10">
+              <UserRound className="h-5 w-5 text-aqua-500" strokeWidth={1.4} />
+            </span>
+            <span>
+              <span className="block text-[14.5px] font-semibold text-ink">
+                {tEnroll("chooser.memberTitle")}
+              </span>
+              <span className="mt-0.5 block text-[12px] text-ink-faint">
+                {tEnroll("chooser.memberMeta")}
+              </span>
+            </span>
+          </a>
+
+          <a href="#apply" className="card-brand-soft group flex items-center gap-4 p-5 text-left">
+            <span className="grid h-11 w-11 shrink-0 place-items-center rounded-full border border-aqua-500/25 bg-aqua-500/10">
+              <Building2 className="h-5 w-5 text-aqua-500" strokeWidth={1.4} />
+            </span>
+            <span>
+              <span className="block text-[14.5px] font-semibold text-ink">
+                {tEnroll("chooser.partnerTitle")}
+              </span>
+              <span className="mt-0.5 block text-[12px] text-ink-faint">
+                {tEnroll("chooser.partnerMeta")}
+              </span>
+            </span>
+          </a>
+        </div>
+
+        <p
+          data-reveal
+          data-reveal-delay="300"
+          className="mt-6 flex items-center justify-center gap-2 text-[12px] italic text-ink-faint"
+        >
+          <ShieldCheck className="h-3.5 w-3.5 text-aqua-500" strokeWidth={1.6} />
+          {t("clarity")}
+        </p>
+
+        <dl
+          data-reveal
+          data-reveal-delay="340"
+          className="mt-14 grid grid-cols-3 gap-px overflow-hidden rounded-2xl border border-line bg-line shadow-[0_1px_2px_rgba(43,52,64,.04)]"
         >
           {stats.map((stat) => (
             <div

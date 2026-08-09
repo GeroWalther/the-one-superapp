@@ -4,7 +4,7 @@
     "process": "Ablauf",
     "philosophy": "Philosophie",
     "about": "Über uns",
-    "joinNow": "Zugang beantragen",
+    "joinNow": "Jetzt bewerben",
     "menu": "Menü"
   },
   "hero": {
@@ -12,8 +12,8 @@
     "titleLine1": "Die Premium Super App",
     "titleAccent": "für Ihr Leben",
     "subtitle": "Eine private Infrastruktur für die Entscheidungen, auf die es wirklich ankommt — Gesundheit, Longevity, Vermögen, Immobilien und Lifestyle. Kuratiert, diskret und einzeln geprüft.",
-    "clarity": "Clarity before decisions.",
-    "cta": "Zugang beantragen",
+    "clarity": "Klarheit vor Entscheidungen.",
+    "cta": "Jetzt bewerben",
     "ctaSecondary": "So funktioniert es",
     "stat1Value": "7",
     "stat1Label": "Kuratierte Bereiche",
@@ -61,7 +61,7 @@
     "exclusiveAccess": "Exklusiver Zugang",
     "exclusiveAccessDesc": "Nur für Partner & Mitglieder",
     "innovativeTech": "Innovativste Technologie",
-    "innovativeTechDesc": "Decision Infrastructure & AI",
+    "innovativeTechDesc": "Entscheidungs-Infrastruktur & KI",
     "maxSuccess": "Maximaler Erfolg",
     "maxSuccessDesc": "Optimierte Gesundheit & Erfolg"
   },
@@ -97,7 +97,7 @@
     },
     "chooser": {
       "eyebrow": "Bewerbung um Mitgliedschaft",
-      "title": "Zugang beantragen",
+      "title": "Jetzt bewerben",
       "subtitle": "Zwei Wege hinein. Wählen Sie den, der auf Sie zutrifft.",
       "start": "Bewerbung starten",
       "memberTitle": "Als Mitglied",
@@ -109,7 +109,8 @@
       "process": "Jede Bewerbung wird einzeln geprüft. Sie hören in jedem Fall von uns, meist innerhalb weniger Tage.",
       "inviteAdmin": "Sie wurden von TheONE eingeladen. Ihre ersten {months} Monate sind kostenfrei, und Ihr Zugang öffnet sich, sobald Sie dieses Formular ausfüllen.",
       "inviteReferral": "{name} hat Sie für TheONE vorgeschlagen. Ihre Bewerbung wird dennoch von uns geprüft.",
-      "aMember": "Ein Mitglied"
+      "aMember": "Ein Mitglied",
+      "back": "Anderen Weg wählen"
     },
     "member": {
       "eyebrow": "Mitglieds-Bewerbung",
@@ -277,7 +278,7 @@
     "trustworthy": "Vertrauenswürdig"
   },
   "footer": {
-    "copyright": "© 2025 The One App",
+    "copyright": "© 2026 TheONE Super App",
     "privacy": "Datenschutz",
     "imprint": "Impressum",
     "secure": "100% Sicher",
@@ -296,7 +297,7 @@
     "submitting": "Anmeldung läuft…",
     "forgot": "Passwort vergessen?",
     "noAccount": "Noch kein Mitglied?",
-    "apply": "Zugang beantragen",
+    "apply": "Jetzt bewerben",
     "errors": {
       "identifierRequired": "Bitte geben Sie Benutzernamen oder E-Mail an.",
       "passwordRequired": "Bitte geben Sie Ihr Passwort ein.",

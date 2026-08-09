@@ -126,7 +126,7 @@ export function PartnerEnrollForm({ inviteCode }: { inviteCode?: string }) {
   ];
 
   return (
-    <div className="glass edge-accent w-full rounded-[26px] px-6 py-8 sm:px-9 sm:py-10">
+    <div className="card-brand w-full px-6 py-8 sm:px-9 sm:py-10">
       <StepProgress total={TOTAL_STEPS} current={form.step} />
 
       <p className="mt-4 text-[11px] uppercase tracking-[0.2em] text-ink-faint">

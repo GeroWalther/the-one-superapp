@@ -64,7 +64,7 @@ function layout(options: {
     <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:560px;background:${PANEL};border:1px solid #e2e8ea;border-radius:20px;">
       <tr><td style="padding:36px 34px 34px;">
         <p style="margin:0 0 22px;font-size:19px;letter-spacing:0.02em;color:${INK};">
-          <span style="font-weight:300;">The</span><span style="font-weight:600;color:${ACCENT};">ONE</span>
+          <span style="font-weight:300;">The</span><span style="font-weight:600;color:${ACCENT};">ONE</span><span style="display:block;margin-top:3px;font-size:8px;font-weight:600;letter-spacing:0.3em;text-transform:uppercase;color:${INK_FAINT};">Super App</span>
         </p>
         <p style="margin:0 0 10px;font-size:10px;font-weight:600;letter-spacing:0.3em;text-transform:uppercase;color:${ACCENT};">${escapeHtml(eyebrow)}</p>
         <h1 style="margin:0 0 20px;font-size:26px;line-height:1.25;font-weight:400;color:${INK};">${escapeHtml(heading)}</h1>
@@ -73,7 +73,7 @@ function layout(options: {
         ${foot}
       </td></tr>
     </table>
-    <p style="margin:20px 0 0;font-size:11px;color:${INK_FAINT};">© 2025 The One App</p>
+    <p style="margin:20px 0 0;font-size:11px;color:${INK_FAINT};">© 2026 TheONE Super App</p>
   </td></tr>
 </table>
 </body></html>`;

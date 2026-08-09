@@ -5,6 +5,7 @@ import { ServicesSection } from "@/components/ServicesSection";
 import { ProcessSection } from "@/components/ProcessSection";
 import { BenefitsSection } from "@/components/BenefitsSection";
 import { PhilosophySection } from "@/components/PhilosophySection";
+import { ApplySection } from "@/components/ApplySection";
 import { Footer } from "@/components/Footer";
 
 /**
@@ -23,6 +24,7 @@ export default function HomePage() {
         <ProcessSection />
         <BenefitsSection />
         <PhilosophySection />
+        <ApplySection />
       </main>
       <Footer />
     </>

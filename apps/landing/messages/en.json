@@ -109,7 +109,8 @@
       "process": "Every application is reviewed individually. You will hear from us either way, usually within a few days.",
       "inviteAdmin": "You have been invited by TheONE. Your first {months} months are free, and your access opens as soon as you complete this form.",
       "inviteReferral": "{name} has put you forward for TheONE. Your application will still be reviewed by us.",
-      "aMember": "A member"
+      "aMember": "A member",
+      "back": "Choose a different path"
     },
     "member": {
       "eyebrow": "Member application",
@@ -277,7 +278,7 @@
     "trustworthy": "Trustworthy"
   },
   "footer": {
-    "copyright": "© 2025 The One App",
+    "copyright": "© 2026 TheONE Super App",
     "privacy": "Privacy Policy",
     "imprint": "Imprint",
     "secure": "100% Secure",

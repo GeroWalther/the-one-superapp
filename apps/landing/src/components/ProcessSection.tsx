@@ -64,7 +64,7 @@ export function ProcessSection() {
 
         <div data-reveal className="mt-12 text-center">
           <Link
-            href={`/${locale}/enroll`}
+            href={`/${locale}#apply`}
             className="btn btn-primary px-7 py-3 text-[15px]"
           >
             {t("cta")}
