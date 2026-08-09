@@ -1,5 +1,6 @@
 import { SiteHeader } from "@/components/SiteHeader";
 import { HeroSection } from "@/components/HeroSection";
+import { PositioningSection } from "@/components/PositioningSection";
 import { PillarsSection } from "@/components/PillarsSection";
 import { ServicesSection } from "@/components/ServicesSection";
 import { ProcessSection } from "@/components/ProcessSection";
@@ -19,6 +20,7 @@ export default function HomePage() {
       <SiteHeader />
       <main className="flex-1">
         <HeroSection />
+        <PositioningSection />
         <PillarsSection />
         <ServicesSection />
         <ProcessSection />
