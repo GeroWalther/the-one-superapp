@@ -8,3 +8,7 @@ out
 .DS_Store
 *.tsbuildinfo
 .vercel
+
+# Stray image exports that land in the repo root from macOS drag-and-drop
+/*.png
+/*.jpeg
