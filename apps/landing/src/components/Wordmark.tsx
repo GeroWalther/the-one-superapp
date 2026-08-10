@@ -20,16 +20,19 @@ export function Wordmark({
       className="group inline-flex items-center gap-3"
       aria-label="TheONE Super App"
     >
-      <span className="relative block overflow-hidden rounded-[13px] ring-1 ring-line transition-transform duration-500 group-hover:scale-105">
+      {/* No ring or rounding: the icon supplies its own silhouette, and a
+          rounded-rect outline at a different radius reads as a misfit box. */}
+      <span className="relative block transition-transform duration-500 group-hover:scale-105">
         <Image
           src="/images/theone-logo.png"
           alt=""
           width={compact ? 36 : 44}
           height={compact ? 36 : 44}
           priority
+          // Same reason as the hero: optimising it flattens the alpha to white.
+          unoptimized
           className="block"
         />
-        <span className="pointer-events-none absolute inset-0 bg-gradient-to-tr from-transparent to-aqua-500/15 opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
       </span>
 
       <span className="flex flex-col leading-none">

@@ -47,7 +47,16 @@ export function HeroSection() {
               width={168}
               height={168}
               priority
-              className="relative rounded-[34px] shadow-[0_28px_60px_-28px_rgba(34,126,137,0.55)] sm:h-[184px] sm:w-[184px]"
+              /* Next's image optimiser re-encodes this to a palette PNG whose
+                 transparency the browser does not honour — the squircle comes
+                 back as a white square. Served as-is instead; it is 158 KB and
+                 the only asset that needs this. */
+              unoptimized
+              /* drop-shadow, not shadow: the artwork carries its own squircle
+                 in the alpha channel, and a box-shadow would draw a rectangle
+                 behind it. No rounding here either — clipping to a CSS radius
+                 would fight the curve already in the image. */
+              className="relative drop-shadow-[0_22px_34px_rgba(34,126,137,0.42)] sm:h-[184px] sm:w-[184px]"
             />
           </div>
         </div>
