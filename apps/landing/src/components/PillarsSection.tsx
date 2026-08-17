@@ -24,43 +24,50 @@ export function PillarsSection() {
 
   return (
     <section className="relative py-20 sm:py-24">
-      <div className="mx-auto max-w-5xl px-6 lg:px-8">
-        <div data-reveal className="mx-auto max-w-2xl text-center">
-          <p className="eyebrow">{t("eyebrow")}</p>
-          <h2 className="mt-4 font-display text-[30px] font-light leading-tight text-ink sm:text-[38px]">
-            {t.rich("title", {
-              em: (chunks) => (
-                <em className="text-accent not-italic">{chunks}</em>
-              ),
-            })}
-          </h2>
-          <p className="mt-4 text-[14.5px] leading-[1.75] text-ink-soft">
-            {t("subtitle")}
-          </p>
-        </div>
+      <div className="mx-auto max-w-6xl px-6 lg:px-8">
+        {/* Heading on the left, the three layers stacked to its right. The card
+            chrome is gone: three bordered boxes made these read as options to
+            choose between, when they are one system described in three parts. */}
+        <div className="grid gap-10 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] lg:gap-16">
+          <div data-reveal>
+            <p className="eyebrow">{t("eyebrow")}</p>
+            <h2 className="mt-4 font-display text-[32px] font-light leading-[1.1] text-ink sm:text-[42px]">
+              {t.rich("title", {
+                em: (chunks) => (
+                  <em className="text-accent not-italic">{chunks}</em>
+                ),
+              })}
+            </h2>
+            <p className="mt-5 max-w-sm text-[14.5px] leading-[1.75] text-ink-soft">
+              {t("subtitle")}
+            </p>
+          </div>
 
-        <div className="mt-14 grid gap-4 sm:grid-cols-3">
-          {pillars.map((pillar, index) => (
-            <div
-              key={pillar.title}
-              data-reveal
-              data-reveal-delay={`${index * 110}`}
-              className="glass lift edge-accent rounded-[22px] p-7"
-            >
-              <span className="grid h-11 w-11 place-items-center rounded-full border border-aqua-500/25 bg-aqua-500/10">
-                <pillar.icon
-                  className="h-[19px] w-[19px] text-aqua-500"
-                  strokeWidth={1.4}
-                />
-              </span>
-              <h3 className="mt-5 font-display text-[21px] font-medium text-ink">
-                {pillar.title}
-              </h3>
-              <p className="mt-2.5 text-[13.5px] leading-[1.7] text-ink-soft">
-                {pillar.desc}
-              </p>
-            </div>
-          ))}
+          <dl className="divide-y divide-line border-t border-line">
+            {pillars.map((pillar, index) => (
+              <div
+                key={pillar.title}
+                data-reveal
+                data-reveal-delay={`${index * 100}`}
+                className="group flex gap-5 py-7"
+              >
+                <span className="grid h-11 w-11 shrink-0 place-items-center rounded-full border border-aqua-500/25 bg-aqua-500/10 transition-colors duration-500 group-hover:bg-aqua-500/20">
+                  <pillar.icon
+                    className="h-[19px] w-[19px] text-aqua-500"
+                    strokeWidth={1.4}
+                  />
+                </span>
+                <div>
+                  <dt className="font-display text-[21px] font-medium text-ink">
+                    {pillar.title}
+                  </dt>
+                  <dd className="mt-2 max-w-md text-[13.5px] leading-[1.75] text-ink-soft">
+                    {pillar.desc}
+                  </dd>
+                </div>
+              </div>
+            ))}
+          </dl>
         </div>
       </div>
     </section>
