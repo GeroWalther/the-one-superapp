@@ -12,3 +12,6 @@ out
 # Stray image exports that land in the repo root from macOS drag-and-drop
 /*.png
 /*.jpeg
+
+# Debug screenshot output from ad-hoc e2e scripts
+apps/landing/white/
