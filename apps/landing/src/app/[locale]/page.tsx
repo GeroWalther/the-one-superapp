@@ -1,4 +1,6 @@
 import { SiteHeader } from "@/components/SiteHeader";
+import { PreviewLanding } from "@/components/preview/PreviewLanding";
+import { PreviewDivider } from "@/components/preview/PreviewDivider";
 import { HeroSection } from "@/components/HeroSection";
 import { PositioningSection } from "@/components/PositioningSection";
 import { PillarsSection } from "@/components/PillarsSection";
@@ -19,6 +21,17 @@ export default function HomePage() {
     <>
       <SiteHeader />
       <main className="flex-1">
+        {/* Design comparison. The mockup layout sits above the live page so the
+            two can be judged against each other in one scroll; deleting these
+            three lines removes it entirely. */}
+        {/* pt clears the fixed 74px header, which the live hero handles with
+            its own padding. */}
+        <div className="pt-[74px]">
+          <PreviewDivider label="start" />
+          <PreviewLanding />
+          <PreviewDivider label="end" />
+        </div>
+
         <HeroSection />
         <PositioningSection />
         <PillarsSection />
