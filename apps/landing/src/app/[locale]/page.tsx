@@ -4,6 +4,7 @@ import { PreviewDivider } from "@/components/preview/PreviewDivider";
 import { HeroSection } from "@/components/HeroSection";
 import { HeroFontVariants } from "@/components/HeroFontVariants";
 import { HeroBackgroundVariants } from "@/components/HeroBackgroundVariants";
+import { HeroDesignVariants } from "@/components/HeroDesignVariants";
 import { PositioningSection } from "@/components/PositioningSection";
 import { PillarsSection } from "@/components/PillarsSection";
 import { ServicesSection } from "@/components/ServicesSection";
@@ -27,6 +28,7 @@ export default function HomePage() {
             a typeface has been chosen. */}
         <HeroFontVariants />
         <HeroBackgroundVariants />
+        <HeroDesignVariants />
 
         <HeroSection />
         <PositioningSection />
