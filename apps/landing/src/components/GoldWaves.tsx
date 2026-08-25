@@ -16,23 +16,51 @@ const CX = 1180;
 const CY = 250;
 const ARMS = 20;
 
-/** Plots one spiral arm as an SVG polyline path. */
+/**
+ * Plots one spiral arm as a smooth cubic path.
+ *
+ * The points are sampled off the spiral, then joined with a Catmull-Rom spline
+ * converted to Béziers rather than with straight segments. Straight joins were
+ * the whole problem: every sample became a corner, so each arm read as a run of
+ * short lines hinging at visible angles instead of one continuous curve.
+ *
+ * Catmull-Rom passes exactly through every sampled point, so the curve is still
+ * the spiral — it is only the joins between samples that become smooth.
+ */
 function arm(index: number): string {
   const offset = (index / ARMS) * Math.PI * 2;
-  const points: string[] = [];
+  const pts: [number, number][] = [];
 
-  // Enough turns and reach to run past every edge of the 1440×900 frame.
   for (let t = 0; t <= 15.5; t += 0.14) {
     const r = 26 + 118 * t;
     const theta = t + offset;
-    const x = CX + r * Math.cos(theta);
     // Squashed vertically so the arms stretch top-to-bottom rather than
-    // circling tightly — a true circle would loop inside the frame.
-    const y = CY + r * Math.sin(theta) * 0.82;
-    points.push(`${x.toFixed(1)},${y.toFixed(1)}`);
+    // closing into circles inside the frame.
+    pts.push([CX + r * Math.cos(theta), CY + r * Math.sin(theta) * 0.82]);
   }
 
-  return `M${points.join(" L")}`;
+  const d: string[] = [`M${pts[0][0].toFixed(1)},${pts[0][1].toFixed(1)}`];
+
+  for (let i = 0; i < pts.length - 1; i++) {
+    // Duplicate the ends so the first and last segments curve like the rest.
+    const p0 = pts[i - 1] ?? pts[i];
+    const p1 = pts[i];
+    const p2 = pts[i + 1];
+    const p3 = pts[i + 2] ?? pts[i + 1];
+
+    // Catmull-Rom -> cubic Bézier. The sixth is the standard tension for a
+    // uniform spline; larger overshoots, smaller flattens back toward lines.
+    const c1x = p1[0] + (p2[0] - p0[0]) / 6;
+    const c1y = p1[1] + (p2[1] - p0[1]) / 6;
+    const c2x = p2[0] - (p3[0] - p1[0]) / 6;
+    const c2y = p2[1] - (p3[1] - p1[1]) / 6;
+
+    d.push(
+      `C${c1x.toFixed(1)},${c1y.toFixed(1)} ${c2x.toFixed(1)},${c2y.toFixed(1)} ${p2[0].toFixed(1)},${p2[1].toFixed(1)}`,
+    );
+  }
+
+  return d.join(" ");
 }
 
 const STRANDS = Array.from({ length: ARMS }, (_, i) => ({
