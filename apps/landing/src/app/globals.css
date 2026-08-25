@@ -81,10 +81,15 @@
   --aqua-600: #227e89;
   --aqua-700: #1a626b;
 
-  /* Petrol — deeper and bluer than the aqua ramp. Hero corner only. */
-  --petrol-900: #0b4652;
-  --petrol-700: #12606f;
-  --petrol-500: #23879a;
+  /* The two dark teals asked for, used exactly as given, with the lighter steps
+     mixed from #005252 toward white so the tail stays the same colour. Green
+     and blue are equal in both, which is what makes them read as a true teal
+     rather than leaning warm or cold. */
+  --petrol-900: #004444; /* rgb(0,68,68) */
+  --petrol-500: #005252; /* rgb(0,82,82) */
+  --petrol-300: #85acac; /* #005252, 52% toward white */
+  --petrol-100: #d6e3e3; /* #005252, 84% toward white */
+
 
   --line: rgba(43, 52, 64, 0.1);
 
@@ -192,17 +197,19 @@
          height, and the hero is tall, so a shallow one is what keeps the fade
          above the icon rather than running through it. */
       radial-gradient(
-        ellipse 40% 40% at 100% 0%,
+        /* Tall as well as wide, so the colour runs down the right edge rather
+           than stopping level with the mark. The stops stay early — pushing
+           them later widens the pale tail, not the colour. */
+        ellipse 82% 128% at 102% 0%,
         var(--petrol-900) 0%,
-        /* Held flat past the header: the first ~74px of this element sit behind
-           it, so a ramp starting at 0% is already past the colour by the time
-           anything is visible. */
-        var(--petrol-900) 14%,
-        var(--petrol-700) 26%,
-        var(--petrol-500) 40%,
-        var(--aqua-200) 58%,
-        #eaf6f7 76%,
-        #ffffff 92%
+        /* Held flat past the header: the top of this element sits behind it, so
+           a ramp starting at 0% is already past the token by the time anything
+           is on screen. */
+        var(--petrol-900) 10%,
+        var(--petrol-500) 26%,
+        var(--petrol-300) 44%,
+        var(--petrol-100) 64%,
+        #ffffff 88%
       )
     );
 }
