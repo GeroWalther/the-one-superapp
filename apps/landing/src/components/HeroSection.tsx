@@ -69,24 +69,15 @@ export function HeroSection() {
              its brand casing. text-transform would flatten it to "THEONE" and
              lose the split the whole identity is built on. Caps need tracking
              or they set solid. */
-          className="mx-auto mt-7 max-w-3xl font-display text-[15px] font-normal leading-[1.6] tracking-[0.13em] text-ink sm:text-[17px]"
+          className="mx-auto mt-7 max-w-3xl font-display text-[15px] font-medium leading-[1.6] tracking-[0.13em] text-aqua-700 sm:text-[17px]"
         >
           {t("tagline")}
         </p>
 
-        <span
-          data-reveal
-          data-reveal-delay="80"
-          className="mt-7 inline-flex items-center gap-2 rounded-full border border-aqua-500/25 bg-aqua-500/10 px-3.5 py-1.5"
-        >
-          <span className="pulse-ring block h-1.5 w-1.5 rounded-full bg-aqua-500" />
-          <span className="eyebrow">{t("eyebrow")}</span>
-        </span>
-
         <h1
           data-reveal
           data-reveal-delay="120"
-          className="mt-6 font-display text-[42px] font-light leading-[1.04] tracking-[-0.02em] text-ink sm:text-[56px] lg:text-[62px]"
+          className="mt-6 font-display text-[42px] font-semibold leading-[1.04] tracking-[-0.02em] text-ink sm:text-[56px] lg:text-[62px]"
         >
           {t("titleLine1")}
           <span className="text-accent mt-1 block">
