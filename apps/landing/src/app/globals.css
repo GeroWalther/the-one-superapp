@@ -177,9 +177,9 @@
       --silk-corner,
       radial-gradient(
         ellipse 95% 115% at 106% -12%,
-        rgba(0, 180, 170, 0.85) 0%,
-        rgba(16, 214, 199, 0.55) 20%,
-        rgba(64, 232, 219, 0.34) 38%,
+        rgba(0, 180, 170, 0.55) 0%,
+        rgba(16, 214, 199, 0.34) 20%,
+        rgba(64, 232, 219, 0.22) 38%,
         rgba(146, 245, 235, 0.18) 56%,
         rgba(216, 252, 248, 0.07) 74%,
         rgba(255, 255, 255, 0) 88%
@@ -217,6 +217,42 @@
   pointer-events: none;
   opacity: 0.022;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* ==========================================================================
+   Gold filaments in the hero
+   ========================================================================== */
+
+/**
+ * The strands flow along their own curve rather than moving as a shape: the
+ * dash pattern travels, so the light runs down the filament while the filament
+ * itself stays put. Animating a transform instead made the whole picture slide,
+ * which read as bobbing rather than flowing.
+ *
+ * stroke-dashoffset is not a compositor-only property, but with hairline strokes
+ * inside one SVG layer the repaint is small and stays smooth.
+ */
+.gold-strand {
+  animation-name: gold-flow;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+@keyframes gold-flow {
+  from {
+    stroke-dashoffset: 0;
+  }
+  to {
+    /* One full dash+gap, so the loop is seamless. */
+    stroke-dashoffset: calc(var(--flow-span) * -1);
+  }
+}
+
+/* Decorative motion only — nobody loses information by holding it still. */
+@media (prefers-reduced-motion: reduce) {
+  .gold-strand {
+    animation: none !important;
+  }
 }
 
 /* ==========================================================================
@@ -369,6 +405,26 @@
 @supports (-webkit-background-clip: text) or (background-clip: text) {
   .text-accent-gradient {
     background: linear-gradient(100deg, var(--aqua-600) 0%, var(--aqua-400) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+  }
+}
+
+/**
+ * Gold, painted through type — the same family as the hero ribbons, so the
+ * accent line and the waves behind it read as one material.
+ *
+ * Same @supports guard as the teal version: without background-clip a
+ * transparent fill leaves the text invisible rather than merely flat.
+ */
+.text-gold-gradient {
+  color: #b8914a;
+}
+@supports (-webkit-background-clip: text) or (background-clip: text) {
+  .text-gold-gradient {
+    background: linear-gradient(100deg, #b8914a 0%, #e3bf72 45%, #f2dda4 100%);
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;

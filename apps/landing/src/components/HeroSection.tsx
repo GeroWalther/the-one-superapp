@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { Building2, ShieldCheck, UserRound } from "lucide-react";
+import { GoldWaves } from "./GoldWaves";
 
 export function HeroSection() {
   const t = useTranslations("hero");
@@ -15,6 +16,9 @@ export function HeroSection() {
   return (
     <section className="grain relative overflow-hidden pb-20 pt-[92px] sm:pb-24 lg:pt-[98px]">
       <div className="silk"></div>
+
+      {/* Gold ribbons over the wash, still behind the content. */}
+      <GoldWaves />
 
       {/* Fine grid, masked to a soft ellipse. Aqua rather than ink — on paper a
           grey grid reads as dirt, a tinted one reads as structure. */}
@@ -69,7 +73,7 @@ export function HeroSection() {
              its brand casing. text-transform would flatten it to "THEONE" and
              lose the split the whole identity is built on. Caps need tracking
              or they set solid. */
-          className="mx-auto mt-8 max-w-4xl font-display text-[22px] font-bold leading-[1.45] tracking-[0.10em] text-[#0a2f34] sm:text-[27px]"
+          className="mx-auto mt-8 max-w-6xl font-display text-[17px] font-bold leading-[1.45] tracking-[0.09em] text-[#0a2f34] sm:text-[23px]"
         >
           {t("tagline")}
         </p>
@@ -77,13 +81,15 @@ export function HeroSection() {
         <h1
           data-reveal
           data-reveal-delay="120"
-          className="mx-auto mt-12 max-w-4xl font-display text-[30px] font-semibold leading-[1.12] tracking-[-0.015em] text-ink sm:text-[40px] lg:text-[46px]"
+          className="mx-auto mt-16 max-w-6xl font-display text-[24px] font-bold leading-[1.3] tracking-[0.08em] text-[#0a2f34] sm:text-[28px]"
         >
           {t("titleLine1")}{" "}
           {/* Inline, not a block: the two halves are one sentence, and forcing
               a break mid-phrase made it read as two. It still wraps naturally
               on narrow viewports. */}
-          <span className="text-accent-gradient">{t("titleAccent")}</span>
+          {/* Flat gold, not the gradient: at this size the light end washed out
+              against the pale hero and the phrase lost weight mid-word. */}
+          <span className="text-[#b8914a]">{t("titleAccent")}</span>
         </h1>
 
         {/* Three paragraphs rather than one block: at this length a single
@@ -93,7 +99,7 @@ export function HeroSection() {
         <div
           data-reveal
           data-reveal-delay="180"
-          className="mx-auto mt-8 max-w-3xl space-y-4 text-[15px] leading-[1.8] text-ink-soft sm:text-[16px]"
+          className="mx-auto mt-8 max-w-3xl space-y-4 text-center text-[15px] leading-[1.8] text-ink-soft sm:text-[16px]"
         >
           <p>{t("subtitle")}</p>
           <p>{t("subtitle2")}</p>
