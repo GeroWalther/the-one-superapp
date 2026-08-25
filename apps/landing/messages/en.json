@@ -23,21 +23,21 @@
     "stat3Label": "AI decision support",
     "tagline": "TheONE SUPER APP A POWER AI THAT UNDERSTANDS YOU",
     "subtitle2": "At its centre is TheONE POWER AI, a powerful artificial intelligence that adapts individually and personally to each user.",
-    "subtitle3": "It learns their needs, interests, wishes and priorities, and helps them find exactly what fits them and their life — faster.",
+    "subtitle3": "It learns their needs, interests, wishes and priorities, and helps them find exactly what fits them and their life faster.",
     "closingTitle": "TheONE SUPER APP",
-    "closingBody": "One SUPER APP. One personalised POWER APP. One international network. Built to help people live more simply, decide better, connect faster and win back time — every day.",
-    "closingKicker": "TheONE — personalised to you and your life"
+    "closingBody": "One SUPER APP. One personalised POWER APP. One international network. Built to help people live more simply, decide better, connect faster and win back time every day.",
+    "closingKicker": "TheONE SUPER APP personalised to you and your life"
   },
   "pillars": {
     "eyebrow": "The architecture",
     "title": "Three layers. <em>One</em> decision.",
     "subtitle": "Every part of TheONE exists to remove noise from a choice you only make once.",
     "decisionTitle": "Decision",
-    "decisionDesc": "Power-AI that weighs your options against verified data — not advertising.",
+    "decisionDesc": "Power-AI that weighs your options against verified data  not advertising.",
     "connectionTitle": "Connection",
     "connectionDesc": "Encrypted messaging and a curated network of houses, clinics and experts.",
     "transactionTitle": "Transaction",
-    "transactionDesc": "TheONE Pay closes the loop — book, settle and document in one place."
+    "transactionDesc": "TheONE Pay closes the loop  book, settle and document in one place."
   },
   "verticals": {
     "eyebrow": "What's inside",
@@ -56,7 +56,7 @@
     "step3Title": "Set your access",
     "step3Desc": "Once approved you choose a username and password through a single-use link sent to your inbox.",
     "step4Title": "Go live",
-    "step4Desc": "Choose your payment method and your account activates — including full access to the mobile app.",
+    "step4Desc": "Choose your payment method and your account activates  including full access to the mobile app.",
     "cta": "Begin your application",
     "ctaNote": "Invited members and partners start with 12 months free."
   },
@@ -73,8 +73,8 @@
   },
   "philosophy": {
     "eyebrow": "Our philosophy",
-    "quote": "We are not building another listing platform. TheONE is a decision infrastructure — a curated layer between you and the most important choices of your life.",
-    "attribution": "TheONE — Quality before quantity",
+    "quote": "We are not building another listing platform. TheONE is a decision infrastructure  a curated layer between you and the most important choices of your life.",
+    "attribution": "TheONE  Quality before quantity",
     "point1Title": "No advertising",
     "point1Desc": "Nobody buys their way to the top. Placement is earned through verification.",
     "point2Title": "No rankings",
@@ -107,11 +107,11 @@
       "subtitle": "Two ways in. Choose the one that describes you.",
       "start": "Start application",
       "memberTitle": "As a member",
-      "memberDesc": "You want clarity and access for yourself — health, longevity, wealth, property, lifestyle.",
+      "memberDesc": "You want clarity and access for yourself  health, longevity, wealth, property, lifestyle.",
       "memberMeta": "€49 per month once approved",
       "partnerTitle": "As a partner",
       "partnerDesc": "You represent a clinic, hotel, resort, practice or house and want to be found by the right members.",
-      "partnerMeta": "Annual partnership — tier set on approval",
+      "partnerMeta": "Annual partnership  tier set on approval",
       "process": "Every application is reviewed individually. You will hear from us either way, usually within a few days.",
       "inviteAdmin": "You have been invited by TheONE. Your first {months} months are free, and your access opens as soon as you complete this form.",
       "inviteReferral": "{name} has put you forward for TheONE. Your application will still be reviewed by us.",
@@ -149,7 +149,7 @@
       "contextPlaceholder": "A decision you are weighing, a specialist you are looking for…"
     },
     "partner": {
-      "eyebrow": "Partner (company) — application",
+      "eyebrow": "Partner (company)  application",
       "title": "Tell us about your house",
       "subtitle": "Four steps. The more precise your description, the faster we can assess the fit.",
       "step1Title": "Company & brand details",
@@ -165,7 +165,7 @@
       "brandNameHint": "If you trade under a different name to the one registered.",
       "categoryQuestion": "Partner area",
       "teamSizeQuestion": "How large is your team?",
-      "teamSizeHint": "Context for our review — it does not set your partnership tier.",
+      "teamSizeHint": "Context for our review  it does not set your partnership tier.",
       "street": "Street and number",
       "postalCode": "Postal code",
       "city": "City",
@@ -176,7 +176,7 @@
       "email": "Business email",
       "phone": "Business phone",
       "serviceDescription": "Short description",
-      "serviceDescriptionHint": "At least a few sentences — this is what we assess.",
+      "serviceDescriptionHint": "At least a few sentences  this is what we assess.",
       "serviceDescriptionPlaceholder": "What you offer, what makes it different, which accreditations or certifications you hold…",
       "targetClientele": "Who is your typical client? (optional)",
       "expectations": "What do you expect from TheONE SUPER APP?"
@@ -186,12 +186,12 @@
       "receivedTitle": "Your application is with us",
       "receivedBody": "We have sent a confirmation to your inbox. Here is what happens next.",
       "receivedStep1": "A member of our team reads your application in full.",
-      "receivedStep2": "We decide and email you either way — usually within a few days.",
+      "receivedStep2": "We decide and email you either way  usually within a few days.",
       "receivedStep3": "If accepted, that email carries a single-use link to set your username and password.",
       "approvedTitle": "You're in",
       "approvedBody": "Your invitation was issued by TheONE directly, so there is no review to wait for.",
       "approvedStep1": "Check your inbox for a single-use link to set your username and password.",
-      "approvedStep2": "Choose a payment method and your account goes live — your free months start then.",
+      "approvedStep2": "Choose a payment method and your account goes live  your free months start then.",
       "spamNote": "No email after a few minutes? Check your spam folder before getting in touch.",
       "backHome": "Back to the homepage"
     },
@@ -258,7 +258,7 @@
       "websiteInvalid": "Please enter a full URL, starting with https://",
       "ownerRequired": "Please enter the owner or managing director.",
       "contactRequired": "Please enter a contact person.",
-      "descriptionShort": "Please describe your services in a little more detail — at least a few sentences.",
+      "descriptionShort": "Please describe your services in a little more detail  at least a few sentences.",
       "expectationsShort": "Please tell us briefly what you expect from TheONE.",
       "inviteInvalid": "This invitation is not valid for this email address, or it has already been used.",
       "alreadyOnRecord": "We already have an application on record for these details. If you believe this is a mistake, please contact us.",
@@ -272,11 +272,11 @@
     "tagline": "Quality before quantity",
     "intro": "TheONE is a unique SUPER APP with the latest Power-AI support and an independent Decision Infrastructure for Premium Services, Longevity, Health, Insurance, Real Estate, Beauty, Wellness Resorts, Hotels, high-end clinics and Lifestyle.",
     "mission": "TheONE SUPER APP was built to create clarity before decisions are made. TheONE provides a digital infrastructure whose purpose is to deliver decision clarity in areas where complexity, uncertainty, and information overload dominate.",
-    "philosophy": "Partners and companies use TheONE to be part of a curated ecosystem focused on quality, trust, and long-term relationships — not on advertising, rankings, or short-term visibility.",
+    "philosophy": "Partners and companies use TheONE to be part of a curated ecosystem focused on quality, trust, and long-term relationships  not on advertising, rankings, or short-term visibility.",
     "partnersTitle": "Our Partners",
     "partnersBody": "We work exclusively with selected houses, clinics, resorts, and experts who share the same commitment to quality, discretion, and excellence. Every onboarding follows a structured application process.",
     "approachTitle": "Our Approach",
-    "approachBody": "We are not building another listing platform. TheONE is a Decision Infrastructure — a curated layer between you and the most important decisions in your life: health, wealth, living, lifestyle."
+    "approachBody": "We are not building another listing platform. TheONE is a Decision Infrastructure  a curated layer between you and the most important decisions in your life: health, wealth, living, lifestyle."
   },
   "cta": {
     "secure": "100% Secure",
@@ -322,7 +322,7 @@
     "perYear": " per year",
     "signOut": "Sign out",
     "statuses": {
-      "awaiting_payment": "Approved — awaiting payment",
+      "awaiting_payment": "Approved awaiting payment",
       "active": "Active",
       "past_due": "Payment overdue",
       "canceled": "Cancelled",
@@ -341,7 +341,7 @@
         "billingNotConfigured": "Payments are not configured on this deployment yet.",
         "alreadyActive": "This account is already active.",
         "noPlan": "No plan is assigned to this account. Please contact us.",
-        "noCustomer": "No billing record exists yet — complete checkout first.",
+        "noCustomer": "No billing record exists yet complete checkout first.",
         "notSignedIn": "Please sign in again.",
         "serverError": "Something went wrong. Please try again."
       },
@@ -390,7 +390,7 @@
       "displayName": "Display name",
       "partnerName": "Business name",
       "context": "Anything else the assistant should know",
-      "contextHint": "Conditions, preferences, constraints — it reads this before advising you.",
+      "contextHint": "Conditions, preferences, constraints it reads this before advising you.",
       "contactEmail": "Contact email",
       "contactPhone": "Contact phone",
       "publishedLabel": "Visible to members. Uncheck to hide your listing without deleting it.",
@@ -472,7 +472,7 @@
       "email": "Email",
       "phone": "Phone",
       "internalReason": "Internal decline reason",
-      "invitedWithMonths": "Invited — {months} months free",
+      "invitedWithMonths": "Invited {months} months free",
       "invitedReferral": "Referred by a member",
       "reviewedOn": "Reviewed {date}",
       "assignedTier": "Assigned tier: {tier}",
@@ -522,7 +522,7 @@
       "sent": "Invitation sent.",
       "revoke": "Revoke",
       "empty": "No invitations yet.",
-      "byAdmin": "Admin invitation — {months} months free",
+      "byAdmin": "Admin invitation {months} months free",
       "byMember": "Referred by {name}"
     },
     "errors": {

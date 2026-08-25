@@ -62,26 +62,10 @@ export function HeroSection() {
             />
           </div>
         </div>
-
-        {/* Directly under the mark, so the claim reads as part of the lockup.
-            Set in the display face rather than tracked uppercase — the badge
-            below is already that, and two tracked lines stacked fight. */}
-        <p
-          data-reveal
-          data-reveal-delay="40"
-          /* No CSS uppercase: the caps live in the message so "TheONE" keeps
-             its brand casing. text-transform would flatten it to "THEONE" and
-             lose the split the whole identity is built on. Caps need tracking
-             or they set solid. */
-          className="mx-auto mt-12 max-w-6xl font-display text-[17px] font-bold leading-[1.45] tracking-[0.09em] text-[#0a2f34] sm:text-[23px]"
-        >
-          {t("tagline")}
-        </p>
-
-        <h1
+      <h1
           data-reveal
           data-reveal-delay="120"
-          className="mx-auto mt-16 max-w-6xl font-display text-[24px] font-bold leading-[1.3] tracking-[0.08em] text-[#0a2f34] sm:text-[28px]"
+          className="mx-auto max-w-6xl font-display text-[24px] font-bold leading-[1.3] tracking-[0.08em] text-[#0a2f34] sm:text-[28px]"
         >
           {t("titleLine1")}{" "}
           {/* Inline, not a block: the two halves are one sentence, and forcing
@@ -92,6 +76,22 @@ export function HeroSection() {
               size. No gradient — it thinned the phrase mid-word. */}
           <span className="text-[#8a6420]">{t("titleAccent")}</span>
         </h1>
+        {/* Directly under the mark, so the claim reads as part of the lockup.
+            Set in the display face rather than tracked uppercase — the badge
+            below is already that, and two tracked lines stacked fight. */}
+        <p
+          data-reveal
+          data-reveal-delay="40"
+          /* No CSS uppercase: the caps live in the message so "TheONE" keeps
+             its brand casing. text-transform would flatten it to "THEONE" and
+             lose the split the whole identity is built on. Caps need tracking
+             or they set solid. */
+          className="mx-auto mt-12 max-w-6xl font-display text-[17px] font-bold leading-[1.45] tracking-[0.09em] text-[#0a2f34] sm:text-[21px]"
+        >
+          {t("tagline")}
+        </p>
+
+  
 
         {/* Three paragraphs rather than one block: at this length a single
             run is a wall, and the copy already breaks cleanly into what it is,

@@ -67,7 +67,7 @@ export function SiteHeader() {
               className={`text-[13px] transition-all ${
                 scrolled
                   ? "text-ink-soft hover:text-ink"
-                  : "rounded-full border border-white/70 bg-white/85 px-3.5 py-1.5 text-ink shadow-sm backdrop-blur-sm hover:bg-white"
+                  : "btn border-white/70 bg-white/85 px-3.5 py-1.5 text-ink shadow-sm backdrop-blur-sm hover:bg-white"
               }`}
             >
               {link.label}
