@@ -2,13 +2,7 @@ import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { Building2, ShieldCheck, UserRound } from "lucide-react";
 
-/**
- * `backdrop` replaces the default silk-and-grid entirely, which is how the
- * design comparison offers treatments that are more than a change of gradient.
- * Anything passed in is rendered behind the content and inside the section's
- * overflow clip.
- */
-export function HeroSection({ backdrop }: { backdrop?: React.ReactNode } = {}) {
+export function HeroSection() {
   const t = useTranslations("hero");
   const tEnroll = useTranslations("enroll");
 
@@ -20,26 +14,22 @@ export function HeroSection({ backdrop }: { backdrop?: React.ReactNode } = {}) {
 
   return (
     <section className="grain relative overflow-hidden pb-20 pt-[92px] sm:pb-24 lg:pt-[98px]">
-      {backdrop ?? (
-        <>
-          <div className="silk"></div>
+      <div className="silk"></div>
 
-          {/* Fine grid, masked to a soft ellipse. Aqua rather than ink — on
-              paper a grey grid reads as dirt, a tinted one reads as structure. */}
-          <div
-            className="pointer-events-none absolute inset-0 opacity-[0.5]"
-            style={{
-              backgroundImage:
-                "linear-gradient(rgba(46,156,168,.13) 1px, transparent 1px), linear-gradient(90deg, rgba(46,156,168,.13) 1px, transparent 1px)",
-              backgroundSize: "72px 72px",
-              maskImage:
-                "radial-gradient(ellipse 90% 62% at 50% 32%, #000 20%, transparent 72%)",
-              WebkitMaskImage:
-                "radial-gradient(ellipse 90% 62% at 50% 32%, #000 20%, transparent 72%)",
-            }}
-          />
-        </>
-      )}
+      {/* Fine grid, masked to a soft ellipse. Aqua rather than ink — on paper a
+          grey grid reads as dirt, a tinted one reads as structure. */}
+      <div
+        className="pointer-events-none absolute inset-0 opacity-[0.5]"
+        style={{
+          backgroundImage:
+            "linear-gradient(rgba(46,156,168,.13) 1px, transparent 1px), linear-gradient(90deg, rgba(46,156,168,.13) 1px, transparent 1px)",
+          backgroundSize: "72px 72px",
+          maskImage:
+            "radial-gradient(ellipse 90% 62% at 50% 32%, #000 20%, transparent 72%)",
+          WebkitMaskImage:
+            "radial-gradient(ellipse 90% 62% at 50% 32%, #000 20%, transparent 72%)",
+        }}
+      />
 
       <div className="relative mx-auto max-w-3xl px-6 text-center lg:px-8">
         {/* The mark leads. It is the strongest brand asset here, and a visitor
@@ -99,7 +89,7 @@ export function HeroSection({ backdrop }: { backdrop?: React.ReactNode } = {}) {
           className="mt-6 font-display text-[42px] font-light leading-[1.04] tracking-[-0.02em] text-ink sm:text-[56px] lg:text-[62px]"
         >
           {t("titleLine1")}
-          <span className="text-accent mt-1 block italic">
+          <span className="text-accent mt-1 block">
             {t("titleAccent")}
           </span>
         </h1>

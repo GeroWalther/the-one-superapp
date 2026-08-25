@@ -163,24 +163,26 @@
   pointer-events: none;
 
   /**
-   * The corner wash is overridable per-section. The default lives in the var()
-   * fallback rather than as a declaration on this element: a custom property
-   * declared on the element itself beats any inherited value, so declaring it
-   * here silently ignored every override — which made all five comparison
-   * options render identically.
+   * Electric teal: the brand accent at full saturation, anchored in the
+   * top-right corner and gone by the middle of the hero. The centre stays
+   * light because the headline and body are dark type.
+   *
+   * Overridable via --silk-corner, and the default lives in the var() fallback
+   * rather than as a declaration here — a custom property declared on the
+   * element itself beats an inherited one, which would make any override a
+   * silent no-op.
    */
   background:
     var(
       --silk-corner,
       radial-gradient(
-        ellipse 100% 115% at 108% -14%,
-        rgba(12, 58, 50, 0.9) 0%,
-        rgba(19, 84, 74, 0.72) 16%,
-        rgba(26, 108, 96, 0.52) 30%,
-        rgba(42, 138, 124, 0.32) 46%,
-        rgba(95, 180, 165, 0.16) 62%,
-        rgba(198, 228, 220, 0.06) 76%,
-        rgba(255, 255, 255, 0) 90%
+        ellipse 95% 115% at 106% -12%,
+        rgba(0, 180, 170, 0.85) 0%,
+        rgba(16, 214, 199, 0.55) 20%,
+        rgba(64, 232, 219, 0.34) 38%,
+        rgba(146, 245, 235, 0.18) 56%,
+        rgba(216, 252, 248, 0.07) 74%,
+        rgba(255, 255, 255, 0) 88%
       )
     ),
     radial-gradient(
