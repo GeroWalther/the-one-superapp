@@ -176,13 +176,14 @@
     var(
       --silk-corner,
       radial-gradient(
-        ellipse 95% 115% at 106% -12%,
-        rgba(0, 180, 170, 0.55) 0%,
-        rgba(16, 214, 199, 0.34) 20%,
-        rgba(64, 232, 219, 0.22) 38%,
-        rgba(146, 245, 235, 0.18) 56%,
-        rgba(216, 252, 248, 0.07) 74%,
-        rgba(255, 255, 255, 0) 88%
+        ellipse 145% 165% at 108% -18%,
+        rgba(0, 180, 170, 0.62) 0%,
+        rgba(16, 214, 199, 0.44) 18%,
+        rgba(48, 224, 210, 0.32) 34%,
+        rgba(96, 236, 224, 0.22) 50%,
+        rgba(150, 244, 236, 0.14) 66%,
+        rgba(206, 250, 246, 0.07) 82%,
+        rgba(255, 255, 255, 0) 96%
       )
     ),
     radial-gradient(
@@ -190,7 +191,7 @@
       rgba(214, 228, 233, 0.5) 0%,
       rgba(214, 228, 233, 0) 72%
     ),
-    linear-gradient(180deg, #eef2f4 0%, #f5f8f9 52%, #e8eef0 100%);
+    linear-gradient(180deg, #d6e3e2 0%, #e3edeb 50%, #cbdcda 100%);
 }
 
 /** Kept as a lighter alias so section-level washes stay consistent. */
