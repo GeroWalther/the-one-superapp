@@ -81,6 +81,11 @@
   --aqua-600: #227e89;
   --aqua-700: #1a626b;
 
+  /* Petrol — deeper and bluer than the aqua ramp. Hero corner only. */
+  --petrol-900: #0b4652;
+  --petrol-700: #12606f;
+  --petrol-500: #23879a;
+
   --line: rgba(43, 52, 64, 0.1);
 
   /* --- shadcn tokens, mapped onto the brand scale ----------------------- */
@@ -188,10 +193,13 @@
          above the icon rather than running through it. */
       radial-gradient(
         ellipse 40% 40% at 100% 0%,
-        var(--aqua-600) 0%,
-        var(--aqua-600) 14%,
-        var(--aqua-500) 26%,
-        var(--aqua-400) 38%,
+        var(--petrol-900) 0%,
+        /* Held flat past the header: the first ~74px of this element sit behind
+           it, so a ramp starting at 0% is already past the colour by the time
+           anything is visible. */
+        var(--petrol-900) 14%,
+        var(--petrol-700) 26%,
+        var(--petrol-500) 40%,
         var(--aqua-200) 58%,
         #eaf6f7 76%,
         #ffffff 92%
