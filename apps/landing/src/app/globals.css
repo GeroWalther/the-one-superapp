@@ -187,9 +187,10 @@
          height, and the hero is tall, so a shallow one is what keeps the fade
          above the icon rather than running through it. */
       radial-gradient(
-        ellipse 34% 34% at 104% -2%,
+        ellipse 40% 40% at 100% 0%,
         var(--aqua-600) 0%,
-        var(--aqua-500) 20%,
+        var(--aqua-600) 14%,
+        var(--aqua-500) 26%,
         var(--aqua-400) 38%,
         var(--aqua-200) 58%,
         #eaf6f7 76%,
