@@ -248,9 +248,29 @@
   }
 }
 
+/**
+ * The bundle winds about the spiral's own centre. Very slow on purpose — at
+ * this radius even a gentle rate is a lot of travel at the outer edge, and
+ * anything faster stops being atmosphere and starts being a spinner.
+ */
+.gold-vortex {
+  animation: gold-vortex-spin 150s linear infinite;
+  will-change: transform;
+}
+
+@keyframes gold-vortex-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 /* Decorative motion only — nobody loses information by holding it still. */
 @media (prefers-reduced-motion: reduce) {
-  .gold-strand {
+  .gold-strand,
+  .gold-vortex {
     animation: none !important;
   }
 }
