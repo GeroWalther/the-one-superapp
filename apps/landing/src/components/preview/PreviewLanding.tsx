@@ -83,7 +83,7 @@ export function PreviewLanding() {
               </p>
               <button
                 type="button"
-                className="mt-8 rounded-full bg-gradient-to-r from-aqua-600 to-aqua-500 px-8 py-3.5 text-[15px] font-medium text-white shadow-[0_16px_34px_-16px_rgba(34,126,137,0.8)] transition-transform duration-300 hover:-translate-y-0.5"
+                className="btn btn-primary mt-8 px-8 py-3.5 text-[15px]"
               >
                 {t("waitlistCta")}
               </button>
@@ -114,7 +114,7 @@ export function PreviewLanding() {
 
           <button
             type="button"
-            className="mt-9 rounded-full bg-gradient-to-r from-aqua-600 to-aqua-500 px-10 py-3.5 text-[15.5px] font-medium text-white shadow-[0_16px_34px_-16px_rgba(34,126,137,0.8)] transition-transform duration-300 hover:-translate-y-0.5"
+            className="btn btn-primary mt-9 px-10 py-3.5 text-[15.5px]"
           >
             {t("waitlistCta")}
           </button>
@@ -269,7 +269,7 @@ export function PreviewLanding() {
                 <button
                   key={label}
                   type="button"
-                  className="w-full rounded-md bg-[#0f3b3f] px-8 py-3.5 text-[13.5px] font-semibold uppercase tracking-[0.1em] text-white shadow-[0_14px_30px_-18px_rgba(15,59,63,0.9)] transition-transform duration-300 hover:-translate-y-0.5 sm:w-auto"
+                  className="btn btn-primary w-full px-8 py-3.5 text-[13.5px] font-semibold uppercase tracking-[0.1em] sm:w-auto"
                 >
                   {label}
                 </button>

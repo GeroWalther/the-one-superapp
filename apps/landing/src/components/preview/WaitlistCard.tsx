@@ -77,7 +77,7 @@ export function WaitlistCard() {
 
       <button
         type="button"
-        className="mt-7 w-full rounded-full border border-line bg-white py-3.5 text-[15px] text-ink shadow-[0_10px_24px_-14px_rgba(43,52,64,0.5)] transition-transform duration-300 hover:-translate-y-0.5"
+        className="mt-7 w-full rounded-xl border border-line bg-white py-3.5 text-[15px] text-ink shadow-[0_10px_24px_-14px_rgba(43,52,64,0.5)] transition-transform duration-300 hover:-translate-y-0.5"
       >
         {t("submit")}
       </button>

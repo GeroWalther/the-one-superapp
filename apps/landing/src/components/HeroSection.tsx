@@ -13,7 +13,7 @@ export function HeroSection() {
   ];
 
   return (
-    <section className="grain relative overflow-hidden pb-20 pt-[122px] sm:pb-24 lg:pt-[140px]">
+    <section className="grain relative overflow-hidden pb-20 pt-[92px] sm:pb-24 lg:pt-[98px]">
       <div className="silk"></div>
 
       {/* Fine grid, masked to a soft ellipse. Aqua rather than ink — on paper a
@@ -42,21 +42,19 @@ export function HeroSection() {
               className="absolute -inset-8 rounded-full bg-aqua-200/40 blur-3xl"
             />
             <Image
-              src="/images/theone-logo.png"
+              src="/images/theone-lockup.png"
               alt="TheONE Super App"
-              width={168}
-              height={168}
+              width={252}
+              height={384}
               priority
-              /* Next's image optimiser re-encodes this to a palette PNG whose
-                 transparency the browser does not honour — the squircle comes
-                 back as a white square. Served as-is instead; it is 158 KB and
-                 the only asset that needs this. */
+              /* Next's image optimiser re-encodes transparent PNGs to a palette
+                 whose alpha the browser does not honour, which brings the white
+                 background back. Served as-is instead. */
               unoptimized
-              /* drop-shadow, not shadow: the artwork carries its own squircle
-                 in the alpha channel, and a box-shadow would draw a rectangle
-                 behind it. No rounding here either — clipping to a CSS radius
-                 would fight the curve already in the image. */
-              className="relative drop-shadow-[0_22px_34px_rgba(34,126,137,0.42)] sm:h-[184px] sm:w-[184px]"
+              /* Height-driven so the lockup's own proportions decide the width;
+                 no drop-shadow, since the artwork already carries one under the
+                 icon and a second would fall across the wordmark too. */
+              className="relative h-[250px] w-auto sm:h-[310px]"
             />
           </div>
         </div>

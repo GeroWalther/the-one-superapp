@@ -162,14 +162,25 @@
   overflow: hidden;
   pointer-events: none;
   background:
+    /* Petrol wash anchored in the top-right corner. Strong where it starts and
+       gone by the middle of the page, so it colours the corner without ever
+       sitting behind body copy. */
+    /* Deep petrol-green wash from the top-right, carried well across the hero.
+       Green-leaning on purpose: the aqua accent ramp is a blue-leaning cyan,
+       and at this size that read as blue rather than petrol. */
     radial-gradient(
-      ellipse 70% 60% at 78% 18%,
-      rgba(194, 226, 231, 0.55) 0%,
-      rgba(194, 226, 231, 0) 70%
+      ellipse 100% 115% at 108% -14%,
+      rgba(12, 58, 50, 0.90) 0%,
+      rgba(19, 84, 74, 0.72) 16%,
+      rgba(26, 108, 96, 0.52) 30%,
+      rgba(42, 138, 124, 0.32) 46%,
+      rgba(95, 180, 165, 0.16) 62%,
+      rgba(198, 228, 220, 0.06) 76%,
+      rgba(255, 255, 255, 0) 90%
     ),
     radial-gradient(
       ellipse 60% 50% at 12% 8%,
-      rgba(214, 228, 233, 0.6) 0%,
+      rgba(214, 228, 233, 0.5) 0%,
       rgba(214, 228, 233, 0) 72%
     ),
     linear-gradient(180deg, #fbfcfd 0%, #ffffff 55%, #f7f9fa 100%);
@@ -356,7 +367,8 @@
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  border-radius: 9999px;
+  /* Squared with softened corners, not a pill. */
+  border-radius: 12px;
   font-weight: 500;
   letter-spacing: 0.01em;
   white-space: nowrap;
@@ -374,16 +386,22 @@
   cursor: not-allowed;
 }
 
-/* Primary — solid aqua, the single loudest element on any screen */
+/**
+ * Primary — the single loudest element on any screen.
+ *
+ * A left-to-right teal gradient rather than a flat fill: the flat version went
+ * dull at the large sizes the hero uses, where a wide block of one colour has
+ * nothing for the light to do.
+ */
 .btn-primary {
-  background: var(--aqua-500);
+  background: linear-gradient(100deg, var(--aqua-600) 0%, var(--aqua-400) 100%);
   color: #ffffff;
-  box-shadow: 0 8px 20px -10px rgba(46, 156, 168, 0.7);
+  box-shadow: 0 10px 24px -12px rgba(34, 126, 137, 0.75);
 }
 .btn-primary:hover:not(:disabled) {
-  background: var(--aqua-600);
+  background: linear-gradient(100deg, var(--aqua-700) 0%, var(--aqua-500) 100%);
   transform: translateY(-1px);
-  box-shadow: 0 14px 28px -12px rgba(46, 156, 168, 0.75);
+  box-shadow: 0 16px 30px -12px rgba(34, 126, 137, 0.8);
 }
 
 /* Secondary — white with a hairline, as in the reference */

@@ -6,10 +6,12 @@
  * about it should survive a decision being made.
  */
 export function PreviewDivider({ label }: { label: "start" | "end" }) {
+  /* The preview sits below the live page, so the wording has to point the
+     other way round from where it started. */
   const text =
     label === "start"
-      ? "▼  NEW DESIGN — mockup layout (preview)"
-      : "▲  END OF PREVIEW  ·  ▼  CURRENT LIVE DESIGN BELOW";
+      ? "▲  CURRENT LIVE DESIGN ABOVE  ·  ▼  NEW DESIGN — mockup layout (preview)"
+      : "▲  END OF MOCKUP PREVIEW";
 
   return (
     <div className="bg-ink px-6 py-2.5 text-center">
