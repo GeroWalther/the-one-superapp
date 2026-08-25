@@ -109,7 +109,7 @@ export function HeroSection() {
 
         {/* Two doors rather than one. "Apply" alone made a partner wonder
             whether the platform was for them at all. */}
-        <div
+        {/* <div
           data-reveal
           data-reveal-delay="240"
           className="mt-10 grid gap-3 sm:grid-cols-2"
@@ -141,7 +141,7 @@ export function HeroSection() {
               </span>
             </span>
           </a>
-        </div>
+        </div> */}
 
         {/* The closing statement, after the two doors rather than before them:
             it is what someone reads once they already know which one they are,
@@ -158,14 +158,14 @@ export function HeroSection() {
           </p>
         </div>
 
-        <p
+        {/* <p
           data-reveal
           data-reveal-delay="340"
           className="mt-12 flex items-center justify-center gap-2 text-[12px] italic text-ink-faint"
         >
           <ShieldCheck className="h-3.5 w-3.5 text-aqua-500" strokeWidth={1.6} />
           {t("clarity")}
-        </p>
+        </p> */}
 
         <dl
           data-reveal

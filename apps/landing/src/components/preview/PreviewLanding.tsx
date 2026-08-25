@@ -10,6 +10,7 @@ import {
 import { PhoneMockup } from "@/components/PhoneMockup";
 import { Placeholder } from "@/components/Placeholder";
 import { WaitlistCard } from "./WaitlistCard";
+import { ApplySection } from "../ApplySection";
 
 /**
  * The mockup design, built as a comparison block above the live landing page.
@@ -98,7 +99,7 @@ export function PreviewLanding() {
             {t("wordmarkSubtitle")}
           </p>
 
-          <div className="mx-auto mt-8 flex max-w-md items-center gap-4">
+          {/* <div className="mx-auto mt-8 flex max-w-md items-center gap-4">
             <span className="h-px flex-1 bg-gradient-to-r from-transparent to-line" />
             <span className="text-[15px] italic text-ink-soft">
               {t("clarity")}
@@ -111,11 +112,11 @@ export function PreviewLanding() {
             className="btn btn-primary mt-9 px-10 py-3.5 text-[15.5px]"
           >
             {t("waitlistCta")}
-          </button>
-
-          <div className="mt-12">
+          </button> */}
+<ApplySection/>
+          {/* <div className="mt-12">
             <WaitlistCard />
-          </div>
+          </div> */}
         </section>
 
         {/* --- 3. what is TheONE -------------------------------------- */}
