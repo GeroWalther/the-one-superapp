@@ -163,37 +163,39 @@
   pointer-events: none;
 
   /**
-   * Electric teal: the brand accent at full saturation, anchored in the
-   * top-right corner and gone by the middle of the hero. The centre stays
-   * light because the headline and body are dark type.
+   * Solid --aqua-600 at the top edge, resolved to white by the time it reaches
+   * the mark. Fully opaque stops — no alpha anywhere — so the colour is the
+   * token itself rather than the token thinned over whatever sits behind it.
    *
-   * Overridable via --silk-corner, and the default lives in the var() fallback
-   * rather than as a declaration here — a custom property declared on the
-   * element itself beats an inherited one, which would make any override a
-   * silent no-op.
+   * Because the last stop is white and a radial gradient extends its final
+   * colour outward, this one layer paints the whole hero: everything past the
+   * fade is plain white, which is what puts the mark on a clean ground.
+   *
+   * Overridable via --silk-corner; the default lives in the var() fallback
+   * because a custom property declared on this element would beat an inherited
+   * one and make every override a silent no-op.
    */
   background:
     var(
       --silk-corner,
-      /* The button's own two stops — --aqua-600 into --aqua-400 — mixed with
-         transparent via color-mix rather than copied as hex, so the corner can
-         never drift out of step with .btn-primary. Held tight to the corner. */
+      /* Wide and shallow, anchored on the top edge rather than the corner, so
+         the whole edge is the token and the fade runs downward. White lands
+         above the mark. */
+      /* Anchored on the top-right corner, not across the edge. Solid
+         --aqua-600 where it meets the corner and resolved to white well
+         before the mark — the vertical radius is a percentage of the hero's
+         height, and the hero is tall, so a shallow one is what keeps the fade
+         above the icon rather than running through it. */
       radial-gradient(
-        ellipse 46% 58% at 103% -6%,
-        color-mix(in srgb, var(--aqua-600) 92%, transparent) 0%,
-        color-mix(in srgb, var(--aqua-600) 66%, transparent) 20%,
-        color-mix(in srgb, var(--aqua-400) 44%, transparent) 40%,
-        color-mix(in srgb, var(--aqua-400) 20%, transparent) 58%,
-        color-mix(in srgb, var(--aqua-400) 7%, transparent) 74%,
-        transparent 88%
+        ellipse 62% 16% at 100% 0%,
+        var(--aqua-600) 0%,
+        var(--aqua-500) 20%,
+        var(--aqua-400) 38%,
+        var(--aqua-200) 58%,
+        #eaf6f7 76%,
+        #ffffff 92%
       )
-    ),
-    radial-gradient(
-      ellipse 60% 50% at 12% 8%,
-      rgba(214, 228, 233, 0.5) 0%,
-      rgba(214, 228, 233, 0) 72%
-    ),
-    linear-gradient(180deg, #d6e3e2 0%, #e3edeb 50%, #cbdcda 100%);
+    );
 }
 
 /** Kept as a lighter alias so section-level washes stay consistent. */
