@@ -37,12 +37,16 @@ export function SiteHeader() {
 
   return (
     <header
-      /* Always solid white. It used to be transparent until scrolled, which
-         left the nav floating over whatever the hero happened to be doing and
-         made the links hard to read against the corner wash. Scrolling now only
-         adds a shadow, so the bar lifts rather than appears. */
-      className={`fixed inset-x-0 top-0 z-50 border-b border-line bg-paper transition-shadow duration-300 ${
-        scrolled ? "shadow-[0_1px_16px_-6px_rgba(43,52,64,0.25)]" : ""
+      /* Fully transparent at the top so the hero runs edge to edge, solid once
+         scrolled so the links keep a ground as content passes under.
+         Known cost: at the top the nav sits exactly where the hero crosses from
+         pale to the dark corner, so no single link colour clears 4.5:1 along
+         its whole width — "Philosophie" measures 1.01:1 against the dark end.
+         Chosen deliberately over a translucent bar. */
+      className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
+        scrolled
+          ? "border-b border-line bg-paper shadow-[0_1px_16px_-6px_rgba(43,52,64,0.25)]"
+          : "border-b border-transparent bg-transparent"
       }`}
     >
       <div className="mx-auto flex h-[74px] max-w-6xl items-center justify-between px-6 lg:px-8">

@@ -87,9 +87,10 @@ export function HeroSection() {
           {/* Inline, not a block: the two halves are one sentence, and forcing
               a break mid-phrase made it read as two. It still wraps naturally
               on narrow viewports. */}
-          {/* Flat gold, not the gradient: at this size the light end washed out
-              against the pale hero and the phrase lost weight mid-word. */}
-          <span className="text-[#b8914a]">{t("titleAccent")}</span>
+          {/* Flat, and a darker gold than the mark's own: #b8914a sat too close
+              in value to the pale hero behind it to read comfortably at this
+              size. No gradient — it thinned the phrase mid-word. */}
+          <span className="text-[#8a6420]">{t("titleAccent")}</span>
         </h1>
 
         {/* Three paragraphs rather than one block: at this length a single
