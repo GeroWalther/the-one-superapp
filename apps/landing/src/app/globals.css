@@ -190,7 +190,7 @@
       rgba(214, 228, 233, 0.5) 0%,
       rgba(214, 228, 233, 0) 72%
     ),
-    linear-gradient(180deg, #fbfcfd 0%, #ffffff 55%, #f7f9fa 100%);
+    linear-gradient(180deg, #eef2f4 0%, #f5f8f9 52%, #e8eef0 100%);
 }
 
 /** Kept as a lighter alias so section-level washes stay consistent. */

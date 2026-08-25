@@ -14,7 +14,7 @@ export function HeroSection() {
   ];
 
   return (
-    <section className="grain relative overflow-hidden pb-20 pt-[92px] sm:pb-24 lg:pt-[98px]">
+    <section className="grain relative overflow-hidden pb-28 pt-[92px] sm:pb-36 lg:pt-[104px]">
       <div className="silk"></div>
 
       {/* Gold ribbons over the wash, still behind the content. */}
@@ -73,7 +73,7 @@ export function HeroSection() {
              its brand casing. text-transform would flatten it to "THEONE" and
              lose the split the whole identity is built on. Caps need tracking
              or they set solid. */
-          className="mx-auto mt-8 max-w-6xl font-display text-[17px] font-bold leading-[1.45] tracking-[0.09em] text-[#0a2f34] sm:text-[23px]"
+          className="mx-auto mt-12 max-w-6xl font-display text-[17px] font-bold leading-[1.45] tracking-[0.09em] text-[#0a2f34] sm:text-[23px]"
         >
           {t("tagline")}
         </p>
@@ -81,7 +81,7 @@ export function HeroSection() {
         <h1
           data-reveal
           data-reveal-delay="120"
-          className="mx-auto mt-16 max-w-6xl font-display text-[24px] font-bold leading-[1.3] tracking-[0.08em] text-[#0a2f34] sm:text-[28px]"
+          className="mx-auto mt-20 max-w-6xl font-display text-[24px] font-bold leading-[1.3] tracking-[0.08em] text-[#0a2f34] sm:text-[28px]"
         >
           {t("titleLine1")}{" "}
           {/* Inline, not a block: the two halves are one sentence, and forcing
@@ -99,7 +99,7 @@ export function HeroSection() {
         <div
           data-reveal
           data-reveal-delay="180"
-          className="mx-auto mt-8 max-w-3xl space-y-4 text-center text-[15px] leading-[1.8] text-ink-soft sm:text-[16px]"
+          className="mx-auto mt-14 max-w-3xl space-y-6 text-center text-[15px] leading-[1.8] text-ink-soft sm:text-[16px]"
         >
           <p>{t("subtitle")}</p>
           <p>{t("subtitle2")}</p>
@@ -111,9 +111,9 @@ export function HeroSection() {
         <div
           data-reveal
           data-reveal-delay="240"
-          className="mt-10 grid gap-3 sm:grid-cols-2"
+          className="mx-auto mt-20 grid max-w-4xl gap-6 sm:grid-cols-2"
         >
-          <a href="#apply" className="card-brand-soft group flex items-center gap-4 p-5 text-left">
+          <a href="#apply" className="card-brand-soft group flex items-center gap-5 p-8 text-left">
             <span className="grid h-11 w-11 shrink-0 place-items-center rounded-full border border-aqua-500/25 bg-aqua-500/10">
               <UserRound className="h-5 w-5 text-aqua-500" strokeWidth={1.4} />
             </span>
@@ -127,7 +127,7 @@ export function HeroSection() {
             </span>
           </a>
 
-          <a href="#apply" className="card-brand-soft group flex items-center gap-4 p-5 text-left">
+          <a href="#apply" className="card-brand-soft group flex items-center gap-5 p-8 text-left">
             <span className="grid h-11 w-11 shrink-0 place-items-center rounded-full border border-aqua-500/25 bg-aqua-500/10">
               <Building2 className="h-5 w-5 text-aqua-500" strokeWidth={1.4} />
             </span>
@@ -145,7 +145,7 @@ export function HeroSection() {
         {/* The closing statement, after the two doors rather than before them:
             it is what someone reads once they already know which one they are,
             so it lands as confirmation instead of more preamble. */}
-        <div data-reveal data-reveal-delay="300" className="mt-14">
+        <div data-reveal data-reveal-delay="300" className="mt-24">
           <p className="font-display text-[24px] font-bold tracking-[0.08em] text-[#0a2f34] sm:text-[28px]">
             {t("closingTitle")}
           </p>
@@ -160,7 +160,7 @@ export function HeroSection() {
         <p
           data-reveal
           data-reveal-delay="340"
-          className="mt-8 flex items-center justify-center gap-2 text-[12px] italic text-ink-faint"
+          className="mt-12 flex items-center justify-center gap-2 text-[12px] italic text-ink-faint"
         >
           <ShieldCheck className="h-3.5 w-3.5 text-aqua-500" strokeWidth={1.6} />
           {t("clarity")}
@@ -169,7 +169,7 @@ export function HeroSection() {
         <dl
           data-reveal
           data-reveal-delay="340"
-          className="mt-14 grid grid-cols-3 gap-px overflow-hidden rounded-2xl border border-line bg-line shadow-[0_1px_2px_rgba(43,52,64,.04)]"
+          className="mt-20 grid grid-cols-3 gap-px overflow-hidden rounded-2xl border border-line bg-line shadow-[0_1px_2px_rgba(43,52,64,.04)]"
         >
           {stats.map((stat) => (
             <div
