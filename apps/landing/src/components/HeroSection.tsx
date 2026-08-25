@@ -69,7 +69,7 @@ export function HeroSection() {
              its brand casing. text-transform would flatten it to "THEONE" and
              lose the split the whole identity is built on. Caps need tracking
              or they set solid. */
-          className="mx-auto mt-7 max-w-3xl font-display text-[15px] font-medium leading-[1.6] tracking-[0.13em] text-aqua-700 sm:text-[17px]"
+          className="mx-auto mt-8 max-w-4xl font-display text-[22px] font-bold leading-[1.45] tracking-[0.10em] text-[#0a2f34] sm:text-[27px]"
         >
           {t("tagline")}
         </p>
@@ -77,21 +77,28 @@ export function HeroSection() {
         <h1
           data-reveal
           data-reveal-delay="120"
-          className="mt-6 font-display text-[42px] font-semibold leading-[1.04] tracking-[-0.02em] text-ink sm:text-[56px] lg:text-[62px]"
+          className="mx-auto mt-12 max-w-4xl font-display text-[30px] font-semibold leading-[1.12] tracking-[-0.015em] text-ink sm:text-[40px] lg:text-[46px]"
         >
-          {t("titleLine1")}
-          <span className="text-accent mt-1 block">
-            {t("titleAccent")}
-          </span>
+          {t("titleLine1")}{" "}
+          {/* Inline, not a block: the two halves are one sentence, and forcing
+              a break mid-phrase made it read as two. It still wraps naturally
+              on narrow viewports. */}
+          <span className="text-accent-gradient">{t("titleAccent")}</span>
         </h1>
 
-        <p
+        {/* Three paragraphs rather than one block: at this length a single
+            run is a wall, and the copy already breaks cleanly into what it is,
+            what powers it, and what that does for the member. Wider measure
+            than the old one-liner, or the lines get uncomfortably short. */}
+        <div
           data-reveal
           data-reveal-delay="180"
-          className="mx-auto mt-6 max-w-xl text-[15px] leading-[1.75] text-ink-soft"
+          className="mx-auto mt-8 max-w-3xl space-y-4 text-[15px] leading-[1.8] text-ink-soft sm:text-[16px]"
         >
-          {t("subtitle")}
-        </p>
+          <p>{t("subtitle")}</p>
+          <p>{t("subtitle2")}</p>
+          <p>{t("subtitle3")}</p>
+        </div>
 
         {/* Two doors rather than one. "Apply" alone made a partner wonder
             whether the platform was for them at all. */}
@@ -129,10 +136,25 @@ export function HeroSection() {
           </a>
         </div>
 
+        {/* The closing statement, after the two doors rather than before them:
+            it is what someone reads once they already know which one they are,
+            so it lands as confirmation instead of more preamble. */}
+        <div data-reveal data-reveal-delay="300" className="mt-14">
+          <p className="font-display text-[24px] font-bold tracking-[0.08em] text-[#0a2f34] sm:text-[28px]">
+            {t("closingTitle")}
+          </p>
+          <p className="mx-auto mt-5 max-w-3xl text-[15px] leading-[1.8] text-ink-soft sm:text-[16px]">
+            {t("closingBody")}
+          </p>
+          <p className="text-accent-gradient mx-auto mt-6 max-w-2xl font-display text-[19px] font-semibold sm:text-[22px]">
+            {t("closingKicker")}
+          </p>
+        </div>
+
         <p
           data-reveal
-          data-reveal-delay="300"
-          className="mt-6 flex items-center justify-center gap-2 text-[12px] italic text-ink-faint"
+          data-reveal-delay="340"
+          className="mt-8 flex items-center justify-center gap-2 text-[12px] italic text-ink-faint"
         >
           <ShieldCheck className="h-3.5 w-3.5 text-aqua-500" strokeWidth={1.6} />
           {t("clarity")}

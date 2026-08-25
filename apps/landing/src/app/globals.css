@@ -353,6 +353,29 @@
   color: var(--aqua-500);
 }
 
+/**
+ * The same gradient as .btn-primary, painted through the type.
+ *
+ * A flat aqua-500 sat between the button gradient's two ends, so the headline
+ * and the buttons read as two neighbouring teals rather than one colour. This
+ * is literally the same declaration.
+ *
+ * Guarded by @supports: without background-clip the transparent fill would make
+ * the text invisible rather than merely un-gradiented.
+ */
+.text-accent-gradient {
+  color: var(--aqua-500);
+}
+@supports (-webkit-background-clip: text) or (background-clip: text) {
+  .text-accent-gradient {
+    background: linear-gradient(100deg, var(--aqua-600) 0%, var(--aqua-400) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+  }
+}
+
 .rule-accent {
   height: 1px;
   border: 0;
