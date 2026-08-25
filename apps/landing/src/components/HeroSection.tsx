@@ -59,10 +59,21 @@ export function HeroSection() {
           </div>
         </div>
 
+        {/* Directly under the mark, so the claim reads as part of the lockup.
+            Set in the display face rather than tracked uppercase — the badge
+            below is already that, and two tracked lines stacked fight. */}
+        <p
+          data-reveal
+          data-reveal-delay="40"
+          className="mx-auto mt-7 max-w-2xl font-display text-[20px] font-light leading-[1.4] text-ink sm:text-[24px]"
+        >
+          {t("tagline")}
+        </p>
+
         <span
           data-reveal
-          data-reveal-delay="60"
-          className="mt-9 inline-flex items-center gap-2 rounded-full border border-aqua-500/25 bg-aqua-500/10 px-3.5 py-1.5"
+          data-reveal-delay="80"
+          className="mt-7 inline-flex items-center gap-2 rounded-full border border-aqua-500/25 bg-aqua-500/10 px-3.5 py-1.5"
         >
           <span className="pulse-ring block h-1.5 w-1.5 rounded-full bg-aqua-500" />
           <span className="eyebrow">{t("eyebrow")}</span>
