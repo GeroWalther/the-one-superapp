@@ -57,7 +57,18 @@ export function SiteHeader() {
             <Link
               key={link.href}
               href={link.href}
-              className="text-[13px] text-ink-soft transition-colors hover:text-ink"
+              /* Over a transparent header the links cross the hero's own
+                 gradient, which runs from pale to dark exactly under them —
+                 mid-tones that are too light for white text and too dark for
+                 ink. Measured, white on the lightest was 1.96:1. A white pill
+                 gives each link its own ground instead, so legibility no longer
+                 depends on what is behind it. Dropped once scrolled, where the
+                 header supplies a ground of its own. */
+              className={`text-[13px] transition-all ${
+                scrolled
+                  ? "text-ink-soft hover:text-ink"
+                  : "rounded-full border border-white/70 bg-white/85 px-3.5 py-1.5 text-ink shadow-sm backdrop-blur-sm hover:bg-white"
+              }`}
             >
               {link.label}
             </Link>
