@@ -1,24 +1,20 @@
-import Image from "next/image";
 import { Sparkles } from "lucide-react";
+import { Placeholder } from "@/components/Placeholder";
 
 const cards = [
   {
-    src: "https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=420&h=240&fit=crop&q=80",
     label: "Health & Longevity",
     tint: "#0f4a45",
   },
   {
-    src: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=420&h=240&fit=crop&q=80",
     label: "Wealth Management",
     tint: "#3d2c17",
   },
   {
-    src: "https://images.unsplash.com/photo-1540541338287-41700207dee6?w=420&h=240&fit=crop&q=80",
     label: "Lifestyle Services",
     tint: "#1c3345",
   },
   {
-    src: "https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=420&h=240&fit=crop&q=80",
     label: "Wellness & Resorts",
     tint: "#1f4536",
   },
@@ -90,13 +86,7 @@ export function PhoneMockup() {
                     key={card.label}
                     className="relative h-[74px] overflow-hidden rounded-[13px] ring-1 ring-line"
                   >
-                    <Image
-                      src={card.src}
-                      alt=""
-                      fill
-                      sizes="240px"
-                      className="object-cover"
-                    />
+                    <Placeholder />
                     <div
                       className="absolute inset-0"
                       style={{

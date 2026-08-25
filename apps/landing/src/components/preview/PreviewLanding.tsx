@@ -1,4 +1,3 @@
-import Image from "next/image";
 import { useTranslations } from "next-intl";
 import {
   Award,
@@ -9,6 +8,7 @@ import {
   Zap,
 } from "lucide-react";
 import { PhoneMockup } from "@/components/PhoneMockup";
+import { Placeholder } from "@/components/Placeholder";
 import { WaitlistCard } from "./WaitlistCard";
 
 /**
@@ -23,28 +23,22 @@ import { WaitlistCard } from "./WaitlistCard";
  * distinguishes the mockup from the current mint-washed page.
  */
 
-const img = (id: string, w: number, h: number) =>
-  `https://images.unsplash.com/photo-${id}?w=${w}&h=${h}&fit=crop&q=80`;
-
 const TILES = [
   {
     key: "healthLongevity",
-    src: img("1666214280557-f1b5022eb634", 900, 900),
     className: "sm:col-span-2 sm:row-span-2",
     lead: true,
   },
-  { key: "beautySkincare", src: img("1570172619644-dfd03ed5d881", 500, 400) },
-  { key: "wellnessResorts", src: img("1571896349842-33c89424de2d", 500, 400) },
-  { key: "luxuryHotels", src: img("1566073771259-6a8506099945", 500, 400) },
-  { key: "lifestyle", src: img("1507003211169-0a1dd7228f2d", 500, 400) },
+  { key: "beautySkincare" },
+  { key: "wellnessResorts" },
+  { key: "luxuryHotels" },
+  { key: "lifestyle" },
   {
     key: "realEstate",
-    src: img("1600596542815-ffad4c1539a9", 900, 400),
     className: "sm:col-span-2",
   },
   {
     key: "insurance",
-    src: img("1454165804606-c3d57bc86b40", 900, 400),
     className: "sm:col-span-2",
   },
 ];
@@ -168,13 +162,7 @@ export function PreviewLanding() {
                   tile.className ?? ""
                 }`}
               >
-                <Image
-                  src={tile.src}
-                  alt={tServices(tile.key)}
-                  fill
-                  sizes="(max-width: 640px) 50vw, 25vw"
-                  className="object-cover transition-transform duration-[900ms] group-hover:scale-[1.05]"
-                />
+                <Placeholder label={tServices(tile.key)} />
                 {/* Caption sits in a frosted strip on the image, as drawn. */}
                 <figcaption
                   className={`absolute inset-x-0 bottom-0 bg-white/85 px-4 backdrop-blur-sm ${
@@ -227,31 +215,16 @@ export function PreviewLanding() {
         <section className="mx-auto max-w-6xl px-6 pb-20 lg:px-8">
           <div className="grid gap-3 sm:grid-cols-[1.6fr_1fr]">
             <div className="relative aspect-4/3 overflow-hidden rounded-2xl shadow-[0_14px_36px_-20px_rgba(43,52,64,0.5)] sm:aspect-auto sm:h-[380px]">
-              <Image
-                src={img("1666214280557-f1b5022eb634", 1000, 760)}
-                alt=""
-                fill
-                sizes="(max-width: 640px) 100vw, 55vw"
-                className="object-cover"
-              />
-            </div>
+              <Placeholder />
+              </div>
             <div className="grid gap-3">
-              {[
-                img("1579154204601-01588f351e67", 600, 380),
-                img("1629909613654-28e377c37b09", 600, 380),
-              ].map((src) => (
+              {["upper", "lower"].map((slot) => (
                 <div
-                  key={src}
+                  key={slot}
                   className="relative aspect-16/9 overflow-hidden rounded-2xl shadow-[0_14px_36px_-20px_rgba(43,52,64,0.5)] sm:aspect-auto sm:h-[184px]"
                 >
-                  <Image
-                    src={src}
-                    alt=""
-                    fill
-                    sizes="(max-width: 640px) 100vw, 30vw"
-                    className="object-cover"
-                  />
-                </div>
+                  <Placeholder />
+                  </div>
               ))}
             </div>
           </div>

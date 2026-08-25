@@ -37,10 +37,12 @@ export function SiteHeader() {
 
   return (
     <header
-      className={`fixed inset-x-0 top-0 z-50 transition-all duration-500 ${
-        scrolled
-          ? "border-b border-line bg-paper/80 backdrop-blur-xl"
-          : "border-b border-transparent"
+      /* Always solid white. It used to be transparent until scrolled, which
+         left the nav floating over whatever the hero happened to be doing and
+         made the links hard to read against the corner wash. Scrolling now only
+         adds a shadow, so the bar lifts rather than appears. */
+      className={`fixed inset-x-0 top-0 z-50 border-b border-line bg-paper transition-shadow duration-300 ${
+        scrolled ? "shadow-[0_1px_16px_-6px_rgba(43,52,64,0.25)]" : ""
       }`}
     >
       <div className="mx-auto flex h-[74px] max-w-6xl items-center justify-between px-6 lg:px-8">

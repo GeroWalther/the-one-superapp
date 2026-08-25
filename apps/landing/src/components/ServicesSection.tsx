@@ -1,7 +1,7 @@
-import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { ArrowUpRight, Star } from "lucide-react";
 import { SERVICES } from "@/lib/services";
+import { Placeholder } from "@/components/Placeholder";
 
 /**
  * The seven verticals — the substance of what membership actually buys, and the
@@ -47,21 +47,8 @@ export function ServicesSection({ highlight = [] }: { highlight?: string[] }) {
                 leadFocus ? "ring-aqua-400" : "ring-line"
               }`}
             >
-              <Image
-                src={lead.image}
-                alt={tServices(lead.messageKey)}
-                fill
-                sizes="(max-width: 768px) 100vw, 33vw"
-                className="object-cover transition-transform duration-[900ms] group-hover:scale-[1.04]"
-                priority
-              />
-              <div
-                className="absolute inset-0 opacity-25 mix-blend-multiply transition-opacity duration-500 group-hover:opacity-10"
-                style={{
-                  background: `linear-gradient(165deg, transparent 30%, ${lead.tint} 100%)`,
-                }}
-              />
-              {leadFocus && <FocusBadge label={t("yourFocus")} />}
+              <Placeholder label={tServices(lead.messageKey)} />
+                  {leadFocus && <FocusBadge label={t("yourFocus")} />}
             </div>
             <Caption
               label={tServices(lead.messageKey)}
@@ -90,19 +77,7 @@ export function ServicesSection({ highlight = [] }: { highlight?: string[] }) {
                     isFocus ? "ring-aqua-400" : "ring-line"
                   }`}
                 >
-                  <Image
-                    src={service.image}
-                    alt={tServices(service.messageKey)}
-                    fill
-                    sizes="(max-width: 768px) 100vw, 33vw"
-                    className="object-cover transition-transform duration-[900ms] group-hover:scale-[1.04]"
-                  />
-                  <div
-                    className="absolute inset-0 opacity-25 mix-blend-multiply transition-opacity duration-500 group-hover:opacity-10"
-                    style={{
-                      background: `linear-gradient(165deg, transparent 35%, ${service.tint} 100%)`,
-                    }}
-                  />
+                  <Placeholder label={tServices(service.messageKey)} />
                   {isFocus && <FocusBadge label={t("yourFocus")} />}
                 </div>
                 <Caption label={tServices(service.messageKey)} />

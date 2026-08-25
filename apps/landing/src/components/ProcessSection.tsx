@@ -1,7 +1,7 @@
-import Image from "next/image";
 import Link from "next/link";
 import { useLocale, useTranslations } from "next-intl";
 import { ArrowRight } from "lucide-react";
+import { Placeholder } from "@/components/Placeholder";
 
 /**
  * Access here is an application, not a signup, and that is unusual enough that
@@ -41,17 +41,7 @@ export function ProcessSection() {
             </p>
 
             <div className="relative mt-9 aspect-4/3 overflow-hidden rounded-[24px] ring-1 ring-line">
-              <Image
-                /* A quiet interior rather than the obvious handshake-and-high-five stock:
-                   the brand sells discretion, and celebratory office photography
-                   undercuts that faster than any wording can fix. */
-                src="https://images.unsplash.com/photo-1524758631624-e2822e304c36?w=1200&h=900&fit=crop&q=80"
-                alt=""
-                fill
-                sizes="(max-width: 1024px) 100vw, 46vw"
-                className="object-cover"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-aqua-700/25 via-transparent to-transparent" />
+              <Placeholder />
             </div>
 
             <div className="mt-8">

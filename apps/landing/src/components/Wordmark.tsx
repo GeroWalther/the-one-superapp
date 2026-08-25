@@ -24,10 +24,15 @@ export function Wordmark({
           rounded-rect outline at a different radius reads as a misfit box. */}
       <span className="relative block transition-transform duration-500 group-hover:scale-105">
         <Image
-          src="/images/theone-logo.png"
+          src="/images/theone-icon.png"
           alt=""
-          width={compact ? 36 : 44}
-          height={compact ? 36 : 44}
+          width={248}
+          height={248}
+          /* The icon cropped straight out of the hero lockup, so header and hero
+             show the same artwork. The previous file had "TheONE SUPER APP"
+             baked into it, which at 44px was an unreadable smudge sitting next
+             to the same words set in live type. */
+          style={{ width: compact ? 36 : 44, height: compact ? 36 : 44 }}
           priority
           // Same reason as the hero: optimising it flattens the alpha to white.
           unoptimized
