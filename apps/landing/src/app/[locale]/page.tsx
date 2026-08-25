@@ -3,6 +3,7 @@ import { PreviewLanding } from "@/components/preview/PreviewLanding";
 import { PreviewDivider } from "@/components/preview/PreviewDivider";
 import { HeroSection } from "@/components/HeroSection";
 import { HeroFontVariants } from "@/components/HeroFontVariants";
+import { HeroBackgroundVariants } from "@/components/HeroBackgroundVariants";
 import { PositioningSection } from "@/components/PositioningSection";
 import { PillarsSection } from "@/components/PillarsSection";
 import { ServicesSection } from "@/components/ServicesSection";
@@ -25,6 +26,7 @@ export default function HomePage() {
         {/* Font comparison for the client. Remove this line and the import when
             a typeface has been chosen. */}
         <HeroFontVariants />
+        <HeroBackgroundVariants />
 
         <HeroSection />
         <PositioningSection />

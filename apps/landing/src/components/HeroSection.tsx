@@ -65,7 +65,11 @@ export function HeroSection() {
         <p
           data-reveal
           data-reveal-delay="40"
-          className="mx-auto mt-7 max-w-2xl font-display text-[20px] font-light leading-[1.4] text-ink sm:text-[24px]"
+          /* No CSS uppercase: the caps live in the message so "TheONE" keeps
+             its brand casing. text-transform would flatten it to "THEONE" and
+             lose the split the whole identity is built on. Caps need tracking
+             or they set solid. */
+          className="mx-auto mt-7 max-w-3xl font-display text-[15px] font-normal leading-[1.6] tracking-[0.13em] text-ink sm:text-[17px]"
         >
           {t("tagline")}
         </p>
