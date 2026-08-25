@@ -175,15 +175,17 @@
   background:
     var(
       --silk-corner,
+      /* The button's own two stops — --aqua-600 into --aqua-400 — mixed with
+         transparent via color-mix rather than copied as hex, so the corner can
+         never drift out of step with .btn-primary. Held tight to the corner. */
       radial-gradient(
-        ellipse 100% 115% at 108% -14%,
-        rgba(12, 58, 50, 0.9) 0%,
-        rgba(19, 84, 74, 0.72) 16%,
-        rgba(26, 108, 96, 0.52) 30%,
-        rgba(42, 138, 124, 0.32) 46%,
-        rgba(95, 180, 165, 0.16) 62%,
-        rgba(198, 228, 220, 0.06) 76%,
-        rgba(255, 255, 255, 0) 90%
+        ellipse 46% 58% at 103% -6%,
+        color-mix(in srgb, var(--aqua-600) 92%, transparent) 0%,
+        color-mix(in srgb, var(--aqua-600) 66%, transparent) 20%,
+        color-mix(in srgb, var(--aqua-400) 44%, transparent) 40%,
+        color-mix(in srgb, var(--aqua-400) 20%, transparent) 58%,
+        color-mix(in srgb, var(--aqua-400) 7%, transparent) 74%,
+        transparent 88%
       )
     ),
     radial-gradient(
