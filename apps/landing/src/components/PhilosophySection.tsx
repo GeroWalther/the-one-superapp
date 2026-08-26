@@ -15,7 +15,7 @@ export function PhilosophySection() {
       {/* Full-bleed, not a contained box. This is the only saturated surface on
           the page and the only place the scroll changes colour entirely; boxing
           it inside the same margins as everything else wasted that. */}
-      <div className="band-accent relative overflow-hidden py-20 sm:py-24">
+      <div className="band-accent relative overflow-hidden py-3 sm:py-4">
         <div
           aria-hidden="true"
           className="pointer-events-none absolute inset-0 opacity-[0.14]"

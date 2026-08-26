@@ -26,6 +26,7 @@ export default function HomePage() {
         {/* Design comparison, kept below the live page. Deleting these four
             lines removes it entirely. */}
         {/* <PreviewDivider label="start" /> */}
+        <PhilosophySection />
         <PreviewLanding />
         {/* <PreviewDivider label="end" /> */}
         <PositioningSection />
@@ -33,7 +34,6 @@ export default function HomePage() {
         <ServicesSection />
         <ProcessSection />
         <BenefitsSection />
-        <PhilosophySection />
         <ApplySection />
       </main>
       <Footer />
