@@ -121,7 +121,7 @@ export function LoginForm({ next }: { next?: string }) {
         <p>
           {t("noAccount")}{" "}
           <Link
-            href={`/${locale}/enroll`}
+            href={`/${locale}#apply`}
             className="text-aqua-500 underline-offset-4 transition-colors hover:text-aqua-700 hover:underline"
           >
             {t("apply")}

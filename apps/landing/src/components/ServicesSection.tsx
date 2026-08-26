@@ -20,7 +20,7 @@ export function ServicesSection({ highlight = [] }: { highlight?: string[] }) {
   const leadFocus = highlight.includes(lead.focusKey);
 
   return (
-    <section id="verticals" className="scroll-mt-24 py-14 sm:py-18">
+    <section id="verticals" className="scroll-mt-24 py-20 sm:py-28">
       <div className="mx-auto max-w-6xl px-6 lg:px-8">
         {/* Left-aligned, with the sentence beside the heading rather than under
             it — the third centred stack in a row was starting to drone. */}

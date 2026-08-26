@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import { EnrollShell } from "@/components/enroll/EnrollShell";
-import { EnrollIntro } from "@/components/enroll/EnrollIntro";
 import { PartnerEnrollForm } from "@/components/enroll/PartnerEnrollForm";
 import { lookupInvitation } from "@/lib/applications/service";
 
@@ -45,7 +44,6 @@ export default async function PartnerEnrollPage({
       }
       width="2xl"
     >
-      <EnrollIntro audience="partner" />
       <PartnerEnrollForm inviteCode={validInvite} />
     </EnrollShell>
   );

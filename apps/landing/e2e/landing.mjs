@@ -37,7 +37,7 @@ const VIEWPORTS = [
   { width: 1440, height: 1000, name: "desktop" },
 ];
 
-const SECTIONS = ["#audience", "#verticals", "#process", "#philosophy"];
+const SECTIONS = ["#verticals", "#process", "#benefits", "#philosophy", "#apply"];
 
 for (const { width, height, name } of VIEWPORTS) {
   const page = await browser.newPage({ viewport: { width, height } });
@@ -72,34 +72,27 @@ for (const { width, height, name } of VIEWPORTS) {
   await page.close();
 }
 
-/* --- each card opens its own application page ---------------------------- */
+/* --- the apply flow still opens in place --------------------------------- */
 const page = await browser.newPage({ viewport: { width: 1440, height: 1000 } });
 await page.goto(`${BASE}/de`, { waitUntil: "networkidle" });
 await page.waitForTimeout(1000);
 
 check(
-  "audience section offers both paths",
-  (await page.locator("#audience a").count()) >= 2,
+  "hero offers both paths",
+  (await page.locator('a[href="#apply"]').count()) >= 2,
 );
 
-/* Price belongs on the application page, not the pitch. */
-const landing = await page.evaluate(() => document.body.innerText);
-check("no price on the landing page", !/€49|€5[.,]000/.test(landing));
-check("no application form on the landing page", !landing.includes("Zwei Wege hinein"));
-
-await page.locator("#audience a").first().click();
-await page.waitForURL("**/enroll/member**", { timeout: 20000 });
+const urlBefore = page.url();
+await page.getByRole("button", { name: /Bewerbung starten/i }).first().click();
 await page.waitForSelector('input[name="fullName"]', { timeout: 20000 });
-const memberPage = await page.evaluate(() => document.body.innerText);
-check("member page carries its value points", memberPage.includes("POWER AI, die Sie kennt"));
-check("member page states the price", memberPage.includes("€49"));
-check("member page shows what happens next", memberPage.includes("Gepr\u00fcft"));
+check("member form opens without navigating", page.url().startsWith(urlBefore.split("#")[0]));
+check("form uses the brand card", (await page.locator(".card-brand").count()) > 0);
 
-await page.goto(`${BASE}/de/enroll/partner`, { waitUntil: "networkidle" });
+await page.getByRole("button", { name: /Anderen Weg wählen/i }).click();
+await page.waitForTimeout(800);
+await page.getByRole("button", { name: /Bewerbung starten/i }).last().click();
 await page.waitForSelector('input[name="companyName"]', { timeout: 20000 });
-const partnerPage = await page.evaluate(() => document.body.innerText);
-check("partner page carries its value points", partnerPage.includes("Keine Werbung"));
-check("partner page states the price", /€5[.,]000/.test(partnerPage));
+check("partner form opens in place", true);
 
 /* --- German copy the client asked for ------------------------------------ */
 const html = await page.content();

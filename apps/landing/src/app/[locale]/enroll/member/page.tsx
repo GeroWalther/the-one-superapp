@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import { EnrollShell } from "@/components/enroll/EnrollShell";
-import { EnrollIntro } from "@/components/enroll/EnrollIntro";
 import { MemberEnrollForm } from "@/components/enroll/MemberEnrollForm";
 import { lookupInvitation } from "@/lib/applications/service";
 
@@ -43,9 +42,7 @@ export default async function MemberEnrollPage({
               })
           : undefined
       }
-      width="2xl"
     >
-      <EnrollIntro audience="member" />
       <MemberEnrollForm inviteCode={validInvite} />
     </EnrollShell>
   );
