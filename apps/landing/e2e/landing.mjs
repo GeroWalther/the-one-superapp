@@ -37,7 +37,7 @@ const VIEWPORTS = [
   { width: 1440, height: 1000, name: "desktop" },
 ];
 
-const SECTIONS = ["#verticals", "#process", "#benefits", "#philosophy", "#apply"];
+const SECTIONS = ["#audience", "#verticals", "#process", "#philosophy", "#apply"];
 
 for (const { width, height, name } of VIEWPORTS) {
   const page = await browser.newPage({ viewport: { width, height } });
@@ -77,9 +77,16 @@ const page = await browser.newPage({ viewport: { width: 1440, height: 1000 } });
 await page.goto(`${BASE}/de`, { waitUntil: "networkidle" });
 await page.waitForTimeout(1000);
 
+/* The two paths moved out of the hero into the audience section, which states
+   what each side gets and what it costs before asking anyone to apply. */
 check(
-  "hero offers both paths",
-  (await page.locator('a[href="#apply"]').count()) >= 2,
+  "audience section offers both paths",
+  (await page.locator('#audience a[href*="#apply"]').count()) >= 2,
+);
+check(
+  "both prices are stated before the form",
+  (await page.locator("#audience").innerText()).includes("€49") &&
+    /€5[.,]000/.test(await page.locator("#audience").innerText()),
 );
 
 const urlBefore = page.url();

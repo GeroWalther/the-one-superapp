@@ -240,6 +240,35 @@
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
+/**
+ * Narrow screens need the corner pulled back.
+ *
+ * A radial gradient is sized as a percentage of its element, so the same
+ * ellipse that sits in the corner at 1440px covers most of a 390px viewport —
+ * and the hero's text is centred, so it lands directly on the dark end.
+ * Measured before this: "FOR A BETTER LIFE" at 1.15:1, effectively invisible.
+ *
+ * Only the geometry changes. The colours are the same tokens, so the corner
+ * still reads as the same wash, just held to its corner.
+ */
+@media (max-width: 767px) {
+  .silk {
+    /* Shallow rather than narrow. The hero's lines run nearly full-width at
+       this size, so pulling the corner in horizontally still leaves their right
+       end in it; the only reliable clearance is vertical. Text begins about 27%
+       down the hero, so the wash resolves to white by ~19%. */
+    --silk-corner: radial-gradient(
+      ellipse 96% 24% at 100% -2%,
+      var(--petrol-900) 0%,
+      var(--petrol-900) 10%,
+      var(--petrol-500) 30%,
+      var(--petrol-300) 52%,
+      var(--petrol-100) 68%,
+      #ffffff 82%
+    );
+  }
+}
+
 /* ==========================================================================
    Gold filaments in the hero
    ========================================================================== */

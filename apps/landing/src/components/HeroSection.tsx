@@ -1,11 +1,9 @@
 import Image from "next/image";
 import { useTranslations } from "next-intl";
-import { Building2, ShieldCheck, UserRound } from "lucide-react";
 import { GoldWaves } from "./GoldWaves";
 
 export function HeroSection() {
   const t = useTranslations("hero");
-  const tEnroll = useTranslations("enroll");
 
   const stats = [
     { value: t("stat1Value"), label: t("stat1Label") },
@@ -107,67 +105,7 @@ export function HeroSection() {
           <p>{t("subtitle3")}</p>
         </div>
 
-        {/* Two doors rather than one. "Apply" alone made a partner wonder
-            whether the platform was for them at all. */}
-        {/* <div
-          data-reveal
-          data-reveal-delay="240"
-          className="mt-10 grid gap-3 sm:grid-cols-2"
-        >
-          <a href="#apply" className="card-brand-soft group flex items-center gap-4 p-5 text-left">
-            <span className="grid h-11 w-11 shrink-0 place-items-center rounded-full border border-aqua-500/25 bg-aqua-500/10">
-              <UserRound className="h-5 w-5 text-aqua-500" strokeWidth={1.4} />
-            </span>
-            <span>
-              <span className="block text-[14.5px] font-semibold text-ink">
-                {tEnroll("chooser.memberTitle")}
-              </span>
-              <span className="mt-0.5 block text-[12px] text-ink-faint">
-                {tEnroll("chooser.memberMeta")}
-              </span>
-            </span>
-          </a>
-
-          <a href="#apply" className="card-brand-soft group flex items-center gap-4 p-5 text-left">
-            <span className="grid h-11 w-11 shrink-0 place-items-center rounded-full border border-aqua-500/25 bg-aqua-500/10">
-              <Building2 className="h-5 w-5 text-aqua-500" strokeWidth={1.4} />
-            </span>
-            <span>
-              <span className="block text-[14.5px] font-semibold text-ink">
-                {tEnroll("chooser.partnerTitle")}
-              </span>
-              <span className="mt-0.5 block text-[12px] text-ink-faint">
-                {tEnroll("chooser.partnerMeta")}
-              </span>
-            </span>
-          </a>
-        </div> */}
-
-        {/* The closing statement, after the two doors rather than before them:
-            it is what someone reads once they already know which one they are,
-            so it lands as confirmation instead of more preamble. */}
-        <div data-reveal data-reveal-delay="300" className="mt-24">
-          <p className="font-display text-[24px] font-bold tracking-[0.08em] text-[#0a2f34] sm:text-[28px]">
-            {t("closingTitle")}
-          </p>
-          <p className="mx-auto mt-5 max-w-3xl text-[15px] leading-[1.8] text-ink-soft sm:text-[16px]">
-            {t("closingBody")}
-          </p>
-          <p className="text-accent-gradient mx-auto mt-6 max-w-2xl font-display text-[19px] font-semibold sm:text-[22px]">
-            {t("closingKicker")}
-          </p>
-        </div>
-
-        {/* <p
-          data-reveal
-          data-reveal-delay="340"
-          className="mt-12 flex items-center justify-center gap-2 text-[12px] italic text-ink-faint"
-        >
-          <ShieldCheck className="h-3.5 w-3.5 text-aqua-500" strokeWidth={1.6} />
-          {t("clarity")}
-        </p> */}
-
-        <dl
+<dl
           data-reveal
           data-reveal-delay="340"
           className="mt-20 grid grid-cols-3 gap-px overflow-hidden rounded-2xl border border-line bg-line shadow-[0_1px_2px_rgba(43,52,64,.04)]"
