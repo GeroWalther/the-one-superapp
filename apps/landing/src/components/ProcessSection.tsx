@@ -25,7 +25,7 @@ export function ProcessSection() {
   ];
 
   return (
-    <section id="process" className="scroll-mt-24 py-20 sm:py-28">
+    <section id="process" className="scroll-mt-24 py-14 sm:py-18">
       <div className="mx-auto max-w-6xl px-6 lg:px-8">
         <div className="grid gap-12 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1fr)] lg:items-start lg:gap-16">
           {/* --- left: the argument, and one image ------------------------ */}

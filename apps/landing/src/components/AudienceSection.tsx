@@ -50,7 +50,7 @@ export function AudienceSection() {
   ];
 
   return (
-    <section id="audience" className="scroll-mt-24 py-20 sm:py-24">
+    <section id="audience" className="scroll-mt-24 py-14 sm:py-16">
       <div className="mx-auto max-w-6xl px-6 lg:px-8">
         <div data-reveal className="mx-auto max-w-2xl text-center">
           <p className="eyebrow">{t("eyebrow")}</p>

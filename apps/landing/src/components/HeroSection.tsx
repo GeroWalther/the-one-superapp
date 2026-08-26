@@ -12,7 +12,7 @@ export function HeroSection() {
   ];
 
   return (
-    <section className="grain relative overflow-hidden pb-28 pt-[92px] sm:pb-36 lg:pt-[104px]">
+    <section className="grain relative overflow-hidden pb-20 pt-[92px] sm:pb-24 lg:pt-[104px]">
       <div className="silk"></div>
 
       {/* Gold ribbons over the wash, still behind the content. */}

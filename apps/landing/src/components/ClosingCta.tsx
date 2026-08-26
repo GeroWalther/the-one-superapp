@@ -16,11 +16,10 @@ export function ClosingCta() {
   const locale = useLocale();
 
   return (
-    <section className="border-t border-line py-16 sm:py-20">
-      <div
-        data-reveal
-        className="mx-auto max-w-3xl px-6 text-center lg:px-8"
-      >
+    <section className="border-t border-line py-12 sm:py-14">
+      {/* No data-reveal here on purpose: this is the last thing before the
+          footer, so if the observer ever misses it the page ends on a blank. */}
+      <div className="mx-auto max-w-3xl px-6 text-center lg:px-8">
         <h2 className="font-display text-[26px] font-light leading-tight text-ink sm:text-[32px]">
           {t("title")}
         </h2>

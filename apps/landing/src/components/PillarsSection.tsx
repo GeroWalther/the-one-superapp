@@ -23,7 +23,7 @@ export function PillarsSection() {
   ];
 
   return (
-    <section className="relative py-20 sm:py-24">
+    <section className="relative py-14 sm:py-16">
       <div className="mx-auto max-w-6xl px-6 lg:px-8">
         {/* Heading on the left, the three layers stacked to its right. The card
             chrome is gone: three bordered boxes made these read as options to
