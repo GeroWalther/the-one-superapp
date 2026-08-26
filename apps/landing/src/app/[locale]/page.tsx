@@ -5,6 +5,7 @@ import { AudienceSection } from "@/components/AudienceSection";
 import { ServicesSection } from "@/components/ServicesSection";
 import { ProcessSection } from "@/components/ProcessSection";
 import { PhilosophySection } from "@/components/PhilosophySection";
+import { ClosingCta } from "@/components/ClosingCta";
 import { Footer } from "@/components/Footer";
 
 /**
@@ -39,6 +40,9 @@ export default function HomePage() {
 
         {/* The refusals — read as terms once someone is already interested */}
         <PhilosophySection />
+
+        {/* Both doors again, at the end of the argument */}
+        <ClosingCta />
       </main>
       <Footer />
     </>

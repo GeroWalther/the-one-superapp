@@ -1,29 +1,32 @@
 import { useTranslations } from "next-intl";
 
+/**
+ * One row, one line.
+ *
+ * The footer used to carry a rule, a note and a two-column row on generous
+ * padding — three horizontal lines stacked at the end of a page that already
+ * ends with a bordered section. Everything sits on a single row now, with the
+ * top border as the only rule.
+ */
 export function Footer() {
   const t = useTranslations("footer");
 
-
   return (
-    <footer className="relative mt-auto border-t border-line bg-paper pb-10 pt-12">
-      <div className="mx-auto max-w-5xl px-6 lg:px-8">
+    <footer className="mt-auto border-t border-line bg-paper py-5">
+      <div className="mx-auto flex max-w-5xl flex-col items-center gap-x-6 gap-y-2 px-6 text-[11.5px] text-ink-faint sm:flex-row sm:justify-between lg:px-8">
+        <p>{t("copyright")}</p>
 
-        <hr className="rule-accent mx-auto my-8 w-full max-w-sm" />
-
-        <p className="text-center text-[12px] text-ink-faint">
+        <p className="order-first text-center sm:order-none">
           {t("waitlistNote")}
         </p>
 
-        <div className="mt-6 flex flex-col items-center gap-3 sm:flex-row sm:justify-between">
-          <p className="text-[11.5px] text-ink-faint/80">{t("copyright")}</p>
-          <div className="flex items-center gap-5 text-[11.5px] text-ink-faint/80">
-            <span className="cursor-default transition-colors hover:text-ink-soft">
-              {t("privacy")}
-            </span>
-            <span className="cursor-default transition-colors hover:text-ink-soft">
-              {t("imprint")}
-            </span>
-          </div>
+        <div className="flex items-center gap-5">
+          <span className="cursor-default transition-colors hover:text-ink-soft">
+            {t("privacy")}
+          </span>
+          <span className="cursor-default transition-colors hover:text-ink-soft">
+            {t("imprint")}
+          </span>
         </div>
       </div>
     </footer>
