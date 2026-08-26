@@ -46,7 +46,7 @@ export function ProcessSection() {
 
             <div className="mt-8">
               <Link
-                href={`/${locale}#apply`}
+                href={`/${locale}/enroll`}
                 className="btn btn-primary px-7 py-3 text-[15px]"
               >
                 {t("cta")}

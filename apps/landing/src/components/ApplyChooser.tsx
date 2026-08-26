@@ -1,96 +1,58 @@
-"use client";
-
-import { useEffect, useRef, useState } from "react";
-import { useTranslations } from "next-intl";
-import { ArrowLeft, ArrowRight, Building2, UserRound } from "lucide-react";
-import { MemberEnrollForm } from "@/components/enroll/MemberEnrollForm";
-import { PartnerEnrollForm } from "@/components/enroll/PartnerEnrollForm";
+import Link from "next/link";
+import { useLocale, useTranslations } from "next-intl";
+import { ArrowRight, Building2, UserRound } from "lucide-react";
 
 type Choice = "member" | "partner";
 
 /**
- * Choose a path, then apply — without leaving the page.
+ * Picks which application to open.
  *
- * Sending a visitor to /enroll only to ask "which are you?" spends a page load
- * on a question, and a member who picks wrong has to navigate back. Holding the
- * choice in state here means picking is instant and reversible, and the form
- * they land in is already the right one.
+ * It hands off to a dedicated page per audience rather than swapping a form in
+ * beneath itself. Those pages carry what that side gets and what it costs, so
+ * whichever route someone arrives by, they read the argument that applies to
+ * them before the form asks for anything.
+ *
+ * Stateless as a result, and no longer a client component — an invitation is
+ * handled by the caller passing `restrictTo`, since an invitation is issued for
+ * one role and offering the other only leads to a rejection at the end of a
+ * long form.
  */
 export function ApplyChooser({
   inviteCode,
   restrictTo,
 }: {
   inviteCode?: string;
-  /** An invitation is issued for one role; offering the other only leads to a
-      rejection at the end of a long form. */
   restrictTo?: Choice;
 }) {
   const t = useTranslations("enroll");
-  const [choice, setChoice] = useState<Choice | null>(restrictTo ?? null);
-  const formRef = useRef<HTMLDivElement>(null);
+  const locale = useLocale();
 
-  /* The form is taller than the chooser it replaces, so without this the
-     visitor is left looking at whatever was below it. Skipped on first render —
-     scrolling a page nobody has interacted with is disorienting. */
-  const firstRender = useRef(true);
-  useEffect(() => {
-    if (firstRender.current) {
-      firstRender.current = false;
-      return;
-    }
-    if (choice) {
-      formRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
-    }
-  }, [choice]);
+  const query = inviteCode ? `?invite=${encodeURIComponent(inviteCode)}` : "";
 
-  const paths = ([
-    {
-      role: "member" as const,
-      icon: UserRound,
-      title: t("chooser.memberTitle"),
-      desc: t("chooser.memberDesc"),
-      meta: t("chooser.memberMeta"),
-    },
-    {
-      role: "partner" as const,
-      icon: Building2,
-      title: t("chooser.partnerTitle"),
-      desc: t("chooser.partnerDesc"),
-      meta: t("chooser.partnerMeta"),
-    },
-  ] as const).filter((path) => !restrictTo || path.role === restrictTo);
-
-  if (choice) {
-    return (
-      <div ref={formRef} className="scroll-mt-28">
-        {!restrictTo && (
-          <button
-            type="button"
-            onClick={() => setChoice(null)}
-            className="mb-5 inline-flex items-center gap-2 text-[13px] text-ink-faint transition-colors hover:text-ink"
-          >
-            <ArrowLeft className="h-4 w-4" strokeWidth={1.6} />
-            {t("chooser.back")}
-          </button>
-        )}
-
-        {choice === "member" ? (
-          <MemberEnrollForm inviteCode={inviteCode} />
-        ) : (
-          <PartnerEnrollForm inviteCode={inviteCode} />
-        )}
-      </div>
-    );
-  }
+  const paths = (
+    [
+      {
+        role: "member" as const,
+        icon: UserRound,
+        title: t("chooser.memberTitle"),
+        desc: t("chooser.memberDesc"),
+      },
+      {
+        role: "partner" as const,
+        icon: Building2,
+        title: t("chooser.partnerTitle"),
+        desc: t("chooser.partnerDesc"),
+      },
+    ] as const
+  ).filter((path) => !restrictTo || path.role === restrictTo);
 
   return (
     <div>
       <div className="grid gap-4 sm:grid-cols-2">
         {paths.map((path) => (
-          <button
+          <Link
             key={path.role}
-            type="button"
-            onClick={() => setChoice(path.role)}
+            href={`/${locale}/enroll/${path.role}${query}`}
             className="card-brand-soft group flex flex-col p-7 text-left"
           >
             <span className="grid h-12 w-12 place-items-center rounded-full border border-aqua-500/25 bg-aqua-500/10">
@@ -102,9 +64,6 @@ export function ApplyChooser({
             <p className="mt-2.5 flex-1 text-[13.5px] leading-[1.7] text-ink-soft">
               {path.desc}
             </p>
-            <span className="mt-4 text-[11px] uppercase tracking-[0.16em] text-ink-faint">
-              {path.meta}
-            </span>
             <span className="mt-5 inline-flex items-center gap-2 text-[13.5px] font-medium text-aqua-600">
               {t("chooser.start")}
               <ArrowRight
@@ -112,7 +71,7 @@ export function ApplyChooser({
                 strokeWidth={1.8}
               />
             </span>
-          </button>
+          </Link>
         ))}
       </div>
 

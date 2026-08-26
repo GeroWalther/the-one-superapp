@@ -79,7 +79,7 @@ export default async function AboutPage({
 
           <div data-reveal className="mt-14 text-center">
             <Link
-              href={`/${locale}#apply`}
+              href={`/${locale}/enroll`}
               className="btn btn-primary px-7 py-3 text-[15px]"
             >
               {tEnroll("chooser.title")}

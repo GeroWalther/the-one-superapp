@@ -10,10 +10,11 @@ import { ArrowRight, Building2, Check, UserRound } from "lucide-react";
  * trust, the other wants to be found. Everything before this said what TheONE
  * *is*; this is the first section that says what the visitor *receives*.
  *
- * Price is stated here rather than after approval. It is the question both
- * audiences arrive with, and an applicant who only learns it once a reviewer
- * has already read their file costs a decision cycle that was never going to
- * convert.
+ * Each card opens its own application page — the same argument with room to
+ * make it, plus the form — rather than scrolling to a shared one.
+ *
+ * Price lives on the application page rather than here: near enough to the
+ * decision to inform it, without interrupting the pitch with a number.
  */
 export function AudienceSection() {
   const t = useTranslations("audience");
@@ -30,11 +31,8 @@ export function AudienceSection() {
         { title: t("memberPoint2"), desc: t("memberPoint2Desc") },
         { title: t("memberPoint3"), desc: t("memberPoint3Desc") },
       ],
-      price: t("memberPrice"),
-      unit: t("memberPriceUnit"),
-      note: t("memberPriceNote"),
       cta: t("memberCta"),
-      href: `/${locale}#apply`,
+      href: `/${locale}/enroll/member`,
     },
     {
       key: "partner",
@@ -46,11 +44,8 @@ export function AudienceSection() {
         { title: t("partnerPoint2"), desc: t("partnerPoint2Desc") },
         { title: t("partnerPoint3"), desc: t("partnerPoint3Desc") },
       ],
-      price: t("partnerPrice"),
-      unit: t("partnerPriceUnit"),
-      note: t("partnerPriceNote"),
       cta: t("partnerCta"),
-      href: `/${locale}#apply`,
+      href: `/${locale}/enroll/partner`,
     },
   ];
 
@@ -107,19 +102,13 @@ export function AudienceSection() {
                 ))}
               </ul>
 
-              {/* Stated before the form, not after approval. */}
+              {/* Price deliberately not here — it is on the application
+                  page, where the visitor is close enough to the decision for a
+                  number to inform it rather than interrupt the pitch. */}
               <div className="mt-8 border-t border-line pt-7">
-                <p className="flex items-baseline gap-2">
-                  <span className="font-display text-[34px] font-light leading-none text-ink">
-                    {path.price}
-                  </span>
-                  <span className="text-[13.5px] text-ink-soft">{path.unit}</span>
-                </p>
-                <p className="mt-2 text-[12.5px] text-ink-faint">{path.note}</p>
-
                 <Link
                   href={path.href}
-                  className="btn btn-primary mt-6 w-full py-3 text-[14.5px]"
+                  className="btn btn-primary w-full py-3 text-[14.5px]"
                 >
                   {path.cta}
                   <ArrowRight className="h-4 w-4" strokeWidth={1.8} />

@@ -5,7 +5,6 @@ import { AudienceSection } from "@/components/AudienceSection";
 import { ServicesSection } from "@/components/ServicesSection";
 import { ProcessSection } from "@/components/ProcessSection";
 import { PhilosophySection } from "@/components/PhilosophySection";
-import { ApplySection } from "@/components/ApplySection";
 import { Footer } from "@/components/Footer";
 
 /**
@@ -13,7 +12,8 @@ import { Footer } from "@/components/Footer";
  *
  * Ordered as a single argument, each section answering the question the last
  * one raises: what is it, what does it do, what do I get, what is actually
- * inside, how do I get in, apply. Everything is deliberately visible — the
+ * inside, how do I get in. Applying happens on its own page per audience, so
+ * each applicant reads the argument that applies to them. Everything is deliberately visible — the
  * product is sold on what is inside it, and access is controlled by the
  * application process rather than by hiding the offering.
  */
@@ -39,9 +39,6 @@ export default function HomePage() {
 
         {/* The refusals — read as terms once someone is already interested */}
         <PhilosophySection />
-
-        {/* Apply */}
-        <ApplySection />
       </main>
       <Footer />
     </>

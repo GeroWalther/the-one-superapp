@@ -77,7 +77,7 @@ export function SiteHeader() {
           <LocaleSwitcher />
 
           <Link
-            href={`/${locale}#apply`}
+            href={`/${locale}/enroll`}
             className="btn btn-primary px-5 py-2 text-[12.5px]"
           >
             {t("joinNow")}
@@ -118,7 +118,7 @@ export function SiteHeader() {
           </nav>
 
           <Link
-            href={`/${locale}#apply`}
+            href={`/${locale}/enroll`}
             onClick={() => setMenuOpen(false)}
             className="btn btn-primary mt-5 w-full py-3 text-[14px]"
           >
