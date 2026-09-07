@@ -605,6 +605,8 @@
   },
   "preview": {
     "badge": "Design-Vorschau",
+    "worldTitle": "IHRE WELT. VERSTANDEN.",
+    "worldBody": "TheONE POWER AI versteht Ihre persönlichen Bedürfnisse, analysiert Möglichkeiten und verbindet Sie in Echtzeit mit den passenden Menschen, Unternehmen und Lösungen.",
     "heroTitle": "Die Premium Super App für Ihr Leben",
     "heroSubtitle": "für fundierte Entscheidungen & kuratierte Verbindungen",
     "waitlistCta": "Zugang zur Warteliste",
@@ -639,6 +641,7 @@
     "becomeMember": "Mitglied beitreten",
     "accessNote": "Zugang aktuell nur über Warteliste und Einladung.",
     "secure": "100% Sicher",
-    "discreet": "Diskret & Vertrauenswürdig"
+    "discreet": "Diskret & Vertrauenswürdig",
+    "eyeLabel": "POWER AI"
   }
 }

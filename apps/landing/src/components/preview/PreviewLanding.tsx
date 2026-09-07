@@ -8,6 +8,7 @@ import {
   Zap,
 } from "lucide-react";
 import { PhoneMockup } from "@/components/PhoneMockup";
+import { Vortex } from "./Vortex";
 import { Placeholder } from "@/components/Placeholder";
 import { WaitlistCard } from "./WaitlistCard";
 import { ApplyChooser } from "@/components/ApplyChooser";
@@ -248,9 +249,37 @@ export function PreviewLanding() {
           <p className="font-display text-[46px] font-light leading-none text-ink sm:text-[56px]">
             The<span className="font-normal">ONE</span>
           </p>
-          <p className="mx-auto mt-7 max-w-xl font-display text-[21px] font-light leading-[1.5] text-ink-soft sm:text-[24px]">
-            {t("wordmarkSubtitle")}
+          {/* The wordmark's line of copy is gone; this stands in its place as
+              pure ornament. It says nothing the sections below do not say
+              better, and a mark this loud under a mark that quiet is the
+              point — the page needs one moment of spectacle. */}
+          {/* Claim above the storm, not on it: over the eye the paragraph sat
+              on the brightest passage of the whole page and the two fought.
+              Only the product name goes inside now, where the eye gives it a
+              lit ground of its own. */}
+          <h2
+            data-reveal
+            className="mx-auto mt-10 max-w-2xl text-balance font-display text-[clamp(26px,6vw,52px)] font-bold leading-[1.15] tracking-[0.06em] text-[#0a2f34] sm:mt-12"
+          >
+            {t("worldTitle")}
+          </h2>
+          <p
+            data-reveal
+            data-reveal-delay="120"
+            className="mx-auto mt-5 max-w-xl text-pretty text-[15px] leading-[1.7] text-ink-soft sm:mt-6 sm:text-[17px]"
+          >
+            {t("worldBody")}
           </p>
+
+          {/* The storm's own blur reaches well above its box, so it needs more
+              clearance under the paragraph than a hard-edged element would. */}
+          <div data-reveal data-reveal-delay="200" className="mt-14 sm:mt-20">
+            <Vortex>
+              <span className="font-display text-[clamp(23px,4.2vw,44px)] font-bold uppercase leading-none tracking-[0.2em] text-[#0a2f34]">
+                {t("eyeLabel")}
+              </span>
+            </Vortex>
+          </div>
 
           {/* <div className="mx-auto mt-8 flex max-w-md items-center gap-4">
             <span className="h-px flex-1 bg-gradient-to-r from-transparent to-line" />
