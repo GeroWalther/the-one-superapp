@@ -103,40 +103,37 @@ export function VortexStreams() {
 }
 
 /**
- * The figure standing beside the storm.
+ * The figure standing at the storm's lower left.
  *
- * Drawn silhouettes were here and have been removed: at this size a flat shape
- * reads as clip-art next to a storm with this much depth, and no amount of
- * path work fixes that — the section needs a photograph.
+ * Placed inside the storm's own box rather than beside it, so she scales with
+ * it at every breakpoint and keeps her position on the disc instead of drifting
+ * as the layout reflows.
  *
- * So this renders a real image and nothing else. Drop a cut-out into
- * public/images (transparent PNG or WebP, roughly 2:5 portrait, the figure
- * turned toward the storm) and point FIGURE_SRC at it; until then the
- * component renders nothing rather than a broken image or a placeholder box.
+ * Not mirrored: the cut-out already faces right, which puts her looking into
+ * the storm from this corner. Flipping her would turn her back on it — and
+ * would mirror the shirt's placket and cuffs, which reads wrong on clothing.
+ *
+ * Decorative, so the alt is empty; the section makes its point in copy.
  */
-const FIGURE_SRC: string | null = null;
-
-export function VortexFigure({ side }: { side: "left" | "right" }) {
-  if (!FIGURE_SRC) return null;
-
+export function VortexFigure() {
   return (
     <div
       aria-hidden="true"
-      className="pointer-events-none relative h-[clamp(220px,30vw,420px)] w-[clamp(90px,13vw,180px)] shrink-0"
-      /* Mirrored on the right so one asset serves both sides and the figure
-         always faces the storm. Drop the flip if the artwork is directional
-         — a suit's buttons and pocket square give a mirror away. */
-      style={{ transform: side === "right" ? "scaleX(-1)" : undefined }}
+      /* Bottom-aligned and pushed a little off the disc's edge, so she stands
+         in front of the rim rather than floating on the dark. */
+      className="pointer-events-none absolute bottom-[1%] left-[-4%] h-[58%] w-[34%] sm:h-[62%]"
     >
       <Image
-        src={FIGURE_SRC}
+        src="/images/frau.png"
         alt=""
         fill
-        sizes="(min-width: 1280px) 180px, 0px"
+        sizes="(min-width: 1024px) 280px, 40vw"
+        /* object-bottom so she stands on the same line however the box is
+           sized; contain so the cut-out is never cropped or stretched. */
         className="object-contain object-bottom"
-        /* The cut-out needs its own alpha honoured; Next's optimiser has been
-           re-encoding transparent PNGs on this project and bringing the white
-           background back (see the lockup in the masthead). */
+        /* Next's optimiser has been re-encoding this project's transparent
+           PNGs to a palette whose alpha the browser ignores, which brings the
+           background back — the same problem the masthead lockup hit. */
         unoptimized
       />
     </div>

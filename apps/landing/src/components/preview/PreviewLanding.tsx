@@ -266,7 +266,10 @@ export function PreviewLanding() {
           <p
             data-reveal
             data-reveal-delay="120"
-            className="mx-auto mt-5 max-w-xl text-pretty text-[15px] leading-[1.7] text-ink-soft sm:mt-6 sm:text-[17px]"
+            /* The storm's outer rim, literally: #001416 is the abyssDeep the wall is
+               painted in, so the paragraph and the edge of the disc below it are
+               the same colour rather than merely close. */
+            className="mx-auto mt-5 max-w-xl text-pretty text-[15px] leading-[1.7] text-[#001416] sm:mt-6 sm:text-[17px]"
           >
             {t("worldBody")}
           </p>

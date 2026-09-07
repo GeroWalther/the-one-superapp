@@ -86,14 +86,7 @@ export function Vortex({ children }: { children?: React.ReactNode }) {
          visible, which hidden cannot do. */
       className="relative left-1/2 w-screen -translate-x-1/2 overflow-x-clip"
     >
-      {/* Figures either side, the storm between them. They drop away below xl:
-          the chip ring now sits outside the rim, and under 1280px there is no
-          room left for a figure beyond it. */}
-      <div className="relative mx-auto flex w-full max-w-[1560px] items-center justify-center gap-0">
-        <div className="hidden xl:block">
-          <VortexFigure side="left" />
-        </div>
-
+      <div className="relative mx-auto flex w-full max-w-[1560px] items-center justify-center">
         <div
           aria-hidden="true"
           className="pointer-events-none relative aspect-square w-[min(78vw,780px)] shrink-0 select-none"
@@ -244,10 +237,10 @@ export function Vortex({ children }: { children?: React.ReactNode }) {
         {/* 9 — the streams flowing out past the rim. Outside the storm's own
                layers so the bands never blur over them. */}
         <VortexStreams />
-        </div>
 
-        <div className="hidden xl:block">
-          <VortexFigure side="right" />
+        {/* 10 — the figure, at the lower left, looking in. Last in the stack so
+                she stands in front of the storm rather than behind its bands. */}
+        <VortexFigure />
         </div>
       </div>
 
