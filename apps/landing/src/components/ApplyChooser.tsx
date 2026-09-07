@@ -19,11 +19,18 @@ type Choice = "member" | "partner";
 export function ApplyChooser({
   inviteCode,
   restrictTo,
+  tone = "soft",
+  showProcessNote = true,
 }: {
   inviteCode?: string;
   /** An invitation is issued for one role; offering the other only leads to a
       rejection at the end of a long form. */
   restrictTo?: Choice;
+  /** "fill" puts the cards on the primary gradient with white type, for the
+      hero, where an outlined white card on the pale ground has nothing to sit
+      against. The forms behind the choice are identical either way. */
+  tone?: "soft" | "fill";
+  showProcessNote?: boolean;
 }) {
   const t = useTranslations("enroll");
   const [choice, setChoice] = useState<Choice | null>(restrictTo ?? null);
@@ -42,6 +49,8 @@ export function ApplyChooser({
       formRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
     }
   }, [choice]);
+
+  const fill = tone === "fill";
 
   const paths = ([
     {
@@ -91,21 +100,56 @@ export function ApplyChooser({
             key={path.role}
             type="button"
             onClick={() => setChoice(path.role)}
-            className="card-brand-soft group flex flex-col p-7 text-left"
+            className={`group flex flex-col p-7 text-left ${
+              fill ? "card-brand-fill" : "card-brand-soft"
+            }`}
           >
-            <span className="grid h-12 w-12 place-items-center rounded-full border border-aqua-500/25 bg-aqua-500/10">
-              <path.icon className="h-5 w-5 text-aqua-500" strokeWidth={1.4} />
+            {/* On the fill the same shapes are drawn in white at low alpha
+                rather than in aqua: an aqua icon on an aqua card is invisible,
+                and a solid white disc would out-shout the title. */}
+            <span
+              className={`grid h-12 w-12 place-items-center rounded-full border ${
+                fill
+                  ? "border-white/35 bg-white/15"
+                  : "border-aqua-500/25 bg-aqua-500/10"
+              }`}
+            >
+              <path.icon
+                className={`h-5 w-5 ${fill ? "text-white" : "text-aqua-500"}`}
+                strokeWidth={1.4}
+              />
             </span>
-            <h3 className="mt-5 font-display text-[22px] font-medium text-ink">
+            {/* On the fill these titles carry the block on their own, with no
+                eyebrow or subtitle above them, so they are set at the same size
+                as the "Apply for access" heading rather than a step below it. */}
+            <h3
+              className={`mt-5 font-display font-medium ${
+                fill
+                  ? "text-[26px] text-white sm:text-[30px]"
+                  : "text-[22px] text-ink"
+              }`}
+            >
               {path.title}
             </h3>
-            <p className="mt-2.5 flex-1 text-[13.5px] leading-[1.7] text-ink-soft">
+            <p
+              className={`mt-2.5 flex-1 text-[13.5px] leading-[1.7] ${
+                fill ? "text-white/85" : "text-ink-soft"
+              }`}
+            >
               {path.desc}
             </p>
-            <span className="mt-4 text-[11px] uppercase tracking-[0.16em] text-ink-faint">
+            <span
+              className={`mt-4 text-[11px] uppercase tracking-[0.16em] ${
+                fill ? "text-white/70" : "text-ink-faint"
+              }`}
+            >
               {path.meta}
             </span>
-            <span className="mt-5 inline-flex items-center gap-2 text-[13.5px] font-medium text-aqua-600">
+            <span
+              className={`mt-5 inline-flex items-center gap-2 text-[13.5px] font-medium ${
+                fill ? "text-white" : "text-aqua-600"
+              }`}
+            >
               {t("chooser.start")}
               <ArrowRight
                 className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1"
@@ -116,9 +160,11 @@ export function ApplyChooser({
         ))}
       </div>
 
-      <p className="mt-7 text-center text-[12.5px] leading-[1.7] text-ink-faint">
-        {t("chooser.process")}
-      </p>
+      {showProcessNote && (
+        <p className="mt-7 text-center text-[12.5px] leading-[1.7] text-ink-faint">
+          {t("chooser.process")}
+        </p>
+      )}
     </div>
   );
 }

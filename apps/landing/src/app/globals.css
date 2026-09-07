@@ -404,6 +404,37 @@
   box-shadow: 0 20px 44px -24px rgba(34, 126, 137, 0.42);
 }
 
+/**
+ * Same two choice cards, filled rather than outlined — for placing them on the
+ * pale hero, where an outlined white card on a near-white ground disappears.
+ *
+ * The fill is .btn-primary's gradient, unchanged, because these cards are now
+ * doing the job the primary button used to do in that spot; sharing the ramp
+ * is what keeps them reading as the same call to action rather than as a new
+ * kind of surface. Text on top is white and must stay white — see the
+ * .card-brand-fill descendants used in the chooser.
+ */
+.card-brand-fill {
+  border-radius: 28px;
+  border: 1px solid transparent;
+  background: linear-gradient(100deg, var(--aqua-600) 0%, var(--aqua-400) 100%);
+  color: #ffffff;
+  box-shadow: 0 10px 24px -12px rgba(34, 126, 137, 0.75);
+  transition:
+    transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+    background 0.35s ease;
+}
+.card-brand-fill:hover {
+  transform: translateY(-3px);
+  background: linear-gradient(100deg, var(--aqua-700) 0%, var(--aqua-500) 100%);
+  box-shadow: 0 22px 46px -20px rgba(34, 126, 137, 0.8);
+}
+.card-brand-fill:focus-visible {
+  outline: 2px solid var(--aqua-700);
+  outline-offset: 3px;
+}
+
 /* The aqua band used for the pull-quote */
 .band-accent {
   background: linear-gradient(
@@ -507,6 +538,16 @@
 }
 .btn:active {
   transform: scale(0.985);
+}
+/**
+ * The UA's default focus ring all but vanishes against .btn-primary's teal
+ * gradient, which left keyboard users with no visible position. Offset so the
+ * ring sits outside the fill rather than on top of it, and only on
+ * :focus-visible so a mouse click doesn't leave it behind.
+ */
+.btn:focus-visible {
+  outline: 2px solid var(--aqua-600);
+  outline-offset: 3px;
 }
 .btn:disabled {
   opacity: 0.5;

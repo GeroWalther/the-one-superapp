@@ -21,14 +21,7 @@ export default function HomePage() {
     <>
       <SiteHeader />
       <main className="flex-1">
-        <HeroSection />
-
-        {/* Design comparison, kept below the live page. Deleting these four
-            lines removes it entirely. */}
-        {/* <PreviewDivider label="start" /> */}
-        <PhilosophySection />
         <PreviewLanding />
-        {/* <PreviewDivider label="end" /> */}
         <PositioningSection />
         <PillarsSection />
         <ServicesSection />
