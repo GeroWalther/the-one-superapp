@@ -12,11 +12,7 @@
  * reads correctly with images off, at any zoom, and to a screen reader.
  */
 
-import {
-  VortexChips,
-  VortexFigure,
-  VortexStreams,
-} from "./VortexFigures";
+import { VortexFigure, VortexStreams } from "./VortexFigures";
 
 const BRAND = {
   aqua100: "#e6f3f5",
@@ -245,10 +241,9 @@ export function Vortex({ children }: { children?: React.ReactNode }) {
             background: `conic-gradient(from 40deg, transparent 0deg, ${BRAND.goldLight} 14deg, transparent 34deg)`,
           }}
         />
-        {/* 9 — the streams, and the chips they end in. Outside the storm's
-               own layers so the bands never blur over them. */}
+        {/* 9 — the streams flowing out past the rim. Outside the storm's own
+               layers so the bands never blur over them. */}
         <VortexStreams />
-        <VortexChips />
         </div>
 
         <div className="hidden xl:block">
