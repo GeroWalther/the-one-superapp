@@ -51,23 +51,79 @@ function splitTagline(tagline: string) {
   ];
 }
 
+/**
+ * The six verticals, in the order they are shown.
+ *
+ * Was seven, built around placeholder boxes; the supplied photography covers
+ * these six, and Insurance and Wellness Resorts are folded into Business &
+ * Wealth and Beauty & Wellness rather than left as tiles with nothing in them.
+ * Their message keys are still in the files.
+ */
+/**
+ * The eight tiles, and where each sits in the collage.
+ *
+ * Placement is explicit rather than flowed, because the point of the layout is
+ * that the sizes differ: two tall portraits down the outer edges, two mid
+ * blocks under them, and two smaller squares tucked into the corners the
+ * heading leaves free. A flowed grid of equal cells says "here is a list"; an
+ * uneven one says "here is a world", which is the claim being made.
+ *
+ * The `area` classes only apply from lg — below that the collage collapses to
+ * a plain two-column grid, where any attempt at composition just reads as a
+ * broken layout.
+ */
 const TILES = [
   {
     key: "healthLongevity",
-    className: "sm:col-span-2 sm:row-span-2",
-    lead: true,
+    /* -v2 because this file was replaced. Next's image optimizer caches by
+       URL, so overwriting a path leaves the old picture being served from
+       .next/cache/images locally and from the CDN in production. Changing the
+       filename is the only reliable way to retire an image. */
+    src: "/images/verticals/health-longevity-v2.webp",
+    area: "lg:col-start-1 lg:col-span-3 lg:row-start-1 lg:row-span-5",
   },
-  { key: "beautySkincare" },
-  { key: "wellnessResorts" },
-  { key: "luxuryHotels" },
-  { key: "lifestyle" },
+  {
+    key: "beautySkincare",
+    src: "/images/verticals/beauty-wellness.webp",
+    area: "lg:col-start-4 lg:col-span-3 lg:row-start-1 lg:row-span-3",
+  },
+  {
+    /* Top-centre-right, mirroring Beauty across the heading: the match is the
+       thing the whole page is about, so it sits level with the claim rather
+       than being tucked into the bottom of the collage. */
+    key: "matchConnect",
+    src: "/images/verticals/match-connect.webp",
+    area: "lg:col-start-7 lg:col-span-3 lg:row-start-1 lg:row-span-3",
+  },
+  {
+    key: "luxuryHotels",
+    src: "/images/verticals/luxury-hotels.webp",
+    area: "lg:col-start-10 lg:col-span-3 lg:row-start-2 lg:row-span-5",
+  },
+  {
+    /* Bottom-centre-left, in the last corner the claim leaves open, and the
+       smallest tile in the collage — two columns rather than three. It is a
+       product shot among location photography, and at the same size as its
+       neighbours it read as another place rather than as the app. The narrow
+       portrait also suits the subject, which is a phone. */
+    key: "messenger",
+    src: "/images/verticals/messenger-v2.webp",
+    area: "lg:col-start-4 lg:col-span-3 lg:row-start-8 lg:row-span-4",
+  },
+  {
+    key: "businessWealth",
+    src: "/images/verticals/business-wealth.webp",
+    area: "lg:col-start-7 lg:col-span-3 lg:row-start-8 lg:row-span-3",
+  },
   {
     key: "realEstate",
-    className: "sm:col-span-2",
+    src: "/images/verticals/real-estate.webp",
+    area: "lg:col-start-1 lg:col-span-3 lg:row-start-6 lg:row-span-4",
   },
   {
-    key: "insurance",
-    className: "sm:col-span-2",
+    key: "lifestyle",
+    src: "/images/verticals/lifestyle.webp",
+    area: "lg:col-start-10 lg:col-span-3 lg:row-start-7 lg:row-span-4",
   },
 ];
 
@@ -304,30 +360,59 @@ export function PreviewLanding() {
         {/* --- 3. what is TheONE -------------------------------------- */}
         <WhatIsSection />
 
-        {/* --- 4. the vertical tiles ---------------------------------- */}
-        <section className="mx-auto max-w-6xl px-6 py-10 lg:px-8">
-          <div className="grid auto-rows-[132px] grid-cols-2 gap-3 sm:grid-cols-4 sm:auto-rows-[150px]">
-            {TILES.map((tile) => (
+        {/* --- 4. the verticals --------------------------------------- */}
+        {/* The claim sits inside the collage rather than above it: "in one
+            place" is easier to believe when the place is drawn around the
+            words. Below lg the heading is simply the first row of a two-column
+            grid, which is the only honest way to stack it. */}
+        <section className="mx-auto max-w-6xl px-6 pb-16 pt-24 sm:pt-32 lg:px-8">
+          <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:auto-rows-[80px] lg:grid-cols-12">
+            <div
+              data-reveal
+              className="col-span-2 mb-4 text-center lg:col-span-6 lg:col-start-4 lg:row-span-4 lg:row-start-4 lg:mb-0 lg:self-center lg:px-4"
+            >
+              <h2 className="font-display text-[clamp(22px,4.2vw,40px)] font-bold leading-[1.25] tracking-[0.06em] text-[#0a2f34]">
+                {/* Two keys rather than one string split on the full stop:
+                    German puts a comma inside its first line, and any rule
+                    that finds the break by punctuation would cut it in the
+                    wrong place. */}
+                <span className="block">{t("everythingLine1")}</span>
+                <span className="mt-1 block text-[#8a6420] sm:mt-2">
+                  {t("everythingLine2")}
+                </span>
+              </h2>
+              <div
+                aria-hidden="true"
+                className="mx-auto mt-6 h-px w-20 bg-gradient-to-r from-transparent via-[#8a6420]/45 to-transparent sm:mt-8"
+              />
+            </div>
+
+            {TILES.map((tile, i) => (
               <figure
                 key={tile.key}
-                className={`group relative overflow-hidden rounded-2xl bg-white shadow-[0_10px_30px_-18px_rgba(43,52,64,0.5)] ${
-                  tile.className ?? ""
-                }`}
+                data-reveal
+                data-reveal-delay={`${100 + i * 70}`}
+                className={`group relative aspect-4/5 overflow-hidden rounded-2xl bg-paper-soft shadow-[0_14px_36px_-20px_rgba(43,52,64,0.55)] lg:aspect-auto ${tile.area}`}
               >
-                <Placeholder label={tServices(tile.key)} />
-                {/* Caption sits in a frosted strip on the image, as drawn. */}
-                <figcaption
-                  className={`absolute inset-x-0 bottom-0 bg-white/85 px-4 backdrop-blur-sm ${
-                    tile.lead ? "py-3.5" : "py-2.5"
-                  }`}
-                >
-                  <span
-                    className={
-                      tile.lead
-                        ? "font-display text-[21px] font-light text-ink"
-                        : "text-[13px] text-ink"
-                    }
-                  >
+                <Image
+                  src={tile.src}
+                  alt={tServices(tile.key)}
+                  fill
+                  /* The cells differ in width, so one fixed hint would be wrong
+                     for most of them; 30vw covers the widest at lg and up. */
+                  sizes="(min-width: 1024px) 30vw, 50vw"
+                  className="object-cover transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.05]"
+                />
+
+                {/* A gradient from the bottom rather than a flat overlay: the
+                    caption needs a dark ground, the photograph does not. */}
+                <div
+                  aria-hidden="true"
+                  className="absolute inset-0 bg-gradient-to-t from-[#001416]/85 via-[#001416]/20 to-transparent"
+                />
+
+                <figcaption className="absolute inset-x-0 bottom-0 p-4 sm:p-5">
+                  <span className="font-display text-[14px] font-light text-white sm:text-[17px]">
                     {tServices(tile.key)}
                   </span>
                 </figcaption>

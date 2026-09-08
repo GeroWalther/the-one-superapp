@@ -84,12 +84,15 @@
   },
   "services": {
     "healthLongevity": "Health & Longevity",
-    "beautySkincare": "Beauty & Skincare",
-    "luxuryHotels": "Luxury Hotels",
-    "lifestyle": "Lifestyle",
+    "beautySkincare": "Beauty & Wellness",
+    "luxuryHotels": "Luxury Hotels & Resorts",
+    "lifestyle": "Lifestyle & Experiences",
     "realEstate": "Real Estate",
     "wellnessResorts": "Wellness Resorts",
-    "insurance": "Insurance"
+    "insurance": "Insurance",
+    "businessWealth": "Business & Wealth",
+    "matchConnect": "TheONE MATCH & Connect",
+    "messenger": "TheONE Messenger"
   },
   "enroll": {
     "nav": {
@@ -669,6 +672,8 @@
       "partner7": "Das spart wertvolle Zeit und Ressourcen und eröffnet gleichzeitig neue Möglichkeiten für internationale Kundenkontakte, Partnerschaften, Markenpräsenz und nachhaltige Geschäftsentwicklung.",
       "closeBody": "TheONE ist die intelligente Verbindung zwischen persönlichen Wünschen und einer Welt voller Möglichkeiten.",
       "closeClaim": "YOUR WORLD YOUR MATCH"
-    }
+    },
+    "everythingLine1": "EVERYTHING THAT MATTERS TO YOU",
+    "everythingLine2": "IN ONE PLACE"
   }
 }
