@@ -642,6 +642,33 @@
     "accessNote": "Access is currently by waiting list and invitation only.",
     "secure": "100% Secure",
     "discreet": "Discreet & trustworthy",
-    "eyeLabel": "POWER AI"
+    "eyeLabel": "POWER AI",
+    "about": {
+      "title": "What is TheONE SUPER APP?",
+      "lead1": "TheONE SUPER APP is a new generation of intelligent digital solutions. An international infrastructure that does not show every user the same content, but orients itself around the individual person using it.",
+      "lead2": "At its centre is TheONE POWER AI — a personalised artificial intelligence that talks with you, understands your questions and accompanies you through your day. It follows your personal wishes, interests, goals and priorities, your lifestyle and your current situation in life.",
+      "matchTitle": "TheONE POWER AI finds your personal MATCH.",
+      "matchBody1": "TheONE POWER AI analyses your wishes and identifies, out of a vast number of possibilities, exactly the solutions that suit you.",
+      "understandTitle": "TheONE POWER AI understands you. Your wishes. Your goals. Your life.",
+      "understandBody1": "It speaks with you, listens to you and understands what genuinely matters to you. As a personal assistant it is available to you 24 hours a day, seven days a week.",
+      "understandBody2": "Because TheONE POWER AI is personalised, it recognises the possibilities that fit you, thinks along with you and takes your personal circumstances into account. It takes time-consuming searches and unnecessary decisions off your hands.",
+      "connectTitle": "TheONE POWER AI connects you with exactly the people, businesses, experts and opportunities that suit you.",
+      "connectBody1": "Your day becomes clearer, simpler and less stressful — and possibilities become real opportunities.",
+      "connectBody2": "TheONE opens up a world of possibilities to you within a single intelligent infrastructure.",
+      "brandName": "TheONE SUPER APP",
+      "brandClaim": "ONE WORLD. ONE POWER AI.",
+      "brandBody": "TheONE is a new form of personal intelligence. A connection between your wishes and a world full of possibilities.",
+      "partnerTitle": "The right customers find your business.",
+      "partnerLead": "Businesses benefit from TheONE POWER AI too.",
+      "partner1": "TheONE POWER AI understands users' individual needs, interests and requirements, and brings them together with the partner businesses, brands, products and services that genuinely suit them.",
+      "partner2": "For businesses, this creates a new form of personalised visibility.",
+      "partner3": "Products, services and offers are not advertised indiscriminately, but presented to exactly those prospects for whom they provide real value.",
+      "partner4": "TheONE gives your business access to an internationally oriented infrastructure and a global network — with the potential to reach millions of users across different markets and languages over the long term.",
+      "partner5": "You no longer have to search for suitable prospects and customers entirely on your own. TheONE POWER AI helps your business be found by precisely those whose wishes and needs match your products and services.",
+      "partner6": "Instead of continually hoping for new customer contacts, or relying solely on time- and cost-intensive trade fairs, conventional advertising and manual acquisition, TheONE enables lasting personalised connections between your business and potential customers.",
+      "partner7": "That saves valuable time and resources, and at the same time opens up new possibilities for international customer contacts, partnerships, brand presence and sustainable business development.",
+      "closeBody": "TheONE is the intelligent connection between personal wishes and a world full of possibilities.",
+      "closeClaim": "YOUR WORLD YOUR MATCH"
+    }
   }
 }

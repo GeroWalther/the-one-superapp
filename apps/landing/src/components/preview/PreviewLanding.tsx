@@ -1,14 +1,12 @@
 import { useTranslations } from "next-intl";
 import {
   Award,
-  CreditCard,
-  MessagesSquare,
   ShieldCheck,
   Sparkles,
-  Zap,
 } from "lucide-react";
 import { PhoneMockup } from "@/components/PhoneMockup";
 import { Vortex } from "./Vortex";
+import { WhatIsSection } from "./WhatIsSection";
 import { Placeholder } from "@/components/Placeholder";
 import { WaitlistCard } from "./WaitlistCard";
 import { ApplyChooser } from "@/components/ApplyChooser";
@@ -81,11 +79,6 @@ export function PreviewLanding() {
   const tHero = useTranslations("hero");
   const tEnroll = useTranslations("enroll");
 
-  const pillars = [
-    { icon: Zap, title: t("decision"), meta: t("decisionMeta") },
-    { icon: MessagesSquare, title: t("connection"), meta: t("connectionMeta") },
-    { icon: CreditCard, title: t("transaction"), meta: t("transactionMeta") },
-  ];
 
   const benefits = [
     { icon: ShieldCheck, title: t("benefit1"), meta: t("benefit1Meta") },
@@ -304,38 +297,7 @@ export function PreviewLanding() {
         </section>
 
         {/* --- 3. what is TheONE -------------------------------------- */}
-        <section className="mx-auto max-w-4xl px-6 py-14 text-center lg:px-8">
-          <RuleHeading>{t("whatTitle")}</RuleHeading>
-
-          <p className="mx-auto mt-8 max-w-2xl text-[16px] leading-[1.7] text-ink-soft">
-            {t.rich("whatBody", {
-              strong: (chunks) => (
-                <strong className="font-semibold text-ink">{chunks}</strong>
-              ),
-            })}
-          </p>
-
-          <dl className="mt-12 grid gap-y-10 sm:grid-cols-3 sm:divide-x sm:divide-line">
-            {pillars.map((pillar) => (
-              <div key={pillar.title} className="px-4">
-                <pillar.icon
-                  className="mx-auto h-6 w-6 text-aqua-500"
-                  strokeWidth={1.4}
-                />
-                <dt className="mt-4 font-display text-[24px] font-light text-ink">
-                  {pillar.title}
-                </dt>
-                <dd className="mt-2 flex items-center justify-center gap-2 text-[14px] text-ink-soft">
-                  <pillar.icon
-                    className="h-3.5 w-3.5 text-aqua-400"
-                    strokeWidth={1.6}
-                  />
-                  {pillar.meta}
-                </dd>
-              </div>
-            ))}
-          </dl>
-        </section>
+        <WhatIsSection />
 
         {/* --- 4. the vertical tiles ---------------------------------- */}
         <section className="mx-auto max-w-6xl px-6 py-10 lg:px-8">
@@ -453,17 +415,6 @@ export function PreviewLanding() {
   );
 }
 
-function RuleHeading({ children }: { children: React.ReactNode }) {
-  return (
-    <div className="flex items-center gap-5">
-      <span className="h-px flex-1 bg-gradient-to-r from-transparent to-line" />
-      <h2 className="font-display text-[27px] font-light text-ink sm:text-[31px]">
-        {children}
-      </h2>
-      <span className="h-px flex-1 bg-gradient-to-l from-transparent to-line" />
-    </div>
-  );
-}
 
 /**
  * The sweeping light ribbons behind the mockup's whole page.

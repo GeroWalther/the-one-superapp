@@ -907,3 +907,51 @@
     animation: none !important;
   }
 }
+
+/* ==========================================================================
+   "What is TheONE" — the dark infrastructure band
+   ========================================================================== */
+
+/* Charge running the spine between the three pillars, left to right. The lit
+   segment is short against a long gap, so what travels is a pulse. */
+@keyframes wt-spine {
+  0% {
+    background-position: -40% 0;
+  }
+  100% {
+    background-position: 140% 0;
+  }
+}
+
+/* Each node lights as the pulse reaches it. Sharp attack, slow decay. */
+@keyframes wt-node {
+  0%,
+  70%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(230, 184, 73, 0);
+    transform: scale(1);
+  }
+  8% {
+    box-shadow: 0 0 0 6px rgba(230, 184, 73, 0.28);
+    transform: scale(1.25);
+  }
+  30% {
+    box-shadow: 0 0 0 14px rgba(230, 184, 73, 0);
+    transform: scale(1);
+  }
+}
+
+.wt-spine {
+  background-size: 220% 100%;
+  animation: wt-spine 7.2s linear infinite;
+}
+.wt-node {
+  animation: wt-node 7.2s ease-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wt-spine,
+  .wt-node {
+    animation: none !important;
+  }
+}

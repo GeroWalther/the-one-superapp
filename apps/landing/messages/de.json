@@ -642,6 +642,33 @@
     "accessNote": "Zugang aktuell nur über Warteliste und Einladung.",
     "secure": "100% Sicher",
     "discreet": "Diskret & Vertrauenswürdig",
-    "eyeLabel": "POWER AI"
+    "eyeLabel": "POWER AI",
+    "about": {
+      "title": "Was ist TheONE SUPER APP?",
+      "lead1": "TheONE SUPER APP ist eine neue Generation intelligenter digitaler Lösungen. Eine internationale Infrastruktur, die nicht allen Nutzern dieselben Inhalte zeigt, sondern sich individuell an der Person orientiert, die sie verwendet.",
+      "lead2": "Im Zentrum steht TheONE POWER AI – eine personalisierte künstliche Intelligenz, die mit dir spricht, deine Fragen versteht und dich durch deinen Alltag begleitet. Sie richtet sich nach deinen persönlichen Wünschen, Interessen, Zielen und Prioritäten, deinem Lifestyle und deiner aktuellen Lebenssituation.",
+      "matchTitle": "TheONE POWER AI findet deinen persönlichen MATCH.",
+      "matchBody1": "TheONE POWER AI analysiert deine Wünsche und erkennt aus einer Vielzahl von Möglichkeiten genau die Lösungen, die zu dir passen.",
+      "understandTitle": "TheONE POWER AI versteht dich. Deine Wünsche. Deine Ziele. Dein Leben.",
+      "understandBody1": "Sie spricht mit dir, hört dir zu und versteht, was dir wirklich wichtig ist. Als persönlicher Assistent steht sie dir 24 Stunden am Tag, sieben Tage die Woche zur Verfügung.",
+      "understandBody2": "Da TheONE POWER AI personalisiert ist, erkennt sie passende Möglichkeiten für dich, denkt mit und berücksichtigt deine persönliche Lebenssituation. Sie nimmt dir zeitaufwendige Suchen und unnötige Entscheidungen ab.",
+      "connectTitle": "TheONE POWER AI verbindet dich mit genau den Menschen, Unternehmen, Experten und Möglichkeiten, die zu dir passen.",
+      "connectBody1": "So wird dein Alltag klarer, einfacher und stressfreier – und aus Möglichkeiten werden echte Chancen.",
+      "connectBody2": "TheONE eröffnet dir eine Welt voller Möglichkeiten innerhalb einer einzigen intelligenten Infrastruktur.",
+      "brandName": "TheONE SUPER APP",
+      "brandClaim": "ONE WORLD. ONE POWER AI.",
+      "brandBody": "TheONE ist eine neue Form persönlicher Intelligenz. Eine Verbindung zwischen deinen Wünschen und einer Welt voller Möglichkeiten.",
+      "partnerTitle": "Die richtigen Kunden finden Ihr Unternehmen.",
+      "partnerLead": "Auch Unternehmen profitieren von TheONE POWER AI.",
+      "partner1": "TheONE POWER AI versteht die individuellen Bedürfnisse, Interessen und Anforderungen der Nutzer und führt sie gezielt mit den Partnerunternehmen, Marken, Produkten und Leistungen zusammen, die wirklich zu ihnen passen.",
+      "partner2": "Für Unternehmen entsteht dadurch eine neue Form personalisierter Sichtbarkeit.",
+      "partner3": "Produkte, Leistungen und Angebote werden nicht wahllos beworben, sondern genau den Interessenten präsentiert, für die sie einen tatsächlichen Mehrwert bieten.",
+      "partner4": "TheONE eröffnet Ihrem Unternehmen den Zugang zu einer international ausgerichteten Infrastruktur und einem globalen Netzwerk – mit dem Potenzial, langfristig Millionen Nutzer in unterschiedlichen Märkten und Sprachen zu erreichen.",
+      "partner5": "Sie müssen nicht mehr ausschließlich selbst nach den passenden Interessenten und Kunden suchen. TheONE POWER AI unterstützt Ihr Unternehmen dabei, von genau denjenigen gefunden zu werden, deren Wünsche und Bedürfnisse zu Ihren Produkten und Leistungen passen.",
+      "partner6": "Statt kontinuierlich auf neue Kundenkontakte zu hoffen oder ausschließlich auf zeit- und kostenintensive Messen, klassische Werbung und manuelle Akquise angewiesen zu sein, ermöglicht TheONE dauerhaft personalisierte Verbindungen zwischen Ihrem Unternehmen und potenziellen Kunden.",
+      "partner7": "Das spart wertvolle Zeit und Ressourcen und eröffnet gleichzeitig neue Möglichkeiten für internationale Kundenkontakte, Partnerschaften, Markenpräsenz und nachhaltige Geschäftsentwicklung.",
+      "closeBody": "TheONE ist die intelligente Verbindung zwischen persönlichen Wünschen und einer Welt voller Möglichkeiten.",
+      "closeClaim": "YOUR WORLD YOUR MATCH"
+    }
   }
 }
