@@ -1,14 +1,9 @@
 import { useTranslations } from "next-intl";
 import {
-  Award,
-  ShieldCheck,
-  Sparkles,
 } from "lucide-react";
 import { PhoneMockup } from "@/components/PhoneMockup";
 import { Vortex } from "./Vortex";
 import { WhatIsSection } from "./WhatIsSection";
-import { Placeholder } from "@/components/Placeholder";
-import { WaitlistCard } from "./WaitlistCard";
 import { ApplyChooser } from "@/components/ApplyChooser";
 import Image from "next/image";
 
@@ -136,11 +131,6 @@ export function PreviewLanding() {
   const tEnroll = useTranslations("enroll");
 
 
-  const benefits = [
-    { icon: ShieldCheck, title: t("benefit1"), meta: t("benefit1Meta") },
-    { icon: Sparkles, title: t("benefit2"), meta: t("benefit2Meta") },
-    { icon: Award, title: t("benefit3"), meta: t("benefit3Meta") },
-  ];
 
   const taglineLines = splitTagline(tHero("tagline"));
 
@@ -365,13 +355,20 @@ export function PreviewLanding() {
             place" is easier to believe when the place is drawn around the
             words. Below lg the heading is simply the first row of a two-column
             grid, which is the only honest way to stack it. */}
+        {/* No background of its own: this sits on the page's own pale ground,
+            the same one the storm above runs on, so the two read as one
+            continuous stretch rather than two panels. */}
         <section className="mx-auto max-w-6xl px-6 pb-16 pt-24 sm:pt-32 lg:px-8">
           <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:auto-rows-[80px] lg:grid-cols-12">
             <div
               data-reveal
               className="col-span-2 mb-4 text-center lg:col-span-6 lg:col-start-4 lg:row-span-4 lg:row-start-4 lg:mb-0 lg:self-center lg:px-4"
             >
-              <h2 className="font-display text-[clamp(22px,4.2vw,40px)] font-bold leading-[1.25] tracking-[0.06em] text-[#0a2f34]">
+              {/* The floor carries the phone: at 4.2vw a 390px screen resolved to
+                    the 22px minimum, which set the claim smaller than the tile
+                    captions under it. 30px is the size at which it reads as the
+                    heading of the section rather than a caption for it. */}
+              <h2 className="font-display text-[clamp(30px,4.2vw,40px)] font-bold leading-[1.2] tracking-[0.05em] text-[#0a2f34] sm:leading-[1.25] sm:tracking-[0.06em]">
                 {/* Two keys rather than one string split on the full stop:
                     German puts a comma inside its first line, and any rule
                     that finds the break by punctuation would cut it in the
@@ -381,10 +378,7 @@ export function PreviewLanding() {
                   {t("everythingLine2")}
                 </span>
               </h2>
-              <div
-                aria-hidden="true"
-                className="mx-auto mt-6 h-px w-20 bg-gradient-to-r from-transparent via-[#8a6420]/45 to-transparent sm:mt-8"
-              />
+
             </div>
 
             {TILES.map((tile, i) => (
@@ -421,85 +415,6 @@ export function PreviewLanding() {
           </div>
         </section>
 
-        {/* --- 5. exclusive benefits ---------------------------------- */}
-        <section className="mx-auto max-w-5xl px-6 py-16 text-center lg:px-8">
-          <h2 className="font-display text-[32px] font-light text-ink sm:text-[38px]">
-            {t("benefitsTitle")}
-          </h2>
-          <p className="mt-4 text-[15.5px] text-ink-soft">
-            {t("benefitsSubtitle")}
-          </p>
-
-          <dl className="mt-12 grid gap-y-10 border-y border-line py-10 sm:grid-cols-3 sm:divide-x sm:divide-line">
-            {benefits.map((benefit) => (
-              <div key={benefit.title} className="px-4">
-                <benefit.icon
-                  className="mx-auto h-6 w-6 text-aqua-500"
-                  strokeWidth={1.3}
-                />
-                <dt className="mt-4 font-display text-[21px] font-light text-ink">
-                  {benefit.title}
-                </dt>
-                <dd className="mt-1.5 text-[13.5px] text-ink-faint">
-                  {benefit.meta}
-                </dd>
-              </div>
-            ))}
-          </dl>
-        </section>
-
-        {/* --- 6. collage + closing call ------------------------------ */}
-        <section className="mx-auto max-w-6xl px-6 pb-20 lg:px-8">
-          <div className="grid gap-3 sm:grid-cols-[1.6fr_1fr]">
-            <div className="relative aspect-4/3 overflow-hidden rounded-2xl shadow-[0_14px_36px_-20px_rgba(43,52,64,0.5)] sm:aspect-auto sm:h-[380px]">
-              <Placeholder />
-              </div>
-            <div className="grid gap-3">
-              {["upper", "lower"].map((slot) => (
-                <div
-                  key={slot}
-                  className="relative aspect-16/9 overflow-hidden rounded-2xl shadow-[0_14px_36px_-20px_rgba(43,52,64,0.5)] sm:aspect-auto sm:h-[184px]"
-                >
-                  <Placeholder />
-                  </div>
-              ))}
-            </div>
-          </div>
-
-          <div className="mt-14 text-center">
-            <h2 className="font-display text-[32px] font-light text-ink sm:text-[38px]">
-              {t("discoverTitle")}
-            </h2>
-            <p className="mt-3 text-[15.5px] text-ink-soft">
-              {t("discoverSubtitle")}
-            </p>
-
-            <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
-              {[t("becomePartner"), t("becomeMember")].map((label) => (
-                <button
-                  key={label}
-                  type="button"
-                  className="btn btn-primary w-full px-8 py-3.5 text-[13.5px] font-semibold uppercase tracking-[0.1em] sm:w-auto"
-                >
-                  {label}
-                </button>
-              ))}
-            </div>
-
-            <p className="mt-12 text-[14px] text-ink-soft">{t("accessNote")}</p>
-
-            <div className="mt-6 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-[13px] text-ink-faint">
-              <span className="inline-flex items-center gap-2">
-                <ShieldCheck className="h-4 w-4 text-aqua-500" strokeWidth={1.5} />
-                {t("secure")}
-              </span>
-              <span className="inline-flex items-center gap-2">
-                <ShieldCheck className="h-4 w-4 text-aqua-500" strokeWidth={1.5} />
-                {t("discreet")}
-              </span>
-            </div>
-          </div>
-        </section>
       </div>
     </div>
   );

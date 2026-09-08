@@ -4,9 +4,7 @@ import { PreviewDivider } from "@/components/preview/PreviewDivider";
 import { HeroSection } from "@/components/HeroSection";
 import { PositioningSection } from "@/components/PositioningSection";
 import { PillarsSection } from "@/components/PillarsSection";
-import { ServicesSection } from "@/components/ServicesSection";
 import { ProcessSection } from "@/components/ProcessSection";
-import { BenefitsSection } from "@/components/BenefitsSection";
 import { PhilosophySection } from "@/components/PhilosophySection";
 import { ApplySection } from "@/components/ApplySection";
 import { Footer } from "@/components/Footer";
@@ -24,9 +22,7 @@ export default function HomePage() {
         <PreviewLanding />
         <PositioningSection />
         <PillarsSection />
-        <ServicesSection />
         <ProcessSection />
-        <BenefitsSection />
         <ApplySection />
       </main>
       <Footer />
