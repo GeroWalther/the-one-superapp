@@ -238,7 +238,12 @@ export function PreviewLanding() {
         </section>
 
         {/* --- 2. wordmark --------------------------------------------- */}
-        <section className="mx-auto max-w-3xl px-6 py-16 text-center lg:px-8">
+        {/* Deep bottom padding: the storm ends in near-black and the section
+            below it is a dark band, so without a long run of pale ground
+            between them the two darks touch and read as one block. The storm's
+            blur also reaches past its own box, which eats the first stretch of
+            whatever clearance it is given. */}
+        <section className="mx-auto max-w-3xl px-6 pb-40 pt-16 text-center sm:pb-56 lg:px-8 lg:pb-64">
           <p className="font-display text-[46px] font-light leading-none text-ink sm:text-[56px]">
             The<span className="font-normal">ONE</span>
           </p>
