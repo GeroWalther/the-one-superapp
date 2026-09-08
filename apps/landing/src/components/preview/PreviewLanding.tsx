@@ -107,8 +107,8 @@ const TILES = [
        neighbours it read as another place rather than as the app. The narrow
        portrait also suits the subject, which is a phone. */
     key: "messenger",
-    src: "/images/verticals/messenger-v2.webp",
-    area: "lg:col-start-4 lg:col-span-3 lg:row-start-8 lg:row-span-4",
+    src: "/images/verticals/messenger-v3.webp",
+    area: "lg:col-start-4 lg:col-span-3 lg:row-start-8 lg:row-span-3",
   },
   {
     key: "businessWealth",
