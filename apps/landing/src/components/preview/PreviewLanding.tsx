@@ -67,20 +67,32 @@ function splitTagline(tagline: string) {
  * a plain two-column grid, where any attempt at composition just reads as a
  * broken layout.
  */
+/**
+ * The eight tiles, and where each sits in the collage.
+ *
+ * Two placements each, because the composition is the point and it has to
+ * survive a phone. `area` is the twelve-column desktop arrangement; `mArea` is
+ * a six-column one that keeps the same character — staggered pairs, four sizes,
+ * the claim set inside the collage rather than above it — at a scale where the
+ * images are simply smaller.
+ *
+ * The one thing that cannot carry over is the claim being flanked. At 390px
+ * the middle six of twelve columns is about 170px, which is too narrow to set
+ * a heading in; on the phone it takes a full-width band between the upper and
+ * lower halves instead, which is the same idea without the unreadable line.
+ */
 const TILES = [
   {
     key: "healthLongevity",
-    /* -v2 because this file was replaced. Next's image optimizer caches by
-       URL, so overwriting a path leaves the old picture being served from
-       .next/cache/images locally and from the CDN in production. Changing the
-       filename is the only reliable way to retire an image. */
     src: "/images/verticals/health-longevity-v2.webp",
     area: "lg:col-start-1 lg:col-span-3 lg:row-start-1 lg:row-span-5",
+    mArea: "col-start-1 col-span-3 row-start-1 row-span-6",
   },
   {
     key: "beautySkincare",
     src: "/images/verticals/beauty-wellness.webp",
     area: "lg:col-start-4 lg:col-span-3 lg:row-start-1 lg:row-span-3",
+    mArea: "col-start-4 col-span-3 row-start-3 row-span-5",
   },
   {
     /* Top-centre-right, mirroring Beauty across the heading: the match is the
@@ -89,36 +101,49 @@ const TILES = [
     key: "matchConnect",
     src: "/images/verticals/match-connect.webp",
     area: "lg:col-start-7 lg:col-span-3 lg:row-start-1 lg:row-span-3",
+    mArea: "col-start-1 col-span-3 row-start-8 row-span-5",
   },
   {
     key: "luxuryHotels",
     src: "/images/verticals/luxury-hotels.webp",
     area: "lg:col-start-10 lg:col-span-3 lg:row-start-2 lg:row-span-5",
+    mArea: "col-start-4 col-span-3 row-start-9 row-span-6",
   },
   {
-    /* Bottom-centre-left, in the last corner the claim leaves open, and the
-       smallest tile in the collage — two columns rather than three. It is a
-       product shot among location photography, and at the same size as its
-       neighbours it read as another place rather than as the app. The narrow
-       portrait also suits the subject, which is a phone. */
+    /* Bottom-centre-left, in the last corner the claim leaves open.
+       Deliberately the squarest cell in the collage: this is the only frame
+       with content either side of its subject — a beach on the left, a city on
+       the right — and a portrait cell cropped both away. At 260x272 the cell
+       is very slightly wider than the file, so object-cover trims a little
+       ceiling and floor instead and the full width survives.
+
+       -v3 is converted at the cell's own 0.96 ratio rather than the 4:5 the
+       other tiles use. At 4:5 the conversion itself cropped 25% of the width
+       before the cell ever saw it, which took the man on the right out of the
+       frame entirely; at 0.96 it loses 5%, and both figures either side of the
+       phone survive. */
     key: "messenger",
     src: "/images/verticals/messenger-v3.webp",
     area: "lg:col-start-4 lg:col-span-3 lg:row-start-8 lg:row-span-3",
+    mArea: "col-start-1 col-span-3 row-start-19 row-span-4",
   },
   {
     key: "businessWealth",
     src: "/images/verticals/business-wealth.webp",
     area: "lg:col-start-7 lg:col-span-3 lg:row-start-8 lg:row-span-3",
+    mArea: "col-start-4 col-span-3 row-start-20 row-span-5",
   },
   {
     key: "realEstate",
     src: "/images/verticals/real-estate.webp",
     area: "lg:col-start-1 lg:col-span-3 lg:row-start-6 lg:row-span-4",
+    mArea: "col-start-1 col-span-3 row-start-23 row-span-6",
   },
   {
     key: "lifestyle",
     src: "/images/verticals/lifestyle.webp",
     area: "lg:col-start-10 lg:col-span-3 lg:row-start-7 lg:row-span-4",
+    mArea: "col-start-4 col-span-3 row-start-25 row-span-6",
   },
 ];
 
@@ -359,10 +384,10 @@ export function PreviewLanding() {
             the same one the storm above runs on, so the two read as one
             continuous stretch rather than two panels. */}
         <section className="mx-auto max-w-6xl px-6 pb-16 pt-24 sm:pt-32 lg:px-8">
-          <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:auto-rows-[80px] lg:grid-cols-12">
+          <div className="grid auto-rows-[34px] grid-cols-6 gap-2 sm:auto-rows-[52px] sm:gap-3 lg:auto-rows-[80px] lg:grid-cols-12 lg:gap-4">
             <div
               data-reveal
-              className="col-span-2 mb-4 text-center lg:col-span-6 lg:col-start-4 lg:row-span-4 lg:row-start-4 lg:mb-0 lg:self-center lg:px-4"
+              className="col-span-6 col-start-1 row-span-4 row-start-15 self-center text-center lg:col-span-6 lg:col-start-4 lg:row-span-4 lg:row-start-4 lg:px-4"
             >
               {/* The floor carries the phone: at 4.2vw a 390px screen resolved to
                     the 22px minimum, which set the claim smaller than the tile
@@ -386,7 +411,7 @@ export function PreviewLanding() {
                 key={tile.key}
                 data-reveal
                 data-reveal-delay={`${100 + i * 70}`}
-                className={`group relative aspect-4/5 overflow-hidden rounded-2xl bg-paper-soft shadow-[0_14px_36px_-20px_rgba(43,52,64,0.55)] lg:aspect-auto ${tile.area}`}
+                className={`group relative overflow-hidden rounded-2xl bg-paper-soft shadow-[0_14px_36px_-20px_rgba(43,52,64,0.55)] ${tile.mArea} ${tile.area}`}
               >
                 <Image
                   src={tile.src}
@@ -394,7 +419,7 @@ export function PreviewLanding() {
                   fill
                   /* The cells differ in width, so one fixed hint would be wrong
                      for most of them; 30vw covers the widest at lg and up. */
-                  sizes="(min-width: 1024px) 30vw, 50vw"
+                  sizes="(min-width: 1024px) 30vw, 45vw"
                   className="object-cover transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.05]"
                 />
 
@@ -405,8 +430,8 @@ export function PreviewLanding() {
                   className="absolute inset-0 bg-gradient-to-t from-[#001416]/85 via-[#001416]/20 to-transparent"
                 />
 
-                <figcaption className="absolute inset-x-0 bottom-0 p-4 sm:p-5">
-                  <span className="font-display text-[14px] font-light text-white sm:text-[17px]">
+                <figcaption className="absolute inset-x-0 bottom-0 p-2.5 sm:p-4 lg:p-5">
+                  <span className="font-display text-[12px] font-light text-white sm:text-[15px] lg:text-[17px]">
                     {tServices(tile.key)}
                   </span>
                 </figcaption>
