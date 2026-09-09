@@ -19,7 +19,7 @@ export function ApplySection({ inviteCode }: { inviteCode?: string }) {
           <h2 className="mt-4 font-display text-[30px] font-light leading-tight text-ink sm:text-[38px]">
             {t("chooser.title")}
           </h2>
-          <p className="mx-auto mt-4 max-w-md text-[14.5px] leading-[1.75] text-ink-soft">
+          <p className="mx-auto mt-4 max-w-md text-[15px] leading-[1.75] text-ink-soft">
             {t("chooser.subtitle")}
           </p>
         </div>

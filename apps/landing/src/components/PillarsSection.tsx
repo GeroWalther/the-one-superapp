@@ -38,7 +38,7 @@ export function PillarsSection() {
                 ),
               })}
             </h2>
-            <p className="mt-5 max-w-sm text-[14.5px] leading-[1.75] text-ink-soft">
+            <p className="mt-5 max-w-sm text-[15px] leading-[1.75] text-ink-soft">
               {t("subtitle")}
             </p>
           </div>
@@ -61,7 +61,7 @@ export function PillarsSection() {
                   <dt className="font-display text-[21px] font-medium text-ink">
                     {pillar.title}
                   </dt>
-                  <dd className="mt-2 max-w-md text-[13.5px] leading-[1.75] text-ink-soft">
+                  <dd className="mt-2 max-w-md text-[15px] leading-[1.75] text-ink-soft">
                     {pillar.desc}
                   </dd>
                 </div>

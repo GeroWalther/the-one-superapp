@@ -64,7 +64,7 @@ export function SiteHeader() {
                  gives each link its own ground instead, so legibility no longer
                  depends on what is behind it. Dropped once scrolled, where the
                  header supplies a ground of its own. */
-              className={`text-[13px] transition-all ${
+              className={`text-[15px] transition-all ${
                 scrolled
                   ? "text-ink-soft hover:text-ink"
                   : "btn border-white/70 bg-white/85 px-3.5 py-1.5 text-ink shadow-sm backdrop-blur-sm hover:bg-white"
@@ -78,7 +78,7 @@ export function SiteHeader() {
 
           <Link
             href={`/${locale}#apply`}
-            className="btn btn-primary px-5 py-2 text-[12.5px]"
+            className="btn btn-primary px-5 py-2 text-[15px]"
           >
             {t("joinNow")}
           </Link>
@@ -120,7 +120,7 @@ export function SiteHeader() {
           <Link
             href={`/${locale}#apply`}
             onClick={() => setMenuOpen(false)}
-            className="btn btn-primary mt-5 w-full py-3 text-[14px]"
+            className="btn btn-primary mt-5 w-full py-3 text-[15px]"
           >
             {t("joinNow")}
           </Link>

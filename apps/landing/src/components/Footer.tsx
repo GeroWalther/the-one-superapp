@@ -18,7 +18,7 @@ export function Footer() {
           {trust.map((item) => (
             <span
               key={item.label}
-              className="inline-flex items-center gap-2 text-[12px] text-ink-soft"
+              className="inline-flex items-center gap-2 text-[15px] text-ink-soft"
             >
               <item.icon
                 className="h-[14px] w-[14px] text-aqua-500"
@@ -31,13 +31,13 @@ export function Footer() {
 
         <hr className="rule-accent mx-auto my-8 w-full max-w-sm" />
 
-        <p className="text-center text-[12px] text-ink-faint">
+        <p className="text-center text-[15px] text-ink-faint">
           {t("waitlistNote")}
         </p>
 
         <div className="mt-6 flex flex-col items-center gap-3 sm:flex-row sm:justify-between">
-          <p className="text-[11.5px] text-ink-faint/80">{t("copyright")}</p>
-          <div className="flex items-center gap-5 text-[11.5px] text-ink-faint/80">
+          <p className="text-[15px] text-ink-faint/80">{t("copyright")}</p>
+          <div className="flex items-center gap-5 text-[15px] text-ink-faint/80">
             <span className="cursor-default transition-colors hover:text-ink-soft">
               {t("privacy")}
             </span>

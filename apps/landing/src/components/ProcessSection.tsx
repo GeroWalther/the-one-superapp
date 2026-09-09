@@ -36,7 +36,7 @@ export function ProcessSection() {
                 em: (chunks) => <em className="text-accent not-italic">{chunks}</em>,
               })}
             </h2>
-            <p className="mt-5 max-w-md text-[14.5px] leading-[1.75] text-ink-soft">
+            <p className="mt-5 max-w-md text-[15px] leading-[1.75] text-ink-soft">
               {t("subtitle")}
             </p>
 
@@ -52,7 +52,7 @@ export function ProcessSection() {
                 {t("cta")}
                 <ArrowRight className="h-4 w-4" strokeWidth={1.8} />
               </Link>
-              <p className="mt-4 text-[12.5px] text-ink-faint">{t("ctaNote")}</p>
+              <p className="mt-4 text-[15px] text-ink-faint">{t("ctaNote")}</p>
             </div>
           </div>
 
@@ -78,7 +78,7 @@ export function ProcessSection() {
                   <h3 className="font-display text-[21px] font-medium text-ink">
                     {step.title}
                   </h3>
-                  <p className="mt-2 max-w-sm text-[13.5px] leading-[1.75] text-ink-soft">
+                  <p className="mt-2 max-w-sm text-[15px] leading-[1.75] text-ink-soft">
                     {step.desc}
                   </p>
                 </div>

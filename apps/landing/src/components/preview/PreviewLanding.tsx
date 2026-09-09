@@ -84,7 +84,7 @@ function splitTagline(tagline: string) {
 const TILES = [
   {
     key: "healthLongevity",
-    src: "/images/verticals/health-longevity-v2.webp",
+    src: "/images/verticals/health-longevity-v3.webp",
     area: "lg:col-start-1 lg:col-span-3 lg:row-start-1 lg:row-span-5",
     mArea: "col-start-1 col-span-3 row-start-1 row-span-6",
   },
@@ -431,7 +431,12 @@ export function PreviewLanding() {
                 />
 
                 <figcaption className="absolute inset-x-0 bottom-0 p-2.5 sm:p-4 lg:p-5">
-                  <span className="font-display text-[12px] font-light text-white sm:text-[15px] lg:text-[17px]">
+                  {/* 15px is the floor for body-sized type on this site, so the
+                      caption does not shrink with the tile. Heavier on the
+                      phone only: over a photograph at this size a light display
+                      weight loses its thin strokes into the image behind it,
+                      while the larger desktop tiles still carry light. */}
+                  <span className="font-display text-[15px] font-medium text-white sm:font-light lg:text-[17px]">
                     {tServices(tile.key)}
                   </span>
                 </figcaption>

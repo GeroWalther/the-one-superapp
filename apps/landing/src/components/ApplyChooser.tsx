@@ -76,7 +76,7 @@ export function ApplyChooser({
           <button
             type="button"
             onClick={() => setChoice(null)}
-            className="mb-5 inline-flex items-center gap-2 text-[13px] text-ink-faint transition-colors hover:text-ink"
+            className="mb-5 inline-flex items-center gap-2 text-[15px] text-ink-faint transition-colors hover:text-ink"
           >
             <ArrowLeft className="h-4 w-4" strokeWidth={1.6} />
             {t("chooser.back")}
@@ -132,7 +132,7 @@ export function ApplyChooser({
               {path.title}
             </h3>
             <p
-              className={`mt-2.5 flex-1 text-[13.5px] leading-[1.7] ${
+              className={`mt-2.5 flex-1 text-[15px] leading-[1.7] ${
                 fill ? "text-white/85" : "text-ink-soft"
               }`}
             >
@@ -146,7 +146,7 @@ export function ApplyChooser({
               {path.meta}
             </span>
             <span
-              className={`mt-5 inline-flex items-center gap-2 text-[13.5px] font-medium ${
+              className={`mt-5 inline-flex items-center gap-2 text-[15px] font-medium ${
                 fill ? "text-white" : "text-aqua-600"
               }`}
             >
@@ -161,7 +161,7 @@ export function ApplyChooser({
       </div>
 
       {showProcessNote && (
-        <p className="mt-7 text-center text-[12.5px] leading-[1.7] text-ink-faint">
+        <p className="mt-7 text-center text-[15px] leading-[1.7] text-ink-faint">
           {t("chooser.process")}
         </p>
       )}
