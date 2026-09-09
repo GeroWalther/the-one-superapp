@@ -393,7 +393,10 @@ export function PreviewLanding() {
                     the 22px minimum, which set the claim smaller than the tile
                     captions under it. 30px is the size at which it reads as the
                     heading of the section rather than a caption for it. */}
-              <h2 className="font-display text-[clamp(30px,4.2vw,40px)] font-bold leading-[1.2] tracking-[0.05em] text-[#0a2f34] sm:leading-[1.25] sm:tracking-[0.06em]">
+              {/* Set identically to the "YOUR WORLD. UNDERSTOOD." claim above:
+                  same clamp, leading and tracking, so the page makes its two
+                  big statements in one voice rather than two near-misses. */}
+              <h2 className="font-display text-[clamp(26px,6vw,52px)] font-bold leading-[1.15] tracking-[0.06em] text-[#0a2f34]">
                 {/* Two keys rather than one string split on the full stop:
                     German puts a comma inside its first line, and any rule
                     that finds the break by punctuation would cut it in the
