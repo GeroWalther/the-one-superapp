@@ -1,11 +1,6 @@
 import { SiteHeader } from "@/components/SiteHeader";
 import { PreviewLanding } from "@/components/preview/PreviewLanding";
-import { PreviewDivider } from "@/components/preview/PreviewDivider";
-import { HeroSection } from "@/components/HeroSection";
 import { PositioningSection } from "@/components/PositioningSection";
-import { PillarsSection } from "@/components/PillarsSection";
-import { ProcessSection } from "@/components/ProcessSection";
-import { PhilosophySection } from "@/components/PhilosophySection";
 import { ApplySection } from "@/components/ApplySection";
 import { Footer } from "@/components/Footer";
 
@@ -21,8 +16,6 @@ export default function HomePage() {
       <main className="flex-1">
         <PreviewLanding />
         <PositioningSection />
-        <PillarsSection />
-        <ProcessSection />
         <ApplySection />
       </main>
       <Footer />

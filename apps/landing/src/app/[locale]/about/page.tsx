@@ -49,6 +49,10 @@ export default async function AboutPage({
             className="mt-10 space-y-6 text-[15px] leading-[1.85] text-ink-soft"
           >
             <p className="text-[16.5px] leading-[1.8] text-ink">{t("intro")}</p>
+            {/* Added with intro2 so this page keeps the whole statement: the
+                two surfaces share the aboutPage namespace precisely so they
+                cannot drift. */}
+            <p className="text-[16.5px] leading-[1.8] text-ink">{t("intro2")}</p>
             <p>{t("mission")}</p>
             <p>{t("philosophy")}</p>
           </div>
