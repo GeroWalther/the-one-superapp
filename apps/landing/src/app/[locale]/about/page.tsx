@@ -52,7 +52,15 @@ export default async function AboutPage({
             {/* Added with intro2 so this page keeps the whole statement: the
                 two surfaces share the aboutPage namespace precisely so they
                 cannot drift. */}
-            <p className="text-[16.5px] leading-[1.8] text-ink">{t("intro2")}</p>
+            <p className="text-[16.5px] leading-[1.8] text-ink">
+              {t.rich("intro2", {
+                gold: (chunks) => (
+                  <span className="text-gold-gradient font-semibold">
+                    {chunks}
+                  </span>
+                ),
+              })}
+            </p>
             <p>{t("mission")}</p>
             <p>{t("philosophy")}</p>
           </div>

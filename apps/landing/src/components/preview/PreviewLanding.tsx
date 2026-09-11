@@ -97,15 +97,22 @@ const TILES = [
   {
     /* Top-centre-right, mirroring Beauty across the heading: the match is the
        thing the whole page is about, so it sits level with the claim rather
-       than being tucked into the bottom of the collage. */
+       than being tucked into the bottom of the collage.
+
+       -v2 is the same photograph lifted in the midtones (gamma 1.32, a little
+       brightness and saturation with it). It is the only dusk shot in the
+       collage, so the caption scrim that reads as a soft wash over the others
+       was landing on an already dark lower half and the couple disappeared
+       into it. Lifting the file rather than lightening the scrim keeps every
+       tile's caption on the same ground. */
     key: "matchConnect",
-    src: "/images/verticals/match-connect.webp",
+    src: "/images/verticals/match-connect-v2.webp",
     area: "lg:col-start-7 lg:col-span-3 lg:row-start-1 lg:row-span-3",
     mArea: "col-start-1 col-span-3 row-start-8 row-span-5",
   },
   {
     key: "luxuryHotels",
-    src: "/images/verticals/luxury-hotels.webp",
+    src: "/images/verticals/luxury-hotels-v2.webp",
     area: "lg:col-start-10 lg:col-span-3 lg:row-start-2 lg:row-span-5",
     mArea: "col-start-4 col-span-3 row-start-9 row-span-6",
   },
@@ -135,7 +142,7 @@ const TILES = [
   },
   {
     key: "realEstate",
-    src: "/images/verticals/real-estate.webp",
+    src: "/images/verticals/real-estate-v2.webp",
     area: "lg:col-start-1 lg:col-span-3 lg:row-start-6 lg:row-span-4",
     mArea: "col-start-1 col-span-3 row-start-23 row-span-6",
   },

@@ -35,11 +35,11 @@ export function EnrollShell({
             <h1 className="mt-4 font-display text-[36px] font-light leading-tight text-ink sm:text-[44px]">
               {title}
             </h1>
-            {subtitle && (
+            {/* {subtitle && (
               <p className="mx-auto mt-4 max-w-md text-[14.5px] leading-[1.75] text-ink-soft">
                 {subtitle}
               </p>
-            )}
+            )} */}
           </div>
 
           {inviteBanner && (

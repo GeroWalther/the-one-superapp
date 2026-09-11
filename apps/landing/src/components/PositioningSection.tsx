@@ -1,5 +1,7 @@
 import { useTranslations } from "next-intl";
 
+const TITLE_TERM = "POWER AI";
+
 /**
  * The client's own description of what the AI does, stated plainly and early.
  *
@@ -10,6 +12,17 @@ import { useTranslations } from "next-intl";
 export function PositioningSection() {
   const t = useTranslations("aboutPage");
 
+  /* Split on the product term rather than on a word count: it is the one token
+     both locales share, so the break lands in the same place in either. If the
+     copy ever loses the term, the whole string stays on the first span and
+     simply wraps as it used to. */
+  const title = t("introTitle");
+  const splitAt = title.indexOf(TITLE_TERM);
+  const titleHead =
+    splitAt === -1 ? title : title.slice(0, splitAt + TITLE_TERM.length);
+  const titleTail =
+    splitAt === -1 ? "" : title.slice(splitAt + TITLE_TERM.length).trim();
+
   return (
     <section className="relative py-16 sm:py-20">
       <div className="mx-auto max-w-3xl px-6 text-center lg:px-8">
@@ -17,45 +30,58 @@ export function PositioningSection() {
             claims do — "YOUR WORLD YOUR MATCH", "ONE WORLD ONE POWER AI". */}
         <h2
           data-reveal
-          /* One line at every width. Two things make that possible: the size
-             follows the viewport rather than stepping (the claim needs 20.1x
-             its own font-size to set on one line, so 4.7vw is the largest that
-             always fits), and -mx-4 gives back most of the section's gutter on
-             a phone, where those 48px are the difference between fitting and
-             not. Capped at 34px, which is what the column can hold. */
-          className="-mx-4 whitespace-nowrap font-display text-[min(4.7vw,34px)] font-bold leading-[1.2] tracking-[0.05em] text-[#0a2f34] sm:mx-0"
+          /* Two lines on a phone, one from sm up. Breaking after the product
+             term is what buys the size: each half is about half the string, so
+             the type can be set nearly twice as large as a single nowrap line
+             would allow — it is set to fill the column, the size the hero's
+             "YOUR WORLD UNDERSTOOD" is set at, which is the weight this claim
+             wants next to it. From sm up the halves rejoin and the size
+             follows the viewport as before (the claim needs 20.1x its own
+             font-size to set on one line, so 4.7vw is the largest that always
+             fits), capped at 34px. -mx-4 gives back
+             most of the section's gutter on a phone. */
+          className="-mx-4 font-display text-[clamp(23.4px,8.1vw,46.8px)] font-bold leading-[1.2] tracking-[0.05em] text-[#004444] sm:mx-0 sm:whitespace-nowrap sm:text-[min(4.23vw,30.6px)]"
         >
-          {t("introTitle")}
+          <span className="block whitespace-nowrap sm:inline">{titleHead}</span>{" "}
+          <span className="block whitespace-nowrap sm:inline">{titleTail}</span>
         </h2>
 
-        <p
-          data-reveal
-          data-reveal-delay="80"
-          className="mt-8 font-display text-[20px] font-light leading-[1.65] text-ink sm:text-[24px] sm:leading-[1.6]"
-        >
-          {t("intro")}
-        </p>
-
-        {/* The second paragraph is set smaller and quieter than the first: it
-            explains, where the first asks the reader to imagine. */}
-        <p
-          data-reveal
-          data-reveal-delay="140"
-          className="mx-auto mt-6 max-w-2xl text-[15px] leading-[1.85] text-ink-soft sm:text-[16.5px]"
-        >
-          {t("intro2")}
-        </p>
-
+        {/* This is the message the client most wants read, so it is stated
+            the loudest thing on the page: the two paragraphs are lifted out of
+            the white and set in solid petrol, white on dark, and the block is
+            the one thing here that moves — it lands, it breathes, a halo turns
+            behind it and a sheen crosses it. The motion lives in globals.css
+            under "The important-message panel", where it can be read as one
+            piece and switched off in one place for reduced motion. */}
         <div
           data-reveal
-          data-reveal-delay="120"
-          className="mt-8 flex items-center justify-center gap-4"
+          data-reveal-delay="80"
+          className="msg-halo mt-10 sm:mt-12"
         >
-          <span className="h-px w-12 bg-line" />
-          <span className="text-[11px] font-semibold uppercase tracking-[0.24em] text-aqua-600">
-            {t("tagline")}
-          </span>
-          <span className="h-px w-12 bg-line" />
+          <div className="msg-panel rounded-3xl bg-[#004444] px-6 py-10 sm:px-12 sm:py-14">
+            {/* One paragraph, opening on the phrase the client wants read
+                first. It is set the way the hero's paragraph under "YOUR WORLD
+                UNDERSTOOD" is set — the body sans at a normal weight,
+                text-pretty, leading 1.7 — so the two read as the same voice,
+                a step larger here because this block is the loud one.
+
+                The scene-setting paragraph above it is not gone from the site:
+                the about page still opens with `intro`, which is why the key
+                stays in the message files. */}
+            <p className="msg-line mx-auto max-w-2xl text-pretty text-[18.7px] leading-[1.7] text-white sm:text-[25.5px]">
+              {t.rich("intro2", {
+                /* The one phrase the client wants picked out, set in the
+                   brand gold so it lifts off the petrol without breaking the
+                   line. The tag lives in the message file because the phrase
+                   sits in a different place in each locale. */
+                gold: (chunks) => (
+                  <span className="text-gold-gradient text-[22px] font-medium sm:text-[30px]">
+                    {chunks}
+                  </span>
+                ),
+              })}
+            </p>
+          </div>
         </div>
       </div>
     </section>

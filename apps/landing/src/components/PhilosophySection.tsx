@@ -34,9 +34,9 @@ export function PhilosophySection() {
               “{t("quote")}”
             </p>
           </blockquote>
-          <p className="mt-7 text-[11px] uppercase tracking-[0.22em] text-white/70">
+          {/* <p className="mt-7 text-[11px] uppercase tracking-[0.22em] text-white/70">
             {t("attribution")}
-          </p>
+          </p> */}
         </div>
       </div>
 

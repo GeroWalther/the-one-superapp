@@ -273,9 +273,9 @@
     "eyebrow": "Über uns",
     "title": "Über TheONE",
     "tagline": "Qualität vor Quantität",
-    "introTitle": "TheONE POWER AI UNDERSTANDS YOU!",
+    "introTitle": "TheONE POWER AI UNDERSTANDS YOU",
     "intro": "Stell dir eine künstliche Intelligenz vor, die nicht nur deine Fragen beantwortet, sondern dich, deine Wünsche und deine Ziele wirklich versteht.",
-    "intro2": "Bei TheONE stehst du im Mittelpunkt. Deine personalisierte POWER AI spricht mit dir, denkt mit und ist Tag und Nacht für dich da. Sie entdeckt Möglichkeiten, die zu deinem Leben passen, und bringt dich Schritt für Schritt näher an das, was du wirklich möchtest.",
+    "intro2": "<gold>Deine personalisierte POWER AI</gold> spricht mit dir, denkt mit und ist Tag und Nacht für dich da. Sie entdeckt Möglichkeiten, die zu deinem Leben passen, und bringt dich Schritt für Schritt näher an das, was du wirklich möchtest.",
     "mission": "TheONE SUPER APP wurde entwickelt, um Klarheit zu schaffen, bevor Entscheidungen getroffen werden. TheONE stellt eine digitale Infrastruktur zur Verfügung, deren Ziel es ist, Entscheidungsklarheit in Bereichen zu schaffen, in denen Komplexität, Unsicherheit und Informationsüberfluss dominieren.",
     "philosophy": "Partner und Unternehmen nutzen TheONE, um Teil eines kuratierten Ökosystems zu sein, das auf Qualität, Vertrauen und langfristige Beziehungen ausgerichtet ist nicht auf Werbung, Rankings oder kurzfristige Sichtbarkeit.",
     "partnersTitle": "Unsere Partner",
@@ -293,12 +293,12 @@
     "privacy": "Datenschutz",
     "imprint": "Impressum",
     "secure": "100% Sicher",
-    "waitlistNote": "Zugang ausschließlich über Bewerbung und Einladung."
+    "waitlistNote": "Zugang ausschließlich über Bewerbung und Einladung"
   },
   "login": {
     "eyebrow": "Mitglieder & Administration",
     "title": "Anmelden",
-    "subtitle": "Verwenden Sie den Benutzernamen, den Sie bei der Einrichtung gewählt haben.",
+    "subtitle": "Verwenden Sie den Benutzernamen, den Sie bei der Einrichtung gewählt haben",
     "identifier": "Benutzername oder E-Mail",
     "identifierPlaceholder": "ihrname",
     "password": "Passwort",
