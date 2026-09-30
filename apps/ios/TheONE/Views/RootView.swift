@@ -13,7 +13,7 @@ struct RootView: View {
                     .overlay(alignment: .bottom) {
                         ProgressView()
                             .tint(Theme.aqua)
-                            .offset(y: 56)
+                            .offset(y: 64)
                     }
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                     .background(Theme.paper.ignoresSafeArea())

@@ -12,13 +12,13 @@ struct LoginView: View {
     var body: some View {
         ScrollView {
             VStack(spacing: 0) {
-                BrandMark(size: 76)
+                BrandMark(size: 96)
                     .padding(.top, 48)
 
                 Wordmark(size: 30)
                     .padding(.top, 16)
 
-                Text("MEMBERS & PARTNERS")
+                Text("MEMBERS & BUSINESS PARTNERS")
                     .font(.system(size: 10, weight: .semibold))
                     .tracking(3)
                     .foregroundStyle(Theme.aqua)

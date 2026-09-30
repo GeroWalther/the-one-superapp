@@ -135,7 +135,7 @@ struct BrandMark: View {
 
 /// Launch screen size of the mark. The loading state draws it at the same size
 /// in the same place, so launch hands over to the app without a jump.
-let launchMarkSize: CGFloat = 120
+let launchMarkSize: CGFloat = 140
 
 extension View {
     /// Puts the mark in the middle of the navigation bar. A large title, where
@@ -143,7 +143,8 @@ extension View {
     func brandedNavigationBar() -> some View {
         toolbar {
             ToolbarItem(placement: .principal) {
-                BrandMark(size: 30)
+                // Near the most a 44pt bar holds without crowding its edges.
+                BrandMark(size: 38)
             }
         }
     }
