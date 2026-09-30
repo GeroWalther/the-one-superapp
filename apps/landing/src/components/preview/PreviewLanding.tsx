@@ -217,13 +217,11 @@ export function PreviewLanding() {
             /* max-w-3xl, not 6xl: the hero sets this claim inside a max-w-3xl
                column, so an unconstrained line here would run to 1152px and
                set the identical words at a completely different measure. */
-            /* Held to one line on a phone by three things at once, because no
-               one of them is enough: tracking down to 0.03em (0.06em across 36
-               characters was adding 43px of pure letter-spacing), -mx-3 to
-               borrow half the section's px-6 gutter back, and a size that
-               follows the viewport instead of a fixed 20px. Above sm it
+            /* On a phone it is set for reading, not held to one line: squeezed
+               onto one it came out around 17px, too small to read comfortably,
+               so it takes two balanced lines at 22px instead. Above sm it
                returns to the tracked, centred setting. */
-            className="-mx-3 mt-4 max-w-3xl text-balance text-center font-display text-[clamp(12px,4.3vw,20px)] font-bold leading-[1.3] tracking-[0.03em] text-[#0a2f34] sm:mx-auto sm:mt-6 sm:text-[24px] sm:tracking-[0.08em] lg:text-[28px]"
+            className="mx-auto mt-4 max-w-3xl text-balance text-center font-display text-[22px] font-bold leading-[1.3] tracking-[0.04em] text-[#0a2f34] sm:mx-auto sm:mt-6 sm:text-[24px] sm:tracking-[0.08em] lg:text-[28px]"
           >
             {tHero("titleLine1")}{" "}
             {/* Inline, not a block: the two halves are one sentence, and forcing
@@ -247,14 +245,16 @@ export function PreviewLanding() {
                splitting the one term the sentence is about. No text-balance:
                the break is placed deliberately below, and balancing would pull
                words back across it. */
-            className="mx-auto mt-5 max-w-2xl text-center font-display text-[15px] font-bold leading-[1.5] tracking-[0.05em] text-[#0a2f34] sm:mt-6 sm:text-[19px] sm:tracking-[0.09em] lg:text-[21px]"
+            className="mx-auto mt-5 max-w-2xl text-center font-display text-[18px] font-bold leading-[1.5] tracking-[0.03em] text-[#0a2f34] sm:mt-6 sm:text-[19px] sm:tracking-[0.09em] lg:text-[21px]"
           >
             {/* Blocks rather than <br>: the break is part of how the claim is
                 set, so it holds at every width instead of only where the line
                 happened to run out. */}
             {taglineLines.map((line) => (
               <span key={line} className="block">
-                {line}
+                {/* "POWER AI" is the one term the line is about; if a narrow
+                    phone has to wrap, it wraps before it, never inside it. */}
+                {line.replace("POWER AI", "POWER\u00a0AI")}
               </span>
             ))}
           </p>
@@ -281,7 +281,7 @@ export function PreviewLanding() {
               <h2 className="text-balance font-display text-[32px] font-light leading-[1.12] text-ink sm:text-[40px] lg:text-[52px]">
                 {t("heroTitle")}
               </h2>
-              <p className="mx-auto mt-4 max-w-md text-pretty text-[15px] leading-[1.6] text-ink-soft sm:mt-5 sm:text-[16px] lg:mx-0">
+              <p className="mx-auto mt-4 max-w-md text-pretty text-[18px] leading-[1.6] text-ink-soft sm:mt-5 sm:text-[16px] lg:mx-0">
                 {t("heroSubtitle")}
               </p>
 
