@@ -133,6 +133,7 @@ struct AssistantView: View {
             .paperBackground()
             .navigationTitle("Assistant")
             .navigationBarTitleDisplayMode(.inline)
+            .brandedNavigationBar()
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     Menu {

@@ -7,13 +7,16 @@ struct LoginView: View {
     @State private var password = ""
     @State private var showPassword = false
 
-    private let enrolURL = URL(string: "https://theone-superapp.vercel.app/en/enroll")!
+    private let enrolURL = URL(string: "https://www.theone-superapp.com/en/enroll")!
 
     var body: some View {
         ScrollView {
             VStack(spacing: 0) {
+                BrandMark(size: 76)
+                    .padding(.top, 48)
+
                 Wordmark(size: 30)
-                    .padding(.top, 60)
+                    .padding(.top, 16)
 
                 Text("MEMBERS & PARTNERS")
                     .font(.system(size: 10, weight: .semibold))

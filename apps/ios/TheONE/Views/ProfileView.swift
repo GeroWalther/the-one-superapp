@@ -120,6 +120,7 @@ struct ProfileView: View {
             }
             .paperBackground()
             .navigationTitle("Profile")
+            .brandedNavigationBar()
         }
         .task {
             await loadTip()

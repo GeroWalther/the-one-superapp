@@ -7,12 +7,16 @@ struct RootView: View {
         Group {
             switch session.state {
             case .loading:
-                VStack(spacing: 18) {
-                    Wordmark(size: 30)
-                    ProgressView().tint(Theme.aqua)
-                }
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .paperBackground()
+                // Centred exactly like the launch screen's image, so the hand-over
+                // from launch to app is invisible; the spinner hangs below it.
+                BrandMark(size: launchMarkSize)
+                    .overlay(alignment: .bottom) {
+                        ProgressView()
+                            .tint(Theme.aqua)
+                            .offset(y: 56)
+                    }
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .background(Theme.paper.ignoresSafeArea())
 
             case .signedOut:
                 LoginView()

@@ -119,3 +119,32 @@ struct Wordmark: View {
         }
     }
 }
+
+/// The app icon's mark: the white O on its teal square.
+struct BrandMark: View {
+    var size: CGFloat = 30
+
+    var body: some View {
+        Image("BrandMark")
+            .resizable()
+            .interpolation(.high)
+            .frame(width: size, height: size)
+            .accessibilityLabel("TheONE")
+    }
+}
+
+/// Launch screen size of the mark. The loading state draws it at the same size
+/// in the same place, so launch hands over to the app without a jump.
+let launchMarkSize: CGFloat = 120
+
+extension View {
+    /// Puts the mark in the middle of the navigation bar. A large title, where
+    /// a screen has one, still sits underneath.
+    func brandedNavigationBar() -> some View {
+        toolbar {
+            ToolbarItem(placement: .principal) {
+                BrandMark(size: 30)
+            }
+        }
+    }
+}
