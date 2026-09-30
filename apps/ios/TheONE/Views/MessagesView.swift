@@ -15,7 +15,7 @@ struct MessagesView: View {
                         Text("No conversations yet")
                             .font(.system(size: 20, weight: .light, design: .serif))
                             .foregroundStyle(Theme.ink)
-                        Text("Message a partner from their page, or let the assistant put you in touch.")
+                        Text("Message a business partner from their page, or let the assistant put you in touch.")
                             .font(.system(size: 14))
                             .foregroundStyle(Theme.inkSoft)
                             .multilineTextAlignment(.center)

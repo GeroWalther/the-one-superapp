@@ -114,12 +114,12 @@ export function applicationReceivedEmail(input: {
   const heading = de ? `Danke, ${input.name}.` : `Thank you, ${input.name}.`;
   const paragraphs = de
     ? [
-        `Wir haben Ihre ${input.type === "partner" ? "Partner-" : "Mitglieds-"}Bewerbung bei TheONE erhalten und prüfen sie persönlich.`,
+        `Wir haben Ihre ${input.type === "partner" ? "Geschäftspartner-" : "Mitglieds-"}Bewerbung bei TheONE erhalten und prüfen sie persönlich.`,
         "Jede Bewerbung wird einzeln geprüft — deshalb dauert es ein paar Tage. Sie hören in jedem Fall von uns, ob wir Sie aufnehmen können oder nicht.",
         `Bis dahin ist nichts weiter zu tun, ${name}.`,
       ]
     : [
-        `We have received your ${input.type === "partner" ? "partner" : "membership"} application to TheONE and are reviewing it personally.`,
+        `We have received your ${input.type === "partner" ? "business partner" : "membership"} application to TheONE and are reviewing it personally.`,
         "Every application is read individually, which is why it takes a few days. You will hear from us either way — whether or not we can offer you a place.",
         `Nothing further is needed from you in the meantime, ${name}.`,
       ];
@@ -260,10 +260,10 @@ export function invitationEmail(input: {
 
   const roleWord = de
     ? input.role === "partner"
-      ? "Partner"
+      ? "Geschäftspartner"
       : "Mitglied"
     : input.role === "partner"
-      ? "partner"
+      ? "business partner"
       : "member";
 
   const paragraphs = (

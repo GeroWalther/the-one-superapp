@@ -35,7 +35,7 @@ final class DiscoverModel {
             let response: PartnersResponse = try await APIClient.shared.send(path)
             partners = response.partners
         } catch {
-            self.error = (error as? APIError)?.errorDescription ?? "Could not load partners."
+            self.error = (error as? APIError)?.errorDescription ?? "Could not load business partners."
         }
     }
 
@@ -81,7 +81,7 @@ struct DiscoverView: View {
                     } else if model.partners.isEmpty {
                         Text(model.savedOnly
                              ? "Nothing saved yet."
-                             : "No partners match this search.")
+                             : "No business partners match this search.")
                             .font(.system(size: 14))
                             .foregroundStyle(Theme.inkSoft)
                             .padding(.top, 40)
@@ -105,7 +105,7 @@ struct DiscoverView: View {
             .navigationDestination(for: PartnerSummary.self) { partner in
                 PartnerDetailView(partnerId: partner.id)
             }
-            .searchable(text: $model.query, prompt: "Search partners")
+            .searchable(text: $model.query, prompt: "Search business partners")
             .onSubmit(of: .search) { Task { await model.load() } }
         }
         .task { await model.load() }
@@ -175,7 +175,7 @@ struct PartnerRow: View {
                     .foregroundStyle(partner.saved ? Theme.aqua : Theme.inkFaint)
             }
             .buttonStyle(.plain)
-            .accessibilityLabel(partner.saved ? "Remove bookmark" : "Save partner")
+            .accessibilityLabel(partner.saved ? "Remove bookmark" : "Save business partner")
         }
         .glassCard()
     }

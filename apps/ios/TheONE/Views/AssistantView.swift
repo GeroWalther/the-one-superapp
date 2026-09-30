@@ -184,7 +184,7 @@ struct AssistantView: View {
                 .font(.system(size: 26, weight: .light, design: .serif))
                 .foregroundStyle(Theme.ink)
 
-            Text("I know TheONE's verified partners and what you told us when you applied. Tell me what you need — or just describe the problem.")
+            Text("I know TheONE's verified business partners and what you told us when you applied. Tell me what you need — or just describe the problem.")
                 .font(.system(size: 14))
                 .foregroundStyle(Theme.inkSoft)
 
@@ -317,7 +317,7 @@ private struct TurnBubble: View {
 
     private func label(for tool: String) -> String {
         switch tool {
-        case "search_partners": "Searching partners…"
+        case "search_partners": "Searching business partners…"
         case "get_partner_details": "Checking details…"
         case "get_member_profile": "Reading your profile…"
         case "request_appointment": "Sending your request…"

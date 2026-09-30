@@ -26,7 +26,7 @@ struct ProfileView: View {
                             Text(account.displayName)
                                 .font(.system(size: 22, weight: .light, design: .serif))
                                 .foregroundStyle(Theme.ink)
-                            Text("@\(account.username) · \(account.role.capitalized)")
+                            Text("@\(account.username) · \(account.role == "partner" ? "Business partner" : account.role.capitalized)")
                                 .font(.system(size: 13))
                                 .foregroundStyle(Theme.inkFaint)
                         }

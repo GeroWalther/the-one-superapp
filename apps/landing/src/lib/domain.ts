@@ -131,14 +131,14 @@ export const PLANS = {
     amountCents: 940_000,
     currency: "eur",
     interval: "year",
-    label: "Partner — Large",
+    label: "Business Partner — Large",
   },
   partnerSmall: {
     key: "partner_small",
     amountCents: 500_000,
     currency: "eur",
     interval: "year",
-    label: "Partner — Small",
+    label: "Business Partner — Small",
   },
 } as const satisfies Record<string, Plan>;
 

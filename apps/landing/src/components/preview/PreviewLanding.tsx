@@ -188,10 +188,10 @@ export function PreviewLanding() {
                 className="absolute -inset-8 rounded-full bg-aqua-200/40 blur-3xl"
               />
               <Image
-                src="/images/theone-lockup-v2.png"
+                src="/images/theone-lockup-v3.png"
                 alt="TheONE Super App"
-                width={252}
-                height={384}
+                width={1620}
+                height={1195}
                 priority
                 /* Next's image optimiser re-encodes transparent PNGs to a palette
                    whose alpha the browser does not honour, which brings the white
@@ -200,9 +200,9 @@ export function PreviewLanding() {
                 /* Height-driven so the lockup's own proportions decide the width;
                    no drop-shadow, since the artwork already carries one under the
                    icon and a second would fall across the wordmark too. Same
-                   312px from the smallest screen up: the mark is the strongest
+                   size from the smallest screen up: the mark is the strongest
                    asset here and is meant to dominate the phone view. */
-                className="relative h-[312px] w-auto lg:h-[372px]"
+                className="relative h-[253px] w-auto lg:h-[302px]"
               />
             </div>
           </div>
@@ -223,7 +223,7 @@ export function PreviewLanding() {
                borrow half the section's px-6 gutter back, and a size that
                follows the viewport instead of a fixed 20px. Above sm it
                returns to the tracked, centred setting. */
-            className="-mx-3 -mt-5 max-w-3xl text-balance text-center font-display text-[clamp(12px,4.3vw,20px)] font-bold leading-[1.3] tracking-[0.03em] text-[#0a2f34] sm:mx-auto sm:mt-6 sm:text-[24px] sm:tracking-[0.08em] lg:text-[28px]"
+            className="-mx-3 mt-4 max-w-3xl text-balance text-center font-display text-[clamp(12px,4.3vw,20px)] font-bold leading-[1.3] tracking-[0.03em] text-[#0a2f34] sm:mx-auto sm:mt-6 sm:text-[24px] sm:tracking-[0.08em] lg:text-[28px]"
           >
             {tHero("titleLine1")}{" "}
             {/* Inline, not a block: the two halves are one sentence, and forcing

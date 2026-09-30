@@ -46,10 +46,10 @@ export function HeroSection() {
               className="absolute -inset-8 rounded-full bg-aqua-200/40 blur-3xl"
             />
             <Image
-              src="/images/theone-lockup-v2.png"
+              src="/images/theone-lockup-v3.png"
               alt="TheONE Super App"
-              width={252}
-              height={384}
+              width={1620}
+              height={1195}
               priority
               /* Next's image optimiser re-encodes transparent PNGs to a palette
                  whose alpha the browser does not honour, which brings the white
@@ -58,7 +58,7 @@ export function HeroSection() {
               /* Height-driven so the lockup's own proportions decide the width;
                  no drop-shadow, since the artwork already carries one under the
                  icon and a second would fall across the wordmark too. */
-              className="relative h-[250px] w-auto sm:h-[310px]"
+              className="relative h-[203px] w-auto sm:h-[252px]"
             />
           </div>
         </div>

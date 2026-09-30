@@ -53,7 +53,7 @@ struct PartnerDetailView: View {
                     Button {
                         Task { await openChat(with: partner) }
                     } label: {
-                        Text(openingChat ? "Opening…" : "Message this partner")
+                        Text(openingChat ? "Opening…" : "Message this business partner")
                     }
                     .buttonStyle(PrimaryButtonStyle())
                     .disabled(openingChat)
@@ -74,7 +74,7 @@ struct PartnerDetailView: View {
         .paperBackground()
         .navigationBarTitleDisplayMode(.inline)
         .navigationDestination(item: $conversationId) { id in
-            ConversationView(conversationId: id, title: partner?.name ?? "Partner")
+            ConversationView(conversationId: id, title: partner?.name ?? "Business partner")
         }
         .task { await load() }
     }
@@ -99,7 +99,7 @@ struct PartnerDetailView: View {
             let response: DetailResponse = try await APIClient.shared.send("/partners/\(partnerId)")
             partner = response.partner
         } catch {
-            self.error = (error as? APIError)?.errorDescription ?? "Could not load this partner."
+            self.error = (error as? APIError)?.errorDescription ?? "Could not load this business partner."
         }
     }
 
