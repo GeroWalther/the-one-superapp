@@ -39,17 +39,17 @@ export function HeroSection() {
         {/* The mark leads. It is the strongest brand asset here, and a visitor
             who arrives from an ad or an app listing should recognise it before
             reading a word. */}
-        <div data-reveal className="flex justify-center">
+        <div data-reveal className="flex justify-center pt-8 sm:pt-9">
           <div className="float-slow relative">
             <div
               aria-hidden="true"
               className="absolute -inset-8 rounded-full bg-aqua-200/40 blur-3xl"
             />
             <Image
-              src="/images/theone-lockup-v3.png"
+              src="/images/theone-lockup-v4.png"
               alt="TheONE Super App"
-              width={1620}
-              height={1195}
+              width={533}
+              height={677}
               priority
               /* Next's image optimiser re-encodes transparent PNGs to a palette
                  whose alpha the browser does not honour, which brings the white
@@ -58,7 +58,7 @@ export function HeroSection() {
               /* Height-driven so the lockup's own proportions decide the width;
                  no drop-shadow, since the artwork already carries one under the
                  icon and a second would fall across the wordmark too. */
-              className="relative h-[203px] w-auto sm:h-[252px]"
+              className="relative h-[172px] w-auto sm:h-[214px]"
             />
           </div>
         </div>

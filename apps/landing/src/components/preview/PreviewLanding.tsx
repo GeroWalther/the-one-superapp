@@ -181,17 +181,17 @@ export function PreviewLanding() {
               runs top-down — 0, 120, 200, 280 — so the eye is led rather than
               having the tagline arrive before the line above it, which is what
               the old 120/40 pairing did. */}
-          <div data-reveal className="flex justify-center">
+          <div data-reveal className="flex justify-center pt-9 lg:pt-11">
             <div className="float-slow relative">
               <div
                 aria-hidden="true"
                 className="absolute -inset-8 rounded-full bg-aqua-200/40 blur-3xl"
               />
               <Image
-                src="/images/theone-lockup-v3.png"
+                src="/images/theone-lockup-v4.png"
                 alt="TheONE Super App"
-                width={1620}
-                height={1195}
+                width={533}
+                height={677}
                 priority
                 /* Next's image optimiser re-encodes transparent PNGs to a palette
                    whose alpha the browser does not honour, which brings the white
@@ -202,7 +202,7 @@ export function PreviewLanding() {
                    icon and a second would fall across the wordmark too. Same
                    size from the smallest screen up: the mark is the strongest
                    asset here and is meant to dominate the phone view. */
-                className="relative h-[253px] w-auto lg:h-[302px]"
+                className="relative h-[214px] w-auto lg:h-[257px]"
               />
             </div>
           </div>
