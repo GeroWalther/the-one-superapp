@@ -83,7 +83,14 @@ function plain(heading: string, paragraphs: string[], cta?: { label: string; url
   return [
     heading,
     "",
-    ...paragraphs.map((p) => p.replace(/<[^>]+>/g, "")),
+    ...paragraphs.map((p) =>
+      p
+        .replace(/<br\s*\/?>/g, "\n")
+        // A link's text alone is useless in plain text; keep where it goes.
+        .replace(/<a [^>]*href="([^"]+)"[^>]*>([^<]*)<\/a>/g, "$2 ($1)")
+        .replace(/<[^>]+>/g, "")
+        .replace(/&amp;/g, "&"),
+    ),
     ...(cta ? ["", `${cta.label}: ${cta.url}`] : []),
     "",
     "— TheONE",
@@ -384,5 +391,75 @@ export function referralRewardEmail(input: {
       : `${input.addedFreeMonths} free months for your referrals`,
     html: layout({ preheader: eyebrow, eyebrow, heading, paragraphs }),
     text: plain(heading, paragraphs),
+  };
+}
+
+/* ========================================================================== *
+ * 7. Live — approved, paid, and able to sign in to the app
+ * ========================================================================== */
+
+/**
+ * The login details for the phone app. Carries the username and the address,
+ * never the password: the applicant chose it themselves at activation, and a
+ * password in an inbox is a password in every backup of that inbox. Anyone who
+ * has forgotten it gets the reset link instead.
+ */
+export function accountLiveEmail(input: {
+  locale: Locale;
+  to: string;
+  name: string;
+  username: string;
+  appUrl: string | null;
+  resetUrl: string;
+}): MailMessage {
+  const de = input.locale === "de";
+  const username = escapeHtml(input.username);
+  const email = escapeHtml(input.to);
+
+  const eyebrow = de ? "Ihr Zugang ist aktiv" : "You are live";
+  const heading = de
+    ? `Alles bereit, ${input.name}.`
+    : `You are all set, ${input.name}.`;
+
+  const credentials = `<span style="display:block;padding:14px 18px;border:1px solid #e2e8ea;border-radius:14px;background:${PAGE};color:${INK};">${
+    de ? "Benutzername" : "Username"
+  }: <strong>${username}</strong><br>${
+    de ? "oder E-Mail" : "or email"
+  }: <strong>${email}</strong><br>${
+    de ? "Passwort" : "Password"
+  }: ${de ? "das Passwort, das Sie selbst festgelegt haben" : "the one you chose when you activated"}</span>`;
+
+  const paragraphs = (
+    de
+      ? [
+          "Ihre Mitgliedschaft ist bezahlt und aktiv. Sie können sich ab sofort in der TheONE App anmelden.",
+          credentials,
+          input.appUrl
+            ? null
+            : "Den Download-Link zur App senden wir Ihnen, sobald sie im App Store verfügbar ist.",
+          `Passwort vergessen? <a href="${escapeHtml(input.resetUrl)}" style="color:${ACCENT};">Hier neu festlegen</a>.`,
+        ]
+      : [
+          "Your membership is paid and active. You can sign in to the TheONE app now.",
+          credentials,
+          input.appUrl
+            ? null
+            : "We will send you the download link as soon as the app is in the App Store.",
+          `Forgotten your password? <a href="${escapeHtml(input.resetUrl)}" style="color:${ACCENT};">Set a new one here</a>.`,
+        ]
+  ).filter((line): line is string => Boolean(line));
+
+  const cta = input.appUrl
+    ? { label: de ? "App herunterladen" : "Download the app", url: input.appUrl }
+    : undefined;
+
+  return {
+    to: input.to,
+    tag: "account-live",
+    subject: de
+      ? "Ihre Zugangsdaten für die TheONE App"
+      : "Your login for the TheONE app",
+    html: layout({ preheader: eyebrow, eyebrow, heading, paragraphs, cta }),
+    text: plain(heading, paragraphs, cta),
   };
 }

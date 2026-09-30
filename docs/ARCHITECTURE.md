@@ -47,7 +47,9 @@ administrator has approved them.
 
 ```
                     ┌──────────► declined ──► email + phone hashed into blocklist
-                    │                          (cannot ever apply again)
+                    │                 │        (cannot apply again)
+                    │                 └──► an admin may reopen it: back to
+                    │                      pending, this decline's blocks lifted
   application ──────┤
     (pending)       │
                     └──────────► approved ──► awaiting_payment ──► active
@@ -59,6 +61,11 @@ administrator has approved them.
         admin-issued invitations skip the pending state entirely
         (the admin vetted them by inviting them)
 ```
+
+The first time an account reaches `active` (checkout completed, or the test
+bypass) it is sent the "you are live" email with its app username. Never the
+password: the applicant chose that at activation. `welcomeEmailSentAt` makes
+it exactly one email however Stripe orders its webhooks.
 
 **`active` is the only state that can log into the iOS app.** Everything else
 gets a clear, specific message rather than a generic auth failure.

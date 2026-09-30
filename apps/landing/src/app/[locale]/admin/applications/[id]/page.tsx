@@ -5,6 +5,10 @@ import { ArrowLeft, Gift } from "lucide-react";
 import { getApplication } from "@/lib/admin/queue";
 import { DecisionPanel } from "@/components/admin/DecisionPanel";
 import { ActivationLinkPanel } from "@/components/admin/ActivationLinkPanel";
+import {
+  ReopenPanel,
+  ResendApprovalPanel,
+} from "@/components/admin/ReviewActionsPanel";
 import { isMailConfigured } from "@/lib/mail/mailer";
 import type {
   MemberApplicationInput,
@@ -207,8 +211,51 @@ export default async function ApplicationDetailPage({
             </div>
           )}
 
-          {application.status === "approved" && !isMailConfigured() && (
-            <ActivationLinkPanel applicationId={application.id} />
+          {application.status === "approved" && (
+            <div className="glass-soft mt-4 rounded-2xl px-6 py-5">
+              <p className="text-[11px] uppercase tracking-[0.14em] text-ink-faint">
+                {t("account.title")}
+              </p>
+              {application.account ? (
+                <>
+                  <p className="mt-1.5 text-[15px] text-ink">
+                    {t(`account.status.${application.account.status}`)}
+                  </p>
+                  <p className="mt-1 text-[15px] text-ink-soft">
+                    {t("account.username", {
+                      username: application.account.username,
+                    })}
+                  </p>
+                  {application.account.welcomeEmailSentAt && (
+                    <p className="mt-1 text-[15px] text-ink-soft">
+                      {t("account.welcomeSent", {
+                        date: new Date(
+                          application.account.welcomeEmailSentAt,
+                        ).toLocaleString(locale),
+                      })}
+                    </p>
+                  )}
+                </>
+              ) : (
+                <p className="mt-1.5 text-[15px] text-ink-soft">
+                  {t("account.notActivated")}
+                </p>
+              )}
+            </div>
+          )}
+
+          {application.status === "approved" && !application.account && (
+            <ResendApprovalPanel applicationId={application.id} />
+          )}
+
+          {application.status === "approved" &&
+            !application.account &&
+            !isMailConfigured() && (
+              <ActivationLinkPanel applicationId={application.id} />
+            )}
+
+          {application.status === "declined" && (
+            <ReopenPanel applicationId={application.id} />
           )}
         </div>
       </div>

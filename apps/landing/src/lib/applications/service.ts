@@ -1,6 +1,7 @@
 import "server-only";
 import { ObjectId } from "mongodb";
 import {
+  accounts,
   applications,
   blocklist,
   invitations,
@@ -408,6 +409,107 @@ export async function declineApplication(input: {
       applicantMessage: input.applicantMessage || undefined,
     }),
   );
+
+  return { ok: true };
+}
+
+/* ========================================================================== *
+ * Reopen
+ * ========================================================================== */
+
+/**
+ * Takes a decline back: the application returns to the queue as pending, and
+ * the blocklist entries this decline created are lifted.
+ *
+ * Only entries whose `applicationId` is this application are removed. If the
+ * same phone number was already blocked by an earlier declined application,
+ * that block belongs to the other decision and stays — reopening one case must
+ * not quietly pardon another.
+ *
+ * Approving afterwards goes through `approveApplication` like any other pending
+ * application, so the approval email goes out exactly as it normally would.
+ */
+export async function reopenApplication(input: {
+  applicationId: string;
+  reason: string;
+  actorAccountId: ObjectId | null;
+  actorEmail: string;
+}): Promise<{ ok: boolean; reason?: string }> {
+  if (!ObjectId.isValid(input.applicationId)) {
+    return { ok: false, reason: "not_found" };
+  }
+
+  const collection = await applications();
+
+  // `status: "declined"` is the concurrency guard, as in approve and decline.
+  const doc = await collection.findOneAndUpdate(
+    { _id: new ObjectId(input.applicationId), status: "declined" },
+    {
+      $set: {
+        status: "pending",
+        reviewedAt: null,
+        reviewedByAccountId: null,
+        internalReason: null,
+      },
+    },
+    { returnDocument: "after" },
+  );
+
+  if (!doc) return { ok: false, reason: "not_declined" };
+
+  await (await blocklist()).deleteMany({ applicationId: doc._id });
+
+  await recordAdminAction({
+    actorAccountId: input.actorAccountId,
+    actorEmail: input.actorEmail,
+    action: "application.reopened",
+    targetType: "application",
+    targetId: doc._id,
+    detail: input.reason,
+  });
+
+  return { ok: true };
+}
+
+/* ========================================================================== *
+ * Resend approval
+ * ========================================================================== */
+
+/**
+ * Sends the approval email again with a fresh activation link, for an
+ * applicant who lost it, let it expire, or never received it. Refused once an
+ * account exists: at that point the link would only ever report "already
+ * activated", and the person needs a password reset instead.
+ */
+export async function resendApprovalEmail(input: {
+  applicationId: string;
+  actorAccountId: ObjectId | null;
+  actorEmail: string;
+}): Promise<{ ok: boolean; reason?: string }> {
+  if (!ObjectId.isValid(input.applicationId)) {
+    return { ok: false, reason: "not_found" };
+  }
+
+  const id = new ObjectId(input.applicationId);
+  const doc = await (await applications()).findOne({ _id: id, status: "approved" });
+  if (!doc) return { ok: false, reason: "not_approved" };
+
+  const existing = await (await accounts()).findOne(
+    { applicationId: id },
+    { projection: { _id: 1 } },
+  );
+  if (existing) return { ok: false, reason: "already_activated" };
+
+  await sendApprovalEmail(doc);
+
+  await recordAdminAction({
+    actorAccountId: input.actorAccountId,
+    actorEmail: input.actorEmail,
+    action: "application.approvalEmailResent",
+    targetType: "application",
+    targetId: doc._id,
+    detail: null,
+  });
 
   return { ok: true };
 }

@@ -1,6 +1,7 @@
 import "server-only";
 import { ObjectId } from "mongodb";
 import { accounts } from "../db/collections";
+import { sendWelcomeEmailOnce } from "../auth/welcome";
 import { creditReferrerFor } from "./referrals";
 
 /**
@@ -51,5 +52,6 @@ export async function activateWithoutPayment(
   // Going live is what earns the referrer their free months, exactly as in the
   // real webhook path.
   await creditReferrerFor(id);
+  await sendWelcomeEmailOnce(id);
   return true;
 }

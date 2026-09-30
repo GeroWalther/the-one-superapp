@@ -1,7 +1,8 @@
 import "server-only";
 import { ObjectId, type Filter } from "mongodb";
-import { applications, type ApplicationDoc } from "../db/collections";
+import { accounts, applications, type ApplicationDoc } from "../db/collections";
 import type {
+  AccountStatus,
   ApplicantType,
   ApplicationStatus,
   MemberApplicationInput,
@@ -27,6 +28,13 @@ export type ApplicationSummary = {
 export type ApplicationDetail = ApplicationSummary & {
   data: MemberApplicationInput | PartnerApplicationInput;
   internalReason: string | null;
+  /** Present once the approved applicant has chosen credentials. */
+  account: {
+    username: string;
+    status: AccountStatus;
+    paid: boolean;
+    welcomeEmailSentAt: string | null;
+  } | null;
 };
 
 function toSummary(doc: ApplicationDoc): ApplicationSummary {
@@ -96,10 +104,20 @@ export async function getApplication(
   const doc = await collection.findOne({ _id: new ObjectId(id) });
   if (!doc) return null;
 
+  const account = await (await accounts()).findOne({ applicationId: doc._id });
+
   return {
     ...toSummary(doc),
     data: doc.data,
     internalReason: doc.internalReason,
+    account: account
+      ? {
+          username: account.username,
+          status: account.status,
+          paid: Boolean(account.stripeSubscriptionId),
+          welcomeEmailSentAt: account.welcomeEmailSentAt?.toISOString() ?? null,
+        }
+      : null,
   };
 }
 

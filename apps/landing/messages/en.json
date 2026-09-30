@@ -484,7 +484,7 @@
       "already": {
         "pending": "Awaiting a decision.",
         "approved": "Approved. The activation link has been emailed.",
-        "declined": "Declined. Email and phone are blocklisted."
+        "declined": "Declined. Email and phone are blocklisted until the decision is reopened."
       },
       "activationLinkTitle": "Activation link",
       "activationLinkNote": "No mail provider is configured, so the approval email was not delivered. Generate a fresh single-use link and send it to the applicant yourself.",
@@ -539,7 +539,35 @@
       "roleRequired": "Please choose member or partner.",
       "alreadyMember": "That address already has an account.",
       "alreadyInvited": "That address already has an open invitation.",
-      "serverError": "Something went wrong on our side. Please try again."
+      "serverError": "Something went wrong on our side. Please try again.",
+      "notDeclined": "This application is no longer declined.",
+      "alreadyActivated": "This applicant has already activated their account. Ask them to reset their password instead."
+    },
+    "reopen": {
+      "title": "Reopen this application",
+      "note": "Moves it back to pending and lifts the blocklist on this email and phone. Approving it afterwards sends the approval email as usual.",
+      "reason": "Why are you reopening it? (internal)",
+      "confirm": "Reopen as pending",
+      "done": "Reopened. The application is pending again."
+    },
+    "resend": {
+      "title": "Resend approval email",
+      "note": "Sends the approval email again with a fresh activation link. Use this if the applicant lost it or it expired.",
+      "confirm": "Resend approval email",
+      "done": "Sent."
+    },
+    "account": {
+      "title": "Account",
+      "notActivated": "Not activated yet. The applicant has not chosen a username and password.",
+      "username": "Username: {username}",
+      "welcomeSent": "App login email sent {date}",
+      "status": {
+        "awaiting_payment": "Activated, waiting for payment",
+        "active": "Live, subscription active",
+        "past_due": "Payment overdue",
+        "canceled": "Subscription cancelled",
+        "suspended": "Suspended"
+      }
     }
   },
   "activate": {

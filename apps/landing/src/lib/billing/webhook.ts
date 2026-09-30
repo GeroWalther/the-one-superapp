@@ -4,6 +4,7 @@ import type Stripe from "stripe";
 import { accounts } from "../db/collections";
 import { getDb } from "../mongodb";
 import type { AccountStatus } from "../domain";
+import { sendWelcomeEmailOnce } from "../auth/welcome";
 import { creditReferrerFor } from "./referrals";
 import { stripe } from "./stripe";
 
@@ -103,6 +104,7 @@ export async function handleStripeEvent(event: Stripe.Event): Promise<void> {
 
       // The invitee is live, so their referrer has earned something.
       await creditReferrerFor(accountId);
+      await sendWelcomeEmailOnce(accountId);
       break;
     }
 
@@ -136,6 +138,7 @@ export async function handleStripeEvent(event: Stripe.Event): Promise<void> {
           ? new Date(subscription.trial_end * 1000)
           : null,
       });
+      if (status === "active") await sendWelcomeEmailOnce(accountId);
       break;
     }
 

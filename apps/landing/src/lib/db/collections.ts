@@ -88,6 +88,11 @@ export type AccountDoc = {
   invitedByAccountId: ObjectId | null;
   /** Set once this account has earned its referrer a credit, so it counts once. */
   referralCreditedAt: Date | null;
+  /**
+   * When the "you are live" email with the app login details went out. Claimed
+   * atomically, so Stripe replaying or reordering webhooks sends it once.
+   */
+  welcomeEmailSentAt?: Date | null;
 
   /**
    * What the member has since edited about themselves.
@@ -161,6 +166,10 @@ export type AdminAuditDoc = {
   action:
     | "application.approved"
     | "application.declined"
+    /* A decline taken back. Lifts the blocklist entries that decline created,
+       so it is audited as its own decision rather than folded into the next. */
+    | "application.reopened"
+    | "application.approvalEmailResent"
     /* Reissuing an activation link hands out a credential, so it is audited
        like any other decision — "who let this person in" must stay answerable
        even when the link did not come from the original approval. */

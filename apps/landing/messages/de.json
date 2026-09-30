@@ -484,7 +484,7 @@
       "already": {
         "pending": "Wartet auf eine Entscheidung.",
         "approved": "Angenommen. Der Aktivierungslink wurde versendet.",
-        "declined": "Abgelehnt. E-Mail und Telefonnummer sind gesperrt."
+        "declined": "Abgelehnt. E-Mail und Telefon sind gesperrt, bis die Entscheidung zurückgenommen wird."
       },
       "activationLinkTitle": "Aktivierungslink",
       "activationLinkNote": "Es ist kein Mailanbieter konfiguriert, die Zusage-E-Mail wurde daher nicht zugestellt. Erzeugen Sie einen neuen Einmal-Link und senden Sie ihn selbst an den Bewerber.",
@@ -539,7 +539,35 @@
       "roleRequired": "Bitte wählen Sie Mitglied oder Partner.",
       "alreadyMember": "Diese Adresse hat bereits ein Konto.",
       "alreadyInvited": "Für diese Adresse liegt bereits eine offene Einladung vor.",
-      "serverError": "Auf unserer Seite ist etwas schiefgelaufen. Bitte versuchen Sie es erneut."
+      "serverError": "Auf unserer Seite ist etwas schiefgelaufen. Bitte versuchen Sie es erneut.",
+      "notDeclined": "Diese Bewerbung ist nicht mehr abgelehnt.",
+      "alreadyActivated": "Das Konto wurde bereits aktiviert. Bitte stattdessen das Passwort zurücksetzen lassen."
+    },
+    "reopen": {
+      "title": "Bewerbung wieder öffnen",
+      "note": "Setzt sie zurück auf ausstehend und hebt die Sperre für diese E-Mail und Telefonnummer auf. Eine spätere Annahme verschickt die Zusage wie gewohnt.",
+      "reason": "Warum wird sie wieder geöffnet? (intern)",
+      "confirm": "Wieder auf ausstehend setzen",
+      "done": "Wieder geöffnet. Die Bewerbung ist wieder ausstehend."
+    },
+    "resend": {
+      "title": "Zusage erneut senden",
+      "note": "Sendet die Zusage mit einem neuen Aktivierungslink erneut. Nützlich, wenn der Link verloren ging oder abgelaufen ist.",
+      "confirm": "Zusage erneut senden",
+      "done": "Gesendet."
+    },
+    "account": {
+      "title": "Konto",
+      "notActivated": "Noch nicht aktiviert. Benutzername und Passwort wurden noch nicht festgelegt.",
+      "username": "Benutzername: {username}",
+      "welcomeSent": "App-Zugangsdaten gesendet am {date}",
+      "status": {
+        "awaiting_payment": "Aktiviert, Zahlung ausstehend",
+        "active": "Aktiv, Abo bezahlt",
+        "past_due": "Zahlung überfällig",
+        "canceled": "Abo gekündigt",
+        "suspended": "Gesperrt"
+      }
     }
   },
   "activate": {

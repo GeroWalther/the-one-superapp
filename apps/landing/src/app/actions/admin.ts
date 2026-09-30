@@ -13,6 +13,8 @@ import {
   approveApplication,
   declineApplication,
   issueActivationLink,
+  reopenApplication,
+  resendApprovalEmail,
 } from "@/lib/applications/service";
 import { createInvitation, revokeInvitation } from "@/lib/admin/invitations";
 import { recordAdminAction } from "@/lib/admin/audit";
@@ -192,4 +194,53 @@ export async function revealActivationLinkAction(
   });
 
   return { ok: true, activationUrl };
+}
+
+/** Moves a declined application back to pending and lifts its blocklist entries. */
+export async function reopenApplicationAction(
+  _state: FormState,
+  formData: FormData,
+): Promise<FormState> {
+  const actor = await requireAdminActor();
+  if (!actor) return { message: "forbidden" };
+
+  const reason = String(formData.get("reason") ?? "").trim();
+  if (reason.length < 3) return { errors: { reason: ["reasonRequired"] } };
+
+  const result = await reopenApplication({
+    applicationId: String(formData.get("applicationId") ?? ""),
+    reason: reason.slice(0, 2000),
+    actorAccountId: new ObjectId(actor.id),
+    actorEmail: actor.email,
+  });
+
+  if (!result.ok) {
+    return { message: result.reason === "not_declined" ? "notDeclined" : "serverError" };
+  }
+
+  revalidatePath("/[locale]/admin", "layout");
+  return { ok: true, message: "reopened" };
+}
+
+export async function resendApprovalEmailAction(
+  _state: FormState,
+  formData: FormData,
+): Promise<FormState> {
+  const actor = await requireAdminActor();
+  if (!actor) return { message: "forbidden" };
+
+  const result = await resendApprovalEmail({
+    applicationId: String(formData.get("applicationId") ?? ""),
+    actorAccountId: new ObjectId(actor.id),
+    actorEmail: actor.email,
+  });
+
+  if (!result.ok) {
+    return {
+      message:
+        result.reason === "already_activated" ? "alreadyActivated" : "serverError",
+    };
+  }
+
+  return { ok: true, message: "approvalResent" };
 }
