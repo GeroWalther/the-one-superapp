@@ -46,7 +46,7 @@ export function Wordmark({
         style={large ? { width: 66, height: 66 } : undefined}
       >
         <Image
-          src="/images/theone-icon.png"
+          src="/images/theone-icon-v2.png"
           alt=""
           width={248}
           height={248}

@@ -46,7 +46,7 @@ export function HeroSection() {
               className="absolute -inset-8 rounded-full bg-aqua-200/40 blur-3xl"
             />
             <Image
-              src="/images/theone-lockup.png"
+              src="/images/theone-lockup-v2.png"
               alt="TheONE Super App"
               width={252}
               height={384}
