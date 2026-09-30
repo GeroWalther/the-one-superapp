@@ -13,7 +13,7 @@ actor APIClient {
     #if targetEnvironment(simulator)
     private let baseURL = URL(string: "http://localhost:5656/api/v1")!
     #else
-    private let baseURL = URL(string: "https://theone-superapp.vercel.app/api/v1")!
+    private let baseURL = URL(string: "https://www.theone-superapp.com/api/v1")!
     #endif
 
     private var accessToken: String?

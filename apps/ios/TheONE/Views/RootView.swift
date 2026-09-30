@@ -32,19 +32,17 @@ struct RootView: View {
 
 struct MainTabs: View {
     var body: some View {
+        // `.tabItem` rather than `Tab`: the latter is iOS 18 only, and the app
+        // supports iOS 17.
         TabView {
-            Tab("Assistant", systemImage: "sparkles") {
-                AssistantView()
-            }
-            Tab("Discover", systemImage: "magnifyingglass") {
-                DiscoverView()
-            }
-            Tab("Messages", systemImage: "bubble.left.and.bubble.right") {
-                MessagesView()
-            }
-            Tab("Profile", systemImage: "person") {
-                ProfileView()
-            }
+            AssistantView()
+                .tabItem { Label("Assistant", systemImage: "sparkles") }
+            DiscoverView()
+                .tabItem { Label("Discover", systemImage: "magnifyingglass") }
+            MessagesView()
+                .tabItem { Label("Messages", systemImage: "bubble.left.and.bubble.right") }
+            ProfileView()
+                .tabItem { Label("Profile", systemImage: "person") }
         }
         .tint(Theme.aqua)
     }
