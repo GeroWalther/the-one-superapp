@@ -76,6 +76,7 @@ export async function ensurePrice(plan: Plan): Promise<string | null> {
     recurring: { interval: plan.interval },
     lookup_key: lookupKey,
     metadata: { theone_plan: plan.key },
+    ...(plan.taxBehavior ? { tax_behavior: plan.taxBehavior } : {}),
   });
 
   return price.id;
@@ -115,7 +116,8 @@ export async function ensureIntroCoupon(plan: Plan): Promise<string | null> {
 
   await client.coupons.create({
     id,
-    name: `First ${plan.interval}: €${plan.introAmountCents / 100}`,
+    // Shown on the checkout, which most members see in German.
+    name: `Willkommensangebot: 1. ${plan.interval === "month" ? "Monat" : "Jahr"} €${plan.introAmountCents / 100}`,
     amount_off: plan.amountCents - plan.introAmountCents,
     currency: plan.currency,
     duration: "once",

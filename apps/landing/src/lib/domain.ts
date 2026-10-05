@@ -118,6 +118,8 @@ export type Plan = {
   label: string;
   /** Price of the first billing period, when it differs (a welcome offer). */
   introAmountCents?: number;
+  /** "inclusive": the amount is the final price with VAT in it. */
+  taxBehavior?: "inclusive" | "exclusive";
 };
 
 export const PLANS = {
@@ -128,6 +130,7 @@ export const PLANS = {
     interval: "month",
     label: "Member",
     introAmountCents: 1_000,
+    taxBehavior: "inclusive",
   },
   partnerLarge: {
     key: "partner_large",
@@ -150,6 +153,7 @@ export const PLANS = {
     currency: "eur",
     interval: "month",
     label: "Early Access",
+    taxBehavior: "inclusive",
   },
 } as const satisfies Record<string, Plan>;
 

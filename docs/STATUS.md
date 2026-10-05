@@ -43,10 +43,11 @@ work against production. Logo on launch screen, sign-in and every tab.
 ## Open
 
 ### Needs something from the client
-- [ ] **VAT on top or included?** Stripe Managed Payments adds VAT on top of
-      the prices, so a member in Spain pays €49 + 21% = €59.29/month. Decide
-      whether €49 / €9,400 / €5,000 should be the price *including* VAT.
-      (First member month: €10 + VAT = €12.10 in Spain.)
+- [ ] **Business partner prices: VAT on top or included?** Member and Early
+      Access prices are final, VAT included (decided 2026-10-06). Partner prices
+      (€9,400 / €5,000 per year) still have VAT added on top; for businesses
+      that is common, and EU companies with a VAT number are usually charged
+      no VAT (reverse charge). Confirm.
 - [ ] **First real sign-up on Early Access** (€1/month) to prove payment →
       webhook → account live → "you're live" email on the live site: apply,
       approve with Early Access ticked, pay €1.21, check the email; cancel
@@ -102,7 +103,8 @@ work against production. Logo on launch screen, sign-in and every tab.
 - **iPhone only**: the app is portrait-only, which Apple refuses on iPad.
 - **Plans** (confirmed 2026-10-06): Member €10 first month then €49/month;
   Business Partner Large €9,400/year and Small €5,000/year (tier chosen at
-  approval); Early Access €1/month. All plus VAT.
+  approval); Early Access €1/month. Member and Early Access prices include
+  VAT (final prices); partner prices are before VAT unless decided otherwise.
 - **Early Access is a plan, chosen by staff at approval** (2026-10-05), not
   something applicants pick: access is by approval, so price is too.
 - **Stripe Managed Payments kept** (client's choice, 2026-10-05): Stripe is
