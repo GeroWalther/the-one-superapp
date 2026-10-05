@@ -26,7 +26,7 @@ theone-superapp.vercel.app forward there). German and English.
 | Resend approval email | ✅ | 2026-10-05, live |
 | Activation: applicant chooses username + password | ✅ | 2026-09-30, local |
 | "You're live" email with the app login (username, never the password) | ✅ Sent automatically after payment | 2026-10-05, live |
-| Payment (Stripe, **live**) | ✅ **First real sign-up done end to end**: applied → approved (Early Access) → activated → paid 1.00 € (0.17 € VAT) → webhook → account active → "you're live" email delivered 2 s later. | 2026-10-05, live |
+| Payment (Stripe, **live**) | ✅ Re-tested 2026-10-05 without Managed Payments: bank statement reads **THEONE SUPER APP**, next billing date set automatically. **First real sign-up done end to end**: applied → approved (Early Access) → activated → paid 1.00 € (0.17 € VAT) → webhook → account active → "you're live" email delivered 2 s later. | 2026-10-05, live |
 | **Member price: €10 first month, then €49/month** | ✅ Automatic one-off €39 discount (coupon `theone_member_intro`) on new members' first invoice; not used when the member starts with free months. Promo-code field is not shown on those checkouts (Stripe allows one or the other). | 2026-10-06, live Stripe |
 | **Early Access plan** (€1/month + VAT) | ✅ Its own Stripe product. Admin ticks "Early Access" when approving (members and business partners), or switches it on the application page until the person pays. Checkout then charges €1 (€1.21 with Spanish VAT). | 2026-10-05, local → live Stripe checkout |
 | Discount code **TESTEARLYACCESS** | ✅ Member plan €1/month (€48 off, forever). Enter it on the Stripe checkout page. Switch off in Stripe → Product catalogue → Coupons. | 2026-10-05 |
@@ -48,11 +48,9 @@ work against production. Logo on launch screen, sign-in and every tab.
       calculated by Stripe Tax, which shows **0 € VAT on invoices until a
       registration is entered** (Stripe → Tax → Registrations). Customers pay
       the same either way, as prices include VAT. Accountant to confirm.
-- [ ] **Re-test payment without Managed Payments:** the first test sign-up
-      (gero.walther@gmail.com, 1 € under Managed Payments) was cancelled and
-      removed from the site on 2026-10-05; its Stripe customer and invoice stay
-      for bookkeeping. Next test: apply fresh, approve with Early Access, pay
-      1 €, confirm the bank statement reads THEONE SUPER APP.
+- [ ] **Test subscription running:** `gwintech` (gero.walther@gmail.com) pays
+      1 €/month on Early Access (second test, 2026-10-05). Keep as own access or
+      cancel via the account page.
 - [ ] **Delete test data?** All 20 pending applications in the queue are fake
       (`@example.com`, `bergklinik-davos.example`), plus 5 "Zurich Dental 17…"
       business partner listings and 10 `tester…` accounts that members see in
