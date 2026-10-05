@@ -108,8 +108,13 @@ export function classify(input: {
   };
 
   let referrerHost = hostOf(input.referrer);
-  // Moving between our own pages is not a source.
-  if (referrerHost && input.ownHosts.some((own) => referrerHost === own || referrerHost?.endsWith(`.${own}`))) {
+  // Moving between our own pages is not a source, and neither is coming back
+  // from Stripe's checkout or billing pages, which are part of our own flow.
+  if (
+    referrerHost &&
+    (input.ownHosts.some((own) => referrerHost === own || referrerHost?.endsWith(`.${own}`)) ||
+      /(^|\.)stripe\.com$/.test(referrerHost))
+  ) {
     referrerHost = null;
   }
 
