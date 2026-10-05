@@ -48,10 +48,11 @@ work against production. Logo on launch screen, sign-in and every tab.
       calculated by Stripe Tax, which shows **0 € VAT on invoices until a
       registration is entered** (Stripe → Tax → Registrations). Customers pay
       the same either way, as prices include VAT. Accountant to confirm.
-- [ ] **Re-test payment without Managed Payments:** the first test subscription
-      (`gwintech`, under Managed Payments) was cancelled 2026-10-05; the webhook
-      set the account to "canceled" by itself. Pay 1 € again as `gwintech` and
-      confirm the bank statement reads THEONE SUPER APP.
+- [ ] **Re-test payment without Managed Payments:** the first test sign-up
+      (gero.walther@gmail.com, 1 € under Managed Payments) was cancelled and
+      removed from the site on 2026-10-05; its Stripe customer and invoice stay
+      for bookkeeping. Next test: apply fresh, approve with Early Access, pay
+      1 €, confirm the bank statement reads THEONE SUPER APP.
 - [ ] **Delete test data?** All 20 pending applications in the queue are fake
       (`@example.com`, `bergklinik-davos.example`), plus 5 "Zurich Dental 17…"
       business partner listings and 10 `tester…` accounts that members see in
