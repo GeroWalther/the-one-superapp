@@ -433,7 +433,19 @@
         "serverError": "Something went wrong on our side. Please try again."
       }
     },
-    "introPrice": "{intro} for the first month, then {price} per month"
+    "introPrice": "{intro} for the first month, then {price} per month",
+    "app": {
+      "title": "Your TheONE app",
+      "liveBody": "Your access is active. Download the app and sign in with your login details.",
+      "username": "Username",
+      "orEmail": "or email",
+      "password": "Password",
+      "passwordHint": "the password you chose when you activated your account.",
+      "forgot": "Forgotten it?",
+      "download": "Download the app",
+      "linkSoon": "The download link follows as soon as the app is in the App Store. We will email it to you.",
+      "pendingBody": "Once payment is complete, sign in to the TheONE app with your username and password. We will also email you your login details."
+    }
   },
   "admin": {
     "nav": {

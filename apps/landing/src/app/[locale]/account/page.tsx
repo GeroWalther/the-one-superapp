@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { AppAccessPanel } from "@/components/account/AppAccessPanel";
 import { ObjectId } from "mongodb";
 import { getTranslations } from "next-intl/server";
 import { LogOut } from "lucide-react";
@@ -80,7 +81,16 @@ export default async function AccountPage({
             })}
           </p>
 
-          <div className="mt-8 grid gap-4 sm:grid-cols-2">
+          {account.role !== "admin" && (
+            <AppAccessPanel
+              locale={locale}
+              status={account.status}
+              username={account.username}
+              email={account.email}
+            />
+          )}
+
+          <div className="mt-4 grid gap-4 sm:grid-cols-2">
             <BillingPanel
               status={account.status}
               planLabel={plan?.label ?? null}

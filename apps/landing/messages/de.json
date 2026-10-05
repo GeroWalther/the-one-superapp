@@ -433,7 +433,19 @@
         "serverError": "Auf unserer Seite ist etwas schiefgegangen. Bitte erneut versuchen."
       }
     },
-    "introPrice": "{intro} im ersten Monat, danach {price} pro Monat"
+    "introPrice": "{intro} im ersten Monat, danach {price} pro Monat",
+    "app": {
+      "title": "Ihre TheONE App",
+      "liveBody": "Ihr Zugang ist aktiv. Laden Sie die App herunter und melden Sie sich mit Ihren Zugangsdaten an.",
+      "username": "Benutzername",
+      "orEmail": "oder E-Mail",
+      "password": "Passwort",
+      "passwordHint": "das Passwort, das Sie bei der Aktivierung gewählt haben.",
+      "forgot": "Passwort vergessen?",
+      "download": "App herunterladen",
+      "linkSoon": "Der Download-Link folgt, sobald die App im App Store verfügbar ist. Sie erhalten ihn per E-Mail.",
+      "pendingBody": "Sobald die Zahlung abgeschlossen ist, melden Sie sich mit Ihrem Benutzernamen und Passwort in der TheONE App an. Die Zugangsdaten erhalten Sie zusätzlich per E-Mail."
+    }
   },
   "admin": {
     "nav": {
