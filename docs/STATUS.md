@@ -4,7 +4,7 @@ Where the project stands and what is still open. Update this whenever something
 ships or a decision is made. How things are built lives in
 [ARCHITECTURE.md](ARCHITECTURE.md); this file is about state.
 
-_Last updated: 2026-10-05_
+_Last updated: 2026-10-05 (Stripe live)_
 
 ---
 
@@ -26,7 +26,8 @@ theone-superapp.vercel.app forward there). German and English.
 | Resend approval email | ✅ | 2026-10-05, live |
 | Activation: applicant chooses username + password | ✅ | 2026-09-30, local |
 | "You're live" email with the app login (username, never the password) | ✅ in test mode; real trigger needs Stripe | 2026-09-30, local |
-| Payment (Stripe checkout, webhook) | ⏳ Built, **waiting for Stripe keys**. Until then approved accounts can go live free ("test mode"), which switches itself off once `STRIPE_SECRET_KEY` is set | — |
+| Payment (Stripe, **live**) | ✅ Live checkout opens with the right product, free months and VAT; webhook verified with a signed test event. A real paid sign-up has not happened yet (use TESTEARLYACCESS). The free "test mode" go-live is now off. | 2026-10-05, live |
+| Discount code **TESTEARLYACCESS** | ✅ Member plan €1/month (€48 off, forever). Enter it on the Stripe checkout page. Switch off in Stripe → Product catalogue → Coupons. | 2026-10-05 |
 | Analytics in the admin dashboard | ✅ Visitors, channels, sources, campaigns, countries, cities, pages, devices, applications by source/country, tracking-link builder | 2026-10-05, local |
 | Branding: teal logo on site, favicon, app | ✅ Emails still use the text wordmark "TheONE / SUPER APP", not the logo image | 2026-10-05 |
 | "Business partner" wording everywhere | ✅ Site, emails, Stripe plan names, app, assistant | 2026-10-01 |
@@ -40,12 +41,12 @@ work against production. Logo on launch screen, sign-in and every tab.
 ## Open
 
 ### Needs something from the client
-- [ ] **Stripe:** send the secret key; create a webhook to
-      `https://www.theone-superapp.com/api/stripe/webhook` (must be **www**: Stripe
-      does not follow redirects) with events `checkout.session.completed`,
-      `customer.subscription.updated`, `customer.subscription.deleted`,
-      `invoice.payment_failed`, and send its signing secret. Then: test a real
-      payment and the "you're live" email end to end.
+- [ ] **VAT on top or included?** Stripe Managed Payments adds VAT on top of
+      the prices, so a member in Spain pays €49 + 21% = €59.29/month. Decide
+      whether €49 / €9,400 / €5,000 should be the price *including* VAT.
+- [ ] **First real sign-up with TESTEARLYACCESS** (€1/month) to prove payment →
+      webhook → account live → "you're live" email on the live site; cancel
+      afterwards in the billing portal.
 - [ ] **Delete test data?** All 20 pending applications in the queue are fake
       (`@example.com`, `bergklinik-davos.example`), plus 5 "Zurich Dental 17…"
       business partner listings and 10 `tester…` accounts that members see in
@@ -54,6 +55,8 @@ work against production. Logo on launch screen, sign-in and every tab.
       `/en/login` (last sign-in 2026-08-09). Can be reset on request.
 
 ### Before launch
+- [ ] Stripe customer portal: replace the placeholder privacy-policy link
+      (currently the homepage) once the privacy page exists.
 - [ ] **Imprint (Impressum) and privacy policy (Datenschutzerklärung) pages.**
       Legally required in AT/DE; the footer links exist but no pages behind
       them. The privacy policy must cover the applications, emails (Resend),
@@ -93,6 +96,9 @@ work against production. Logo on launch screen, sign-in and every tab.
 - **iOS 17 minimum**: the same iPhones as iOS 18 (XS/XR and newer). iOS 16 would
   add only iPhone 8/X and would need the data layer rewritten.
 - **iPhone only**: the app is portrait-only, which Apple refuses on iPad.
+- **Stripe Managed Payments kept** (client's choice, 2026-10-05): Stripe is
+  seller of record and handles VAT/sales tax; products carry tax code
+  `txcd_10000000` (electronically supplied services).
 - **"Business partner" / "Geschäftspartner"** for the audience; "partnership",
   "Ansprechpartner" and "partner businesses" keep their words.
 
@@ -104,7 +110,7 @@ work against production. Logo on launch screen, sign-in and every tab.
 |---|---|
 | Deploy the website | Push to `main`. If no deploy appears within a few minutes, from the repo root: `VERCEL_ORG_ID=team_sjSRYBlwKA0hBcvyNRKc97Xs VERCEL_PROJECT_ID=prj_3NwQBjmyCndsGhJIcpG57T00vQfu npx vercel deploy --prod --yes` |
 | Ship an iOS build to TestFlight | `xcodebuild … archive -allowProvisioningUpdates`, then `xcodebuild -exportArchive` with method `app-store-connect`, destination `upload`, team `W67AW8RFW4`. The build number bumps itself. |
-| Run locally | `pnpm dev` in `apps/landing` (port 5656). ⚠ Local uses the **production database and real email**. |
+| Run locally | `pnpm dev` in `apps/landing` (port 5656). ⚠ Local uses the **production database, real email and the live Stripe key**: a local checkout is a real one. |
 | Create an admin | `pnpm admin:create <email> <username> <password>`; the email must be in `ADMIN_EMAILS`. |
 | Make a tracking link | Admin → Analytics → Tracking link. |
 
@@ -115,7 +121,7 @@ work against production. Logo on launch screen, sign-in and every tab.
 | Vercel | Hosting, project `theone-superapp` | gerowalthers-projects |
 | MongoDB Atlas | Database, project "theonesuperapp", `cluster0` | Rayquaza's Org |
 | Resend | Email, domain `theone-superapp.com` (EU) | verified |
-| Stripe | Payments | not connected yet |
+| Stripe | Payments, **live**, Managed Payments (Stripe is seller of record and files VAT). Restricted key (no payouts). Webhook `we_1UNF7o…` → www/api/stripe/webhook | account acct_1UNDa0…, Spain, EUR |
 | Anthropic | AI assistant | key set in production |
 | easyname | Domain + DNS | — |
 | App Store Connect | iOS app, team `W67AW8RFW4` | — |

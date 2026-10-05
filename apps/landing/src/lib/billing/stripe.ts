@@ -63,6 +63,10 @@ export async function ensurePrice(plan: Plan): Promise<string | null> {
     (await client.products.create({
       name: `TheONE — ${plan.label}`,
       metadata: { theone_plan: plan.key },
+      /* "General - Electronically Supplied Services". The account runs on
+         Stripe Managed Payments (Stripe is seller of record and files the
+         taxes), which refuses checkout for a product without a tax code. */
+      tax_code: "txcd_10000000",
     }));
 
   const price = await client.prices.create({
