@@ -43,11 +43,11 @@ work against production. Logo on launch screen, sign-in and every tab.
 ## Open
 
 ### Needs something from the client
-- [ ] **Business partner prices: VAT on top or included?** Member and Early
-      Access prices are final, VAT included (decided 2026-10-06). Partner prices
-      (€9,400 / €5,000 per year) still have VAT added on top; for businesses
-      that is common, and EU companies with a VAT number are usually charged
-      no VAT (reverse charge). Confirm.
+- [ ] **Managed Payments or not?** Under Managed Payments, Stripe's company
+      Link is the legal seller, so bank statements read `LINK.COM* THEONE SUPER`
+      (cannot be removed). Turning it off shows `THEONE SUPER APP` instead, but
+      TheONE then handles VAT itself (OSS; Stripe Tax can calculate it). Ask the
+      accountant.
 - [ ] **Test subscription to cancel:** account `gwintech` (gero.walther@gmail.com)
       pays 1 €/month on Early Access. Cancel in the account area → "Tarif &
       Rechnungen verwalten" when no longer needed.
@@ -100,8 +100,8 @@ work against production. Logo on launch screen, sign-in and every tab.
 - **iPhone only**: the app is portrait-only, which Apple refuses on iPad.
 - **Plans** (confirmed 2026-10-06): Member €10 first month then €49/month;
   Business Partner Large €9,400/year and Small €5,000/year (tier chosen at
-  approval); Early Access €1/month. Member and Early Access prices include
-  VAT (final prices); partner prices are before VAT unless decided otherwise.
+  approval); Early Access €1/month. **All prices are final, VAT included**
+  (members 2026-10-06, business partners 2026-10-06).
 - **Early Access is a plan, chosen by staff at approval** (2026-10-05), not
   something applicants pick: access is by approval, so price is too.
 - **Stripe Managed Payments kept** (client's choice, 2026-10-05): Stripe is

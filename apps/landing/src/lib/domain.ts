@@ -138,6 +138,7 @@ export const PLANS = {
     currency: "eur",
     interval: "year",
     label: "Business Partner — Large",
+    taxBehavior: "inclusive",
   },
   partnerSmall: {
     key: "partner_small",
@@ -145,6 +146,7 @@ export const PLANS = {
     currency: "eur",
     interval: "year",
     label: "Business Partner — Small",
+    taxBehavior: "inclusive",
   },
   /** Granted by an administrator at approval, for members and partners alike. */
   earlyAccess: {
