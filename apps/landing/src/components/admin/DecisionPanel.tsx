@@ -122,6 +122,7 @@ export function DecisionPanel({
             <p className="text-[13px] leading-[1.7] text-ink-soft">
               {t("decision.memberPlanNote", {
                 price: (PLANS.member.amountCents / 100).toString(),
+                intro: ((PLANS.member.introAmountCents ?? PLANS.member.amountCents) / 100).toString(),
               })}
             </p>
           )}

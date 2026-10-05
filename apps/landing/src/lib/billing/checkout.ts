@@ -4,7 +4,7 @@ import { accounts } from "../db/collections";
 import { planFor } from "../domain";
 import type { PublicAccount } from "../auth/accounts";
 import { siteUrl } from "../urls";
-import { ensurePrice, isBillingConfigured, stripe } from "./stripe";
+import { ensureIntroCoupon, ensurePrice, isBillingConfigured, stripe } from "./stripe";
 
 /**
  * Checkout and the billing portal.
@@ -80,6 +80,12 @@ export async function createCheckoutSession(input: {
     const trialIsUsable =
       trialEnd !== undefined && trialEnd * 1000 - Date.now() > 48 * 60 * 60 * 1000;
 
+    /* The welcome price only where the first invoice is a real charge: after a
+       free-month trial the first invoice is €0 and the discount would be spent
+       on nothing. Stripe refuses a fixed discount alongside the promo-code
+       field, so a checkout has one or the other. */
+    const introCoupon = trialIsUsable ? null : await ensureIntroCoupon(plan);
+
     const session = await client.checkout.sessions.create({
       mode: "subscription",
       customer: customerId,
@@ -93,7 +99,9 @@ export async function createCheckoutSession(input: {
       success_url: siteUrl(`/${locale}/account?checkout=success`),
       cancel_url: siteUrl(`/${locale}/account?checkout=cancelled`),
       locale: locale === "de" ? "de" : "en",
-      allow_promotion_codes: true,
+      ...(introCoupon
+        ? { discounts: [{ coupon: introCoupon }] }
+        : { allow_promotion_codes: true }),
     });
 
     if (!session.url) return { ok: false, reason: "error" };

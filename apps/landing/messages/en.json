@@ -111,7 +111,7 @@
       "start": "Start application",
       "memberTitle": "As a member",
       "memberDesc": "You want clarity and access for yourself  health, longevity, wealth, property, lifestyle.",
-      "memberMeta": "€49 per month once approved",
+      "memberMeta": "€10 for the first month, then €49 per month",
       "partnerTitle": "As a business partner",
       "partnerDesc": "You represent a clinic, hotel, resort, practice or house and want to be found by the right members.",
       "partnerMeta": "Annual partnership  tier set on approval",
@@ -431,7 +431,8 @@
         "storageNotConfigured": "Image storage is not configured yet.",
         "serverError": "Something went wrong on our side. Please try again."
       }
-    }
+    },
+    "introPrice": "{intro} for the first month, then {price} per month"
   },
   "admin": {
     "nav": {
@@ -501,7 +502,7 @@
       "tierQuestion": "Which partnership tier?",
       "tierHint": "This sets what they are charged. It cannot be changed from the applicant's side.",
       "perYear": "year",
-      "memberPlanNote": "Members are charged €{price} per month once they complete payment.",
+      "memberPlanNote": "Members pay €{intro} for the first month, then €{price} per month.",
       "approveConfirm": "Approve and send activation link",
       "approveNote": "They receive a single-use link to choose a username and password.",
       "internalReason": "Reason (internal)",

@@ -88,3 +88,39 @@ export async function ensureAllPrices(): Promise<Record<string, string | null>> 
   );
   return Object.fromEntries(entries);
 }
+
+/**
+ * The one-off discount that turns a plan's first invoice into its intro price
+ * (members: €49 → €10). A coupon rather than a second price, so the
+ * subscription stays on the one real price and renews at it with no further
+ * work. Created once under a fixed id; safe to call on every checkout.
+ */
+export async function ensureIntroCoupon(plan: Plan): Promise<string | null> {
+  const client = stripe();
+  if (!client || plan.introAmountCents === undefined) return null;
+
+  const id = `theone_${plan.key}_intro`;
+  try {
+    await client.coupons.retrieve(id);
+    return id;
+  } catch {
+    // Not there yet: create it below.
+  }
+
+  const products = await client.products.search({
+    query: `metadata['theone_plan']:'${plan.key}'`,
+    limit: 1,
+  });
+  if (!products.data[0]) return null;
+
+  await client.coupons.create({
+    id,
+    name: `First ${plan.interval}: €${plan.introAmountCents / 100}`,
+    amount_off: plan.amountCents - plan.introAmountCents,
+    currency: plan.currency,
+    duration: "once",
+    applies_to: { products: [products.data[0].id] },
+    metadata: { theone_plan: plan.key, purpose: "intro" },
+  });
+  return id;
+}

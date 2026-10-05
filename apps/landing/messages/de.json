@@ -111,7 +111,7 @@
       "start": "Bewerbung starten",
       "memberTitle": "Als Mitglied",
       "memberDesc": "Sie suchen Klarheit und Zugang für sich selbst Gesundheit, Longevity, Vermögen, Immobilien, Lifestyle.",
-      "memberMeta": "€49 pro Monat nach Zusage",
+      "memberMeta": "€10 im ersten Monat, danach €49 pro Monat",
       "partnerTitle": "Als Geschäftspartner",
       "partnerDesc": "Sie vertreten eine Klinik, ein Hotel, ein Resort, eine Praxis oder ein Haus und möchten von den richtigen Mitgliedern gefunden werden.",
       "partnerMeta": "Jahrespartnerschaft Stufe wird bei Zusage festgelegt",
@@ -431,7 +431,8 @@
         "storageNotConfigured": "Der Bildspeicher ist noch nicht konfiguriert.",
         "serverError": "Auf unserer Seite ist etwas schiefgegangen. Bitte erneut versuchen."
       }
-    }
+    },
+    "introPrice": "{intro} im ersten Monat, danach {price} pro Monat"
   },
   "admin": {
     "nav": {
@@ -501,7 +502,7 @@
       "tierQuestion": "Welche Partnerschaftsstufe?",
       "tierHint": "Legt den Preis fest. Der Bewerber kann dies nicht ändern.",
       "perYear": "Jahr",
-      "memberPlanNote": "Mitglieder zahlen nach Abschluss €{price} pro Monat.",
+      "memberPlanNote": "Mitglieder zahlen €{intro} im ersten Monat, danach €{price} pro Monat.",
       "approveConfirm": "Annehmen und Aktivierungslink senden",
       "approveNote": "Die Person erhält einen einmalig gültigen Link für Benutzername und Passwort.",
       "internalReason": "Grund (intern)",

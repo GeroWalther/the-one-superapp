@@ -116,6 +116,8 @@ export type Plan = {
   currency: "eur";
   interval: "month" | "year";
   label: string;
+  /** Price of the first billing period, when it differs (a welcome offer). */
+  introAmountCents?: number;
 };
 
 export const PLANS = {
@@ -125,6 +127,7 @@ export const PLANS = {
     currency: "eur",
     interval: "month",
     label: "Member",
+    introAmountCents: 1_000,
   },
   partnerLarge: {
     key: "partner_large",
