@@ -42,32 +42,33 @@ work against production. Logo on launch screen, sign-in and every tab.
 
 ## Open
 
-### Needs something from the client
-- [ ] **Stripe Tax registration (Spain, and OSS if applicable).** Managed
-      Payments is off since 2026-10-06, so TheONE is the seller and VAT is
-      calculated by Stripe Tax, which shows **0 € VAT on invoices until a
-      registration is entered** (Stripe → Tax → Registrations). Customers pay
-      the same either way, as prices include VAT. Accountant to confirm.
+### Next up
+- [ ] **Stripe tax registration:** invoices show 0 € VAT until Spain (plus EU
+      OSS if the accountant registered you) is entered under Stripe → Tax →
+      Registrations. Or say "add Spain" and Claude does it. Customers pay the
+      same either way, as prices include VAT.
+- [ ] **Imprint and privacy policy:** legally required before launch, and
+      Stripe's customer portal needs the privacy link (currently a placeholder
+      pointing to the homepage). The footer links exist but lead nowhere. The
+      privacy policy must cover the applications, emails (Resend), payments
+      (Stripe), the AI assistant (Anthropic), hosting (Vercel), the database
+      (MongoDB Atlas) and the cookieless analytics.
+- [ ] **Delete test data:** 20 fake applications (`@example.com`,
+      `bergklinik-davos.example`), 5 fake business partner listings ("Zurich
+      Dental 17…", visible in the app), 10 test accounts (`tester…`). Waiting for
+      an OK; deletion is permanent.
+- [ ] **Database:** move off the free plan, which pauses when idle and takes the
+      whole site down (happened 2026-09-30). Atlas Flex or M10.
+- [ ] **Vercel:** fix the GitHub connection (Vercel → Project → Settings → Git);
+      deploying by hand until then.
+- [ ] **App download link:** a TestFlight public link, or later the App Store
+      link, for the account page and the login email. Set as
+      `NEXT_PUBLIC_IOS_APP_URL`.
+
+### Also open
 - [ ] **Test subscription running:** `gwintech` (gero.walther@gmail.com) pays
       1 €/month on Early Access (second test, 2026-10-05). Keep as own access or
       cancel via the account page.
-- [ ] **Delete test data?** All 20 pending applications in the queue are fake
-      (`@example.com`, `bergklinik-davos.example`), plus 5 "Zurich Dental 17…"
-      business partner listings and 10 `tester…` accounts that members see in
-      the app. Needs an explicit yes; deletion is permanent.
-
-### Before launch
-- [ ] Stripe customer portal: replace the placeholder privacy-policy link
-      (currently the homepage) once the privacy page exists.
-- [ ] **Imprint (Impressum) and privacy policy (Datenschutzerklärung) pages.**
-      Legally required in AT/DE; the footer links exist but no pages behind
-      them. The privacy policy must cover the applications, emails (Resend),
-      payments (Stripe), the AI assistant (Anthropic), hosting (Vercel), the
-      database (MongoDB Atlas) and the cookieless analytics.
-- [ ] **Database plan:** Atlas is on the free tier, which pauses when idle and
-      takes the whole site down (happened 2026-09-30). Move to Flex or M10.
-- [ ] **Vercel auto-deploy:** pushes to GitHub stopped triggering deploys;
-      deploying by hand meanwhile. Check Vercel → Project → Settings → Git.
 - [ ] **Original logo files** in high resolution: the hero artwork is 585 px
       wide and the app icon came from a 1170 px image.
 
@@ -75,8 +76,6 @@ work against production. Logo on launch screen, sign-in and every tab.
 - [ ] Add TestFlight testers (App Store Connect → TestFlight → Internal Testing).
 - [ ] For the public launch: screenshots, description, privacy policy URL, App
       Privacy answers, then submit for review.
-- [ ] Once there is an App Store link, set `NEXT_PUBLIC_IOS_APP_URL` so the
-      "you're live" email gets a "Download the app" button.
 
 ### Optional
 - [ ] Rotate the Resend API key (it was pasted into a chat).
