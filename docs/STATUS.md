@@ -43,11 +43,11 @@ work against production. Logo on launch screen, sign-in and every tab.
 ## Open
 
 ### Needs something from the client
-- [ ] **Managed Payments or not?** Under Managed Payments, Stripe's company
-      Link is the legal seller, so bank statements read `LINK.COM* THEONE SUPER`
-      (cannot be removed). Turning it off shows `THEONE SUPER APP` instead, but
-      TheONE then handles VAT itself (OSS; Stripe Tax can calculate it). Ask the
-      accountant.
+- [ ] **Stripe Tax registration (Spain, and OSS if applicable).** Managed
+      Payments is off since 2026-10-06, so TheONE is the seller and VAT is
+      calculated by Stripe Tax, which shows **0 € VAT on invoices until a
+      registration is entered** (Stripe → Tax → Registrations). Customers pay
+      the same either way, as prices include VAT. Accountant to confirm.
 - [ ] **Test subscription to cancel:** account `gwintech` (gero.walther@gmail.com)
       pays 1 €/month on Early Access. Cancel in the account area → "Tarif &
       Rechnungen verwalten" when no longer needed.
@@ -104,9 +104,11 @@ work against production. Logo on launch screen, sign-in and every tab.
   (members 2026-10-06, business partners 2026-10-06).
 - **Early Access is a plan, chosen by staff at approval** (2026-10-05), not
   something applicants pick: access is by approval, so price is too.
-- **Stripe Managed Payments kept** (client's choice, 2026-10-05): Stripe is
-  seller of record and handles VAT/sales tax; products carry tax code
-  `txcd_10000000` (electronically supplied services).
+- **Stripe Managed Payments turned off** (2026-10-06, was on from 2026-10-05):
+  under it Stripe's Link was the seller and statements read `LINK.COM*`. Now
+  TheONE is the seller, statements read `THEONE SUPER APP`, VAT is worked out
+  by Stripe Tax, and TheONE files it. Products keep tax code `txcd_10000000`.
+  The one subscription from before (`gwintech`, 1 €) stays under Managed Payments.
 - **"Business partner" / "Geschäftspartner"** for the audience; "partnership",
   "Ansprechpartner" and "partner businesses" keep their words.
 
@@ -130,7 +132,7 @@ work against production. Logo on launch screen, sign-in and every tab.
 | Vercel | Hosting, project `theone-superapp` | gerowalthers-projects |
 | MongoDB Atlas | Database, project "theonesuperapp", `cluster0` | Rayquaza's Org |
 | Resend | Email, domain `theone-superapp.com` (EU) | verified |
-| Stripe | Payments, **live**, Managed Payments (Stripe is seller of record and files VAT). Restricted key (no payouts). Webhook `we_1UNF7o…` → www/api/stripe/webhook | account acct_1UNDa0…, Spain, EUR |
+| Stripe | Payments, **live**, TheONE is seller (Managed Payments off), Stripe Tax on. Restricted key (no payouts). Webhook `we_1UNF7o…` → www/api/stripe/webhook | account acct_1UNDa0…, Spain, EUR |
 | Anthropic | AI assistant | key set in production |
 | easyname | Domain + DNS | — |
 | App Store Connect | iOS app, team `W67AW8RFW4` | — |

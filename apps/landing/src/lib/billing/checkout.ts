@@ -28,6 +28,12 @@ export function addMonths(from: Date, months: number): Date {
   return result;
 }
 
+/** The client's wording for the member welcome offer, shown above the pay button. */
+const INTRO_TERMS = {
+  de: "Dein erster Monat für 10 €. Danach regulär 49 € pro Monat. Die Mitgliedschaft verlängert sich automatisch und ist monatlich kündbar.",
+  en: "Your first month for €10. Then €49 per month as usual. The membership renews automatically and can be cancelled monthly.",
+} as const;
+
 export type CheckoutOutcome =
   | { ok: true; url: string }
   | {
@@ -99,11 +105,20 @@ export async function createCheckoutSession(input: {
       success_url: siteUrl(`/${locale}/account?checkout=success`),
       cancel_url: siteUrl(`/${locale}/account?checkout=cancelled`),
       locale: locale === "de" ? "de" : "en",
-      /* No custom_text with the terms: Managed Payments refuses it. Stripe's
-         own "then €49 per month" line says it on the checkout, and the full
-         terms sit next to the pay button on the account page. */
+      /* TheONE is the seller, not Stripe's Link: Managed Payments would put
+         "LINK.COM*" in front of our name on every bank statement. VAT is
+         worked out by Stripe Tax instead; prices include it. */
+      managed_payments: { enabled: false },
+      automatic_tax: { enabled: true },
+      // Stripe Tax needs the buyer's address on the customer it bills.
+      customer_update: { address: "auto", name: "auto" },
+      // Businesses can enter a VAT number (reverse charge within the EU).
+      tax_id_collection: { enabled: true },
       ...(introCoupon
-        ? { discounts: [{ coupon: introCoupon }] }
+        ? {
+            discounts: [{ coupon: introCoupon }],
+            custom_text: { submit: { message: INTRO_TERMS[locale] } },
+          }
         : { allow_promotion_codes: true }),
     });
 
