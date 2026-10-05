@@ -108,6 +108,9 @@ export async function handleStripeEvent(event: Stripe.Event): Promise<void> {
       break;
     }
 
+    /* `created` carries the first billing period; without it a new account
+       has no next billing date until the subscription first changes. */
+    case "customer.subscription.created":
     case "customer.subscription.updated": {
       const subscription = event.data.object;
       const accountId = accountIdFrom(subscription);

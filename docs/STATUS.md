@@ -25,8 +25,8 @@ theone-superapp.vercel.app forward there). German and English.
 | Reopen a rejection (back to pending, block lifted) | ✅ | 2026-10-05, live |
 | Resend approval email | ✅ | 2026-10-05, live |
 | Activation: applicant chooses username + password | ✅ | 2026-09-30, local |
-| "You're live" email with the app login (username, never the password) | ✅ in test mode; real trigger needs Stripe | 2026-09-30, local |
-| Payment (Stripe, **live**) | ✅ Live checkout opens with the right product, free months and VAT; webhook verified with a signed test event. A real paid sign-up has not happened yet (use TESTEARLYACCESS). The free "test mode" go-live is now off. | 2026-10-05, live |
+| "You're live" email with the app login (username, never the password) | ✅ Sent automatically after payment | 2026-10-05, live |
+| Payment (Stripe, **live**) | ✅ **First real sign-up done end to end**: applied → approved (Early Access) → activated → paid 1.00 € (0.17 € VAT) → webhook → account active → "you're live" email delivered 2 s later. | 2026-10-05, live |
 | **Member price: €10 first month, then €49/month** | ✅ Automatic one-off €39 discount (coupon `theone_member_intro`) on new members' first invoice; not used when the member starts with free months. Promo-code field is not shown on those checkouts (Stripe allows one or the other). | 2026-10-06, live Stripe |
 | **Early Access plan** (€1/month + VAT) | ✅ Its own Stripe product. Admin ticks "Early Access" when approving (members and business partners), or switches it on the application page until the person pays. Checkout then charges €1 (€1.21 with Spanish VAT). | 2026-10-05, local → live Stripe checkout |
 | Discount code **TESTEARLYACCESS** | ✅ Member plan €1/month (€48 off, forever). Enter it on the Stripe checkout page. Switch off in Stripe → Product catalogue → Coupons. | 2026-10-05 |
@@ -48,10 +48,9 @@ work against production. Logo on launch screen, sign-in and every tab.
       (€9,400 / €5,000 per year) still have VAT added on top; for businesses
       that is common, and EU companies with a VAT number are usually charged
       no VAT (reverse charge). Confirm.
-- [ ] **First real sign-up on Early Access** (€1/month) to prove payment →
-      webhook → account live → "you're live" email on the live site: apply,
-      approve with Early Access ticked, pay €1.21, check the email; cancel
-      afterwards in the billing portal.
+- [ ] **Test subscription to cancel:** account `gwintech` (gero.walther@gmail.com)
+      pays 1 €/month on Early Access. Cancel in the account area → "Tarif &
+      Rechnungen verwalten" when no longer needed.
 - [ ] **Delete test data?** All 20 pending applications in the queue are fake
       (`@example.com`, `bergklinik-davos.example`), plus 5 "Zurich Dental 17…"
       business partner listings and 10 `tester…` accounts that members see in
