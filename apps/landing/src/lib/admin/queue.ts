@@ -19,6 +19,7 @@ export type ApplicationSummary = {
   phone: string;
   locale: "de" | "en";
   partnerTier: PartnerTier | null;
+  earlyAccess: boolean;
   grantedFreeMonths: number;
   viaInvitation: boolean;
   createdAt: string;
@@ -48,6 +49,7 @@ function toSummary(doc: ApplicationDoc): ApplicationSummary {
     phone: doc.phone,
     locale: doc.locale,
     partnerTier: doc.partnerTier,
+    earlyAccess: doc.earlyAccess ?? false,
     grantedFreeMonths: doc.grantedFreeMonths,
     viaInvitation: doc.invitationId !== null,
     createdAt: doc.createdAt.toISOString(),

@@ -140,9 +140,23 @@ export const PLANS = {
     interval: "year",
     label: "Business Partner — Small",
   },
+  /** Granted by an administrator at approval, for members and partners alike. */
+  earlyAccess: {
+    key: "early_access",
+    amountCents: 100,
+    currency: "eur",
+    interval: "month",
+    label: "Early Access",
+  },
 } as const satisfies Record<string, Plan>;
 
-export function planFor(role: Role, tier?: PartnerTier | null): Plan | null {
+export function planFor(
+  role: Role,
+  tier?: PartnerTier | null,
+  earlyAccess?: boolean,
+): Plan | null {
+  if (role === "admin") return null;
+  if (earlyAccess) return PLANS.earlyAccess;
   if (role === "member") return PLANS.member;
   if (role === "partner") {
     return tier === "small" ? PLANS.partnerSmall : PLANS.partnerLarge;
@@ -411,6 +425,8 @@ export const ApproveSchema = z.object({
   applicationId: z.string().min(1),
   /** Required when approving a partner; ignored for members. */
   partnerTier: z.enum(PARTNER_TIERS).optional(),
+  /** A checkbox: present ("on") means the €1 Early Access plan. */
+  earlyAccess: z.preprocess((value) => value === "on" || value === "true" || value === true, z.boolean()),
   note: optionalText(1000),
 });
 

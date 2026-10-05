@@ -9,6 +9,8 @@ import {
   ReopenPanel,
   ResendApprovalPanel,
 } from "@/components/admin/ReviewActionsPanel";
+import { PlanPanel } from "@/components/admin/PlanPanel";
+import { PLANS, planFor } from "@/lib/domain";
 import { isMailConfigured } from "@/lib/mail/mailer";
 import type {
   MemberApplicationInput,
@@ -258,6 +260,22 @@ export default async function ApplicationDetailPage({
               )}
             </div>
           )}
+
+          {application.status === "approved" &&
+            (!application.account ||
+              (application.account.status === "awaiting_payment" && !application.account.paid)) && (
+              <PlanPanel
+                applicationId={application.id}
+                earlyAccess={application.earlyAccess}
+                standardLabel={(() => {
+                  const plan = planFor(application.type, application.partnerTier);
+                  return plan
+                    ? `${t("plan.standard")} · €${(plan.amountCents / 100).toLocaleString("de-DE")} ${plan.interval === "month" ? t("plan.perMonth") : t("plan.perYear")}`
+                    : t("plan.standard");
+                })()}
+                earlyLabel={`${t("plan.early")} · €${(PLANS.earlyAccess.amountCents / 100).toLocaleString("de-DE")} ${t("plan.perMonth")}`}
+              />
+            )}
 
           {application.status === "approved" && !application.account && (
             <ResendApprovalPanel applicationId={application.id} />

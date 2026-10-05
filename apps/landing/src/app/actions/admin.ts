@@ -15,6 +15,7 @@ import {
   issueActivationLink,
   reopenApplication,
   resendApprovalEmail,
+  setEarlyAccess,
 } from "@/lib/applications/service";
 import { createInvitation, revokeInvitation } from "@/lib/admin/invitations";
 import { recordAdminAction } from "@/lib/admin/audit";
@@ -46,6 +47,7 @@ export async function approveApplicationAction(
   const parsed = ApproveSchema.safeParse({
     applicationId: formData.get("applicationId"),
     partnerTier: formData.get("partnerTier") || undefined,
+    earlyAccess: formData.get("earlyAccess"),
     note: formData.get("note") ?? "",
   });
 
@@ -62,6 +64,7 @@ export async function approveApplicationAction(
   const result = await approveApplication({
     applicationId: parsed.data.applicationId,
     partnerTier: parsed.data.partnerTier ?? null,
+    earlyAccess: parsed.data.earlyAccess,
     reviewedByAccountId: new ObjectId(actor.id),
     actorEmail: actor.email,
   });
@@ -243,4 +246,26 @@ export async function resendApprovalEmailAction(
   }
 
   return { ok: true, message: "approvalResent" };
+}
+
+export async function setEarlyAccessAction(
+  _state: FormState,
+  formData: FormData,
+): Promise<FormState> {
+  const actor = await requireAdminActor();
+  if (!actor) return { message: "forbidden" };
+
+  const result = await setEarlyAccess({
+    applicationId: String(formData.get("applicationId") ?? ""),
+    earlyAccess: formData.get("earlyAccess") === "true",
+    actorAccountId: new ObjectId(actor.id),
+    actorEmail: actor.email,
+  });
+
+  if (!result.ok) {
+    return { message: result.reason === "already_paying" ? "alreadyPaying" : "serverError" };
+  }
+
+  revalidatePath("/[locale]/admin", "layout");
+  return { ok: true, message: "planChanged" };
 }

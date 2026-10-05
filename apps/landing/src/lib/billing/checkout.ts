@@ -44,7 +44,7 @@ export async function createCheckoutSession(input: {
   if (!isBillingConfigured()) return { ok: false, reason: "not_configured" };
   if (account.status === "active") return { ok: false, reason: "already_active" };
 
-  const plan = planFor(account.role, account.partnerTier);
+  const plan = planFor(account.role, account.partnerTier, account.earlyAccess);
   if (!plan) return { ok: false, reason: "no_plan" };
 
   const client = stripe();

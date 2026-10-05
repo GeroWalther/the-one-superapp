@@ -513,7 +513,9 @@
       "approvedDone": "Approved.",
       "approvedDoneNote": "The activation link has been emailed.",
       "declinedDone": "Declined.",
-      "declinedDoneNote": "The applicant has been emailed and their email and phone are blocklisted."
+      "declinedDoneNote": "The applicant has been emailed and their email and phone are blocklisted.",
+      "earlyAccess": "Early Access: €{price} per month",
+      "earlyAccessHint": "Instead of the normal price. Can be switched until they pay."
     },
     "invitations": {
       "title": "Invitations",
@@ -543,7 +545,8 @@
       "alreadyInvited": "That address already has an open invitation.",
       "serverError": "Something went wrong on our side. Please try again.",
       "notDeclined": "This application is no longer declined.",
-      "alreadyActivated": "This applicant has already activated their account. Ask them to reset their password instead."
+      "alreadyActivated": "This applicant has already activated their account. Ask them to reset their password instead.",
+      "alreadyPaying": "They already pay. Change the plan in Stripe instead."
     },
     "reopen": {
       "title": "Reopen this application",
@@ -628,6 +631,16 @@
         "copy": "Copy",
         "copied": "Copied"
       }
+    },
+    "plan": {
+      "title": "Plan",
+      "standard": "Standard",
+      "early": "Early Access",
+      "perMonth": "per month",
+      "perYear": "per year",
+      "toEarly": "Switch to Early Access",
+      "toStandard": "Switch to Standard",
+      "note": "Possible until they complete payment."
     }
   },
   "activate": {

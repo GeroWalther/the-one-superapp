@@ -30,6 +30,7 @@ export type PublicAccount = {
   firstName: string;
   locale: Locale;
   partnerTier: PartnerTier | null;
+  earlyAccess: boolean;
   freeMonthsGranted: number;
   freeUntil: string | null;
   successfulReferrals: number;
@@ -56,6 +57,7 @@ export function toPublicAccount(doc: AccountDoc): PublicAccount {
         : doc.displayName.split(" ")[0] || doc.displayName,
     locale: doc.locale,
     partnerTier: doc.partnerTier,
+    earlyAccess: doc.earlyAccess ?? false,
     freeMonthsGranted: doc.freeMonthsGranted,
     freeUntil: doc.freeUntil?.toISOString() ?? null,
     successfulReferrals: doc.successfulReferrals,
@@ -92,6 +94,7 @@ export async function createAccount(input: {
   displayName: string;
   locale: Locale;
   partnerTier?: PartnerTier | null;
+  earlyAccess?: boolean;
   freeMonthsGranted?: number;
   invitedByAccountId?: ObjectId | null;
 }): Promise<PublicAccount> {
@@ -111,6 +114,7 @@ export async function createAccount(input: {
     locale: input.locale,
     passwordHash: await hashPassword(input.password),
     partnerTier: input.partnerTier ?? null,
+    earlyAccess: input.earlyAccess ?? false,
 
     stripeCustomerId: null,
     stripeSubscriptionId: null,

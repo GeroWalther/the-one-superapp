@@ -126,6 +126,24 @@ export function DecisionPanel({
             </p>
           )}
 
+          <label className="flex items-start gap-3 rounded-xl border border-line bg-paper px-4 py-3">
+            <input
+              type="checkbox"
+              name="earlyAccess"
+              className="mt-1 h-4 w-4 accent-[var(--aqua-500)]"
+            />
+            <span>
+              <span className="block text-[15px] font-medium text-ink">
+                {t("decision.earlyAccess", {
+                  price: (PLANS.earlyAccess.amountCents / 100).toLocaleString("de-DE"),
+                })}
+              </span>
+              <span className="mt-0.5 block text-[13px] leading-[1.6] text-ink-soft">
+                {t("decision.earlyAccessHint")}
+              </span>
+            </span>
+          </label>
+
           <FormAlert
             message={
               approveState?.message && !approveState.ok

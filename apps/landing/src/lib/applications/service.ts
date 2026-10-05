@@ -296,6 +296,7 @@ export async function issueActivationLink(
 export async function approveApplication(input: {
   applicationId: string;
   partnerTier?: PartnerTier | null;
+  earlyAccess?: boolean;
   reviewedByAccountId: ObjectId | null;
   actorEmail: string;
 }): Promise<{ ok: boolean; reason?: string; activationUrl?: string }> {
@@ -313,6 +314,7 @@ export async function approveApplication(input: {
       $set: {
         status: "approved",
         partnerTier: input.partnerTier ?? null,
+        earlyAccess: input.earlyAccess ?? false,
         reviewedAt: new Date(),
         reviewedByAccountId: input.reviewedByAccountId,
       },
@@ -328,7 +330,10 @@ export async function approveApplication(input: {
     action: "application.approved",
     targetType: "application",
     targetId: doc._id,
-    detail: input.partnerTier ? `tier=${input.partnerTier}` : null,
+    detail:
+      [input.partnerTier ? `tier=${input.partnerTier}` : null, input.earlyAccess ? "plan=early_access" : null]
+        .filter(Boolean)
+        .join(" ") || null,
   });
 
   const activationUrl = await sendApprovalEmail(doc);
@@ -511,6 +516,54 @@ export async function resendApprovalEmail(input: {
     targetType: "application",
     targetId: doc._id,
     detail: null,
+  });
+
+  return { ok: true };
+}
+
+/* ========================================================================== *
+ * Plan
+ * ========================================================================== */
+
+/**
+ * Switches an approved applicant between the normal price and Early Access.
+ * Only before they pay: once a subscription exists, the price lives in Stripe
+ * and changing it here would leave the two disagreeing.
+ */
+export async function setEarlyAccess(input: {
+  applicationId: string;
+  earlyAccess: boolean;
+  actorAccountId: ObjectId | null;
+  actorEmail: string;
+}): Promise<{ ok: boolean; reason?: string }> {
+  if (!ObjectId.isValid(input.applicationId)) return { ok: false, reason: "not_found" };
+  const id = new ObjectId(input.applicationId);
+
+  const account = await (await accounts()).findOne({ applicationId: id });
+  if (account && (account.status !== "awaiting_payment" || account.stripeSubscriptionId)) {
+    return { ok: false, reason: "already_paying" };
+  }
+
+  const updated = await (await applications()).updateOne(
+    { _id: id, status: "approved" },
+    { $set: { earlyAccess: input.earlyAccess } },
+  );
+  if (updated.matchedCount === 0) return { ok: false, reason: "not_approved" };
+
+  if (account) {
+    await (await accounts()).updateOne(
+      { _id: account._id },
+      { $set: { earlyAccess: input.earlyAccess, updatedAt: new Date() } },
+    );
+  }
+
+  await recordAdminAction({
+    actorAccountId: input.actorAccountId,
+    actorEmail: input.actorEmail,
+    action: "application.planChanged",
+    targetType: "application",
+    targetId: id,
+    detail: input.earlyAccess ? "plan=early_access" : "plan=standard",
   });
 
   return { ok: true };

@@ -93,6 +93,7 @@ export async function activateAccount(input: {
         displayName: application.displayName,
         locale: application.locale,
         partnerTier: application.partnerTier,
+        earlyAccess: application.earlyAccess ?? false,
         freeMonthsGranted: application.grantedFreeMonths,
         invitedByAccountId: application.inviterAccountId,
       });

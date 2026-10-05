@@ -513,7 +513,9 @@
       "approvedDone": "Angenommen.",
       "approvedDoneNote": "Der Aktivierungslink wurde versendet.",
       "declinedDone": "Abgelehnt.",
-      "declinedDoneNote": "Der Bewerber wurde benachrichtigt, E-Mail und Telefonnummer sind gesperrt."
+      "declinedDoneNote": "Der Bewerber wurde benachrichtigt, E-Mail und Telefonnummer sind gesperrt.",
+      "earlyAccess": "Early Access: €{price} pro Monat",
+      "earlyAccessHint": "Statt des normalen Preises. Änderbar, bis bezahlt wurde."
     },
     "invitations": {
       "title": "Einladungen",
@@ -543,7 +545,8 @@
       "alreadyInvited": "Für diese Adresse liegt bereits eine offene Einladung vor.",
       "serverError": "Auf unserer Seite ist etwas schiefgelaufen. Bitte versuchen Sie es erneut.",
       "notDeclined": "Diese Bewerbung ist nicht mehr abgelehnt.",
-      "alreadyActivated": "Das Konto wurde bereits aktiviert. Bitte stattdessen das Passwort zurücksetzen lassen."
+      "alreadyActivated": "Das Konto wurde bereits aktiviert. Bitte stattdessen das Passwort zurücksetzen lassen.",
+      "alreadyPaying": "Es wird bereits bezahlt. Den Tarif stattdessen in Stripe ändern."
     },
     "reopen": {
       "title": "Bewerbung wieder öffnen",
@@ -628,6 +631,16 @@
         "copy": "Kopieren",
         "copied": "Kopiert"
       }
+    },
+    "plan": {
+      "title": "Tarif",
+      "standard": "Standard",
+      "early": "Early Access",
+      "perMonth": "pro Monat",
+      "perYear": "pro Jahr",
+      "toEarly": "Auf Early Access umstellen",
+      "toStandard": "Auf Standard umstellen",
+      "note": "Möglich, bis die Zahlung abgeschlossen ist."
     }
   },
   "activate": {

@@ -27,6 +27,7 @@ theone-superapp.vercel.app forward there). German and English.
 | Activation: applicant chooses username + password | ✅ | 2026-09-30, local |
 | "You're live" email with the app login (username, never the password) | ✅ in test mode; real trigger needs Stripe | 2026-09-30, local |
 | Payment (Stripe, **live**) | ✅ Live checkout opens with the right product, free months and VAT; webhook verified with a signed test event. A real paid sign-up has not happened yet (use TESTEARLYACCESS). The free "test mode" go-live is now off. | 2026-10-05, live |
+| **Early Access plan** (€1/month + VAT) | ✅ Its own Stripe product. Admin ticks "Early Access" when approving (members and business partners), or switches it on the application page until the person pays. Checkout then charges €1 (€1.21 with Spanish VAT). | 2026-10-05, local → live Stripe checkout |
 | Discount code **TESTEARLYACCESS** | ✅ Member plan €1/month (€48 off, forever). Enter it on the Stripe checkout page. Switch off in Stripe → Product catalogue → Coupons. | 2026-10-05 |
 | Analytics in the admin dashboard | ✅ Visitors, channels, sources, campaigns, countries, cities, pages, devices, applications by source/country, tracking-link builder | 2026-10-05, local |
 | Branding: teal logo on site, favicon, app | ✅ Emails still use the text wordmark "TheONE / SUPER APP", not the logo image | 2026-10-05 |
@@ -44,8 +45,9 @@ work against production. Logo on launch screen, sign-in and every tab.
 - [ ] **VAT on top or included?** Stripe Managed Payments adds VAT on top of
       the prices, so a member in Spain pays €49 + 21% = €59.29/month. Decide
       whether €49 / €9,400 / €5,000 should be the price *including* VAT.
-- [ ] **First real sign-up with TESTEARLYACCESS** (€1/month) to prove payment →
-      webhook → account live → "you're live" email on the live site; cancel
+- [ ] **First real sign-up on Early Access** (€1/month) to prove payment →
+      webhook → account live → "you're live" email on the live site: apply,
+      approve with Early Access ticked, pay €1.21, check the email; cancel
       afterwards in the billing portal.
 - [ ] **Delete test data?** All 20 pending applications in the queue are fake
       (`@example.com`, `bergklinik-davos.example`), plus 5 "Zurich Dental 17…"
@@ -96,6 +98,8 @@ work against production. Logo on launch screen, sign-in and every tab.
 - **iOS 17 minimum**: the same iPhones as iOS 18 (XS/XR and newer). iOS 16 would
   add only iPhone 8/X and would need the data layer rewritten.
 - **iPhone only**: the app is portrait-only, which Apple refuses on iPad.
+- **Early Access is a plan, chosen by staff at approval** (2026-10-05), not
+  something applicants pick: access is by approval, so price is too.
 - **Stripe Managed Payments kept** (client's choice, 2026-10-05): Stripe is
   seller of record and handles VAT/sales tax; products carry tax code
   `txcd_10000000` (electronically supplied services).

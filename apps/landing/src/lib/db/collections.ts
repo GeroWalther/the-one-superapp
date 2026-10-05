@@ -53,6 +53,8 @@ export type ApplicationDoc = {
   inviterAccountId: ObjectId | null;
   /** Assigned by an admin at approval time. Partners only. */
   partnerTier: PartnerTier | null;
+  /** The €1 Early Access plan instead of the normal price. Set by an admin. */
+  earlyAccess?: boolean;
   /** Free months this applicant will start with (12 for admin invitations). */
   grantedFreeMonths: number;
   reviewedAt: Date | null;
@@ -76,6 +78,8 @@ export type AccountDoc = {
   locale: Locale;
   passwordHash: string;
   partnerTier: PartnerTier | null;
+  /** Billed on the Early Access plan; copied from the application at activation. */
+  earlyAccess?: boolean;
 
   stripeCustomerId: string | null;
   stripeSubscriptionId: string | null;
@@ -173,6 +177,7 @@ export type AdminAuditDoc = {
        so it is audited as its own decision rather than folded into the next. */
     | "application.reopened"
     | "application.approvalEmailResent"
+    | "application.planChanged"
     /* Reissuing an activation link hands out a credential, so it is audited
        like any other decision — "who let this person in" must stay answerable
        even when the link did not come from the original approval. */

@@ -35,7 +35,7 @@ export default async function AccountPage({
   const account = await requireAccount(locale);
   const t = await getTranslations({ locale, namespace: "account" });
 
-  const plan = planFor(account.role, account.partnerTier);
+  const plan = planFor(account.role, account.partnerTier, account.earlyAccess);
   const invitations = await listInvitations({
     inviterAccountId: new ObjectId(account.id),
     limit: 25,
