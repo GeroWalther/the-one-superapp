@@ -28,7 +28,7 @@ theone-superapp.vercel.app forward there). German and English.
 | "You're live" email with the app login (username, never the password) | ✅ in test mode; real trigger needs Stripe | 2026-09-30, local |
 | Payment (Stripe checkout, webhook) | ⏳ Built, **waiting for Stripe keys**. Until then approved accounts can go live free ("test mode"), which switches itself off once `STRIPE_SECRET_KEY` is set | — |
 | Analytics in the admin dashboard | ✅ Visitors, channels, sources, campaigns, countries, cities, pages, devices, applications by source/country, tracking-link builder | 2026-10-05, local |
-| Branding: teal logo on site, favicon, emails, app | ✅ | 2026-10-01 |
+| Branding: teal logo on site, favicon, app | ✅ Emails still use the text wordmark "TheONE / SUPER APP", not the logo image | 2026-10-05 |
 | "Business partner" wording everywhere | ✅ Site, emails, Stripe plan names, app, assistant | 2026-10-01 |
 
 **iOS app:** on TestFlight as "TheONE SUPER APP" (`com.theone.superapp`),
@@ -75,6 +75,7 @@ work against production. Logo on launch screen, sign-in and every tab.
 
 ### Optional
 - [ ] Rotate the Resend API key (it was pasted into a chat).
+- [ ] Logo image in the email header (currently the text wordmark).
 - [ ] Logo on detail screens in the app (partner page, single chat), which
       currently show the name in the middle.
 
