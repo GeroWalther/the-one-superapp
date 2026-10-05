@@ -81,6 +81,7 @@ export default async function AccountPage({
               status={account.status}
               planLabel={plan?.label ?? null}
               priceLabel={priceLabel}
+              termsNote={showIntro ? t("billing.introTerms") : null}
               freeMonths={account.freeMonthsGranted}
               hasCustomer={Boolean(account.stripeCustomerId)}
               testMode={isTestActivationEnabled()}

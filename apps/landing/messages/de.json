@@ -111,7 +111,7 @@
       "start": "Bewerbung starten",
       "memberTitle": "Als Mitglied",
       "memberDesc": "Sie suchen Klarheit und Zugang für sich selbst Gesundheit, Longevity, Vermögen, Immobilien, Lifestyle.",
-      "memberMeta": "€10 im ersten Monat, danach €49 pro Monat",
+      "memberMeta": "1. Monat 10 €, danach 49 € pro Monat",
       "partnerTitle": "Als Geschäftspartner",
       "partnerDesc": "Sie vertreten eine Klinik, ein Hotel, ein Resort, eine Praxis oder ein Haus und möchten von den richtigen Mitgliedern gefunden werden.",
       "partnerMeta": "Jahrespartnerschaft Stufe wird bei Zusage festgelegt",
@@ -351,7 +351,8 @@
         "serverError": "Etwas ist schiefgelaufen. Bitte versuchen Sie es erneut."
       },
       "testActivate": "Konto aktivieren (Testmodus)",
-      "testNote": "Testmodus: Es wird keine Zahlung eingezogen und keine Karte benötigt. Diese Option verschwindet, sobald Stripe-Schlüssel hinterlegt sind."
+      "testNote": "Testmodus: Es wird keine Zahlung eingezogen und keine Karte benötigt. Diese Option verschwindet, sobald Stripe-Schlüssel hinterlegt sind.",
+      "introTerms": "Dein erster Monat für 10 €. Danach regulär 49 € pro Monat. Die Mitgliedschaft verlängert sich automatisch und ist monatlich kündbar."
     },
     "referrals": {
       "title": "Einladen & profitieren",

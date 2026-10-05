@@ -111,7 +111,7 @@
       "start": "Start application",
       "memberTitle": "As a member",
       "memberDesc": "You want clarity and access for yourself  health, longevity, wealth, property, lifestyle.",
-      "memberMeta": "€10 for the first month, then €49 per month",
+      "memberMeta": "First month €10, then €49 per month",
       "partnerTitle": "As a business partner",
       "partnerDesc": "You represent a clinic, hotel, resort, practice or house and want to be found by the right members.",
       "partnerMeta": "Annual partnership  tier set on approval",
@@ -351,7 +351,8 @@
         "serverError": "Something went wrong. Please try again."
       },
       "testActivate": "Activate account (test mode)",
-      "testNote": "Test mode: no payment is taken and no card is required. This option disappears as soon as Stripe keys are configured."
+      "testNote": "Test mode: no payment is taken and no card is required. This option disappears as soon as Stripe keys are configured.",
+      "introTerms": "Your first month for €10. Then €49 per month as usual. The membership renews automatically and can be cancelled monthly."
     },
     "referrals": {
       "title": "Invite & earn",

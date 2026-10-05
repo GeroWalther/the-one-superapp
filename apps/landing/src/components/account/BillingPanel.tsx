@@ -15,6 +15,7 @@ export function BillingPanel({
   status,
   planLabel,
   priceLabel,
+  termsNote,
   freeMonths,
   hasCustomer,
   testMode = false,
@@ -22,6 +23,8 @@ export function BillingPanel({
   status: AccountStatus;
   planLabel: string | null;
   priceLabel: string | null;
+  /** The welcome-offer terms, shown until the member has paid. */
+  termsNote?: string | null;
   freeMonths: number;
   hasCustomer: boolean;
   /** Stripe is unconfigured and the test bypass is on — see lib/billing/testMode. */
@@ -59,6 +62,10 @@ export function BillingPanel({
             <span className="text-ink-soft"> — {priceLabel}</span>
           )}
         </p>
+      )}
+
+      {termsNote && needsPayment && (
+        <p className="mt-2 text-[14px] leading-[1.6] text-ink-soft">{termsNote}</p>
       )}
 
       {freeMonths > 0 && needsPayment && (

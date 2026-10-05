@@ -99,6 +99,9 @@ export async function createCheckoutSession(input: {
       success_url: siteUrl(`/${locale}/account?checkout=success`),
       cancel_url: siteUrl(`/${locale}/account?checkout=cancelled`),
       locale: locale === "de" ? "de" : "en",
+      /* No custom_text with the terms: Managed Payments refuses it. Stripe's
+         own "then €49 per month" line says it on the checkout, and the full
+         terms sit next to the pay button on the account page. */
       ...(introCoupon
         ? { discounts: [{ coupon: introCoupon }] }
         : { allow_promotion_codes: true }),
