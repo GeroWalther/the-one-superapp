@@ -48,7 +48,11 @@ export default async function AccountPage({
   const partnerProfile =
     account.role === "partner" ? await getPartnerProfileFor(account.id) : null;
 
-  const euros = (cents: number) => `€${(cents / 100).toLocaleString("de-DE")}`;
+  // German puts the sign after the amount ("49 €"), English before ("€49").
+  const euros = (cents: number) =>
+    locale === "de"
+      ? `${(cents / 100).toLocaleString("de-DE")} €`
+      : `€${(cents / 100).toLocaleString("en-GB")}`;
   const per = plan?.interval === "month" ? t("perMonth") : t("perYear");
   // The welcome price only applies to a first invoice that is actually charged.
   const showIntro = plan?.introAmountCents !== undefined && account.freeMonthsGranted === 0;
