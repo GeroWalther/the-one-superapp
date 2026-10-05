@@ -56,8 +56,6 @@ work against production. Logo on launch screen, sign-in and every tab.
       (`@example.com`, `bergklinik-davos.example`), plus 5 "Zurich Dental 17…"
       business partner listings and 10 `tester…` accounts that members see in
       the app. Needs an explicit yes; deletion is permanent.
-- [ ] **Admin password:** confirm the `gero` admin can still sign in at
-      `/en/login` (last sign-in 2026-08-09). Can be reset on request.
 
 ### Before launch
 - [ ] Stripe customer portal: replace the placeholder privacy-policy link
@@ -122,7 +120,8 @@ work against production. Logo on launch screen, sign-in and every tab.
 | Deploy the website | Push to `main`. If no deploy appears within a few minutes, from the repo root: `VERCEL_ORG_ID=team_sjSRYBlwKA0hBcvyNRKc97Xs VERCEL_PROJECT_ID=prj_3NwQBjmyCndsGhJIcpG57T00vQfu npx vercel deploy --prod --yes` |
 | Ship an iOS build to TestFlight | `xcodebuild … archive -allowProvisioningUpdates`, then `xcodebuild -exportArchive` with method `app-store-connect`, destination `upload`, team `W67AW8RFW4`. The build number bumps itself. |
 | Run locally | `pnpm dev` in `apps/landing` (port 5656). ⚠ Local uses the **production database, real email and the live Stripe key**: a local checkout is a real one. |
-| Create an admin | `pnpm admin:create <email> <username> <password>`; the email must be in `ADMIN_EMAILS`. |
+| Admin login | `/de/login`, username `admin` / shop@theone-superapp.com (since 2026-10-05; the old admin `gero` was removed so gero.walther@gmail.com can be a normal member). Forgotten password: `/de/forgot-password`. |
+| Create an admin | Add the email to `ADMIN_EMAILS` (local `.env.local` and Vercel), then `pnpm admin:create <email> <username> <random password>`; the person sets their own password via `/de/forgot-password`. |
 | Make a tracking link | Admin → Analytics → Tracking link. |
 
 ## Services
