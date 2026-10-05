@@ -28,6 +28,7 @@ export type ApplicationSummary = {
 export type ApplicationDetail = ApplicationSummary & {
   data: MemberApplicationInput | PartnerApplicationInput;
   internalReason: string | null;
+  attribution: ApplicationDoc["attribution"];
   /** Present once the approved applicant has chosen credentials. */
   account: {
     username: string;
@@ -110,6 +111,7 @@ export async function getApplication(
     ...toSummary(doc),
     data: doc.data,
     internalReason: doc.internalReason,
+    attribution: doc.attribution ?? null,
     account: account
       ? {
           username: account.username,

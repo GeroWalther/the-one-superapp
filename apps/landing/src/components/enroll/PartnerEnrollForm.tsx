@@ -1,6 +1,7 @@
 "use client";
 
 import { useActionState, useState } from "react";
+import { AttributionField } from "@/components/Analytics";
 import { useLocale, useTranslations } from "next-intl";
 import { ArrowLeft, ArrowRight, Send } from "lucide-react";
 import { submitPartnerApplication } from "@/app/actions/application";
@@ -147,6 +148,7 @@ export function PartnerEnrollForm({ inviteCode }: { inviteCode?: string }) {
       >
         <input type="hidden" name="locale" value={locale} />
         <input type="hidden" name="inviteCode" value={inviteCode ?? ""} />
+        <AttributionField />
 
         <div className={form.step === 1 ? "space-y-6" : "hidden"}>
           <TextInput

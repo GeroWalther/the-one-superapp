@@ -2,6 +2,8 @@
 
 import * as z from "zod";
 import { redirect } from "next/navigation";
+import { headers } from "next/headers";
+import { attributionFromForm } from "@/lib/analytics/track";
 import {
   MemberApplicationSchema,
   PartnerApplicationSchema,
@@ -88,6 +90,7 @@ export async function submitMemberApplication(
   const result = await submitApplication({
     application: parsed.data,
     locale,
+    attribution: attributionFromForm(formData.get("attribution"), await headers()),
   });
 
   if (!result.ok) return failureState(result.reason);
@@ -136,6 +139,7 @@ export async function submitPartnerApplication(
   const result = await submitApplication({
     application: parsed.data,
     locale,
+    attribution: attributionFromForm(formData.get("attribution"), await headers()),
   });
 
   if (!result.ok) return failureState(result.reason);

@@ -14,6 +14,7 @@ import type {
   PartnerTier,
   Role,
 } from "../domain";
+import type { Attribution, Channel, Device } from "../analytics/classify";
 
 /**
  * Typed accessors for every collection, plus the index definitions.
@@ -57,6 +58,8 @@ export type ApplicationDoc = {
   reviewedAt: Date | null;
   reviewedByAccountId: ObjectId | null;
   internalReason: string | null;
+  /** Where the applicant came from, captured at submit. Absent on older ones. */
+  attribution?: (Attribution & { country: string | null; city: string | null }) | null;
   createdAt: Date;
 };
 
@@ -276,6 +279,33 @@ export type AppointmentRequestDoc = {
   createdAt: Date;
 };
 
+/**
+ * One page view on the public site. Cookieless: `visitorId` is a hash of IP,
+ * user agent and the day, salted with HASH_SECRET, so it counts unique
+ * visitors per day without storing an IP or recognising anyone tomorrow.
+ */
+export type PageViewDoc = {
+  _id: ObjectId;
+  at: Date;
+  /** Calendar day in Europe/Vienna, for daily grouping. */
+  day: string;
+  path: string;
+  locale: string;
+  visitorId: string;
+  /** First view of a visit — sources, countries and devices count these. */
+  entry: boolean;
+  channel: Channel;
+  source: string;
+  referrerHost: string | null;
+  utmSource: string | null;
+  utmMedium: string | null;
+  utmCampaign: string | null;
+  utmContent: string | null;
+  country: string | null;
+  city: string | null;
+  device: Device;
+};
+
 /** Long-lived, revocable iOS sessions. Only the hash is stored. */
 export type RefreshTokenDoc = {
   _id: ObjectId;
@@ -385,6 +415,13 @@ async function ensureIndexes(): Promise<void> {
       .collection<AppointmentRequestDoc>("appointmentRequests")
       .createIndexes([{ key: { accountId: 1, createdAt: -1 } }, { key: { partnerProfileId: 1 } }]),
 
+    db.collection<PageViewDoc>("pageViews").createIndexes([
+      { key: { at: -1 } },
+      { key: { entry: 1, at: -1 } },
+      // Thirteen months, then gone: enough for a year-on-year look, no longer.
+      { key: { at: 1 }, expireAfterSeconds: 60 * 60 * 24 * 395, name: "at_ttl" },
+    ]),
+
     db.collection<RefreshTokenDoc>("refreshTokens").createIndexes([
       { key: { tokenHash: 1 }, unique: true },
       { key: { accountId: 1 } },
@@ -420,3 +457,4 @@ export const aiThreads = () => collection<AiThreadDoc>("aiThreads");
 export const appointmentRequests = () =>
   collection<AppointmentRequestDoc>("appointmentRequests");
 export const refreshTokens = () => collection<RefreshTokenDoc>("refreshTokens");
+export const pageViews = () => collection<PageViewDoc>("pageViews");

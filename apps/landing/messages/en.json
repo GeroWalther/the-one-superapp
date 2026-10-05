@@ -438,7 +438,8 @@
       "badge": "Admin",
       "queue": "Applications",
       "invitations": "Invitations",
-      "signOut": "Sign out"
+      "signOut": "Sign out",
+      "analytics": "Analytics"
     },
     "type": {
       "member": "Member",
@@ -489,7 +490,8 @@
       "activationLinkTitle": "Activation link",
       "activationLinkNote": "No mail provider is configured, so the approval email was not delivered. Generate a fresh single-use link and send it to the applicant yourself.",
       "activationLinkShow": "Generate activation link",
-      "activationLinkWorking": "Generating…"
+      "activationLinkWorking": "Generating…",
+      "cameFrom": "Came from"
     },
     "decision": {
       "title": "Decision",
@@ -567,6 +569,64 @@
         "past_due": "Payment overdue",
         "canceled": "Subscription cancelled",
         "suspended": "Suspended"
+      }
+    },
+    "analytics": {
+      "title": "Analytics",
+      "subtitle": "Where visitors come from and what they do. Cookieless; signed-in admins and bots are not counted.",
+      "since": "Recording since {date}.",
+      "noData": "Nothing recorded yet. Data appears as soon as people visit the site.",
+      "range": "{days} days",
+      "visitors": "Visitors",
+      "visits": "Visits",
+      "pageViews": "Page views",
+      "applications": "Applications",
+      "conversion": "Applications per visit",
+      "visitorsLower": "visitors",
+      "visitsLower": "visits",
+      "dailyTitle": "Visitors per day",
+      "dailyTable": "Show as table",
+      "day": "Day",
+      "channels": "Channels",
+      "sources": "Sources",
+      "countries": "Countries",
+      "cities": "Cities",
+      "campaigns": "Campaigns (tracking links)",
+      "campaignsEmpty": "No tracking links used yet. Build one below.",
+      "landingPages": "Landing pages",
+      "pages": "Most viewed pages",
+      "devices": "Devices",
+      "languages": "Site language",
+      "appsBySource": "Applications by source",
+      "appsByCountry": "Applications by country",
+      "visitsCol": "Visits",
+      "viewsCol": "Views",
+      "applicationsCol": "Applications",
+      "empty": "No data yet.",
+      "unknown": "Unknown",
+      "beforeTracking": "Before tracking started",
+      "channel": {
+        "direct": "Direct",
+        "search": "Search",
+        "social": "Social",
+        "email": "Email",
+        "referral": "Other websites",
+        "campaign": "Campaign"
+      },
+      "device": {
+        "mobile": "Phone",
+        "tablet": "Tablet",
+        "desktop": "Desktop"
+      },
+      "link": {
+        "title": "Tracking link",
+        "note": "Use a tagged link for each post, ad or newsletter. Visits through it appear under Campaigns by name.",
+        "page": "Page",
+        "source": "Source",
+        "medium": "Medium",
+        "campaign": "Campaign",
+        "copy": "Copy",
+        "copied": "Copied"
       }
     }
   },

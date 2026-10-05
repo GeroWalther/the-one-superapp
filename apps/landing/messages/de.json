@@ -438,7 +438,8 @@
       "badge": "Admin",
       "queue": "Bewerbungen",
       "invitations": "Einladungen",
-      "signOut": "Abmelden"
+      "signOut": "Abmelden",
+      "analytics": "Analytics"
     },
     "type": {
       "member": "Mitglied",
@@ -489,7 +490,8 @@
       "activationLinkTitle": "Aktivierungslink",
       "activationLinkNote": "Es ist kein Mailanbieter konfiguriert, die Zusage-E-Mail wurde daher nicht zugestellt. Erzeugen Sie einen neuen Einmal-Link und senden Sie ihn selbst an den Bewerber.",
       "activationLinkShow": "Aktivierungslink erzeugen",
-      "activationLinkWorking": "Wird erzeugt…"
+      "activationLinkWorking": "Wird erzeugt…",
+      "cameFrom": "Herkunft"
     },
     "decision": {
       "title": "Entscheidung",
@@ -567,6 +569,64 @@
         "past_due": "Zahlung überfällig",
         "canceled": "Abo gekündigt",
         "suspended": "Gesperrt"
+      }
+    },
+    "analytics": {
+      "title": "Analytics",
+      "subtitle": "Woher Besucher kommen und was sie tun. Ohne Cookies; angemeldete Admins und Bots werden nicht gezählt.",
+      "since": "Erfasst seit {date}.",
+      "noData": "Noch nichts erfasst. Daten erscheinen, sobald Menschen die Website besuchen.",
+      "range": "{days} Tage",
+      "visitors": "Besucher",
+      "visits": "Besuche",
+      "pageViews": "Seitenaufrufe",
+      "applications": "Bewerbungen",
+      "conversion": "Bewerbungen pro Besuch",
+      "visitorsLower": "Besucher",
+      "visitsLower": "Besuche",
+      "dailyTitle": "Besucher pro Tag",
+      "dailyTable": "Als Tabelle anzeigen",
+      "day": "Tag",
+      "channels": "Kanäle",
+      "sources": "Quellen",
+      "countries": "Länder",
+      "cities": "Städte",
+      "campaigns": "Kampagnen (Tracking-Links)",
+      "campaignsEmpty": "Noch keine Tracking-Links genutzt. Unten einen erstellen.",
+      "landingPages": "Einstiegsseiten",
+      "pages": "Meistbesuchte Seiten",
+      "devices": "Geräte",
+      "languages": "Sprache der Website",
+      "appsBySource": "Bewerbungen nach Quelle",
+      "appsByCountry": "Bewerbungen nach Land",
+      "visitsCol": "Besuche",
+      "viewsCol": "Aufrufe",
+      "applicationsCol": "Bewerbungen",
+      "empty": "Noch keine Daten.",
+      "unknown": "Unbekannt",
+      "beforeTracking": "Vor Beginn der Erfassung",
+      "channel": {
+        "direct": "Direkt",
+        "search": "Suche",
+        "social": "Social Media",
+        "email": "E-Mail",
+        "referral": "Andere Websites",
+        "campaign": "Kampagne"
+      },
+      "device": {
+        "mobile": "Smartphone",
+        "tablet": "Tablet",
+        "desktop": "Desktop"
+      },
+      "link": {
+        "title": "Tracking-Link",
+        "note": "Für jeden Post, jede Anzeige und jeden Newsletter einen eigenen Link verwenden. Besuche darüber erscheinen namentlich unter Kampagnen.",
+        "page": "Seite",
+        "source": "Quelle",
+        "medium": "Medium",
+        "campaign": "Kampagne",
+        "copy": "Kopieren",
+        "copied": "Kopiert"
       }
     }
   },

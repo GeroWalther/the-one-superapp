@@ -41,6 +41,20 @@ export default async function ApplicationDetailPage({
   const t = await getTranslations({ locale, namespace: "admin" });
   const tEnroll = await getTranslations({ locale, namespace: "enroll" });
 
+  const tAnalytics = await getTranslations({ locale, namespace: "admin.analytics" });
+  const source = application.attribution;
+  const regionName = new Intl.DisplayNames([locale], { type: "region" });
+  const cameFrom = source
+    ? [
+        tAnalytics(`channel.${source.channel}`),
+        source.channel !== "direct" ? source.source : null,
+        source.utmCampaign,
+        [source.city, source.country ? regionName.of(source.country) : null].filter(Boolean).join(", ") || null,
+      ]
+        .filter(Boolean)
+        .join(" · ")
+    : null;
+
   const isMember = application.type === "member";
   const member = isMember
     ? (application.data as MemberApplicationInput)
@@ -94,6 +108,7 @@ export default async function ApplicationDetailPage({
           <dl>
             <Row label={t("detail.email")} value={application.email} />
             <Row label={t("detail.phone")} value={application.phone} />
+            <Row label={t("detail.cameFrom")} value={cameFrom} />
 
             {member && (
               <>

@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { Cormorant_Garamond, Inter } from "next/font/google";
 import { routing } from "@/i18n/routing";
 import { ScrollReveal } from "@/components/ScrollReveal";
+import { Analytics } from "@/components/Analytics";
 import "../globals.css";
 
 /* Display face — used for headlines and the wordmark. */
@@ -60,6 +61,7 @@ export default async function LocaleLayout({
         <NextIntlClientProvider locale={locale} messages={messages}>
           {children}
           <ScrollReveal />
+          <Analytics />
         </NextIntlClientProvider>
       </body>
     </html>

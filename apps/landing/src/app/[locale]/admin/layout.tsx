@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { getTranslations } from "next-intl/server";
-import { LayoutGrid, LogOut, Mail } from "lucide-react";
+import { BarChart3, LayoutGrid, LogOut, Mail } from "lucide-react";
 import { requireAdmin } from "@/lib/auth/dal";
 import { logout } from "@/app/actions/auth";
 
@@ -28,6 +28,11 @@ export default async function AdminLayout({
       href: `/${locale}/admin/invitations`,
       label: t("nav.invitations"),
       icon: Mail,
+    },
+    {
+      href: `/${locale}/admin/analytics`,
+      label: t("nav.analytics"),
+      icon: BarChart3,
     },
   ];
 

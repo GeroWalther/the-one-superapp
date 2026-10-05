@@ -122,6 +122,7 @@ export async function lookupInvitation(
 export async function submitApplication(input: {
   application: ApplicationInput;
   locale: Locale;
+  attribution?: ApplicationDoc["attribution"];
 }): Promise<SubmitOutcome> {
   const { application, locale } = input;
 
@@ -180,6 +181,7 @@ export async function submitApplication(input: {
       reviewedAt: autoApproved ? new Date() : null,
       reviewedByAccountId: null,
       internalReason: null,
+      attribution: input.attribution ?? null,
       createdAt: new Date(),
     };
 

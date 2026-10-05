@@ -145,6 +145,10 @@ account free until March" is always answerable.
 | `appointmentRequests` | Bookings the assistant made on a member's behalf. | `accountId`, `partnerId` |
 | `adminAuditLog` | Who decided what, when, and why. | `actorId`, `createdAt` |
 | `refreshTokens` | Revocable iOS refresh tokens (hashed at rest). | `tokenHash`, `accountId` |
+| `pageViews` | Cookieless page views from the public site: path, channel, source, campaign tags, country, city, device, a daily-rotating visitor hash. Expires after 13 months. | `at`, TTL on `at` |
+
+Applications also carry `attribution` (channel, source, campaign tags,
+country, city) captured at submit, which the admin sees as "Came from".
 
 ### Why email *and* phone in the blocklist
 A declined applicant must not be able to reapply with a new email address. Both
@@ -207,6 +211,32 @@ data:
 Speech is handled **on-device** on iOS (`SFSpeechRecognizer` for capture,
 `AVSpeechSynthesizer` for playback) — no extra vendor, no extra key, no
 per-minute cost, and audio never leaves the phone.
+
+---
+
+## 7a. Analytics
+
+Built in, in the admin dashboard (`/admin/analytics`), rather than a third-party
+script: the data stays in our database and nothing is set on the visitor's
+device.
+
+- `components/Analytics.tsx` sends one beacon per page to `POST /api/track`.
+  Only the path travels, never the query string (activation and reset links
+  carry tokens there). The visit's first referrer and `utm_*` tags are held in
+  memory for the life of the tab — no cookie, no localStorage.
+- The route drops bots, signed-in admins, and anything over 600 hits/hour per
+  IP. Country and city come from Vercel's `x-vercel-ip-*` headers; no IP is
+  stored. Unique visitors are counted with a hash of IP + user agent + day,
+  salted with `HASH_SECRET`, so the same person is a new id tomorrow.
+- `lib/analytics/classify.ts` decides the channel: tagged links → Campaign
+  (Email for `utm_medium=email|newsletter`), else the referrer → Search,
+  Social, Email, Other websites, or Direct.
+- The application forms submit the same first-touch data, so the dashboard
+  shows which channels bring *applicants*, not only visitors. Applications
+  that only open in a new full page load (no in-app navigation) lose the
+  first touch; the homepage forms open in place, so the main path keeps it.
+- The tracking-link builder on the dashboard makes `utm_*` links per post,
+  ad or newsletter.
 
 ---
 
