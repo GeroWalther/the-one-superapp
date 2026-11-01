@@ -1,6 +1,5 @@
 import { useTranslations } from "next-intl";
-import {
-} from "lucide-react";
+import { Building2, UsersRound } from "lucide-react";
 import { PhoneMockup } from "@/components/PhoneMockup";
 import { Vortex } from "./Vortex";
 import { WhatIsSection } from "./WhatIsSection";
@@ -298,9 +297,37 @@ export function PreviewLanding() {
                 <p className="text-balance font-display text-[22.8px] font-bold uppercase leading-snug tracking-[0.1em] text-[#0a2f34] sm:text-[26.6px]">
                   {t("businessClaim")}
                 </p>
-                <p className="mx-auto mt-4 max-w-lg text-pretty text-[19px] font-medium leading-[1.55] text-[#0a2f34]/90 sm:text-[20px]">
-                  {t("businessLine")}
+                {/* Problem, then answer: the answer gets its own line in rich
+                    petrol, the brand colour. */}
+                <p className="mx-auto mt-4 max-w-lg text-pretty text-[18.05px] font-medium leading-[1.55] text-[#434d59] sm:text-[19px]">
+                  {t("businessLine1")}
+                  <span className="block font-semibold text-[#005252]">
+                    {t("businessLine2")}
+                  </span>
                 </p>
+                {/* Business — TheONE — client: the sentence above drawn as a
+                    connection. Decorative, the copy carries the meaning. */}
+                <div
+                  aria-hidden="true"
+                  className="mx-auto mt-6 flex max-w-[300px] items-center"
+                >
+                  <span className="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-gradient-to-br from-[#1a626b] to-[#00353b] shadow-[0_6px_14px_-6px_rgba(0,37,42,0.55)]">
+                    <Building2 className="h-5 w-5 text-white" strokeWidth={1.6} />
+                  </span>
+                  <span className="h-px flex-1 bg-gradient-to-r from-[#005252]/60 to-[#005252]" />
+                  <Image
+                    src="/images/theone-icon-v2.png"
+                    alt=""
+                    width={256}
+                    height={256}
+                    unoptimized
+                    className="h-10 w-10 shrink-0 rounded-[11px] shadow-[0_6px_14px_-6px_rgba(0,37,42,0.55)]"
+                  />
+                  <span className="h-px flex-1 bg-gradient-to-r from-[#005252] to-[#005252]/60" />
+                  <span className="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-gradient-to-br from-[#1a626b] to-[#00353b] shadow-[0_6px_14px_-6px_rgba(0,37,42,0.55)]">
+                    <UsersRound className="h-5 w-5 text-white" strokeWidth={1.6} />
+                  </span>
+                </div>
               </div>
               <h3 className="mt-8 font-display text-[26px] font-light leading-tight text-ink sm:text-[30px]">
                 {tEnroll("chooser.title")}
