@@ -1,24 +1,5 @@
-import { Sparkles } from "lucide-react";
-import { Placeholder } from "@/components/Placeholder";
-
-const cards = [
-  {
-    label: "Health & Longevity",
-    tint: "#0f4a45",
-  },
-  {
-    label: "Wealth Management",
-    tint: "#3d2c17",
-  },
-  {
-    label: "Lifestyle Services",
-    tint: "#1c3345",
-  },
-  {
-    label: "Wellness & Resorts",
-    tint: "#1f4536",
-  },
-];
+import Image from "next/image";
+import { Vortex } from "@/components/preview/Vortex";
 
 export function PhoneMockup() {
   return (
@@ -64,40 +45,31 @@ export function PhoneMockup() {
             </div>
 
             <div className="px-3.5 pb-3 pt-3">
-              <p className="text-center font-display text-[15px] leading-none tracking-wide">
-                <span className="font-light text-ink">The</span>
-                <span className="text-accent font-semibold">ONE</span>
+              {/* The full lockup (icon + "TheONE SUPER APP"), the same artwork
+                  as the masthead. unoptimized for the same transparent-PNG
+                  reason given there. */}
+              <Image
+                src="/images/theone-lockup-v4.png"
+                alt=""
+                width={533}
+                height={677}
+                unoptimized
+                className="mx-auto h-[118px] w-auto"
+              />
+
+              {/* POWER AI storm with the figure, the same piece the page
+                  shows below the wordmark, scaled to the screen. */}
+              <p className="mt-4 text-center font-display text-[12px] font-bold uppercase leading-snug tracking-[0.08em] text-[#052226]">
+                The Power AI
+                <br />
+                That Understands You
               </p>
-
-              {/* AI prompt bar */}
-              <div className="mt-3.5 flex items-center gap-2 rounded-full border border-line bg-paper-soft px-3 py-2">
-                <Sparkles
-                  className="h-3 w-3 shrink-0 text-aqua-500"
-                  strokeWidth={1.8}
-                />
-                <span className="truncate text-[9px] text-ink-faint">
-                  Which longevity clinic fits me?
-                </span>
-              </div>
-
-              <div className="mt-2.5 space-y-2">
-                {cards.map((card) => (
-                  <div
-                    key={card.label}
-                    className="relative h-[74px] overflow-hidden rounded-[13px] ring-1 ring-line"
-                  >
-                    <Placeholder />
-                    <div
-                      className="absolute inset-0"
-                      style={{
-                        background: `linear-gradient(95deg, ${card.tint}f2 0%, ${card.tint}80 48%, transparent 92%)`,
-                      }}
-                    />
-                    <p className="absolute bottom-2.5 left-3 text-[9.5px] font-semibold tracking-wide text-white drop-shadow">
-                      {card.label}
-                    </p>
-                  </div>
-                ))}
+              <div className="mt-5 pb-8">
+                <Vortex contained>
+                  <span className="font-display text-[13px] font-bold uppercase leading-none tracking-[0.2em] text-[#0a2f34]">
+                    POWER AI
+                  </span>
+                </Vortex>
               </div>
             </div>
 
