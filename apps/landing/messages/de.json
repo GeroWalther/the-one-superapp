@@ -796,13 +796,15 @@
   },
   "giveaway": {
     "eyebrow": "Weihnachtsverlosung 2026",
-    "title": "50 kostenlose Aufnahmen zu gewinnen",
-    "body": "Wir verlosen 50 kostenlose Aufnahmen bei TheONE POWER AI.",
+    "title": "<num>12</num> kostenlose Aufnahmen für <num>12</num> Monate",
+    "titleSub": "zu Weihnachten zu gewinnen",
+    "body": "Wir verlosen 12 kostenlose Aufnahmen bei TheONE POWER AI.",
     "howTo": "Zur Teilnahme bewerben Sie sich einfach:",
     "option1": "mit Ihrem Unternehmen",
     "option2": "als Privatperson",
     "deadline": "Jede Bewerbung, die bis zum 12. Dezember 2026 eingeht, nimmt automatisch an der Verlosung teil. Die Gewinner werden am 15. Dezember 2026 gezogen.",
     "cta": "Jetzt bewerben und teilnehmen",
-    "note": "Jede Bewerbung wird einzeln geprüft. Die Teilnahme ist kostenlos und an keinen Kauf gebunden. Die Gewinner werden per E-Mail benachrichtigt."
+    "note": "Jede Bewerbung wird einzeln geprüft. Die Teilnahme ist kostenlos und an keinen Kauf gebunden. Die Gewinner werden per E-Mail benachrichtigt.",
+    "termsLink": "Teilnahmebedingungen"
   }
 }
