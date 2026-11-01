@@ -25,7 +25,38 @@ export function PhoneMockup() {
         <div className="absolute -right-[3px] top-[152px] h-[66px] w-[3px] rounded-r-sm bg-gradient-to-l from-[#3a3f42] to-[#0f1112]" />
 
         <div className="rounded-[43px] bg-black p-[2px]">
-          <div className="relative overflow-hidden rounded-[41px] bg-paper-soft">
+          <div className="relative overflow-hidden rounded-[41px] bg-[#eef3f3]">
+            {/* Same ground and ribbons as the page behind the phone, so the
+                app reads as part of the site. A petrol wash from the top gives
+                the header area its green tint. */}
+            <div
+              aria-hidden="true"
+              className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(0,82,82,0.3)_0%,rgba(0,82,82,0.14)_24%,rgba(0,82,82,0)_48%)]"
+            />
+            <svg
+              aria-hidden="true"
+              className="pointer-events-none absolute inset-0 h-full w-full"
+              preserveAspectRatio="none"
+              viewBox="0 0 260 540"
+            >
+              <defs>
+                <linearGradient id="pm-ribbon" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0%" stopColor="#ffffff" stopOpacity="0.95" />
+                  <stop offset="55%" stopColor="#85acac" stopOpacity="0.22" />
+                  <stop offset="100%" stopColor="#d6e3e3" stopOpacity="0.1" />
+                </linearGradient>
+              </defs>
+              {[0, 40, 80].map((offset) => (
+                <path
+                  key={offset}
+                  d={`M-30,${250 + offset} C 70,${190 + offset} 170,${320 + offset} 290,${220 + offset}`}
+                  fill="none"
+                  stroke="url(#pm-ribbon)"
+                  strokeWidth={34}
+                  opacity={0.5}
+                />
+              ))}
+            </svg>
             {/* Screen glow + reflection */}
             <div className="pointer-events-none absolute inset-x-0 top-0 z-20 h-40 bg-[radial-gradient(ellipse_at_50%_0%,rgba(79,209,192,0.16),transparent_70%)]" />
             <div className="pointer-events-none absolute inset-0 z-20 rounded-[41px] bg-gradient-to-br from-white/12 via-transparent to-transparent opacity-60" />
@@ -96,7 +127,7 @@ export function PhoneMockup() {
             </div>
 
             <div className="flex h-6 items-center justify-center pb-1.5">
-              <div className="h-[4px] w-[96px] rounded-full bg-paper-soft" />
+              <div className="relative h-[4px] w-[96px] rounded-full bg-[#0a0f12]/80" />
             </div>
           </div>
         </div>
