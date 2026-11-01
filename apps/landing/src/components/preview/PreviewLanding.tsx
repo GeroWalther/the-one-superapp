@@ -1,6 +1,5 @@
 import { useTranslations } from "next-intl";
-import {
-} from "lucide-react";
+import { Building2, UsersRound } from "lucide-react";
 import { PhoneMockup } from "@/components/PhoneMockup";
 import { Vortex } from "./Vortex";
 import { WhatIsSection } from "./WhatIsSection";
@@ -281,7 +280,7 @@ export function PreviewLanding() {
               <h2 className="text-balance font-display text-[32px] font-light leading-[1.12] text-ink sm:text-[40px] lg:text-[52px]">
                 {t("heroTitle")}
               </h2>
-              <p className="mx-auto mt-4 max-w-md text-pretty text-[18px] leading-[1.6] text-ink-soft sm:mt-5 sm:text-[16px] lg:mx-0">
+              <p className="mx-auto mt-1.5 max-w-md text-pretty text-[18.9px] leading-[1.6] text-[#37414d] sm:mt-2 sm:text-[16.8px] lg:mx-0">
                 {t("heroSubtitle")}
               </p>
 
@@ -291,7 +290,46 @@ export function PreviewLanding() {
                   spot on the page now carries the real decision. Filled with
                   the primary gradient the button had, which is what keeps this
                   reading as the page's call to action. */}
-              <h3 className="mt-9 font-display text-[26px] font-light leading-tight text-ink sm:mt-10 sm:text-[30px]">
+              {/* Framed in the brand card (white, aqua rim, teal hairline on
+                  top) so the business pitch reads as one unit with the two
+                  application cards below it. */}
+              <div className="card-brand mt-9 px-6 py-7 text-center sm:mt-10 sm:px-8">
+                <p className="text-balance font-display text-[22.8px] font-bold uppercase leading-snug tracking-[0.1em] text-[#0a2f34] sm:text-[26.6px]">
+                  {t("businessClaim")}
+                </p>
+                {/* Problem, then answer: the answer gets its own line in rich
+                    petrol, the brand colour. */}
+                <p className="mx-auto mt-4 max-w-lg text-pretty text-[18.05px] font-medium leading-[1.55] text-[#434d59] sm:text-[19px]">
+                  {t("businessLine1")}
+                  <span className="block font-semibold text-[#005252]">
+                    {t("businessLine2")}
+                  </span>
+                </p>
+                {/* Business — TheONE — client: the sentence above drawn as a
+                    connection. Decorative, the copy carries the meaning. */}
+                <div
+                  aria-hidden="true"
+                  className="mx-auto mt-6 flex max-w-[300px] items-center"
+                >
+                  <span className="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-gradient-to-br from-[#1a626b] to-[#00353b] shadow-[0_6px_14px_-6px_rgba(0,37,42,0.55)]">
+                    <Building2 className="h-5 w-5 text-white" strokeWidth={1.6} />
+                  </span>
+                  <span className="h-px flex-1 bg-gradient-to-r from-[#005252]/60 to-[#005252]" />
+                  <Image
+                    src="/images/theone-icon-v2.png"
+                    alt=""
+                    width={256}
+                    height={256}
+                    unoptimized
+                    className="h-10 w-10 shrink-0 rounded-[11px] shadow-[0_6px_14px_-6px_rgba(0,37,42,0.55)]"
+                  />
+                  <span className="h-px flex-1 bg-gradient-to-r from-[#005252] to-[#005252]/60" />
+                  <span className="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-gradient-to-br from-[#1a626b] to-[#00353b] shadow-[0_6px_14px_-6px_rgba(0,37,42,0.55)]">
+                    <UsersRound className="h-5 w-5 text-white" strokeWidth={1.6} />
+                  </span>
+                </div>
+              </div>
+              <h3 className="mt-8 font-display text-[26px] font-light leading-tight text-ink sm:text-[30px]">
                 {tEnroll("chooser.title")}
               </h3>
               {/* Padding pulled in from p-7 for the fill: in this column the

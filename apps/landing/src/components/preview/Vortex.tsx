@@ -75,7 +75,15 @@ const BANDS = [
   { inset: "41%", spin: "vx-spin-9", blur: "blur-md", opacity: 0.9 },
 ];
 
-export function Vortex({ children }: { children?: React.ReactNode }) {
+/* `contained` fits the storm to its parent (e.g. inside the phone mockup)
+   instead of breaking out to the full viewport width. */
+export function Vortex({
+  children,
+  contained = false,
+}: {
+  children?: React.ReactNode;
+  contained?: boolean;
+}) {
   return (
     <div
       /* left-1/2 + w-screen + -translate-x-1/2 escapes the max-w-3xl column
@@ -84,12 +92,18 @@ export function Vortex({ children }: { children?: React.ReactNode }) {
          reach past its box on every side, and hidden clipped them into a flat
          edge across the top and bottom. Clipping one axis leaves the other
          visible, which hidden cannot do. */
-      className="relative left-1/2 w-screen -translate-x-1/2 overflow-x-clip"
+      className={
+        contained
+          ? "relative w-full"
+          : "relative left-1/2 w-screen -translate-x-1/2 overflow-x-clip"
+      }
     >
       <div className="relative mx-auto flex w-full max-w-[1560px] items-center justify-center">
         <div
           aria-hidden="true"
-          className="pointer-events-none relative aspect-square w-[min(78vw,780px)] shrink-0 select-none"
+          className={`pointer-events-none relative aspect-square shrink-0 select-none ${
+            contained ? "w-full" : "w-[min(78vw,780px)]"
+          }`}
         >
         {/* 1 — the dark ground. It climbs from nothing at the eye to near-black
                at the wall and holds there, which is what makes the eye look lit

@@ -1,7 +1,7 @@
 import "server-only";
 import { ObjectId } from "mongodb";
 import { accounts } from "../db/collections";
-import { planFor } from "../domain";
+import { PLANS, planFor } from "../domain";
 import type { PublicAccount } from "../auth/accounts";
 import { siteUrl } from "../urls";
 import { ensureIntroCoupon, ensurePrice, isBillingConfigured, stripe } from "./stripe";
@@ -28,10 +28,10 @@ export function addMonths(from: Date, months: number): Date {
   return result;
 }
 
-/** The client's wording for the member welcome offer, shown above the pay button. */
-const INTRO_TERMS = {
-  de: "Dein erster Monat für 10 €. Danach regulär 49 € pro Monat. Die Mitgliedschaft verlängert sich automatisch und ist monatlich kündbar.",
-  en: "Your first month for €10. Then €49 per month as usual. The membership renews automatically and can be cancelled monthly.",
+/** The member terms, shown above the pay button. */
+const MEMBER_TERMS = {
+  de: "49 € pro Monat. Die Mitgliedschaft verlängert sich automatisch und ist monatlich kündbar.",
+  en: "€49 per month. The membership renews automatically and can be cancelled monthly.",
 } as const;
 
 export type CheckoutOutcome =
@@ -114,11 +114,11 @@ export async function createCheckoutSession(input: {
       customer_update: { address: "auto", name: "auto" },
       // Businesses can enter a VAT number (reverse charge within the EU).
       tax_id_collection: { enabled: true },
+      ...(plan.key === PLANS.member.key
+        ? { custom_text: { submit: { message: MEMBER_TERMS[locale] } } }
+        : {}),
       ...(introCoupon
-        ? {
-            discounts: [{ coupon: introCoupon }],
-            custom_text: { submit: { message: INTRO_TERMS[locale] } },
-          }
+        ? { discounts: [{ coupon: introCoupon }] }
         : { allow_promotion_codes: true }),
     });
 

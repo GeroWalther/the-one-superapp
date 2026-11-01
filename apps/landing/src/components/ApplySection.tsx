@@ -28,8 +28,11 @@ export function ApplySection({ inviteCode }: { inviteCode?: string }) {
           <p className="mt-3 font-display text-[clamp(19px,5.2vw,28px)] font-bold tracking-[0.05em] text-[#004444]">
             {tBrand("brandClaim")}
           </p>
-          <p className="mx-auto mt-5 max-w-xl text-pretty text-[15px] leading-[1.7] text-[#004444] sm:text-[17px]">
-            {tBrand("brandBody")}
+          <p className="mx-auto mt-5 max-w-xl text-pretty text-[15.75px] font-medium leading-[1.7] text-[#052226] sm:text-[17.85px]">
+            {/* Its own line, not brandBody: that one already closes the
+                What-is section above, and repeating it word for word read as
+                filler. */}
+            {tBrand("applyBody")}
           </p>
 
           <h2 className="mt-12 font-display text-[30px] font-light leading-tight text-ink sm:text-[38px]">
@@ -42,7 +45,11 @@ export function ApplySection({ inviteCode }: { inviteCode?: string }) {
               the page's pale ground had nothing to sit against and read as
               empty boxes, where the gradient states plainly that this is the
               thing to act on. */}
-          <ApplyChooser inviteCode={inviteCode} tone="fill" />
+          <ApplyChooser
+            inviteCode={inviteCode}
+            tone="fill"
+            openPartnerOnHash="#apply-partner"
+          />
         </div>
       </div>
     </section>

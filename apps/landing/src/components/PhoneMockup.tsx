@@ -1,24 +1,6 @@
-import { Sparkles } from "lucide-react";
-import { Placeholder } from "@/components/Placeholder";
-
-const cards = [
-  {
-    label: "Health & Longevity",
-    tint: "#0f4a45",
-  },
-  {
-    label: "Wealth Management",
-    tint: "#3d2c17",
-  },
-  {
-    label: "Lifestyle Services",
-    tint: "#1c3345",
-  },
-  {
-    label: "Wellness & Resorts",
-    tint: "#1f4536",
-  },
-];
+import Image from "next/image";
+import { UserRound } from "lucide-react";
+import { Vortex } from "@/components/preview/Vortex";
 
 export function PhoneMockup() {
   return (
@@ -43,7 +25,38 @@ export function PhoneMockup() {
         <div className="absolute -right-[3px] top-[152px] h-[66px] w-[3px] rounded-r-sm bg-gradient-to-l from-[#3a3f42] to-[#0f1112]" />
 
         <div className="rounded-[43px] bg-black p-[2px]">
-          <div className="relative overflow-hidden rounded-[41px] bg-paper-soft">
+          <div className="relative overflow-hidden rounded-[41px] bg-[#eef3f3]">
+            {/* Same ground and ribbons as the page behind the phone, so the
+                app reads as part of the site. A petrol wash from the top gives
+                the header area its green tint. */}
+            <div
+              aria-hidden="true"
+              className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(0,82,82,0.3)_0%,rgba(0,82,82,0.14)_24%,rgba(0,82,82,0)_48%)]"
+            />
+            <svg
+              aria-hidden="true"
+              className="pointer-events-none absolute inset-0 h-full w-full"
+              preserveAspectRatio="none"
+              viewBox="0 0 260 540"
+            >
+              <defs>
+                <linearGradient id="pm-ribbon" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0%" stopColor="#ffffff" stopOpacity="0.95" />
+                  <stop offset="55%" stopColor="#85acac" stopOpacity="0.22" />
+                  <stop offset="100%" stopColor="#d6e3e3" stopOpacity="0.1" />
+                </linearGradient>
+              </defs>
+              {[0, 40, 80].map((offset) => (
+                <path
+                  key={offset}
+                  d={`M-30,${250 + offset} C 70,${190 + offset} 170,${320 + offset} 290,${220 + offset}`}
+                  fill="none"
+                  stroke="url(#pm-ribbon)"
+                  strokeWidth={34}
+                  opacity={0.5}
+                />
+              ))}
+            </svg>
             {/* Screen glow + reflection */}
             <div className="pointer-events-none absolute inset-x-0 top-0 z-20 h-40 bg-[radial-gradient(ellipse_at_50%_0%,rgba(79,209,192,0.16),transparent_70%)]" />
             <div className="pointer-events-none absolute inset-0 z-20 rounded-[41px] bg-gradient-to-br from-white/12 via-transparent to-transparent opacity-60" />
@@ -51,58 +64,70 @@ export function PhoneMockup() {
             {/* Status bar + dynamic island */}
             <div className="relative flex h-10 items-center justify-center pt-2.5">
               <div className="h-[23px] w-[86px] rounded-full bg-black" />
-              <span className="absolute left-5 top-3 text-[9.5px] font-medium text-ink">
+              <span className="absolute left-6 top-[13px] text-[10px] font-semibold tracking-tight text-[#0a0f12]">
                 9:41
               </span>
-              <div className="absolute right-5 top-[13px] flex items-center gap-[3px]">
-                <div className="h-[7px] w-[9px] rounded-[1px] bg-ink/85" />
-                <div className="h-[6px] w-[10px] rounded-[1px] bg-ink/85" />
-                <div className="relative h-[7px] w-[14px] rounded-[2px] border border-ink/85">
-                  <div className="absolute left-[1px] top-[1px] h-[3px] w-[8px] rounded-[1px] bg-ink/85" />
-                </div>
+              {/* iOS-style signal, Wi-Fi and battery glyphs. */}
+              <div className="absolute right-[18px] top-[15px] flex items-center gap-[3px] text-[#0a0f12]">
+                <svg width="13" height="8" viewBox="0 0 17 10" fill="currentColor" aria-hidden="true">
+                  <rect x="0" y="7" width="3" height="3" rx="0.7" />
+                  <rect x="4.5" y="5" width="3" height="5" rx="0.7" />
+                  <rect x="9" y="2.5" width="3" height="7.5" rx="0.7" />
+                  <rect x="13.5" y="0" width="3" height="10" rx="0.7" />
+                </svg>
+                <svg width="11" height="8" viewBox="0 0 15 11" fill="currentColor" aria-hidden="true">
+                  <path d="M7.5 2.2c2.3 0 4.4.9 6 2.4l1.1-1.1A10 10 0 0 0 7.5.6 10 10 0 0 0 .4 3.5l1.1 1.1a8.5 8.5 0 0 1 6-2.4Z" />
+                  <path d="M7.5 5.3c1.4 0 2.7.5 3.7 1.4l1.1-1.1a6.9 6.9 0 0 0-9.6 0l1.1 1.1c1-.9 2.3-1.4 3.7-1.4Z" />
+                  <path d="M7.5 8.3c.6 0 1.1.2 1.5.6L7.5 10.5 6 8.9c.4-.4.9-.6 1.5-.6Z" />
+                </svg>
+                <svg width="19" height="9" viewBox="0 0 25 12" fill="none" aria-hidden="true">
+                  <rect x="0.5" y="0.5" width="21" height="11" rx="3.2" stroke="currentColor" strokeOpacity="0.4" />
+                  <rect x="2" y="2" width="18" height="8" rx="2" fill="currentColor" />
+                  <path d="M23 4v4c.8-.3 1.3-1.1 1.3-2S23.8 4.3 23 4Z" fill="currentColor" fillOpacity="0.45" />
+                </svg>
               </div>
             </div>
 
-            <div className="px-3.5 pb-3 pt-3">
-              <p className="text-center font-display text-[15px] leading-none tracking-wide">
-                <span className="font-light text-ink">The</span>
-                <span className="text-accent font-semibold">ONE</span>
+            <div className="relative px-3.5 pb-3 pt-3">
+              {/* Profile avatar, top right: a filled disc in the vortex's
+                  dark green with a soft shadow, the way a
+                  signed-in avatar sits in a real app header. Decorative. */}
+              <span
+                aria-hidden="true"
+                className="absolute right-3.5 top-3 grid h-8 w-8 place-items-center rounded-full bg-gradient-to-br from-[#1a626b] to-[#00252a] shadow-[0_4px_10px_-3px_rgba(0,37,42,0.55)]"
+              >
+                <UserRound className="h-[15px] w-[15px] text-white" strokeWidth={1.8} />
+              </span>
+              {/* The full lockup (icon + "TheONE SUPER APP"), the same artwork
+                  as the masthead. unoptimized for the same transparent-PNG
+                  reason given there. */}
+              <Image
+                src="/images/theone-lockup-v4.png"
+                alt=""
+                width={533}
+                height={677}
+                unoptimized
+                className="mx-auto h-[118px] w-auto"
+              />
+
+              {/* POWER AI storm with the figure, the same piece the page
+                  shows below the wordmark, scaled to the screen. */}
+              <p className="mt-4 text-center font-display text-[12px] font-bold uppercase leading-snug tracking-[0.08em] text-[#052226]">
+                The Power AI
+                <br />
+                That Understands You
               </p>
-
-              {/* AI prompt bar */}
-              <div className="mt-3.5 flex items-center gap-2 rounded-full border border-line bg-paper-soft px-3 py-2">
-                <Sparkles
-                  className="h-3 w-3 shrink-0 text-aqua-500"
-                  strokeWidth={1.8}
-                />
-                <span className="truncate text-[9px] text-ink-faint">
-                  Which longevity clinic fits me?
-                </span>
-              </div>
-
-              <div className="mt-2.5 space-y-2">
-                {cards.map((card) => (
-                  <div
-                    key={card.label}
-                    className="relative h-[74px] overflow-hidden rounded-[13px] ring-1 ring-line"
-                  >
-                    <Placeholder />
-                    <div
-                      className="absolute inset-0"
-                      style={{
-                        background: `linear-gradient(95deg, ${card.tint}f2 0%, ${card.tint}80 48%, transparent 92%)`,
-                      }}
-                    />
-                    <p className="absolute bottom-2.5 left-3 text-[9.5px] font-semibold tracking-wide text-white drop-shadow">
-                      {card.label}
-                    </p>
-                  </div>
-                ))}
+              <div className="mt-5 pb-8">
+                <Vortex contained>
+                  <span className="font-display text-[13px] font-bold uppercase leading-none tracking-[0.2em] text-[#0a2f34]">
+                    POWER AI
+                  </span>
+                </Vortex>
               </div>
             </div>
 
             <div className="flex h-6 items-center justify-center pb-1.5">
-              <div className="h-[4px] w-[96px] rounded-full bg-paper-soft" />
+              <div className="relative h-[4px] w-[96px] rounded-full bg-[#0a0f12]/80" />
             </div>
           </div>
         </div>

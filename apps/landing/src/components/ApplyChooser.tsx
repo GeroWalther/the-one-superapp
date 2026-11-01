@@ -21,6 +21,7 @@ export function ApplyChooser({
   restrictTo,
   tone = "soft",
   showProcessNote = true,
+  openPartnerOnHash,
 }: {
   inviteCode?: string;
   /** An invitation is issued for one role; offering the other only leads to a
@@ -31,6 +32,9 @@ export function ApplyChooser({
       against. The forms behind the choice are identical either way. */
   tone?: "soft" | "fill";
   showProcessNote?: boolean;
+  /** A URL hash (e.g. "#apply-partner") that opens the partner form here, so
+      a link elsewhere on the page can go straight to it. */
+  openPartnerOnHash?: string;
 }) {
   const t = useTranslations("enroll");
   const [choice, setChoice] = useState<Choice | null>(restrictTo ?? null);
@@ -50,6 +54,22 @@ export function ApplyChooser({
     }
   }, [choice]);
 
+  /* Declared after the scroll effect above so that, on a page opened with the
+     hash already set, the first-render guard is spent before the choice lands
+     and the form still scrolls into view. The hash is then reset to the
+     section's own, so the same link works a second time. */
+  useEffect(() => {
+    if (!openPartnerOnHash || restrictTo === "member") return;
+    const open = () => {
+      if (window.location.hash !== openPartnerOnHash) return;
+      setChoice("partner");
+      history.replaceState(null, "", "#apply");
+    };
+    open();
+    window.addEventListener("hashchange", open);
+    return () => window.removeEventListener("hashchange", open);
+  }, [openPartnerOnHash, restrictTo]);
+
   const fill = tone === "fill";
 
   const paths = ([
@@ -65,7 +85,15 @@ export function ApplyChooser({
       icon: Building2,
       title: t("chooser.partnerTitle"),
       desc: t("chooser.partnerDesc"),
-      meta: t("chooser.partnerMeta"),
+      /* "Limited places" in deep petrol, the one thing a business should
+         not miss on this card. */
+      meta: t.rich("chooser.partnerMeta", {
+        dark: (chunks) => (
+          <span className={`font-semibold ${fill ? "text-[#00353b]" : "text-[#005252]"}`}>
+            {chunks}
+          </span>
+        ),
+      }),
     },
   ] as const).filter((path) => !restrictTo || path.role === restrictTo);
 
@@ -122,8 +150,12 @@ export function ApplyChooser({
             {/* On the fill these titles carry the block on their own, with no
                 eyebrow or subtitle above them, so they are set at the same size
                 as the "Apply for access" heading rather than a step below it. */}
+            {/* Two lines reserved side by side and set to the bottom, so a
+                one-line title ("As a member") lines up with the last line of a
+                two-line one ("As a business partner") and both descriptions
+                start at the same height. */}
             <h3
-              className={`mt-5 font-display font-medium ${
+              className={`mt-5 font-display font-medium leading-[1.2] sm:flex sm:min-h-[2.4em] sm:items-end ${
                 fill
                   ? "text-[26px] text-white sm:text-[30px]"
                   : "text-[22px] text-ink"
@@ -145,9 +177,14 @@ export function ApplyChooser({
             >
               {path.meta}
             </span>
+            {/* Styled as a button, though the whole card is the control: a
+                real <button> can't sit inside another. Deep petrol with white
+                type on both tones. */}
             <span
-              className={`mt-5 inline-flex items-center gap-2 text-[15px] font-medium ${
-                fill ? "text-white" : "text-aqua-600"
+              className={`mt-5 inline-flex items-center gap-2 self-start rounded-xl px-5 py-2.5 text-[15px] font-semibold shadow-[0_8px_20px_-10px_rgba(0,37,42,0.55)] transition-colors duration-300 ${
+                fill
+                  ? "bg-[#00353b] text-white group-hover:bg-[#00252a]"
+                  : "bg-[#005252] text-white group-hover:bg-[#004444]"
               }`}
             >
               {t("chooser.start")}

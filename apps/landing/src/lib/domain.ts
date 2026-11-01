@@ -129,7 +129,6 @@ export const PLANS = {
     currency: "eur",
     interval: "month",
     label: "Member",
-    introAmountCents: 1_000,
     taxBehavior: "inclusive",
   },
   partnerLarge: {
