@@ -1,4 +1,5 @@
-import { useTranslations } from "next-intl";
+import Link from "next/link";
+import { useLocale, useTranslations } from "next-intl";
 import { ArrowRight, Check } from "lucide-react";
 import { TombolaDrum } from "./TombolaDrum";
 
@@ -17,6 +18,7 @@ const LIGHT_PETROL = "#bfe0e0";
  */
 export function GiveawaySection() {
   const t = useTranslations("giveaway");
+  const locale = useLocale();
 
   return (
     <section id="giveaway" className="scroll-mt-24 pb-24 sm:pb-28">
@@ -65,8 +67,28 @@ export function GiveawaySection() {
 
             <TombolaDrum onDark className="mx-auto mt-6 h-auto max-w-full" width={480} />
 
-            <p className="mt-6 text-balance font-display text-[34px] font-semibold leading-[1.1] text-white sm:text-[46px]">
-              {t("title")}
+            {/* Set like "EVERYTHING THAT MATTERS TO YOU" above (bold caps,
+                tracked out), in the footer's mirror gold, the same gold as the
+                drum's rim. */}
+            <p className="text-gold-gradient mt-6 text-balance font-display text-[clamp(24px,5.4vw,40px)] font-bold uppercase leading-[1.15] tracking-[0.06em]">
+              {t.rich("title", {
+                /* The two 12s in lining figures, so they stand as tall as the
+                   capitals; the serif's default old-style figures sit at
+                   x-height and look undersized in an all-caps line. */
+                num: (chunks) => (
+                  <span className="[font-variant-numeric:lining-nums]">{chunks}</span>
+                ),
+              })}
+            </p>
+            {/* "To win" as its own line, so the headline above keeps two even
+                lines. Bordeaux type, as the client asked. */}
+            <p
+              className="mt-1 font-display text-[24px] font-bold italic leading-[1.2] sm:text-[30px]"
+              /* 700 is the heaviest cut loaded; a hairline stroke in the same
+                 colour thickens it further. */
+              style={{ color: BORDEAUX, WebkitTextStroke: `0.8px ${BORDEAUX}` }}
+            >
+              {t("titleSub")}
             </p>
             <div className="mx-auto mt-3 max-w-xl text-pretty text-[16px] leading-[1.55] text-white/90 sm:text-[17px]">
               <p>{t("body")}</p>
@@ -101,7 +123,13 @@ export function GiveawaySection() {
               className="mx-auto mt-4 max-w-md text-pretty text-[13px] leading-[1.5]"
               style={{ color: LIGHT_PETROL }}
             >
-              {t("note")}
+              {t("note")}{" "}
+              <Link
+                href={`/${locale}/giveaway-terms`}
+                className="whitespace-nowrap font-semibold text-white underline decoration-white/40 underline-offset-4 transition-colors hover:decoration-white"
+              >
+                {t("termsLink")}
+              </Link>
             </p>
           </div>
         </div>

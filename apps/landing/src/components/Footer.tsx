@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { useLocale, useTranslations } from "next-intl";
 import { BadgeCheck, EyeOff, ShieldCheck } from "lucide-react";
 import { Wordmark } from "./Wordmark";
@@ -64,12 +65,12 @@ export function Footer() {
         <div className="flex flex-col items-center gap-3 sm:flex-row sm:justify-between">
           <p className="text-[15px] text-white/55">{t("copyright")}</p>
           <div className="flex items-center gap-5 text-[15px] text-white/55">
-            <span className="cursor-default transition-colors hover:text-white/85">
+            <Link href={`/${locale}/privacy`} className="transition-colors hover:text-white/85">
               {t("privacy")}
-            </span>
-            <span className="cursor-default transition-colors hover:text-white/85">
+            </Link>
+            <Link href={`/${locale}/imprint`} className="transition-colors hover:text-white/85">
               {t("imprint")}
-            </span>
+            </Link>
           </div>
         </div>
       </div>

@@ -796,13 +796,15 @@
   },
   "giveaway": {
     "eyebrow": "Christmas Lottery 2026",
-    "title": "50 free admissions to win",
-    "body": "We are giving away 50 free admissions to TheONE POWER AI.",
+    "title": "<num>12</num> free admissions for <num>12</num> months",
+    "titleSub": "to win this Christmas",
+    "body": "We are giving away 12 free admissions to TheONE POWER AI.",
     "howTo": "To take part, simply apply:",
     "option1": "with your business",
     "option2": "as a private individual",
     "deadline": "Every application received by 12 December 2026 automatically enters the draw. The winners will be drawn on 15 December 2026.",
     "cta": "Apply now and take part",
-    "note": "Every application is reviewed individually. Participation is free of charge and requires no purchase. Winners will be notified by email."
+    "note": "Every application is reviewed individually. Participation is free of charge and requires no purchase. Winners will be notified by email.",
+    "termsLink": "Terms and conditions"
   }
 }
