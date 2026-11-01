@@ -122,8 +122,12 @@ export function ApplyChooser({
             {/* On the fill these titles carry the block on their own, with no
                 eyebrow or subtitle above them, so they are set at the same size
                 as the "Apply for access" heading rather than a step below it. */}
+            {/* Two lines reserved side by side and set to the bottom, so a
+                one-line title ("As a member") lines up with the last line of a
+                two-line one ("As a business partner") and both descriptions
+                start at the same height. */}
             <h3
-              className={`mt-5 font-display font-medium ${
+              className={`mt-5 font-display font-medium leading-[1.2] sm:flex sm:min-h-[2.4em] sm:items-end ${
                 fill
                   ? "text-[26px] text-white sm:text-[30px]"
                   : "text-[22px] text-ink"

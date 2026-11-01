@@ -57,9 +57,6 @@ export function WhatIsSection() {
     t("partner2"),
     t("partner3"),
     t("partner4"),
-    t("partner5"),
-    t("partner6"),
-    t("partner7"),
   ];
 
   return (
@@ -201,9 +198,9 @@ export function WhatIsSection() {
         </div>
 
         {/* --- 4. the partner half --------------------------------------- */}
-        {/* Set as a panel rather than more centred copy: the voice changes
-            here from "du" to "Sie", and the reader needs to see that this
-            half is addressed to someone else before they start reading it. */}
+        {/* Set as a panel rather than more centred copy: this half is
+            addressed to businesses, and the reader needs to see that before
+            they start reading it. */}
         <div
           data-reveal
           className="mt-24 rounded-3xl border p-8 sm:mt-28 sm:p-12 lg:p-14"
@@ -230,8 +227,7 @@ export function WhatIsSection() {
             {t("partnerLead")}
           </p>
 
-          {/* Two columns from lg: seven paragraphs in one run is a column
-              tall enough that the reader loses their place in it. */}
+          {/* Two columns from lg, so the four paragraphs read as two pairs. */}
           <div className="mt-8 gap-x-12 text-[15px] leading-[1.8] text-aqua-200/75 sm:text-[16px] lg:columns-2">
             {partnerBody.map((line) => (
               <p key={line} className="mb-5 break-inside-avoid text-pretty">

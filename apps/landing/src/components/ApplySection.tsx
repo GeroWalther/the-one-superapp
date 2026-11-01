@@ -29,7 +29,10 @@ export function ApplySection({ inviteCode }: { inviteCode?: string }) {
             {tBrand("brandClaim")}
           </p>
           <p className="mx-auto mt-5 max-w-xl text-pretty text-[15px] leading-[1.7] text-[#004444] sm:text-[17px]">
-            {tBrand("brandBody")}
+            {/* Its own line, not brandBody: that one already closes the
+                What-is section above, and repeating it word for word read as
+                filler. */}
+            {tBrand("applyBody")}
           </p>
 
           <h2 className="mt-12 font-display text-[30px] font-light leading-tight text-ink sm:text-[38px]">
