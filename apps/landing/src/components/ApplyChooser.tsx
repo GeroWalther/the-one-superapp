@@ -85,7 +85,15 @@ export function ApplyChooser({
       icon: Building2,
       title: t("chooser.partnerTitle"),
       desc: t("chooser.partnerDesc"),
-      meta: t("chooser.partnerMeta"),
+      /* "Limited places" in deep petrol, the one thing a business should
+         not miss on this card. */
+      meta: t.rich("chooser.partnerMeta", {
+        dark: (chunks) => (
+          <span className={`font-semibold ${fill ? "text-[#00353b]" : "text-[#005252]"}`}>
+            {chunks}
+          </span>
+        ),
+      }),
     },
   ] as const).filter((path) => !restrictTo || path.role === restrictTo);
 
@@ -169,9 +177,14 @@ export function ApplyChooser({
             >
               {path.meta}
             </span>
+            {/* Styled as a button, though the whole card is the control: a
+                real <button> can't sit inside another. Deep petrol with white
+                type on both tones. */}
             <span
-              className={`mt-5 inline-flex items-center gap-2 text-[15px] font-medium ${
-                fill ? "text-white" : "text-aqua-600"
+              className={`mt-5 inline-flex items-center gap-2 self-start rounded-xl px-5 py-2.5 text-[15px] font-semibold shadow-[0_8px_20px_-10px_rgba(0,37,42,0.55)] transition-colors duration-300 ${
+                fill
+                  ? "bg-[#00353b] text-white group-hover:bg-[#00252a]"
+                  : "bg-[#005252] text-white group-hover:bg-[#004444]"
               }`}
             >
               {t("chooser.start")}

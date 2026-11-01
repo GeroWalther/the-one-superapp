@@ -2,6 +2,7 @@ import { SiteHeader } from "@/components/SiteHeader";
 import { PreviewLanding } from "@/components/preview/PreviewLanding";
 import { PositioningSection } from "@/components/PositioningSection";
 import { ApplySection } from "@/components/ApplySection";
+import { GiveawaySection } from "@/components/GiveawaySection";
 import { Footer } from "@/components/Footer";
 
 /**
@@ -17,6 +18,7 @@ export default function HomePage() {
         <PreviewLanding />
         <PositioningSection />
         <ApplySection />
+        <GiveawaySection />
       </main>
       <Footer />
     </>

@@ -114,7 +114,7 @@
       "memberMeta": "49 € pro Monat",
       "partnerTitle": "Als Geschäftspartner",
       "partnerDesc": "TheONE verbindet Sie mit Kunden, die genau das suchen, was Sie bieten. Die richtigen Kunden für Ihr Unternehmen: ohne klassische Werbung, ohne Suchen.",
-      "partnerMeta": "Jahrespartnerschaft – Konditionen nach Zusage",
+      "partnerMeta": "Jahrespartnerschaft, <dark>begrenzte Plätze</dark>",
       "process": "Jede Bewerbung wird einzeln geprüft. Sie hören in jedem Fall von uns, meist innerhalb weniger Tage.",
       "inviteAdmin": "Sie wurden von TheONE eingeladen. Ihre ersten {months} Monate sind kostenfrei, und Ihr Zugang öffnet sich, sobald Sie dieses Formular ausfüllen.",
       "inviteReferral": "{name} hat Sie für TheONE vorgeschlagen. Ihre Bewerbung wird dennoch von uns geprüft.",
@@ -768,7 +768,7 @@
     "eyeLabel": "POWER AI",
     "about": {
       "title": "Was ist TheONE SUPER APP?",
-      "lead1": "TheONE SUPER APP ist eine digitale Premium-Infrastruktur, die Menschen und Unternehmen in den wichtigsten Lebensbereichen zusammenbringt: Gesundheit und Longevity, Beauty und Wellness, Luxushotels und Resorts, Business und Vermögen, Immobilien und Lifestyle. Statt allen dieselben Inhalte zu zeigen, richtet sie sich individuell nach jedem Einzelnen.",
+      "lead1": "TheONE SUPER APP ist eine digitale Premium-Infrastruktur, die Menschen und Unternehmen in den wichtigsten Branchen zusammenbringt: Gesundheit und Longevity, Beauty und Wellness, Luxushotels und Resorts, Business und Vermögen, Immobilien und Lifestyle. Statt allen dieselben Inhalte zu zeigen, richtet sie sich individuell nach jedem Einzelnen.",
       "lead2": "Im Zentrum steht TheONE POWER AI, eine persönliche künstliche Intelligenz, die mit Ihnen spricht, Ihre Fragen versteht und Sie durch Ihren Alltag begleitet, ausgerichtet an Ihren Wünschen, Zielen und Prioritäten und an Ihrer aktuellen Lebenssituation.",
       "matchTitle": "TheONE POWER AI findet Ihren persönlichen MATCH.",
       "matchBody1": "Sie analysiert Ihre Wünsche und erkennt aus einer Vielzahl von Möglichkeiten genau die Lösungen, die zu Ihnen passen.",
@@ -786,12 +786,23 @@
       "partner1": "Ihre künftigen Kunden suchen bereits. Auf TheONE beschreiben Mitglieder in eigenen Worten, was sie brauchen: eine Klinik, ein Resort, einen Berater, eine Immobilie. TheONE POWER AI versteht ihre Bedürfnisse und stellt ihnen die Unternehmen vor, die wirklich passen. Auch Ihres.",
       "partner2": "Keine Streuverluste, kein verlorenes Budget. Ihre Leistungen werden nur den Mitgliedern gezeigt, für die sie echten Mehrwert haben: persönlich, präzise und genau im Moment der Entscheidung.",
       "partner3": "Als Partner werden Sie Teil eines kuratierten, internationalen Netzwerks geprüfter Unternehmen, mit Zugang zu anspruchsvollen Kunden über Märkte und Sprachen hinweg.",
-      "partner4": "Weniger Aufwand für Akquise, mehr der richtigen Kunden. Bewerben Sie sich jetzt als Geschäftspartner und sichern Sie sich Ihren Platz auf TheONE.",
+      "partner4": "Weniger Aufwand für Akquise, mehr der richtigen Kunden. Die Partnerplätze sind in jeder Branche und Region begrenzt. Bewerben Sie sich jetzt und sichern Sie sich Ihren Platz, bevor es Ihre Mitbewerber tun.",
       "closeBody": "TheONE ist die intelligente Verbindung zwischen persönlichen Wünschen und den Unternehmen, die sie erfüllen.",
       "closeClaim": "YOUR WORLD YOUR MATCH",
-      "applyBody": "Werden Sie Teil eines kuratierten Netzwerks, in dem die richtigen Menschen und die richtigen Unternehmen zueinanderfinden."
+      "applyBody": "Der Zugang erfolgt ausschließlich auf Bewerbung. Bewerben Sie sich jetzt und werden Sie Teil von TheONE."
     },
     "everythingLine1": "EVERYTHING THAT MATTERS TO YOU",
     "everythingLine2": "IN ONE PLACE"
+  },
+  "giveaway": {
+    "eyebrow": "Weihnachtsverlosung 2026",
+    "title": "50 kostenlose Aufnahmen zu gewinnen",
+    "body": "Wir verlosen 50 kostenlose Aufnahmen bei TheONE POWER AI.",
+    "howTo": "Zur Teilnahme bewerben Sie sich einfach:",
+    "option1": "mit Ihrem Unternehmen",
+    "option2": "als Privatperson",
+    "deadline": "Jede Bewerbung, die bis zum 14. Dezember 2026 eingeht, nimmt automatisch an der Verlosung teil. Die Gewinner werden am 15. Dezember 2026 gezogen.",
+    "cta": "Jetzt bewerben und teilnehmen",
+    "note": "Jede Bewerbung wird einzeln geprüft. Die Teilnahme ist kostenlos und an keinen Kauf gebunden. Die Gewinner werden per E-Mail benachrichtigt."
   }
 }

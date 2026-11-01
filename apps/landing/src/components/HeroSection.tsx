@@ -137,7 +137,7 @@ export function HeroSection() {
                 {tEnroll("chooser.partnerTitle")}
               </span>
               <span className="mt-0.5 block text-[12px] text-ink-faint">
-                {tEnroll("chooser.partnerMeta")}
+                {tEnroll.rich("chooser.partnerMeta", { dark: (chunks) => <strong>{chunks}</strong> })}
               </span>
             </span>
           </a>
