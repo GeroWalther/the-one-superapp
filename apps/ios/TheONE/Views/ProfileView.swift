@@ -6,8 +6,7 @@ struct ProfileView: View {
     @State private var loadingTip = false
     @State private var profile: MemberProfile?
     @State private var editing = false
-
-    private let accountURL = URL(string: "https://theone-superapp.vercel.app/en/account")!
+    @State private var webPage: WebPage?
 
     var body: some View {
         NavigationStack {
@@ -20,14 +19,14 @@ struct ProfileView: View {
                                 .frame(width: 68, height: 68)
                                 .overlay(
                                     Text(String(account.firstName.prefix(1)))
-                                        .font(.system(size: 26, weight: .semibold))
+                                        .font(.sans(26, .semibold))
                                         .foregroundStyle(Theme.aqua)
                                 )
                             Text(account.displayName)
-                                .font(.system(size: 22, weight: .light, design: .serif))
+                                .font(.serif(22, .light))
                                 .foregroundStyle(Theme.ink)
                             Text("@\(account.username) · \(account.role == "partner" ? "Business partner" : account.role.capitalized)")
-                                .font(.system(size: 13))
+                                .font(.sans(13))
                                 .foregroundStyle(Theme.inkFaint)
                         }
                         .padding(.top, 12)
@@ -35,11 +34,11 @@ struct ProfileView: View {
                         if let tip {
                             VStack(alignment: .leading, spacing: 8) {
                                 Text("TODAY")
-                                    .font(.system(size: 10, weight: .semibold))
+                                    .font(.sans(10, .semibold))
                                     .tracking(2)
                                     .foregroundStyle(Theme.aqua)
                                 Text(tip)
-                                    .font(.system(size: 15))
+                                    .font(.sans(15))
                                     .foregroundStyle(Theme.ink)
                             }
                             .frame(maxWidth: .infinity, alignment: .leading)
@@ -66,23 +65,23 @@ struct ProfileView: View {
                         if let profile {
                             VStack(alignment: .leading, spacing: 10) {
                                 Text("YOUR PROFILE")
-                                    .font(.system(size: 10, weight: .semibold))
+                                    .font(.sans(10, .semibold))
                                     .tracking(2)
                                     .foregroundStyle(Theme.aqua)
 
                                 Text("\(profile.city), \(profile.country)")
-                                    .font(.system(size: 14))
+                                    .font(.sans(14))
                                     .foregroundStyle(Theme.ink)
 
                                 if !profile.focusAreas.isEmpty {
                                     Text(profile.focusAreas.map(ProfileOptions.label).joined(separator: " · "))
-                                        .font(.system(size: 13))
+                                        .font(.sans(13))
                                         .foregroundStyle(Theme.inkSoft)
                                 }
 
                                 if let context = profile.context, !context.isEmpty {
                                     Text(context)
-                                        .font(.system(size: 13))
+                                        .font(.sans(13))
                                         .foregroundStyle(Theme.inkSoft)
                                 }
 
@@ -98,14 +97,17 @@ struct ProfileView: View {
                             .glassCard()
                         }
 
-                        // Billing and Stripe's own flows stay on the web, where
-                        // they already exist.
-                        Link(destination: accountURL) {
-                            Text(account.role == "partner"
-                                 ? "Manage listing & billing"
-                                 : "Manage account & billing")
+                        // Billing stays on the website and is neither shown nor
+                        // linked here: a route to an outside purchase inside
+                        // the app runs into App Store Guideline 3.1.
+
+                        // Reachable in the app as App Store review expects.
+                        VStack(spacing: 0) {
+                            legalRow("Imprint", WebLinks.imprint)
+                            Divider().overlay(Theme.line)
+                            legalRow("Privacy Policy", WebLinks.privacy)
                         }
-                        .buttonStyle(GhostButtonStyle())
+                        .glassCard(padding: 0)
 
                         Button {
                             Task { await session.signOut() }
@@ -121,6 +123,9 @@ struct ProfileView: View {
             .paperBackground()
             .navigationTitle("Profile")
             .brandedNavigationBar()
+            .sheet(item: $webPage) { page in
+                SafariView(url: page.url).ignoresSafeArea()
+            }
         }
         .task {
             await loadTip()
@@ -141,15 +146,35 @@ struct ProfileView: View {
     private func detailRow(_ label: String, _ value: String) -> some View {
         HStack {
             Text(label)
-                .font(.system(size: 13))
+                .font(.sans(13))
                 .foregroundStyle(Theme.inkFaint)
             Spacer()
             Text(value)
-                .font(.system(size: 14))
+                .font(.sans(14))
                 .foregroundStyle(Theme.ink)
         }
         .padding(.horizontal, 16)
         .padding(.vertical, 13)
+    }
+
+    private func legalRow(_ label: String, _ url: URL) -> some View {
+        Button {
+            webPage = WebPage(url: url)
+        } label: {
+            HStack {
+                Text(label)
+                    .font(.sans(14))
+                    .foregroundStyle(Theme.ink)
+                Spacer()
+                Image(systemName: "chevron.right")
+                    .font(.sans(12, .semibold))
+                    .foregroundStyle(Theme.inkFaint)
+            }
+            .padding(.horizontal, 16)
+            .padding(.vertical, 13)
+            .contentShape(Rectangle())
+        }
+        .buttonStyle(.plain)
     }
 
     private func loadTip() async {

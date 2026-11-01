@@ -452,6 +452,12 @@ const giveawayTerms: Record<Locale, LegalDocument> = {
           "Es gilt spanisches Recht. Sollte eine Bestimmung unwirksam sein, bleibt die Wirksamkeit der übrigen Bestimmungen unberührt.",
         ],
       },
+      {
+        heading: "10. Hinweis zu Apple",
+        blocks: [
+          "Apple Inc. ist kein Sponsor dieser Verlosung und in keiner Weise an ihr beteiligt. Apple steht nicht in Verbindung mit der Verlosung, unterstützt sie nicht und ist nicht für ihre Durchführung verantwortlich.",
+        ],
+      },
     ],
     updated: UPDATED.de,
   },
@@ -516,6 +522,12 @@ const giveawayTerms: Record<Locale, LegalDocument> = {
         heading: "9. Final provisions",
         blocks: [
           "Spanish law applies. If any provision is invalid, the remaining provisions remain in effect.",
+        ],
+      },
+      {
+        heading: "10. Note on Apple",
+        blocks: [
+          "Apple Inc. is not a sponsor of this lottery and is not involved in it in any way. Apple is not affiliated with the lottery, does not endorse it and is not responsible for running it.",
         ],
       },
     ],
