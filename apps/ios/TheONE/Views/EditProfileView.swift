@@ -84,7 +84,7 @@ struct EditProfileView: View {
                 if let error {
                     Section {
                         Text(error)
-                            .font(.system(size: 13))
+                            .font(.sans(13))
                             .foregroundStyle(.red)
                     }
                 }
