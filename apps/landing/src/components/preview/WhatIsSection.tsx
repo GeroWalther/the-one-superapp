@@ -1,5 +1,6 @@
+import Image from "next/image";
 import { useTranslations } from "next-intl";
-import { Building2, Compass, MessagesSquare, Sparkles } from "lucide-react";
+import { ArrowRight, Building2, Compass, MessagesSquare, Sparkles } from "lucide-react";
 
 /**
  * "What is TheONE SUPER APP" — the section that tells the whole story, for a
@@ -28,6 +29,7 @@ const GOLD = "#e6b849";
 
 export function WhatIsSection() {
   const t = useTranslations("preview.about");
+  const tPreview = useTranslations("preview");
 
   /* The three beats, in the order the copy makes them: the AI matches, then
      understands, then connects. Each is a node on the spine. */
@@ -201,39 +203,84 @@ export function WhatIsSection() {
         {/* Set as a panel rather than more centred copy: this half is
             addressed to businesses, and the reader needs to see that before
             they start reading it. */}
+        {/* Light, in the phone mockup's colours (the page's #eef3f3 ground, a
+            petrol wash from the top, the background ribbons), so the business
+            pitch stands out of the dark section as its own card. */}
         <div
           data-reveal
-          className="mt-24 rounded-3xl border p-8 sm:mt-28 sm:p-12 lg:p-14"
+          className="relative mt-24 overflow-hidden rounded-3xl border border-white/40 p-8 shadow-[0_30px_70px_-30px_rgba(0,0,0,0.6)] sm:mt-28 sm:p-12 lg:p-14"
           style={{
-            borderColor: "rgba(13,80,88,0.8)",
             background:
-              "linear-gradient(180deg, rgba(13,80,88,0.28) 0%, rgba(0,20,22,0.25) 100%)",
+              "linear-gradient(180deg, rgba(0,82,82,0.3) 0%, rgba(0,82,82,0.14) 24%, rgba(0,82,82,0) 48%), #eef3f3",
           }}
         >
-          <span
-            className="grid h-12 w-12 place-items-center rounded-full border"
-            style={{
-              borderColor: "rgba(230,184,73,0.4)",
-              background: "rgba(230,184,73,0.08)",
-            }}
+          <svg
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-0 h-full w-full"
+            preserveAspectRatio="none"
+            viewBox="0 0 1000 800"
           >
-            <Building2 className="h-5 w-5" strokeWidth={1.4} style={{ color: GOLD }} />
-          </span>
-
-          <h3 className="mt-7 text-balance font-display text-[26px] font-light leading-[1.25] text-white sm:text-[36px]">
-            {t("partnerTitle")}
-          </h3>
-          <p className="mt-4 text-[16px] font-medium text-aqua-400 sm:text-[17px]">
-            {t("partnerLead")}
-          </p>
-
-          {/* Two columns from lg, so the four paragraphs read as two pairs. */}
-          <div className="mt-8 gap-x-12 text-[15px] leading-[1.8] text-aqua-200/75 sm:text-[16px] lg:columns-2">
-            {partnerBody.map((line) => (
-              <p key={line} className="mb-5 break-inside-avoid text-pretty">
-                {line}
-              </p>
+            <defs>
+              <linearGradient id="wi-ribbon" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stopColor="#ffffff" stopOpacity="0.95" />
+                <stop offset="55%" stopColor="#85acac" stopOpacity="0.22" />
+                <stop offset="100%" stopColor="#d6e3e3" stopOpacity="0.1" />
+              </linearGradient>
+            </defs>
+            {[0, 110, 220].map((offset) => (
+              <path
+                key={offset}
+                d={`M-80,${330 + offset} C 260,${150 + offset} 640,${520 + offset} 1080,${240 + offset}`}
+                fill="none"
+                stroke="url(#wi-ribbon)"
+                strokeWidth={110}
+                opacity={0.5}
+              />
             ))}
+          </svg>
+
+          <div className="relative">
+            <span className="grid h-12 w-12 place-items-center rounded-full bg-gradient-to-br from-[#1a626b] to-[#00353b] shadow-[0_6px_14px_-6px_rgba(0,37,42,0.55)]">
+              <Building2 className="h-5 w-5 text-white" strokeWidth={1.6} />
+            </span>
+
+            <h3 className="mt-7 text-balance font-display text-[26px] font-semibold leading-[1.25] text-[#000f11] sm:text-[36px]">
+              {t("partnerTitle")}
+            </h3>
+            <p className="mt-4 text-[16px] font-semibold text-[#005252] sm:text-[17px]">
+              {t("partnerLead")}
+            </p>
+
+            {/* Capped at the file's own 585px width: the source is small and
+                stretching it any wider turned it soft. Swap in a larger file
+                at the same path to let it grow. */}
+            <Image
+              src="/images/business-partners.jpg"
+              alt="Saudi Polo Ladies Tournament and Polo & Lifestyle, The London Magazine"
+              width={585}
+              height={309}
+              unoptimized
+              className="mt-8 h-auto w-full max-w-[585px] rounded-2xl shadow-[0_18px_40px_-20px_rgba(0,37,42,0.55)] ring-1 ring-[#005252]/10"
+            />
+
+            {/* Two columns from lg, so the four paragraphs read as two pairs. */}
+            <div className="mt-8 gap-x-12 text-[15px] leading-[1.8] text-[#37414d] sm:text-[16px] lg:columns-2">
+              {partnerBody.map((line) => (
+                <p key={line} className="mb-5 break-inside-avoid text-pretty">
+                  {line}
+                </p>
+              ))}
+            </div>
+
+            {/* The copy ends on "apply now", so the panel ends on the way to
+                do it: straight into the partner form in the apply section. */}
+            <a
+              href="#apply-partner"
+              className="btn mt-4 bg-gradient-to-br from-[#1a626b] to-[#00353b] px-7 py-3.5 text-[15px] font-semibold text-white shadow-[0_12px_28px_-14px_rgba(0,37,42,0.8)] hover:-translate-y-px"
+            >
+              {tPreview("becomePartner")}
+              <ArrowRight className="h-4 w-4" strokeWidth={2} />
+            </a>
           </div>
         </div>
 

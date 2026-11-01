@@ -21,6 +21,7 @@ export function ApplyChooser({
   restrictTo,
   tone = "soft",
   showProcessNote = true,
+  openPartnerOnHash,
 }: {
   inviteCode?: string;
   /** An invitation is issued for one role; offering the other only leads to a
@@ -31,6 +32,9 @@ export function ApplyChooser({
       against. The forms behind the choice are identical either way. */
   tone?: "soft" | "fill";
   showProcessNote?: boolean;
+  /** A URL hash (e.g. "#apply-partner") that opens the partner form here, so
+      a link elsewhere on the page can go straight to it. */
+  openPartnerOnHash?: string;
 }) {
   const t = useTranslations("enroll");
   const [choice, setChoice] = useState<Choice | null>(restrictTo ?? null);
@@ -49,6 +53,22 @@ export function ApplyChooser({
       formRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
     }
   }, [choice]);
+
+  /* Declared after the scroll effect above so that, on a page opened with the
+     hash already set, the first-render guard is spent before the choice lands
+     and the form still scrolls into view. The hash is then reset to the
+     section's own, so the same link works a second time. */
+  useEffect(() => {
+    if (!openPartnerOnHash || restrictTo === "member") return;
+    const open = () => {
+      if (window.location.hash !== openPartnerOnHash) return;
+      setChoice("partner");
+      history.replaceState(null, "", "#apply");
+    };
+    open();
+    window.addEventListener("hashchange", open);
+    return () => window.removeEventListener("hashchange", open);
+  }, [openPartnerOnHash, restrictTo]);
 
   const fill = tone === "fill";
 

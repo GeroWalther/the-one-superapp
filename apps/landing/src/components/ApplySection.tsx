@@ -45,7 +45,11 @@ export function ApplySection({ inviteCode }: { inviteCode?: string }) {
               the page's pale ground had nothing to sit against and read as
               empty boxes, where the gradient states plainly that this is the
               thing to act on. */}
-          <ApplyChooser inviteCode={inviteCode} tone="fill" />
+          <ApplyChooser
+            inviteCode={inviteCode}
+            tone="fill"
+            openPartnerOnHash="#apply-partner"
+          />
         </div>
       </div>
     </section>
