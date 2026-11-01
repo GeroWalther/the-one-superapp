@@ -57,9 +57,10 @@ export function GiveawaySection() {
           </svg>
 
           <div className="relative">
-            {/* The occasion on a bordeaux band, like the ribbon on a gift. */}
+            {/* The occasion on a bordeaux band, like the ribbon on a gift.
+                Lining figures so "2026" stands as tall as the capitals. */}
             <h2
-              className="mx-auto inline-block text-balance rounded-xl px-6 py-3 font-display text-[24px] font-bold uppercase leading-[1.15] tracking-[0.08em] text-white shadow-[0_14px_30px_-14px_rgba(0,0,0,0.6)] sm:px-9 sm:text-[34px]"
+              className="mx-auto inline-block text-balance rounded-xl px-6 py-3 font-display text-[24px] font-bold uppercase leading-[1.15] tracking-[0.08em] text-white [font-variant-numeric:lining-nums] shadow-[0_14px_30px_-14px_rgba(0,0,0,0.6)] sm:px-9 sm:text-[34px]"
               style={{ background: BORDEAUX }}
             >
               {t("eyebrow")}
