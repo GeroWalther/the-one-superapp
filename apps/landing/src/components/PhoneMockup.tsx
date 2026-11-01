@@ -90,11 +90,11 @@ export function PhoneMockup() {
 
             <div className="relative px-3.5 pb-3 pt-3">
               {/* Profile avatar, top right: a filled disc in the vortex's
-                  dark green with a white ring and soft shadow, the way a
+                  dark green with a soft shadow, the way a
                   signed-in avatar sits in a real app header. Decorative. */}
               <span
                 aria-hidden="true"
-                className="absolute right-3.5 top-3 grid h-8 w-8 place-items-center rounded-full bg-gradient-to-br from-[#1a626b] to-[#00252a] ring-2 ring-white shadow-[0_4px_10px_-3px_rgba(0,37,42,0.55)]"
+                className="absolute right-3.5 top-3 grid h-8 w-8 place-items-center rounded-full bg-gradient-to-br from-[#1a626b] to-[#00252a] shadow-[0_4px_10px_-3px_rgba(0,37,42,0.55)]"
               >
                 <UserRound className="h-[15px] w-[15px] text-white" strokeWidth={1.8} />
               </span>
