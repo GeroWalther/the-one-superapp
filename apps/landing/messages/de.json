@@ -111,7 +111,7 @@
       "start": "Bewerbung starten",
       "memberTitle": "Als Mitglied",
       "memberDesc": "Bessere Entscheidungen. TheONE kennt Ihre Bedürfnisse und findet für Sie das Unternehmen oder den Partner, der zu Ihnen passt.",
-      "memberMeta": "1. Monat 10 €, danach 49 € pro Monat",
+      "memberMeta": "49 € pro Monat",
       "partnerTitle": "Als Geschäftspartner",
       "partnerDesc": "TheONE verbindet Sie mit Kunden, die genau das suchen, was Sie bieten. Die richtigen Kunden für Ihr Unternehmen: ohne klassische Werbung, ohne Suchen.",
       "partnerMeta": "Jahrespartnerschaft – Konditionen nach Zusage",
@@ -352,7 +352,7 @@
       },
       "testActivate": "Konto aktivieren (Testmodus)",
       "testNote": "Testmodus: Es wird keine Zahlung eingezogen und keine Karte benötigt. Diese Option verschwindet, sobald Stripe-Schlüssel hinterlegt sind.",
-      "introTerms": "Dein erster Monat für 10 €. Danach regulär 49 € pro Monat. Die Mitgliedschaft verlängert sich automatisch und ist monatlich kündbar."
+      "introTerms": "49 € pro Monat. Die Mitgliedschaft verlängert sich automatisch und ist monatlich kündbar."
     },
     "referrals": {
       "title": "Einladen & profitieren",
@@ -515,7 +515,7 @@
       "tierQuestion": "Welche Partnerschaftsstufe?",
       "tierHint": "Legt den Preis fest. Der Bewerber kann dies nicht ändern.",
       "perYear": "Jahr",
-      "memberPlanNote": "Mitglieder zahlen €{intro} im ersten Monat, danach €{price} pro Monat.",
+      "memberPlanNote": "Mitglieder zahlen {price} € pro Monat.",
       "approveConfirm": "Annehmen und Aktivierungslink senden",
       "approveNote": "Die Person erhält einen einmalig gültigen Link für Benutzername und Passwort.",
       "internalReason": "Grund (intern)",

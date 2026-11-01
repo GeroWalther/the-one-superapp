@@ -111,7 +111,7 @@
       "start": "Start application",
       "memberTitle": "As a member",
       "memberDesc": "Better decisions. TheONE knows your needs and finds the business or partner that is right for you.",
-      "memberMeta": "First month €10, then €49 per month",
+      "memberMeta": "€49 per month",
       "partnerTitle": "As a business partner",
       "partnerDesc": "TheONE connects you with clients looking for exactly what you offer. The right clients for your business: no traditional advertising, no searching.",
       "partnerMeta": "Annual partnership – terms set on approval",
@@ -352,7 +352,7 @@
       },
       "testActivate": "Activate account (test mode)",
       "testNote": "Test mode: no payment is taken and no card is required. This option disappears as soon as Stripe keys are configured.",
-      "introTerms": "Your first month for €10. Then €49 per month as usual. The membership renews automatically and can be cancelled monthly."
+      "introTerms": "€49 per month. The membership renews automatically and can be cancelled monthly."
     },
     "referrals": {
       "title": "Invite & earn",
@@ -515,7 +515,7 @@
       "tierQuestion": "Which partnership tier?",
       "tierHint": "This sets what they are charged. It cannot be changed from the applicant's side.",
       "perYear": "year",
-      "memberPlanNote": "Members pay €{intro} for the first month, then €{price} per month.",
+      "memberPlanNote": "Members pay €{price} per month.",
       "approveConfirm": "Approve and send activation link",
       "approveNote": "They receive a single-use link to choose a username and password.",
       "internalReason": "Reason (internal)",
