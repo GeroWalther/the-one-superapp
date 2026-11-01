@@ -68,7 +68,7 @@ export function PositioningSection() {
                 The scene-setting paragraph above it is not gone from the site:
                 the about page still opens with `intro`, which is why the key
                 stays in the message files. */}
-            <p className="msg-line mx-auto max-w-2xl text-pretty text-[18.7px] leading-[1.7] text-white sm:text-[25.5px]">
+            <p className="msg-line mx-auto max-w-2xl text-pretty text-[17.8px] leading-[1.7] text-white sm:text-[24.2px]">
               {t.rich("intro2", {
                 /* The one phrase the client wants picked out, set in the
                    brand gold so it lifts off the petrol without breaking the
