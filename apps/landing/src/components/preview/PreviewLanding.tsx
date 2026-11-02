@@ -244,7 +244,7 @@ export function PreviewLanding() {
                splitting the one term the sentence is about. No text-balance:
                the break is placed deliberately below, and balancing would pull
                words back across it. */
-            className="mx-auto mt-5 max-w-2xl text-center font-display text-[18px] font-bold leading-[1.5] tracking-[0.03em] text-[#0a2f34] sm:mt-6 sm:text-[19px] sm:tracking-[0.09em] lg:text-[21px]"
+            className="mx-auto mt-5 max-w-2xl text-center font-display text-[clamp(16px,calc((100vw_-_48px)*0.062),20px)] font-bold leading-[1.45] tracking-[0.03em] text-[#052226] sm:mt-6 sm:text-[21px] sm:tracking-[0.09em] lg:text-[23px]"
           >
             {/* Blocks rather than <br>: the break is part of how the claim is
                 set, so it holds at every width instead of only where the line
