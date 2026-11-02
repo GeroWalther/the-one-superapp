@@ -277,7 +277,7 @@ export function PreviewLanding() {
               data-reveal-delay="280"
               className="text-center lg:text-left"
             >
-              <h2 className="text-balance font-display text-[32px] font-light leading-[1.12] text-ink sm:text-[40px] lg:text-[52px]">
+              <h2 className="text-balance font-display text-[clamp(24px,calc((100vw_-_48px)*0.1),32px)] font-light leading-[1.12] text-ink sm:text-[40px] lg:text-[52px]">
                 {t("heroTitle")}
               </h2>
               <p className="mx-auto mt-1.5 max-w-md text-pretty text-[18.9px] leading-[1.6] text-[#37414d] sm:mt-2 sm:text-[16.8px] lg:mx-0">
