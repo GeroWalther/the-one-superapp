@@ -132,6 +132,7 @@ struct AssistantView: View {
             }
             .paperBackground()
             .navigationTitle("Assistant")
+            .homeButton()
             .navigationBarTitleDisplayMode(.inline)
             .brandedNavigationBar()
             .toolbar {

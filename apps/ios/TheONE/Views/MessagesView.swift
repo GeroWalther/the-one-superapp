@@ -39,6 +39,7 @@ struct MessagesView: View {
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .paperBackground()
             .navigationTitle("Messages")
+            .homeButton()
             .brandedNavigationBar()
             .navigationDestination(for: ConversationSummary.self) { conversation in
                 ConversationView(

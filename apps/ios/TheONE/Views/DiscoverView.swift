@@ -101,6 +101,7 @@ struct DiscoverView: View {
             }
             .paperBackground()
             .navigationTitle("Discover")
+            .homeButton()
             .brandedNavigationBar()
             .navigationDestination(for: PartnerSummary.self) { partner in
                 PartnerDetailView(partnerId: partner.id)

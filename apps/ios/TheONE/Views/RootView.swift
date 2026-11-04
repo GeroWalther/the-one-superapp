@@ -18,11 +18,10 @@ struct RootView: View {
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                     .background(Theme.paper.ignoresSafeArea())
 
-            case .signedOut:
-                LoginView()
-
-            case .signedIn:
-                MainTabs()
+            // The start screen for everyone; its avatar leads on to the
+            // sign-in or, once signed in, the member area.
+            case .signedOut, .signedIn:
+                HomeView()
             }
         }
         .environment(session)
@@ -35,18 +34,30 @@ struct RootView: View {
 }
 
 struct MainTabs: View {
+    enum Tab: Hashable { case assistant, discover, messages, profile }
+
+    @State private var selection: Tab
+
+    init(initialTab: Tab = .assistant) {
+        _selection = State(initialValue: initialTab)
+    }
+
     var body: some View {
         // `.tabItem` rather than `Tab`: the latter is iOS 18 only, and the app
         // supports iOS 17.
-        TabView {
+        TabView(selection: $selection) {
             AssistantView()
                 .tabItem { Label("Assistant", systemImage: "sparkles") }
+                .tag(Tab.assistant)
             DiscoverView()
                 .tabItem { Label("Discover", systemImage: "magnifyingglass") }
+                .tag(Tab.discover)
             MessagesView()
                 .tabItem { Label("Messages", systemImage: "bubble.left.and.bubble.right") }
+                .tag(Tab.messages)
             ProfileView()
                 .tabItem { Label("Profile", systemImage: "person") }
+                .tag(Tab.profile)
         }
         .tint(Theme.aqua)
     }

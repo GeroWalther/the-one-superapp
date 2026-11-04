@@ -18,7 +18,13 @@ final class TheONEUITests: XCTestCase {
     /// behaviour, and the reason each test is run against a freshly installed
     /// app (see the `simctl uninstall` between invocations) rather than trying
     /// to unwind state from inside the suite.
+    ///
+    /// The app opens on the start screen; its avatar brings up the sign-in.
     private func assertOnLoginScreen() {
+        let avatar = app.buttons["home.avatar"]
+        XCTAssertTrue(avatar.waitForExistence(timeout: 20), "the start screen did not appear")
+        capture("00-start")
+        avatar.tap()
         XCTAssertTrue(
             app.secureTextFields.firstMatch.waitForExistence(timeout: 20),
             "expected the login screen; the app appears to still be signed in"
@@ -28,14 +34,23 @@ final class TheONEUITests: XCTestCase {
     /// iOS offers to save the password after a sign-in. That is desirable
     /// behaviour for a real member, but the sheet belongs to Springboard and
     /// sits on top of the app, swallowing the next tap.
+    ///
+    /// On iOS 26 the "Save Password?" card is hosted in the app's own
+    /// hierarchy rather than Springboard's, so both are searched.
     private func dismissSystemPrompts() {
         let springboard = XCUIApplication(bundleIdentifier: "com.apple.springboard")
-        for label in ["Not Now", "Don't Allow", "Allow"] {
-            let button = springboard.buttons[label]
-            if button.waitForExistence(timeout: 3) {
-                button.tap()
-                return
+        let deadline = Date().addingTimeInterval(9)
+        while Date() < deadline {
+            for owner in [app!, springboard] {
+                for label in ["Not Now", "Don't Allow", "Allow"] {
+                    let button = owner.buttons[label]
+                    if button.exists {
+                        button.tap()
+                        return
+                    }
+                }
             }
+            usleep(300_000)
         }
     }
 
@@ -67,6 +82,24 @@ final class TheONEUITests: XCTestCase {
         return app.navigationBars[label].exists
     }
 
+    /// Types into a field once it really has focus.
+    ///
+    /// The sign-in arrives as a sheet, and a tap that lands while it is still
+    /// sliding in can miss the field; typing then fails with "no keyboard
+    /// focus". Re-tapping until focus sticks takes the timing out of it.
+    private func type(_ text: String, into field: XCUIElement) {
+        let focused = NSPredicate(format: "hasKeyboardFocus == true")
+        for _ in 0..<5 {
+            field.tap()
+            let wait = XCTNSPredicateExpectation(predicate: focused, object: field)
+            if XCTWaiter().wait(for: [wait], timeout: 2) == .completed {
+                field.typeText(text)
+                return
+            }
+        }
+        XCTFail("could not focus \(field)")
+    }
+
     private func capture(_ name: String) {
         let shot = XCTAttachment(screenshot: XCUIScreen.main.screenshot())
         shot.name = name
@@ -80,19 +113,43 @@ final class TheONEUITests: XCTestCase {
         let username = app.textFields.firstMatch
         capture("01-login")
 
-        username.tap()
-        username.typeText("iostester")
+        type("testmember", into: username)
 
         let password = app.secureTextFields.firstMatch
-        password.tap()
-        password.typeText("IosTestPassword2026")
+        type("TestPassword2026!", into: password)
 
         app.buttons["Sign in"].tap()
         dismissSystemPrompts()
 
+        // --- signing in from the start screen opens the account -----------
+        XCTAssertTrue(
+            app.navigationBars["Profile"].waitForExistence(timeout: 25),
+            "signing in did not open the account"
+        )
+        capture("01b-account")
+        // "Save password?" can arrive only after the account is up, and it
+        // would swallow the tap on the house.
+        dismissSystemPrompts()
+
+        // the house goes back to the start screen, the avatar returns
+        // The start screen stays in the tree under the account, so the avatar
+        // "exists" all along; the account leaving is what proves the way back.
+        app.buttons["Start"].tap()
+        let gone = XCTNSPredicateExpectation(
+            predicate: NSPredicate(format: "exists == false"),
+            object: app.navigationBars["Profile"]
+        )
+        XCTAssertEqual(XCTWaiter().wait(for: [gone], timeout: 10), .completed, "the house did not return to the start screen")
+        let avatar = app.buttons["home.avatar"]
+        capture("01c-back-home")
+        avatar.tap()
+        XCTAssertTrue(
+            app.navigationBars["Profile"].waitForExistence(timeout: 10),
+            "the avatar did not open the account when signed in"
+        )
+
         // --- assistant tab ------------------------------------------------
-        let assistantTab = app.tabBars.buttons["Assistant"]
-        XCTAssertTrue(assistantTab.waitForExistence(timeout: 25), "did not reach the signed-in app")
+        XCTAssertTrue(tapTab("Assistant", symbol: "sparkles"), "could not open the assistant")
         dismissSystemPrompts()
         XCTAssertTrue(app.staticTexts["Ask me anything"].waitForExistence(timeout: 5))
         capture("02-assistant")
@@ -115,7 +172,7 @@ final class TheONEUITests: XCTestCase {
         // filter by vertical
         app.buttons["Wellness"].tap()
         XCTAssertTrue(
-            app.staticTexts["Bürgenstock Resort"].waitForExistence(timeout: 15),
+            app.staticTexts["Lakeside Wellness Resort"].waitForExistence(timeout: 15),
             "focus filter returned nothing"
         )
         capture("04-discover-filtered")
@@ -153,7 +210,7 @@ final class TheONEUITests: XCTestCase {
             app.staticTexts["Alexandra Reinhardt"].waitForExistence(timeout: 20),
             "profile did not load"
         )
-        XCTAssertTrue(app.staticTexts["@iostester · Member"].exists)
+        XCTAssertTrue(app.staticTexts["@testmember · Member"].exists)
         capture("08-profile")
     }
 
@@ -163,12 +220,10 @@ final class TheONEUITests: XCTestCase {
         assertOnLoginScreen()
         let username = app.textFields.firstMatch
 
-        username.tap()
-        username.typeText("iostester")
+        type("testmember", into: username)
 
         let password = app.secureTextFields.firstMatch
-        password.tap()
-        password.typeText("WrongPassword2026")
+        type("WrongPassword2026", into: password)
 
         app.buttons["Sign in"].tap()
         dismissSystemPrompts()
