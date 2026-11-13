@@ -1136,3 +1136,44 @@
     animation: none !important;
   }
 }
+
+/* The masthead line: dark petrol type with the same slow sheen that crosses
+   the important-message panel, so a light reflection passes over the words. */
+.text-sheen {
+  color: #004444;
+  -webkit-text-stroke-color: #004444;
+}
+@supports (-webkit-background-clip: text) or (background-clip: text) {
+  .text-sheen,
+  .text-sheen * {
+    background-image: linear-gradient(
+      100deg,
+      #004444 0%,
+      #004444 42%,
+      #6fc1c9 50%,
+      #004444 58%,
+      #004444 100%
+    );
+    background-size: 260% 100%;
+    background-position: 100% 0;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: text-sheen 6.5s ease-in-out 1.6s infinite;
+  }
+}
+@keyframes text-sheen {
+  0% {
+    background-position: 100% 0;
+  }
+  55%,
+  100% {
+    background-position: 0% 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .text-sheen,
+  .text-sheen * {
+    animation: none;
+  }
+}
