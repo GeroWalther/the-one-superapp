@@ -225,7 +225,15 @@ export function PreviewLanding() {
 
           {/* Under the photos: the invitation, first to members, then to
               business partners. */}
-          <div data-reveal data-reveal-delay="240" className="mx-auto mt-10 max-w-2xl text-center sm:mt-12">
+          <div data-reveal data-reveal-delay="240" className="relative isolate mx-auto mt-10 max-w-2xl py-10 text-center sm:mt-12 sm:py-14">
+            {/* The POWER AI spiral as a faint watermark behind the question:
+                no box, just the storm turning very lightly under the words. */}
+            <div
+              aria-hidden="true"
+              className="pointer-events-none absolute left-1/2 top-1/2 -z-10 w-[min(92vw,460px)] -translate-x-1/2 -translate-y-1/2 opacity-[0.13]"
+            >
+              <Vortex contained bare />
+            </div>
             <h2 className="font-display text-[28px] font-semibold leading-tight text-[var(--petrol-900)] sm:text-[34px]">
               {t("askTitle")}
             </h2>
