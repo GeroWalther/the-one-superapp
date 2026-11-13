@@ -54,12 +54,13 @@ export function WhatIsSection() {
     },
   ];
 
-  const partnerBody = [
-    t("partner1"),
-    t("partner2"),
-    t("partner3"),
-    t("partner4"),
-  ];
+  // <b>…</b> in the copy marks each paragraph's lead-in.
+  const lead = (chunks: React.ReactNode) => (
+    <strong className="font-semibold text-[#0a2f34]">{chunks}</strong>
+  );
+  const partnerBody = (["partner1", "partner2", "partner3", "partner4"] as const).map(
+    (key) => ({ key, line: t.rich(key, { b: lead }) }),
+  );
 
   return (
     <section
@@ -265,8 +266,8 @@ export function WhatIsSection() {
 
             {/* Two columns from lg, so the four paragraphs read as two pairs. */}
             <div className="mt-8 gap-x-12 text-[15px] leading-[1.8] text-[#37414d] sm:text-[16px] lg:columns-2">
-              {partnerBody.map((line) => (
-                <p key={line} className="mb-5 break-inside-avoid text-pretty">
+              {partnerBody.map(({ key, line }) => (
+                <p key={key} className="mb-5 break-inside-avoid text-pretty">
                   {line}
                 </p>
               ))}
