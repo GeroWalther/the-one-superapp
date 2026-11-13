@@ -376,9 +376,7 @@ export function PreviewLanding() {
             blur also reaches past its own box, which eats the first stretch of
             whatever clearance it is given. */}
         <section className="mx-auto max-w-3xl px-6 pb-40 pt-16 text-center sm:pb-56 lg:px-8 lg:pb-64">
-          <p className="font-display text-[46px] font-light leading-none text-ink sm:text-[56px]">
-            The<span className="font-normal">ONE</span>
-          </p>
+          {/* The "TheONE" wordmark above this claim was removed on request. */}
           {/* The wordmark's line of copy is gone; this stands in its place as
               pure ornament. It says nothing the sections below do not say
               better, and a mark this loud under a mark that quiet is the
