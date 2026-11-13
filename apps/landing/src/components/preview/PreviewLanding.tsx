@@ -264,7 +264,7 @@ export function PreviewLanding() {
                   <>
                     {line.split("POWER AI")[0]}
                     {/* The product term in the brand's dark petrol */}
-                    <span className="text-[var(--petrol-500)]">POWER{"\u00a0"}AI</span>
+                    <span className="text-[var(--petrol-900)]">POWER{"\u00a0"}AI</span>
                     {line.split("POWER AI")[1]}
                   </>
                 ) : (
