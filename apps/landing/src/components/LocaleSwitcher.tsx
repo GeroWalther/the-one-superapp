@@ -33,8 +33,8 @@ export function LocaleSwitcher() {
             aria-current={isActive ? "true" : undefined}
             className={
               isActive
-                ? "btn bg-aqua-500 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-paper"
-                : "btn px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-ink-faint transition-colors hover:text-ink"
+                ? "btn bg-aqua-500 px-3.5 py-1.5 text-[13px] font-semibold uppercase tracking-[0.14em] text-paper"
+                : "btn px-3.5 py-1.5 text-[13px] font-semibold uppercase tracking-[0.14em] text-ink-faint transition-colors hover:text-ink"
             }
           >
             {locale}
