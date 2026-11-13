@@ -310,7 +310,7 @@ export function PreviewLanding() {
                   top) so the business pitch reads as one unit with the two
                   application cards below it. */}
               <div className="card-brand mt-9 px-6 py-7 text-center sm:mt-10 sm:px-8">
-                <p className="text-balance font-display text-[22.8px] font-bold leading-snug tracking-[0.1em] text-[#0a2f34] sm:text-[26.6px]">
+                <p className="text-balance font-sans text-[20px] font-bold leading-snug tracking-[0.06em] text-[#0a2f34] sm:text-[23px]">
                   {/* Caps live in the message, so "TheONE" keeps its brand casing. */}
                   {t("businessClaim")}
                 </p>
