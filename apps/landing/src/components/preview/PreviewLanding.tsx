@@ -217,7 +217,7 @@ export function PreviewLanding() {
               above and owned that role; with HeroSection gone from page.tsx
               this masthead is the top of the document and has to carry it, or
               the page has no h1 at all. */}
-          <h1
+          <p
             data-reveal
             data-reveal-delay="120"
             /* max-w-3xl, not 6xl: the hero sets this claim inside a max-w-3xl
@@ -237,13 +237,13 @@ export function PreviewLanding() {
                 in value to the pale hero behind it to read comfortably at this
                 size. No gradient — it thinned the phrase mid-word. */}
             <span className="text-[#8a6420]">{tHero("titleAccent")}</span>
-          </h1>
+          </p>
 
           {/* Directly under the claim, so the two read as one masthead. Same
               treatment as the hero's: display face, not tracked uppercase, and
               the caps live in the message so "TheONE" keeps its brand casing
               rather than being flattened to "THEONE" by text-transform. */}
-          <p
+          <h1
             data-reveal
             data-reveal-delay="200"
             /* Same reason as the line above, and more acute here: at 17px with
@@ -272,7 +272,7 @@ export function PreviewLanding() {
                 )}
               </span>
             ))}
-          </p>
+          </h1>
 
           {/* A hairline closing the masthead before the axis changes to the
               split below — without it the centred block and the left-aligned

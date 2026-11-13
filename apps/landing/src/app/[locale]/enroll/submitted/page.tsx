@@ -3,6 +3,7 @@ import Link from "next/link";
 import { getTranslations } from "next-intl/server";
 import { CheckCircle2, Mail } from "lucide-react";
 import { EnrollShell } from "@/components/enroll/EnrollShell";
+import { NO_INDEX } from "@/lib/seo";
 
 export async function generateMetadata({
   params,
@@ -11,7 +12,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "enroll" });
-  return { title: `${t("submitted.receivedTitle")} | TheONE` };
+  return { title: `${t("submitted.receivedTitle")} | TheONE`, ...NO_INDEX };
 }
 
 export default async function SubmittedPage({

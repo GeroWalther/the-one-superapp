@@ -16,6 +16,7 @@ import { MemberProfilePanel } from "@/components/account/MemberProfilePanel";
 import { PartnerProfilePanel } from "@/components/account/PartnerProfilePanel";
 import { getMemberProfile, getPartnerProfileFor } from "@/lib/profile/service";
 import { MAX_IMAGES_PER_PARTNER } from "@/lib/storage/images";
+import { NO_INDEX } from "@/lib/seo";
 
 export async function generateMetadata({
   params,
@@ -24,7 +25,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "account" });
-  return { title: `${t("title")} | TheONE` };
+  return { title: `${t("title")} | TheONE`, ...NO_INDEX };
 }
 
 export default async function AccountPage({

@@ -3,6 +3,7 @@ import { getTranslations } from "next-intl/server";
 import { EnrollShell } from "@/components/enroll/EnrollShell";
 import { ApplyChooser } from "@/components/ApplyChooser";
 import { lookupInvitation } from "@/lib/applications/service";
+import { pageSeo } from "@/lib/seo";
 
 export async function generateMetadata({
   params,
@@ -11,7 +12,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "enroll" });
-  return { title: `${t("chooser.title")} | TheONE` };
+  return { title: `${t("chooser.title")} | TheONE`, ...(await pageSeo(locale, "enroll", "/enroll")) };
 }
 
 export default async function EnrollChooserPage({

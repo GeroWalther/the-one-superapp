@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { LegalPage } from "@/components/LegalPage";
 import { legalDoc } from "@/content/legal";
+import { pageSeo } from "@/lib/seo";
 
 export async function generateMetadata({
   params,
@@ -8,7 +9,7 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  return { title: `${legalDoc("imprint", locale).title} | TheONE` };
+  return { title: `${legalDoc("imprint", locale).title} | TheONE`, ...(await pageSeo(locale, "imprint", "/imprint")) };
 }
 
 export default async function Page({ params }: { params: Promise<{ locale: string }> }) {

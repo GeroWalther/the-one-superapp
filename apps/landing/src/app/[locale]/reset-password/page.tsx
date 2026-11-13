@@ -5,6 +5,7 @@ import { SiteHeader } from "@/components/SiteHeader";
 import { Footer } from "@/components/Footer";
 import { ResetPasswordForm } from "@/components/auth/PasswordResetForms";
 import { isResetTokenValid } from "@/lib/auth/password-reset";
+import { NO_INDEX } from "@/lib/seo";
 
 export async function generateMetadata({
   params,
@@ -13,7 +14,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "resetPassword" });
-  return { title: `${t("title")} | TheONE` };
+  return { title: `${t("title")} | TheONE`, ...NO_INDEX };
 }
 
 export default async function ResetPasswordPage({
