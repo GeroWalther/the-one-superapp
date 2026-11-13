@@ -239,6 +239,12 @@ export function PreviewLanding() {
             <span className="text-[#8a6420]">{tHero("titleAccent")}</span>
           </p>
 
+          {/* Desktop only: a second phone right under the claim, so the
+              product is in view the moment the page opens. */}
+          <div data-reveal data-reveal-delay="160" className="mt-12 hidden justify-center lg:flex">
+            <PhoneMockup />
+          </div>
+
           {/* Directly under the claim, so the two read as one masthead. Same
               treatment as the hero's: display face, not tracked uppercase, and
               the caps live in the message so "TheONE" keeps its brand casing
