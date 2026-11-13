@@ -356,7 +356,7 @@ export function PreviewLanding() {
                   </span>
                 </div>
               </div>
-              <h3 className="mt-8 font-display text-[26px] font-light leading-tight text-ink sm:text-[30px]">
+              <h3 className="mt-16 font-display text-[26px] font-light leading-tight text-ink sm:mt-20 sm:text-[30px]">
                 {tEnroll("chooser.title")}
               </h3>
               {/* Padding pulled in from p-7 for the fill: in this column the
