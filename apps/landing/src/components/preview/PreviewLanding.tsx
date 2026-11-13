@@ -225,15 +225,27 @@ export function PreviewLanding() {
 
           {/* Under the photos: the invitation, first to members, then to
               business partners. */}
-          <div data-reveal data-reveal-delay="240" className="mx-auto mt-10 max-w-2xl text-center sm:mt-12">
-            <h2 className="font-display text-[28px] font-semibold leading-tight text-[var(--petrol-900)] sm:text-[34px]">
-              {t("askTitle")}
-            </h2>
-            <p className="mt-2 text-pretty text-[16px] leading-[1.7] text-[var(--petrol-900)] sm:text-[18px]">
-              {t("askLine1")}
-              <span className="block">{t.rich("askLine2", { b: (c) => <strong className="font-semibold">{c}</strong> })}</span>
-              <span className="block">{t.rich("askLine3", { b: (c) => <strong className="font-semibold">{c}</strong> })}</span>
-            </p>
+          {/* The invitation in the same dark petrol panel as "Ihre persönliche
+              POWER AI": it lands, breathes and a halo turns behind it. The
+              POWER AI spiral sits half cut off at the right edge as a faint
+              watermark, so the words stay clear. */}
+          <div data-reveal data-reveal-delay="240" className="msg-halo mx-auto mt-10 max-w-2xl sm:mt-12">
+            <div className="msg-panel rounded-3xl bg-[#004444] px-6 py-10 text-center sm:px-12 sm:py-12">
+              <div
+                aria-hidden="true"
+                className="pointer-events-none absolute! z-0! -right-[22%] top-1/2 w-[70%] -translate-y-1/2 opacity-[0.22] sm:-right-[14%] sm:w-[52%]"
+              >
+                <Vortex contained bare />
+              </div>
+              <h2 className="text-gold-gradient font-display text-[28px] font-semibold leading-tight sm:text-[34px]">
+                {t("askTitle")}
+              </h2>
+              <p className="mt-3 text-pretty text-[16px] leading-[1.7] text-white/90 sm:text-[18px]">
+                {t("askLine1")}
+                <span className="block">{t.rich("askLine2", { b: (c) => <strong className="font-semibold text-white">{c}</strong> })}</span>
+                <span className="block">{t.rich("askLine3", { b: (c) => <strong className="font-semibold text-white">{c}</strong> })}</span>
+              </p>
+            </div>
           </div>
 
           {/* A hairline closing the masthead before the axis changes to the
