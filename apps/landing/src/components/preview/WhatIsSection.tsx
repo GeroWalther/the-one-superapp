@@ -265,7 +265,7 @@ export function WhatIsSection() {
             />
 
             {/* Two columns from lg, so the four paragraphs read as two pairs. */}
-            <div className="mt-8 gap-x-12 text-[15px] leading-[1.8] text-[#37414d] sm:text-[16px] lg:columns-2">
+            <div className="mt-8 gap-x-12 text-[15px] leading-[1.8] text-[#37414d] sm:text-[16px] ">
               {partnerBody.map(({ key, line }) => (
                 <p key={key} className="mb-5 break-inside-avoid text-pretty">
                   {line}

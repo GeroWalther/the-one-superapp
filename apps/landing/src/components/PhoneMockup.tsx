@@ -4,7 +4,7 @@ import { Vortex } from "@/components/preview/Vortex";
 
 export function PhoneMockup() {
   return (
-    <div className="relative w-[236px] sm:w-[252px] lg:w-[268px]">
+    <div className="relative w-[236px] sm:w-[252px] lg:w-[268px] lg:[zoom:1.3]">
       {/* Aura behind the device */}
       <div className="pointer-events-none absolute -inset-10 rounded-[70px] bg-[radial-gradient(circle_at_50%_45%,rgba(79,209,192,0.28),rgba(184,154,98,0.14)_45%,transparent_72%)] blur-2xl" />
       <div className="pointer-events-none absolute -bottom-10 left-1/2 h-12 w-[68%] -translate-x-1/2 rounded-full bg-black/70 blur-2xl" />

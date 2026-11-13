@@ -88,13 +88,13 @@ const TILES = [
   {
     key: "healthLongevity",
     src: "/images/verticals/health-longevity-v3.webp",
-    area: "lg:col-start-1 lg:col-span-3 lg:row-start-1 lg:row-span-5",
+    area: "   ",
     mArea: "col-start-1 col-span-3 row-start-1 row-span-6",
   },
   {
     key: "beautySkincare",
     src: "/images/verticals/beauty-wellness.webp",
-    area: "lg:col-start-4 lg:col-span-3 lg:row-start-1 lg:row-span-3",
+    area: "   ",
     mArea: "col-start-4 col-span-3 row-start-3 row-span-5",
   },
   {
@@ -110,13 +110,13 @@ const TILES = [
        tile's caption on the same ground. */
     key: "matchConnect",
     src: "/images/verticals/match-connect-v2.webp",
-    area: "lg:col-start-7 lg:col-span-3 lg:row-start-1 lg:row-span-3",
+    area: "   ",
     mArea: "col-start-1 col-span-3 row-start-8 row-span-5",
   },
   {
     key: "luxuryHotels",
     src: "/images/verticals/luxury-hotels-v2.webp",
-    area: "lg:col-start-10 lg:col-span-3 lg:row-start-2 lg:row-span-5",
+    area: "   ",
     mArea: "col-start-4 col-span-3 row-start-9 row-span-6",
   },
   {
@@ -134,25 +134,25 @@ const TILES = [
        phone survive. */
     key: "messenger",
     src: "/images/verticals/messenger-v3.webp",
-    area: "lg:col-start-4 lg:col-span-3 lg:row-start-8 lg:row-span-3",
+    area: "   ",
     mArea: "col-start-1 col-span-3 row-start-19 row-span-4",
   },
   {
     key: "businessWealth",
     src: "/images/verticals/business-wealth.webp",
-    area: "lg:col-start-7 lg:col-span-3 lg:row-start-8 lg:row-span-3",
+    area: "   ",
     mArea: "col-start-4 col-span-3 row-start-20 row-span-5",
   },
   {
     key: "realEstate",
     src: "/images/verticals/real-estate-v2.webp",
-    area: "lg:col-start-1 lg:col-span-3 lg:row-start-6 lg:row-span-4",
+    area: "   ",
     mArea: "col-start-1 col-span-3 row-start-23 row-span-6",
   },
   {
     key: "lifestyle",
     src: "/images/verticals/lifestyle.webp",
-    area: "lg:col-start-10 lg:col-span-3 lg:row-start-7 lg:row-span-4",
+    area: "   ",
     mArea: "col-start-4 col-span-3 row-start-25 row-span-6",
   },
 ];
@@ -181,7 +181,7 @@ export function PreviewLanding() {
 
       <div className="relative">
         {/* --- 1. split hero ------------------------------------------- */}
-        <section className="mx-auto max-w-6xl px-6 pb-16 pt-12 sm:pb-20 sm:pt-16 lg:px-8 lg:pb-24 lg:pt-24">
+        <section className="mx-auto max-w-6xl px-6 pb-16 pt-12 sm:pb-20 sm:pt-16 lg:max-w-4xl lg:px-8 lg:pb-24 lg:pt-24">
           {/* The mark, the claim and the tagline are one centred masthead;
               the split below then breaks the axis deliberately. The stagger
               runs top-down — 0, 120, 200, 280 — so the eye is led rather than
@@ -284,19 +284,19 @@ export function PreviewLanding() {
             className="mx-auto mt-10 h-px w-24 bg-gradient-to-r from-transparent via-[#8a6420]/45 to-transparent sm:mt-12"
           />
 
-          <div className="mt-12 grid items-center gap-16 sm:mt-16 sm:gap-[72px] lg:mt-20 lg:grid-cols-2 lg:gap-12">
+          <div className="mt-12 grid items-center gap-16 sm:mt-16 sm:gap-[72px] lg:mt-20  ">
             {/* Centred while the column is stacked, so the phone doesn't sit
                 under a left-ragged block on one axis and a centred masthead on
                 another; left-aligned only once the split actually exists. */}
             <div
               data-reveal
               data-reveal-delay="280"
-              className="text-center lg:text-left"
+              className="text-center "
             >
               <h2 className="text-balance font-display text-[clamp(24px,calc((100vw_-_48px)*0.097),32px)] font-semibold leading-[1.12] text-[#000f11] sm:text-[40px] sm:font-medium lg:text-[52px]">
                 {t("heroTitle")}
               </h2>
-              <p className="mx-auto mt-1.5 max-w-md text-pretty text-[18.9px] leading-[1.6] text-[#37414d] sm:mt-2 sm:text-[16.8px] lg:mx-0">
+              <p className="mx-auto mt-1.5 max-w-md text-pretty text-[18.9px] leading-[1.6] text-[#37414d] sm:mt-2 sm:text-[16.8px] ">
                 {t("heroSubtitle")}
               </p>
 
@@ -372,7 +372,7 @@ export function PreviewLanding() {
             <div
               data-reveal
               data-reveal-delay="360"
-              className="flex justify-center lg:justify-end"
+              className="flex justify-center "
             >
               <PhoneMockup />
             </div>
@@ -381,7 +381,7 @@ export function PreviewLanding() {
           {/* "Deine Wünsche. Deine Welt. Deine TheONE." under the phone, set as
               live text from the supplied artwork. On wide screens it sits in
               the phone's column (right), on phones it follows the device. */}
-          <div data-reveal className="mt-16 max-w-[560px] lg:ml-auto lg:mt-20">
+          <div data-reveal className="mt-16 max-w-[560px]  lg:mt-20">
             <h2 className="font-sans text-[40px] font-medium leading-[1.08] tracking-[-0.02em] text-[#123b38] sm:text-[52px] lg:text-[56px]">
               {t("wishes.line1")}
               <br />
@@ -468,11 +468,11 @@ export function PreviewLanding() {
         {/* No background of its own: this sits on the page's own pale ground,
             the same one the storm above runs on, so the two read as one
             continuous stretch rather than two panels. */}
-        <section className="mx-auto max-w-6xl px-6 pb-16 pt-24 sm:pt-32 lg:px-8">
-          <div className="grid auto-rows-[34px] grid-cols-6 gap-2 sm:auto-rows-[52px] sm:gap-3 lg:auto-rows-[80px] lg:grid-cols-12 lg:gap-4">
+        <section className="mx-auto max-w-6xl px-6 pb-16 pt-24 sm:pt-32 lg:max-w-4xl lg:px-8">
+          <div className="grid auto-rows-[34px] grid-cols-6 gap-2 sm:auto-rows-[52px] sm:gap-3   ">
             <div
               data-reveal
-              className="col-span-6 col-start-1 row-span-4 row-start-15 self-center text-center lg:col-span-6 lg:col-start-4 lg:row-span-4 lg:row-start-4 lg:px-4"
+              className="col-span-6 col-start-1 row-span-4 row-start-15 self-center text-center     lg:px-4"
             >
               {/* The floor carries the phone: at 4.2vw a 390px screen resolved to
                     the 22px minimum, which set the claim smaller than the tile
