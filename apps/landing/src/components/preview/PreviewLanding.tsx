@@ -313,6 +313,12 @@ export function PreviewLanding() {
                 <p className="text-balance font-display text-[22.8px] font-bold uppercase leading-snug tracking-[0.1em] text-[#0a2f34] sm:text-[26.6px]">
                   {t("businessClaim")}
                 </p>
+                {/* German only: the longer pitch under the claim. */}
+                {t.has("businessText") && (
+                  <p className="mx-auto mt-4 max-w-lg text-pretty text-[17px] font-semibold leading-[1.6] text-[#2f4744] sm:text-[18px]">
+                    {t("businessText")}
+                  </p>
+                )}
                 {/* Problem, then answer: the answer gets its own line in rich
                     petrol, the brand colour. */}
                 <p className="mx-auto mt-4 max-w-lg text-pretty text-[18.05px] font-medium leading-[1.55] text-[#434d59] sm:text-[19px]">
