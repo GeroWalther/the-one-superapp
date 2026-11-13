@@ -251,7 +251,7 @@ export function PreviewLanding() {
                splitting the one term the sentence is about. No text-balance:
                the break is placed deliberately below, and balancing would pull
                words back across it. */
-            className={`mx-auto mt-5 max-w-2xl text-center font-display ${taglineBig ? "text-[clamp(17.6px,calc((100vw_-_48px)*0.068),22px)] font-bold [-webkit-text-stroke:0.45px_currentColor] leading-[1.45] tracking-[0.03em] text-[#052226] sm:mt-6 sm:text-[23px] sm:tracking-[0.09em] lg:text-[25.3px]" : "text-[clamp(16px,calc((100vw_-_48px)*0.062),20px)] font-bold [-webkit-text-stroke:0.45px_currentColor] leading-[1.45] tracking-[0.03em] text-[#052226] sm:mt-6 sm:text-[21px] sm:tracking-[0.09em] lg:text-[23px]"}`}
+            className={`mx-auto mt-5 max-w-2xl text-center font-display ${taglineBig ? "text-[clamp(17.6px,calc((100vw_-_48px)*0.068),22px)] font-bold [-webkit-text-stroke:0.45px_currentColor] leading-[1.45] tracking-[0.03em] text-[#052226] sm:mt-6 sm:text-[23px] sm:tracking-[0.09em] lg:text-[26.6px] lg:text-[var(--petrol-900)]" : "text-[clamp(16px,calc((100vw_-_48px)*0.062),20px)] font-bold [-webkit-text-stroke:0.45px_currentColor] leading-[1.45] tracking-[0.03em] text-[#052226] sm:mt-6 sm:text-[21px] sm:tracking-[0.09em] lg:text-[23px]"}`}
           >
             {/* Blocks rather than <br>: the break is part of how the claim is
                 set, so it holds at every width instead of only where the line
