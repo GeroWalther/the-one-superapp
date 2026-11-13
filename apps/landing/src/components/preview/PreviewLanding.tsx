@@ -309,7 +309,7 @@ export function PreviewLanding() {
               {/* Framed in the brand card (white, aqua rim, teal hairline on
                   top) so the business pitch reads as one unit with the two
                   application cards below it. */}
-              <div className="card-brand mt-9 px-6 py-7 text-center sm:mt-10 sm:px-8">
+              <div className="card-brand mt-9 px-6 py-7 text-center sm:mt-10 sm:px-8 lg:[zoom:1.05]">
                 <p className="text-balance font-sans text-[20px] font-semibold leading-snug tracking-[0.06em] text-[#0a2f34] sm:text-[23px]">
                   {/* Caps live in the message, so "TheONE" keeps its brand casing. */}
                   {t("businessClaim").split("|").map((line) => (
@@ -356,7 +356,7 @@ export function PreviewLanding() {
                   </span>
                 </div>
               </div>
-              <h3 className="mt-16 font-display text-[26px] font-light leading-tight text-ink sm:mt-20 sm:text-[30px]">
+              <h3 className="mt-16 font-display text-[26px] font-medium leading-tight text-ink sm:mt-20 sm:text-[30px]">
                 {tEnroll("chooser.title")}
               </h3>
               {/* Padding pulled in from p-7 for the fill: in this column the
@@ -423,7 +423,7 @@ export function PreviewLanding() {
             /* The storm's outer rim, literally: #001416 is the abyssDeep the wall is
                painted in, so the paragraph and the edge of the disc below it are
                the same colour rather than merely close. */
-            className="mx-auto mt-5 max-w-xl text-pretty text-[15.75px] font-semibold leading-[1.7] text-[#00252a] sm:mt-6 sm:text-[17px]"
+            className="mx-auto mt-5 max-w-xl text-pretty text-[15.75px] font-semibold leading-[1.7] text-[#00252a] sm:mt-6 sm:text-[17px] lg:text-[17.85px]"
           >
             {t("worldBody")}
           </p>
@@ -481,7 +481,7 @@ export function PreviewLanding() {
               {/* Set identically to the "YOUR WORLD. UNDERSTOOD." claim above:
                   same clamp, leading and tracking, so the page makes its two
                   big statements in one voice rather than two near-misses. */}
-              <h2 className="font-display text-[clamp(26px,6vw,52px)] font-bold leading-[1.15] tracking-[0.06em] text-[#0a2f34]">
+              <h2 className="font-display text-[clamp(26px,6vw,52px)] font-bold leading-[1.15] tracking-[0.06em] text-[#0a2f34] lg:relative lg:left-1/2 lg:w-max lg:-translate-x-1/2 lg:whitespace-nowrap lg:text-[min(42px,3.6vw)]">
                 {/* Two keys rather than one string split on the full stop:
                     German puts a comma inside its first line, and any rule
                     that finds the break by punctuation would cut it in the

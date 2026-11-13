@@ -35,7 +35,7 @@ export function ApplySection({ inviteCode }: { inviteCode?: string }) {
             {tBrand("applyBody")}
           </p>
 
-          <h2 className="mt-12 font-display text-[30px] font-light leading-tight text-ink sm:text-[38px]">
+          <h2 className="mt-12 font-display text-[30px] font-medium leading-tight text-ink sm:text-[38px]">
             {t("chooser.title")}
           </h2>
         </div>
