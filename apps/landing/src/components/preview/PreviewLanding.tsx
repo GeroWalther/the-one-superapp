@@ -19,37 +19,6 @@ import Image from "next/image";
  */
 
 /**
- * Breaks the tagline after the product term, so what follows — "THAT
- * UNDERSTANDS YOU", "DIE SIE VERSTEHT" — always lands on its own line directly
- * beneath it rather than only when the viewport happens to be narrow enough.
- *
- * Split on "POWER AI" rather than on the English words, because that token is
- * the one part both locales share; the comma German puts after it stays on the
- * first line where it belongs. If the copy ever loses the term the whole
- * string is returned as one line and simply wraps as before.
- */
-const TAGLINE_TERM = "POWER AI";
-
-function splitTagline(tagline: string) {
-  // An explicit "|" in the copy sets the line break by hand (used in German:
-  // "TheONE SUPER APP" alone, then "Eine POWER AI, die Sie versteht").
-  if (tagline.includes("|")) return tagline.split("|").map((part) => part.trim());
-
-  const found = tagline.indexOf(TAGLINE_TERM);
-  if (found === -1) return [tagline];
-
-  let end = found + TAGLINE_TERM.length;
-  if (tagline[end] === ",") end += 1;
-
-  return [
-    /* Non-breaking space inside the term itself: the first line is still free
-       to wrap on a very narrow phone, and this keeps it from splitting there. */
-    tagline.slice(0, end).replace(TAGLINE_TERM, "POWER AI"),
-    tagline.slice(end).trim(),
-  ];
-}
-
-/**
  * The six verticals, in the order they are shown.
  *
  * Was seven, built around placeholder boxes; the supplied photography covers
@@ -165,13 +134,6 @@ export function PreviewLanding() {
   const tHero = useTranslations("hero");
   const tEnroll = useTranslations("enroll");
 
-
-
-  const taglineLines = splitTagline(tHero("tagline"));
-  /* The hand-split (German) tagline is two short lines, so it can sit 10 %
-     larger; the auto-split English one keeps its size so it wraps as before. */
-  const taglineBig = tHero("tagline").includes("|");
-
   return (
     /* Ground tinted off the petrol family rather than neutral grey, so the
        green ribbons read as this page's colour instead of green over grey. */
@@ -217,7 +179,7 @@ export function PreviewLanding() {
               above and owned that role; with HeroSection gone from page.tsx
               this masthead is the top of the document and has to carry it, or
               the page has no h1 at all. */}
-          <p
+          <h1
             data-reveal
             data-reveal-delay="120"
             /* max-w-3xl, not 6xl: the hero sets this claim inside a max-w-3xl
@@ -237,42 +199,8 @@ export function PreviewLanding() {
                 in value to the pale hero behind it to read comfortably at this
                 size. No gradient — it thinned the phrase mid-word. */}
             <span className="text-[#8a6420]">{tHero("titleAccent")}</span>
-          </p>
-
-          {/* Directly under the claim, so the two read as one masthead. Same
-              treatment as the hero's: display face, not tracked uppercase, and
-              the caps live in the message so "TheONE" keeps its brand casing
-              rather than being flattened to "THEONE" by text-transform. */}
-          <h1
-            data-reveal
-            data-reveal-delay="200"
-            /* Same reason as the line above, and more acute here: at 17px with
-               0.09em tracking the phone broke this between "POWER" and "AI",
-               splitting the one term the sentence is about. No text-balance:
-               the break is placed deliberately below, and balancing would pull
-               words back across it. */
-            className={`mx-auto mt-5 max-w-2xl text-center font-display ${taglineBig ? "text-[clamp(17.6px,calc((100vw_-_48px)*0.068),22px)] font-bold [-webkit-text-stroke:0.45px_currentColor] leading-[1.45] tracking-[0.03em] text-[#052226] sm:mt-6 sm:text-[23px] sm:tracking-[0.09em] lg:text-[26.6px] lg:text-[var(--petrol-900)]" : "text-[clamp(16px,calc((100vw_-_48px)*0.062),20px)] font-bold [-webkit-text-stroke:0.45px_currentColor] leading-[1.45] tracking-[0.03em] text-[#052226] sm:mt-6 sm:text-[21px] sm:tracking-[0.09em] lg:text-[23px]"}`}
-          >
-            {/* Blocks rather than <br>: the break is part of how the claim is
-                set, so it holds at every width instead of only where the line
-                happened to run out. */}
-            {taglineLines.map((line) => (
-              <span key={line} className="block">
-                {/* "POWER AI" is the one term the line is about; if a narrow
-                    phone has to wrap, it wraps before it, never inside it. */}
-                {taglineBig && line.includes("POWER AI") ? (
-                  <>
-                    {line.split("POWER AI")[0]}
-                    {/* German only: the product term in the brand's dark petrol */}
-                    <span className="text-[var(--petrol-900)]">POWER{"\u00a0"}AI</span>
-                    {line.split("POWER AI")[1]}
-                  </>
-                ) : (
-                  line.replace("POWER AI", "POWER\u00a0AI")
-                )}
-              </span>
-            ))}
           </h1>
+
 
           {/* The app in use: real moments with TheONE POWER AI, set side by
               side at one height, each at its own width, so no one is cropped
