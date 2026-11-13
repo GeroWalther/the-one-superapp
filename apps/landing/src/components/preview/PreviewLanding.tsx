@@ -274,17 +274,24 @@ export function PreviewLanding() {
             ))}
           </h1>
 
-          {/* The app in use: a couple discovering TheONE POWER AI together.
-              The source is 585px wide, so it is capped there to stay sharp. */}
-          <div data-reveal data-reveal-delay="220" className="mx-auto mt-10 max-w-[560px] sm:mt-12">
-            <Image
-              src="/images/theone-couple.jpg"
-              alt="TheONE SUPER APP mit TheONE POWER AI auf dem Smartphone"
-              width={585}
-              height={512}
-              priority
-              className="h-auto w-full rounded-3xl shadow-[0_24px_50px_-24px_rgba(0,37,42,0.55)] ring-1 ring-[#005252]/10"
-            />
+          {/* The app in use: real moments with TheONE POWER AI, set side by
+              side. Four on a computer, two per row on a phone; add a photo by
+              adding it to this list. Each is capped small so the row stays a
+              strip of moments rather than one large picture. */}
+          <div data-reveal data-reveal-delay="220" className="mx-auto mt-10 flex max-w-4xl flex-wrap justify-center gap-4 sm:mt-12">
+            {[
+              { src: "/images/theone-couple.jpg", w: 585, h: 512 },
+            ].map((photo) => (
+              <Image
+                key={photo.src}
+                src={photo.src}
+                alt="TheONE SUPER APP mit TheONE POWER AI auf dem Smartphone"
+                width={photo.w}
+                height={photo.h}
+                priority
+                className="aspect-[585/512] w-[calc(50%-8px)] rounded-2xl object-cover shadow-[0_18px_40px_-22px_rgba(0,37,42,0.55)] ring-1 ring-[#005252]/10 lg:w-[calc(25%-12px)]"
+              />
+            ))}
           </div>
 
           {/* A hairline closing the masthead before the axis changes to the
