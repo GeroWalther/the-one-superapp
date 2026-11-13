@@ -284,7 +284,7 @@ export function PreviewLanding() {
             className="mx-auto mt-10 h-px w-24 bg-gradient-to-r from-transparent via-[#8a6420]/45 to-transparent sm:mt-12"
           />
 
-          <div className="mt-12 grid items-center gap-16 sm:mt-16 sm:gap-12 lg:mt-20 lg:grid-cols-2">
+          <div className="mt-12 grid items-center gap-16 sm:mt-16 sm:gap-[72px] lg:mt-20 lg:grid-cols-2 lg:gap-12">
             {/* Centred while the column is stacked, so the phone doesn't sit
                 under a left-ragged block on one axis and a centred masthead on
                 another; left-aligned only once the split actually exists. */}
