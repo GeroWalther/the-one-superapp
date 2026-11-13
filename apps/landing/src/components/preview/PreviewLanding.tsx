@@ -226,17 +226,9 @@ export function PreviewLanding() {
           {/* Under the photos: the invitation, first to members, then to
               business partners. */}
           {/* The invitation in the same dark petrol panel as "Ihre persönliche
-              POWER AI": it lands, breathes and a halo turns behind it. The
-              POWER AI spiral sits half cut off at the right edge as a faint
-              watermark, so the words stay clear. */}
-          <div data-reveal data-reveal-delay="240" className="msg-halo mx-auto mt-10 max-w-2xl sm:mt-12">
-            <div className="msg-panel rounded-3xl bg-[#004444] px-6 py-10 text-center sm:px-12 sm:py-12">
-              <div
-                aria-hidden="true"
-                className="pointer-events-none absolute! z-0! -right-[22%] top-1/2 w-[70%] -translate-y-1/2 opacity-[0.22] sm:-right-[14%] sm:w-[52%]"
-              >
-                <Vortex contained bare />
-              </div>
+              POWER AI": it lands, breathes and a halo turns behind it. */}
+          <div data-reveal data-reveal-delay="240" className="msg-halo mx-auto mt-10 max-w-2xl sm:mt-12 lg:max-w-[640px]">
+            <div className="msg-panel rounded-3xl bg-[#004444] px-6 py-10 text-center sm:px-12 sm:py-12 lg:px-10 lg:py-8">
               <h2 className="text-gold-gradient font-display text-[28px] font-semibold leading-tight sm:text-[34px]">
                 {t("askTitle")}
               </h2>

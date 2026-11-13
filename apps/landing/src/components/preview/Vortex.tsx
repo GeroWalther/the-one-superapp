@@ -80,12 +80,9 @@ const BANDS = [
 export function Vortex({
   children,
   contained = false,
-  bare = false,
 }: {
   children?: React.ReactNode;
   contained?: boolean;
-  /** Only the storm: no figure and no streams, for a watermark use. */
-  bare?: boolean;
 }) {
   return (
     <div
@@ -253,11 +250,11 @@ export function Vortex({
         />
         {/* 9 — the streams flowing out past the rim. Outside the storm's own
                layers so the bands never blur over them. */}
-        {!bare && <VortexStreams />}
+        <VortexStreams />
 
         {/* 10 — the figure, at the lower left, looking in. Last in the stack so
                 she stands in front of the storm rather than behind its bands. */}
-        {!bare && <VortexFigure />}
+        <VortexFigure />
         </div>
       </div>
 
