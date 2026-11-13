@@ -13,7 +13,7 @@ export async function pageSeo(locale: string, page: SeoPage, path: string): Prom
     description: t(page),
     alternates: {
       canonical: `/${locale}${path}`,
-      languages: { de: `/de${path}`, en: `/en${path}`, "x-default": `/de${path}` },
+      languages: { de: `/de${path}`, en: `/en${path}`, "x-default": `/en${path}` },
     },
   };
 }
