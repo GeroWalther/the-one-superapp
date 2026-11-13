@@ -818,6 +818,15 @@
   "seo": {
     "title": "TheONE SUPER APP | Die POWER AI, die Sie versteht",
     "description": "Ihre persönliche POWER AI für Gesundheit, Beauty, Luxushotels, Vermögen und Lifestyle. Versteht Ihre Wünsche und verbindet Sie mit den Besten. Jetzt bewerben.",
-    "ogAlt": "TheONE SUPER APP Logo"
+    "ogAlt": "TheONE SUPER APP Logo",
+    "pages": {
+      "about": "Was ist TheONE SUPER APP? Die Premium-Infrastruktur mit persönlicher POWER AI für Gesundheit, Beauty, Luxushotels, Vermögen, Immobilien und Lifestyle.",
+      "enroll": "Bewerben Sie sich bei TheONE SUPER APP: als Mitglied mit persönlicher POWER AI oder als Geschäftspartner mit Zugang zu anspruchsvollen Kunden.",
+      "member": "Als Mitglied bewerben: Ihre persönliche POWER AI versteht Ihre Wünsche und verbindet Sie mit den besten Angeboten. Zugang nur auf Bewerbung.",
+      "partner": "Als Geschäftspartner bewerben: Die richtigen Kunden finden Ihr Unternehmen. Partnerplätze sind in jeder Branche, Region und jedem Land begrenzt.",
+      "imprint": "Impressum der TheONE SUPER APP: Anbieterkennzeichnung und Kontakt.",
+      "privacy": "Datenschutzerklärung der TheONE SUPER APP: wie wir Ihre Daten schützen und verarbeiten.",
+      "giveaway": "Teilnahmebedingungen der TheONE Weihnachtsverlosung 2026: 12 kostenlose Aufnahmen für 12 Monate zu gewinnen."
+    }
   }
 }

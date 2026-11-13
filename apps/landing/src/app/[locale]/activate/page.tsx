@@ -4,6 +4,7 @@ import { AlertTriangle } from "lucide-react";
 import { EnrollShell } from "@/components/enroll/EnrollShell";
 import { ActivationForm } from "@/components/auth/ActivationForm";
 import { inspectActivationToken } from "@/lib/auth/activation";
+import { NO_INDEX } from "@/lib/seo";
 
 export async function generateMetadata({
   params,
@@ -12,7 +13,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "activate" });
-  return { title: `${t("title")} | TheONE` };
+  return { title: `${t("title")} | TheONE`, ...NO_INDEX };
 }
 
 export default async function ActivatePage({

@@ -85,6 +85,33 @@ export default async function LocaleLayout({
         </noscript>
       </head>
       <body className="min-h-full flex flex-col bg-paper font-sans text-ink">
+        {/* Who the site belongs to, for Google's knowledge panel and logo. */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@graph": [
+                {
+                  "@type": "Organization",
+                  "@id": `${SITE_URL}/#organization`,
+                  name: "TheONE SUPER APP",
+                  url: SITE_URL,
+                  logo: `${SITE_URL}/images/theone-lockup-v4.png`,
+                },
+                {
+                  "@type": "WebSite",
+                  "@id": `${SITE_URL}/#website`,
+                  name: "TheONE SUPER APP",
+                  url: `${SITE_URL}/${locale}`,
+                  inLanguage: locale,
+                  description: (messages as { seo: { description: string } }).seo.description,
+                  publisher: { "@id": `${SITE_URL}/#organization` },
+                },
+              ],
+            }),
+          }}
+        />
         <NextIntlClientProvider locale={locale} messages={messages}>
           {children}
           <ScrollReveal />

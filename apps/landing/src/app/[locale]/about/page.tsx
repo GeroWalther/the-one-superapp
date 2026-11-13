@@ -4,6 +4,7 @@ import { getTranslations } from "next-intl/server";
 import { ArrowRight } from "lucide-react";
 import { SiteHeader } from "@/components/SiteHeader";
 import { Footer } from "@/components/Footer";
+import { pageSeo } from "@/lib/seo";
 
 export async function generateMetadata({
   params,
@@ -12,7 +13,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "aboutPage" });
-  return { title: `${t("title")} | TheONE` };
+  return { title: `${t("title")} | TheONE`, ...(await pageSeo(locale, "about", "/about")) };
 }
 
 export default async function AboutPage({
