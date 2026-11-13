@@ -413,7 +413,7 @@ export function PreviewLanding() {
               lit ground of its own. */}
           <h2
             data-reveal
-            className="mx-auto mt-10 max-w-2xl text-balance font-display text-[clamp(26px,6vw,52px)] font-bold leading-[1.15] tracking-[0.06em] text-[#0a2f34] sm:mt-12"
+            className="mx-auto mt-10 max-w-2xl text-balance font-display text-[clamp(27.3px,6.3vw,52px)] font-bold leading-[1.15] tracking-[0.06em] text-[#00252a] sm:mt-12 sm:text-[clamp(26px,6vw,52px)] sm:text-[#0a2f34]"
           >
             {t("worldTitle")}
           </h2>
@@ -423,7 +423,7 @@ export function PreviewLanding() {
             /* The storm's outer rim, literally: #001416 is the abyssDeep the wall is
                painted in, so the paragraph and the edge of the disc below it are
                the same colour rather than merely close. */
-            className="mx-auto mt-5 max-w-xl text-pretty text-[15px] leading-[1.7] text-[#001416] sm:mt-6 sm:text-[17px]"
+            className="mx-auto mt-5 max-w-xl text-pretty text-[15.75px] font-semibold leading-[1.7] text-[#00252a] sm:mt-6 sm:text-[17px] sm:font-normal sm:text-[#001416]"
           >
             {t("worldBody")}
           </p>
