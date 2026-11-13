@@ -31,6 +31,10 @@ import Image from "next/image";
 const TAGLINE_TERM = "POWER AI";
 
 function splitTagline(tagline: string) {
+  // An explicit "|" in the copy sets the line break by hand (used in German:
+  // "TheONE SUPER APP" alone, then "Eine POWER AI, die Sie versteht").
+  if (tagline.includes("|")) return tagline.split("|").map((part) => part.trim());
+
   const found = tagline.indexOf(TAGLINE_TERM);
   if (found === -1) return [tagline];
 
