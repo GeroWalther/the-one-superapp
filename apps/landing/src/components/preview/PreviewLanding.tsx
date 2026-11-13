@@ -281,7 +281,7 @@ export function PreviewLanding() {
             {[
               { src: "/images/theone-businessman.jpg", w: 585, h: 729, alt: "Geschäftsmann zeigt die TheONE SUPER APP" },
               { src: "/images/theone-emirati.jpg", w: 585, h: 389, alt: "Zwei Emiratis mit TheONE POWER AI in Dubai" },
-              { src: "/images/theone-clinic.jpg", w: 536, h: 378, alt: "Drei Frauen in einer Premium-Klinik mit TheONE POWER AI" },
+              { src: "/images/theone-businesswoman.jpg", w: 585, h: 704, alt: "Geschäftsfrau zeigt die TheONE SUPER APP" },
             ].map((photo) => (
               <Image
                 key={photo.src}
@@ -290,7 +290,7 @@ export function PreviewLanding() {
                 width={photo.w}
                 height={photo.h}
                 priority
-                className="h-[min(240px,calc((min(1120px,96vw)-16px)/3.75))] w-auto rounded-xl shadow-[0_18px_40px_-22px_rgba(0,37,42,0.55)] ring-1 ring-[#005252]/10 sm:h-[min(240px,calc((min(1120px,96vw)-32px)/3.75))] sm:rounded-2xl"
+                className="h-[min(260px,calc((min(1120px,96vw)-16px)/3.15))] w-auto rounded-xl shadow-[0_18px_40px_-22px_rgba(0,37,42,0.55)] ring-1 ring-[#005252]/10 sm:h-[min(260px,calc((min(1120px,96vw)-32px)/3.15))] sm:rounded-2xl"
               />
             ))}
           </div>
