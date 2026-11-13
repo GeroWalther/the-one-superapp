@@ -186,9 +186,15 @@ export function WhatIsSection() {
           className="mt-24 border-y py-14 text-center sm:mt-28 sm:py-16"
           style={{ borderColor: "rgba(13,80,88,0.7)" }}
         >
-          <p className="font-display text-[26px] font-light leading-none text-white sm:text-[32px]">
-            {t("brandName")}
-          </p>
+          {/* The name as the logo's own lettering (the artwork, never a font),
+              turned white for the petrol ground. */}
+          <Image
+            src="/images/theone-wordmark.png"
+            alt={t("brandName")}
+            width={397}
+            height={146}
+            className="mx-auto h-[64px] w-auto [filter:brightness(0)_invert(1)] sm:h-[84px]"
+          />
           <p
             className="mt-4 font-display text-[22px] font-bold tracking-[0.14em] sm:text-[30px]"
             style={{ color: GOLD }}
@@ -265,7 +271,7 @@ export function WhatIsSection() {
             />
 
             {/* Two columns from lg, so the four paragraphs read as two pairs. */}
-            <div className="mt-8 gap-x-12 text-[15px] leading-[1.8] text-[#37414d] sm:text-[16px] lg:columns-2">
+            <div className="mt-8 gap-x-12 text-[15px] leading-[1.8] text-[#37414d] sm:text-[16px] ">
               {partnerBody.map(({ key, line }) => (
                 <p key={key} className="mb-5 break-inside-avoid text-pretty">
                   {line}

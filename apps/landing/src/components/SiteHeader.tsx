@@ -29,12 +29,6 @@ export function SiteHeader() {
     };
   }, [menuOpen]);
 
-  const links = [
-    { href: `/${locale}#verticals`, label: t("inside") },
-    { href: `/${locale}#process`, label: t("process") },
-    { href: `/${locale}#philosophy`, label: t("philosophy") },
-  ];
-
   return (
     <header
       /* Fully transparent at the top so the hero runs edge to edge, solid once
@@ -45,7 +39,7 @@ export function SiteHeader() {
          Chosen deliberately over a translucent bar. */
       className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
         scrolled
-          ? "border-b border-line bg-paper shadow-[0_1px_16px_-6px_rgba(43,52,64,0.25)]"
+          ? "border-b border-transparent bg-[#eef3f3] shadow-[0_1px_14px_-8px_rgba(43,52,64,0.18)]"
           : "border-b border-transparent bg-transparent"
       }`}
     >
@@ -53,27 +47,6 @@ export function SiteHeader() {
         <Wordmark href={`/${locale}`} />
 
         <nav className="hidden items-center gap-8 md:flex">
-          {links.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              /* Over a transparent header the links cross the hero's own
-                 gradient, which runs from pale to dark exactly under them —
-                 mid-tones that are too light for white text and too dark for
-                 ink. Measured, white on the lightest was 1.96:1. A white pill
-                 gives each link its own ground instead, so legibility no longer
-                 depends on what is behind it. Dropped once scrolled, where the
-                 header supplies a ground of its own. */
-              className={`text-[15px] transition-all ${
-                scrolled
-                  ? "text-ink-soft hover:text-ink"
-                  : "btn border-white/70 bg-white/85 px-3.5 py-1.5 text-ink shadow-sm backdrop-blur-sm hover:bg-white"
-              }`}
-            >
-              {link.label}
-            </Link>
-          ))}
-
           <LocaleSwitcher />
 
           <Link
@@ -103,24 +76,12 @@ export function SiteHeader() {
       </div>
 
       {menuOpen && (
-        <div className="border-t border-line bg-paper/97 px-6 pb-8 pt-6 backdrop-blur-xl md:hidden">
-          <nav className="flex flex-col gap-1">
-            {links.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                onClick={() => setMenuOpen(false)}
-                className="rounded-xl px-3 py-3 text-[15px] text-ink-soft transition-colors hover:bg-paper-soft hover:text-ink"
-              >
-                {link.label}
-              </Link>
-            ))}
-          </nav>
+        <div className="border-t border-line bg-[#eef3f3] px-6 pb-8 pt-6 md:hidden">
 
           <Link
             href={`/${locale}#apply`}
             onClick={() => setMenuOpen(false)}
-            className="btn btn-primary mt-5 w-full py-3 text-[15px]"
+            className="btn btn-primary w-full py-3 text-[15px]"
           >
             {t("joinNow")}
           </Link>

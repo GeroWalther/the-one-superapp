@@ -19,37 +19,6 @@ import Image from "next/image";
  */
 
 /**
- * Breaks the tagline after the product term, so what follows — "THAT
- * UNDERSTANDS YOU", "DIE SIE VERSTEHT" — always lands on its own line directly
- * beneath it rather than only when the viewport happens to be narrow enough.
- *
- * Split on "POWER AI" rather than on the English words, because that token is
- * the one part both locales share; the comma German puts after it stays on the
- * first line where it belongs. If the copy ever loses the term the whole
- * string is returned as one line and simply wraps as before.
- */
-const TAGLINE_TERM = "POWER AI";
-
-function splitTagline(tagline: string) {
-  // An explicit "|" in the copy sets the line break by hand (used in German:
-  // "TheONE SUPER APP" alone, then "Eine POWER AI, die Sie versteht").
-  if (tagline.includes("|")) return tagline.split("|").map((part) => part.trim());
-
-  const found = tagline.indexOf(TAGLINE_TERM);
-  if (found === -1) return [tagline];
-
-  let end = found + TAGLINE_TERM.length;
-  if (tagline[end] === ",") end += 1;
-
-  return [
-    /* Non-breaking space inside the term itself: the first line is still free
-       to wrap on a very narrow phone, and this keeps it from splitting there. */
-    tagline.slice(0, end).replace(TAGLINE_TERM, "POWER AI"),
-    tagline.slice(end).trim(),
-  ];
-}
-
-/**
  * The six verticals, in the order they are shown.
  *
  * Was seven, built around placeholder boxes; the supplied photography covers
@@ -88,13 +57,13 @@ const TILES = [
   {
     key: "healthLongevity",
     src: "/images/verticals/health-longevity-v3.webp",
-    area: "lg:col-start-1 lg:col-span-3 lg:row-start-1 lg:row-span-5",
+    area: "   ",
     mArea: "col-start-1 col-span-3 row-start-1 row-span-6",
   },
   {
     key: "beautySkincare",
     src: "/images/verticals/beauty-wellness.webp",
-    area: "lg:col-start-4 lg:col-span-3 lg:row-start-1 lg:row-span-3",
+    area: "   ",
     mArea: "col-start-4 col-span-3 row-start-3 row-span-5",
   },
   {
@@ -110,13 +79,13 @@ const TILES = [
        tile's caption on the same ground. */
     key: "matchConnect",
     src: "/images/verticals/match-connect-v2.webp",
-    area: "lg:col-start-7 lg:col-span-3 lg:row-start-1 lg:row-span-3",
+    area: "   ",
     mArea: "col-start-1 col-span-3 row-start-8 row-span-5",
   },
   {
     key: "luxuryHotels",
     src: "/images/verticals/luxury-hotels-v2.webp",
-    area: "lg:col-start-10 lg:col-span-3 lg:row-start-2 lg:row-span-5",
+    area: "   ",
     mArea: "col-start-4 col-span-3 row-start-9 row-span-6",
   },
   {
@@ -134,25 +103,25 @@ const TILES = [
        phone survive. */
     key: "messenger",
     src: "/images/verticals/messenger-v3.webp",
-    area: "lg:col-start-4 lg:col-span-3 lg:row-start-8 lg:row-span-3",
+    area: "   ",
     mArea: "col-start-1 col-span-3 row-start-19 row-span-4",
   },
   {
     key: "businessWealth",
     src: "/images/verticals/business-wealth.webp",
-    area: "lg:col-start-7 lg:col-span-3 lg:row-start-8 lg:row-span-3",
+    area: "   ",
     mArea: "col-start-4 col-span-3 row-start-20 row-span-5",
   },
   {
     key: "realEstate",
     src: "/images/verticals/real-estate-v2.webp",
-    area: "lg:col-start-1 lg:col-span-3 lg:row-start-6 lg:row-span-4",
+    area: "   ",
     mArea: "col-start-1 col-span-3 row-start-23 row-span-6",
   },
   {
     key: "lifestyle",
     src: "/images/verticals/lifestyle.webp",
-    area: "lg:col-start-10 lg:col-span-3 lg:row-start-7 lg:row-span-4",
+    area: "   ",
     mArea: "col-start-4 col-span-3 row-start-25 row-span-6",
   },
 ];
@@ -165,13 +134,6 @@ export function PreviewLanding() {
   const tHero = useTranslations("hero");
   const tEnroll = useTranslations("enroll");
 
-
-
-  const taglineLines = splitTagline(tHero("tagline"));
-  /* The hand-split (German) tagline is two short lines, so it can sit 10 %
-     larger; the auto-split English one keeps its size so it wraps as before. */
-  const taglineBig = tHero("tagline").includes("|");
-
   return (
     /* Ground tinted off the petrol family rather than neutral grey, so the
        green ribbons read as this page's colour instead of green over grey. */
@@ -181,7 +143,7 @@ export function PreviewLanding() {
 
       <div className="relative">
         {/* --- 1. split hero ------------------------------------------- */}
-        <section className="mx-auto max-w-6xl px-6 pb-16 pt-12 sm:pb-20 sm:pt-16 lg:px-8 lg:pb-24 lg:pt-24">
+        <section className="mx-auto max-w-6xl px-6 pb-16 pt-12 sm:pb-20 sm:pt-16 lg:max-w-4xl lg:px-8 lg:pb-24 lg:pt-24">
           {/* The mark, the claim and the tagline are one centred masthead;
               the split below then breaks the axis deliberately. The stagger
               runs top-down — 0, 120, 200, 280 — so the eye is led rather than
@@ -217,7 +179,7 @@ export function PreviewLanding() {
               above and owned that role; with HeroSection gone from page.tsx
               this masthead is the top of the document and has to carry it, or
               the page has no h1 at all. */}
-          <p
+          <h1
             data-reveal
             data-reveal-delay="120"
             /* max-w-3xl, not 6xl: the hero sets this claim inside a max-w-3xl
@@ -237,42 +199,42 @@ export function PreviewLanding() {
                 in value to the pale hero behind it to read comfortably at this
                 size. No gradient — it thinned the phrase mid-word. */}
             <span className="text-[#8a6420]">{tHero("titleAccent")}</span>
-          </p>
-
-          {/* Directly under the claim, so the two read as one masthead. Same
-              treatment as the hero's: display face, not tracked uppercase, and
-              the caps live in the message so "TheONE" keeps its brand casing
-              rather than being flattened to "THEONE" by text-transform. */}
-          <h1
-            data-reveal
-            data-reveal-delay="200"
-            /* Same reason as the line above, and more acute here: at 17px with
-               0.09em tracking the phone broke this between "POWER" and "AI",
-               splitting the one term the sentence is about. No text-balance:
-               the break is placed deliberately below, and balancing would pull
-               words back across it. */
-            className={`mx-auto mt-5 max-w-2xl text-center font-display ${taglineBig ? "text-[clamp(17.6px,calc((100vw_-_48px)*0.068),22px)] font-bold [-webkit-text-stroke:0.45px_currentColor] leading-[1.45] tracking-[0.03em] text-[#052226] sm:mt-6 sm:text-[23px] sm:tracking-[0.09em] lg:text-[26.6px] lg:text-[var(--petrol-900)]" : "text-[clamp(16px,calc((100vw_-_48px)*0.062),20px)] font-bold [-webkit-text-stroke:0.45px_currentColor] leading-[1.45] tracking-[0.03em] text-[#052226] sm:mt-6 sm:text-[21px] sm:tracking-[0.09em] lg:text-[23px]"}`}
-          >
-            {/* Blocks rather than <br>: the break is part of how the claim is
-                set, so it holds at every width instead of only where the line
-                happened to run out. */}
-            {taglineLines.map((line) => (
-              <span key={line} className="block">
-                {/* "POWER AI" is the one term the line is about; if a narrow
-                    phone has to wrap, it wraps before it, never inside it. */}
-                {taglineBig && line.includes("POWER AI") ? (
-                  <>
-                    {line.split("POWER AI")[0]}
-                    {/* German only: the product term in the brand's dark petrol */}
-                    <span className="text-[var(--petrol-900)]">POWER{"\u00a0"}AI</span>
-                    {line.split("POWER AI")[1]}
-                  </>
-                ) : (
-                  line.replace("POWER AI", "POWER\u00a0AI")
-                )}
-              </span>
-            ))}
           </h1>
+
+
+          {/* The app in use: real moments with TheONE POWER AI, set side by
+              side at one height, each at its own width, so no one is cropped
+              out. Always one row; the height follows the width. */}
+          <div data-reveal data-reveal-delay="220" className="relative left-1/2 mt-10 flex w-[min(1120px,96vw)] -translate-x-1/2 flex-nowrap justify-center gap-2 sm:mt-12 sm:gap-4">
+            {[
+              { src: "/images/theone-businessman.jpg", w: 585, h: 729, alt: "Geschäftsmann zeigt die TheONE SUPER APP" },
+              { src: "/images/theone-emirati.jpg", w: 585, h: 389, alt: "Zwei Emiratis mit TheONE POWER AI in Dubai" },
+              { src: "/images/theone-businesswoman.jpg", w: 585, h: 704, alt: "Geschäftsfrau zeigt die TheONE SUPER APP" },
+            ].map((photo) => (
+              <Image
+                key={photo.src}
+                src={photo.src}
+                alt={photo.alt}
+                width={photo.w}
+                height={photo.h}
+                priority
+                className="h-[min(260px,calc((min(1120px,96vw)-16px)/3.15))] w-auto rounded-xl shadow-[0_18px_40px_-22px_rgba(0,37,42,0.55)] ring-1 ring-[#005252]/10 sm:h-[min(260px,calc((min(1120px,96vw)-32px)/3.15))] sm:rounded-2xl"
+              />
+            ))}
+          </div>
+
+          {/* Under the photos: the invitation, first to members, then to
+              business partners. */}
+          <div data-reveal data-reveal-delay="240" className="mx-auto mt-10 max-w-2xl text-center sm:mt-12">
+            <h2 className="font-display text-[28px] font-semibold leading-tight text-[var(--petrol-900)] sm:text-[34px]">
+              {t("askTitle")}
+            </h2>
+            <p className="mt-2 text-pretty text-[16px] leading-[1.7] text-[var(--petrol-900)] sm:text-[18px]">
+              {t("askLine1")}
+              <span className="block">{t.rich("askLine2", { b: (c) => <strong className="font-semibold">{c}</strong> })}</span>
+              <span className="block">{t.rich("askLine3", { b: (c) => <strong className="font-semibold">{c}</strong> })}</span>
+            </p>
+          </div>
 
           {/* A hairline closing the masthead before the axis changes to the
               split below — without it the centred block and the left-aligned
@@ -284,19 +246,19 @@ export function PreviewLanding() {
             className="mx-auto mt-10 h-px w-24 bg-gradient-to-r from-transparent via-[#8a6420]/45 to-transparent sm:mt-12"
           />
 
-          <div className="mt-12 grid items-center gap-16 sm:mt-16 sm:gap-[72px] lg:mt-20 lg:grid-cols-2 lg:gap-12">
+          <div className="mt-12 grid items-center gap-16 sm:mt-16 sm:gap-[72px] lg:mt-20  ">
             {/* Centred while the column is stacked, so the phone doesn't sit
                 under a left-ragged block on one axis and a centred masthead on
                 another; left-aligned only once the split actually exists. */}
             <div
               data-reveal
               data-reveal-delay="280"
-              className="text-center lg:text-left"
+              className="text-center "
             >
               <h2 className="text-balance font-display text-[clamp(24px,calc((100vw_-_48px)*0.097),32px)] font-semibold leading-[1.12] text-[#000f11] sm:text-[40px] sm:font-medium lg:text-[52px]">
                 {t("heroTitle")}
               </h2>
-              <p className="mx-auto mt-1.5 max-w-md text-pretty text-[18.9px] leading-[1.6] text-[#37414d] sm:mt-2 sm:text-[16.8px] lg:mx-0">
+              <p className="mx-auto mt-1.5 max-w-md text-pretty text-[18.9px] leading-[1.6] text-[#37414d] sm:mt-2 sm:text-[16.8px] ">
                 {t("heroSubtitle")}
               </p>
 
@@ -309,7 +271,7 @@ export function PreviewLanding() {
               {/* Framed in the brand card (white, aqua rim, teal hairline on
                   top) so the business pitch reads as one unit with the two
                   application cards below it. */}
-              <div className="card-brand mt-9 px-6 py-7 text-center sm:mt-10 sm:px-8">
+              <div className="card-brand mt-9 px-6 py-7 text-center sm:mt-10 sm:px-8 lg:[zoom:1.05]">
                 <p className="text-balance font-sans text-[20px] font-semibold leading-snug tracking-[0.06em] text-[#0a2f34] sm:text-[23px]">
                   {/* Caps live in the message, so "TheONE" keeps its brand casing. */}
                   {t("businessClaim").split("|").map((line) => (
@@ -356,7 +318,7 @@ export function PreviewLanding() {
                   </span>
                 </div>
               </div>
-              <h3 className="mt-16 font-display text-[26px] font-light leading-tight text-ink sm:mt-20 sm:text-[30px]">
+              <h3 className="mt-16 font-display text-[26px] font-medium leading-tight text-ink sm:mt-20 sm:text-[30px]">
                 {tEnroll("chooser.title")}
               </h3>
               {/* Padding pulled in from p-7 for the fill: in this column the
@@ -372,7 +334,7 @@ export function PreviewLanding() {
             <div
               data-reveal
               data-reveal-delay="360"
-              className="flex justify-center lg:justify-end"
+              className="flex justify-center "
             >
               <PhoneMockup />
             </div>
@@ -381,7 +343,7 @@ export function PreviewLanding() {
           {/* "Deine Wünsche. Deine Welt. Deine TheONE." under the phone, set as
               live text from the supplied artwork. On wide screens it sits in
               the phone's column (right), on phones it follows the device. */}
-          <div data-reveal className="mt-16 max-w-[560px] lg:ml-auto lg:mt-20">
+          <div data-reveal className="mt-16 max-w-[560px]  lg:mt-20">
             <h2 className="font-sans text-[40px] font-medium leading-[1.08] tracking-[-0.02em] text-[#123b38] sm:text-[52px] lg:text-[56px]">
               {t("wishes.line1")}
               <br />
@@ -423,7 +385,7 @@ export function PreviewLanding() {
             /* The storm's outer rim, literally: #001416 is the abyssDeep the wall is
                painted in, so the paragraph and the edge of the disc below it are
                the same colour rather than merely close. */
-            className="mx-auto mt-5 max-w-xl text-pretty text-[15.75px] font-semibold leading-[1.7] text-[#00252a] sm:mt-6 sm:text-[17px]"
+            className="mx-auto mt-5 max-w-xl text-pretty text-[15.75px] font-semibold leading-[1.7] text-[#00252a] sm:mt-6 sm:text-[17px] lg:text-[17.85px]"
           >
             {t("worldBody")}
           </p>
@@ -468,11 +430,11 @@ export function PreviewLanding() {
         {/* No background of its own: this sits on the page's own pale ground,
             the same one the storm above runs on, so the two read as one
             continuous stretch rather than two panels. */}
-        <section className="mx-auto max-w-6xl px-6 pb-16 pt-24 sm:pt-32 lg:px-8">
-          <div className="grid auto-rows-[34px] grid-cols-6 gap-2 sm:auto-rows-[52px] sm:gap-3 lg:auto-rows-[80px] lg:grid-cols-12 lg:gap-4">
+        <section className="mx-auto max-w-6xl px-6 pb-16 pt-24 sm:pt-32 lg:max-w-4xl lg:px-8">
+          <div className="grid auto-rows-[34px] grid-cols-6 gap-2 sm:auto-rows-[52px] sm:gap-3   ">
             <div
               data-reveal
-              className="col-span-6 col-start-1 row-span-4 row-start-15 self-center text-center lg:col-span-6 lg:col-start-4 lg:row-span-4 lg:row-start-4 lg:px-4"
+              className="col-span-6 col-start-1 row-span-4 row-start-15 self-center text-center     lg:px-4"
             >
               {/* The floor carries the phone: at 4.2vw a 390px screen resolved to
                     the 22px minimum, which set the claim smaller than the tile
@@ -481,7 +443,7 @@ export function PreviewLanding() {
               {/* Set identically to the "YOUR WORLD. UNDERSTOOD." claim above:
                   same clamp, leading and tracking, so the page makes its two
                   big statements in one voice rather than two near-misses. */}
-              <h2 className="font-display text-[clamp(26px,6vw,52px)] font-bold leading-[1.15] tracking-[0.06em] text-[#0a2f34]">
+              <h2 className="font-display text-[clamp(26px,6vw,52px)] font-bold leading-[1.15] tracking-[0.06em] text-[#0a2f34] lg:relative lg:left-1/2 lg:w-max lg:-translate-x-1/2 lg:whitespace-nowrap lg:text-[min(42px,3.6vw)]">
                 {/* Two keys rather than one string split on the full stop:
                     German puts a comma inside its first line, and any rule
                     that finds the break by punctuation would cut it in the
