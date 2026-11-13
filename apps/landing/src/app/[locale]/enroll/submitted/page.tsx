@@ -11,7 +11,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "enroll" });
-  return { title: `${t("submitted.receivedTitle")} — TheONE` };
+  return { title: `${t("submitted.receivedTitle")} | TheONE` };
 }
 
 export default async function SubmittedPage({

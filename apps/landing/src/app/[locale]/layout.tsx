@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { NextIntlClientProvider, hasLocale } from "next-intl";
+import { getTranslations } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { Cormorant_Garamond, Inter } from "next/font/google";
 import { routing } from "@/i18n/routing";
@@ -23,11 +24,37 @@ const inter = Inter({
   display: "swap",
 });
 
-export const metadata: Metadata = {
-  title: "TheONE — The Premium Super App",
-  description:
-    "A private decision infrastructure for health, longevity, wealth and lifestyle. Access by application only.",
-};
+export const SITE_URL = "https://www.theone-superapp.com";
+
+/* Site-wide defaults per language. Pages that set their own title keep it;
+   the description and the social preview fall back to these. */
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "seo" });
+  return {
+    metadataBase: new URL(SITE_URL),
+    title: t("title"),
+    description: t("description"),
+    openGraph: {
+      type: "website",
+      siteName: "TheONE SUPER APP",
+      locale: locale === "de" ? "de_DE" : "en_GB",
+      title: t("title"),
+      description: t("description"),
+      images: [{ url: "/images/og-theone.png", width: 1200, height: 630, alt: t("ogAlt") }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: t("title"),
+      description: t("description"),
+      images: ["/images/og-theone.png"],
+    },
+  };
+}
 
 export default async function LocaleLayout({
   children,

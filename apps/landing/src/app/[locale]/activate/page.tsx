@@ -12,7 +12,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "activate" });
-  return { title: `${t("title")} — TheONE` };
+  return { title: `${t("title")} | TheONE` };
 }
 
 export default async function ActivatePage({

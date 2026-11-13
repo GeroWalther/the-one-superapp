@@ -8,7 +8,7 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  return { title: `${legalDoc("imprint", locale).title} — TheONE` };
+  return { title: `${legalDoc("imprint", locale).title} | TheONE` };
 }
 
 export default async function Page({ params }: { params: Promise<{ locale: string }> }) {
