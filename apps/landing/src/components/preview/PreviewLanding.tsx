@@ -279,7 +279,6 @@ export function PreviewLanding() {
               out. Always one row; the height follows the width. */}
           <div data-reveal data-reveal-delay="220" className="relative left-1/2 mt-10 flex w-[min(1120px,96vw)] -translate-x-1/2 flex-nowrap justify-center gap-2 sm:mt-12 sm:gap-4">
             {[
-              { src: "/images/theone-couple.jpg", w: 585, h: 512, alt: "Paar entdeckt TheONE POWER AI auf dem Smartphone" },
               { src: "/images/theone-businessman.jpg", w: 585, h: 729, alt: "Geschäftsmann zeigt die TheONE SUPER APP" },
               { src: "/images/theone-emirati.jpg", w: 585, h: 389, alt: "Zwei Emiratis mit TheONE POWER AI in Dubai" },
               { src: "/images/theone-clinic.jpg", w: 536, h: 378, alt: "Drei Frauen in einer Premium-Klinik mit TheONE POWER AI" },
@@ -291,7 +290,7 @@ export function PreviewLanding() {
                 width={photo.w}
                 height={photo.h}
                 priority
-                className="h-[min(215px,calc((min(1120px,96vw)-24px)/4.9))] w-auto rounded-xl shadow-[0_18px_40px_-22px_rgba(0,37,42,0.55)] ring-1 ring-[#005252]/10 sm:h-[min(215px,calc((min(1120px,96vw)-48px)/4.9))] sm:rounded-2xl"
+                className="h-[min(240px,calc((min(1120px,96vw)-16px)/3.75))] w-auto rounded-xl shadow-[0_18px_40px_-22px_rgba(0,37,42,0.55)] ring-1 ring-[#005252]/10 sm:h-[min(240px,calc((min(1120px,96vw)-32px)/3.75))] sm:rounded-2xl"
               />
             ))}
           </div>
