@@ -1,6 +1,6 @@
-import Image from "next/image";
 import { UserRound } from "lucide-react";
 import { Vortex } from "@/components/preview/Vortex";
+import { TheOneLockup } from "@/components/TheOneLockup";
 
 export function PhoneMockup() {
   return (
@@ -101,14 +101,7 @@ export function PhoneMockup() {
               {/* The full lockup (icon + "TheONE SUPER APP"), the same artwork
                   as the masthead. unoptimized for the same transparent-PNG
                   reason given there. */}
-              <Image
-                src="/images/theone-lockup-v4.png"
-                alt=""
-                width={533}
-                height={677}
-                unoptimized
-                className="mx-auto h-[118px] w-auto"
-              />
+              <TheOneLockup size="phone" />
 
               {/* POWER AI storm with the figure, the same piece the page
                   shows below the wordmark, scaled to the screen. */}

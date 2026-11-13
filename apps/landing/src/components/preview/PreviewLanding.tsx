@@ -1,6 +1,7 @@
 import { useTranslations } from "next-intl";
 import { Building2, UsersRound } from "lucide-react";
 import { PhoneMockup } from "@/components/PhoneMockup";
+import { TheOneLockup } from "@/components/TheOneLockup";
 import { Vortex } from "./Vortex";
 import { WhatIsSection } from "./WhatIsSection";
 import { ApplyChooser } from "@/components/ApplyChooser";
@@ -193,23 +194,7 @@ export function PreviewLanding() {
                 aria-hidden="true"
                 className="absolute -inset-8 rounded-full bg-aqua-200/40 blur-3xl"
               />
-              <Image
-                src="/images/theone-lockup-v4.png"
-                alt="TheONE Super App"
-                width={533}
-                height={677}
-                priority
-                /* Next's image optimiser re-encodes transparent PNGs to a palette
-                   whose alpha the browser does not honour, which brings the white
-                   background back. Served as-is instead. */
-                unoptimized
-                /* Height-driven so the lockup's own proportions decide the width;
-                   no drop-shadow, since the artwork already carries one under the
-                   icon and a second would fall across the wordmark too. Same
-                   size from the smallest screen up: the mark is the strongest
-                   asset here and is meant to dominate the phone view. */
-                className="relative h-[214px] w-auto lg:h-[257px]"
-              />
+              <TheOneLockup size="hero" priority alt="TheONE Super App" />
             </div>
           </div>
 
