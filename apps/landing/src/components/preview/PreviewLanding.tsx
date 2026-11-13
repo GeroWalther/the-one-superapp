@@ -260,15 +260,15 @@ export function PreviewLanding() {
               <span key={line} className="block">
                 {/* "POWER AI" is the one term the line is about; if a narrow
                     phone has to wrap, it wraps before it, never inside it. */}
-                {line.includes("POWER AI") ? (
+                {taglineBig && line.includes("POWER AI") ? (
                   <>
                     {line.split("POWER AI")[0]}
-                    {/* The product term in the brand's dark petrol */}
+                    {/* German only: the product term in the brand's dark petrol */}
                     <span className="text-[var(--petrol-900)]">POWER{"\u00a0"}AI</span>
                     {line.split("POWER AI")[1]}
                   </>
                 ) : (
-                  line
+                  line.replace("POWER AI", "POWER\u00a0AI")
                 )}
               </span>
             ))}
