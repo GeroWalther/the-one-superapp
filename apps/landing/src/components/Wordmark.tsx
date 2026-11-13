@@ -74,25 +74,39 @@ export function Wordmark({
         />
       </span>
 
-      <span className="flex flex-col leading-none">
-        <span
-          className={`font-display leading-none tracking-[0.04em] ${
-            large ? "text-[30px]" : "text-[20px]"
-          } ${light ? "text-gold-gradient" : "text-ink"}`}
-        >
-          <span className="font-light">The</span>
-          <span className={`font-semibold ${light ? "" : "text-accent"}`}>
-            ONE
+      {light ? (
+        <span className="flex flex-col leading-none">
+          <span
+            className={`font-display leading-none tracking-[0.04em] ${
+              large ? "text-[30px]" : "text-[20px]"
+            } text-gold-gradient`}
+          >
+            <span className="font-light">The</span>
+            <span className="font-semibold">ONE</span>
+          </span>
+          <span
+            className={`mt-[3px] font-semibold uppercase tracking-[0.3em] ${
+              large ? "text-[11.5px]" : "text-[8px]"
+            } text-gold-gradient`}
+          >
+            Super App
           </span>
         </span>
-        <span
-          className={`mt-[3px] font-semibold uppercase tracking-[0.3em] ${
-            large ? "text-[11.5px]" : "text-[8px]"
-          } ${light ? "text-gold-gradient" : "text-ink-faint"}`}
-        >
-          Super App
-        </span>
-      </span>
+      ) : (
+        /* Header: the wordmark cut from the hero lockup itself, so the name
+           next to the icon is the exact same lettering as the logo. */
+        <Image
+          src="/images/theone-wordmark.png"
+          alt=""
+          width={397}
+          height={146}
+          unoptimized
+          priority
+          /* Smaller on phones so logo, language switch and menu fit in one
+             row at 375px without pushing the menu off screen. */
+          className={`block w-auto ${compact ? "h-[26px] sm:h-[30px]" : "h-[26px] sm:h-[34px]"}`}
+        />
+      )}
     </Link>
   );
 }

@@ -31,6 +31,10 @@ import Image from "next/image";
 const TAGLINE_TERM = "POWER AI";
 
 function splitTagline(tagline: string) {
+  // An explicit "|" in the copy sets the line break by hand (used in German:
+  // "TheONE SUPER APP" alone, then "Eine POWER AI, die Sie versteht").
+  if (tagline.includes("|")) return tagline.split("|").map((part) => part.trim());
+
   const found = tagline.indexOf(TAGLINE_TERM);
   if (found === -1) return [tagline];
 
@@ -164,6 +168,9 @@ export function PreviewLanding() {
 
 
   const taglineLines = splitTagline(tHero("tagline"));
+  /* The hand-split (German) tagline is two short lines, so it can sit 10 %
+     larger; the auto-split English one keeps its size so it wraps as before. */
+  const taglineBig = tHero("tagline").includes("|");
 
   return (
     /* Ground tinted off the petrol family rather than neutral grey, so the
@@ -244,7 +251,7 @@ export function PreviewLanding() {
                splitting the one term the sentence is about. No text-balance:
                the break is placed deliberately below, and balancing would pull
                words back across it. */
-            className="mx-auto mt-5 max-w-2xl text-center font-display text-[clamp(16px,calc((100vw_-_48px)*0.062),20px)] font-bold leading-[1.45] tracking-[0.03em] text-[#052226] sm:mt-6 sm:text-[21px] sm:tracking-[0.09em] lg:text-[23px]"
+            className={`mx-auto mt-5 max-w-2xl text-center font-display ${taglineBig ? "text-[clamp(17.6px,calc((100vw_-_48px)*0.068),22px)] font-bold [-webkit-text-stroke:0.45px_currentColor] leading-[1.45] tracking-[0.03em] text-[#052226] sm:mt-6 sm:text-[23px] sm:tracking-[0.09em] lg:text-[25.3px]" : "text-[clamp(16px,calc((100vw_-_48px)*0.062),20px)] font-bold [-webkit-text-stroke:0.45px_currentColor] leading-[1.45] tracking-[0.03em] text-[#052226] sm:mt-6 sm:text-[21px] sm:tracking-[0.09em] lg:text-[23px]"}`}
           >
             {/* Blocks rather than <br>: the break is part of how the claim is
                 set, so it holds at every width instead of only where the line
@@ -253,7 +260,16 @@ export function PreviewLanding() {
               <span key={line} className="block">
                 {/* "POWER AI" is the one term the line is about; if a narrow
                     phone has to wrap, it wraps before it, never inside it. */}
-                {line.replace("POWER AI", "POWER\u00a0AI")}
+                {taglineBig && line.includes("POWER AI") ? (
+                  <>
+                    {line.split("POWER AI")[0]}
+                    {/* German only: the product term in the brand's dark petrol */}
+                    <span className="text-[var(--petrol-900)]">POWER{"\u00a0"}AI</span>
+                    {line.split("POWER AI")[1]}
+                  </>
+                ) : (
+                  line.replace("POWER AI", "POWER\u00a0AI")
+                )}
               </span>
             ))}
           </p>
@@ -351,6 +367,21 @@ export function PreviewLanding() {
             </div>
           </div>
 
+          {/* "Deine Wünsche. Deine Welt. Deine TheONE." under the phone, set as
+              live text from the supplied artwork. On wide screens it sits in
+              the phone's column (right), on phones it follows the device. */}
+          <div data-reveal className="mt-16 max-w-[560px] lg:ml-auto lg:mt-20">
+            <h2 className="font-sans text-[40px] font-medium leading-[1.08] tracking-[-0.02em] text-[#123b38] sm:text-[52px] lg:text-[56px]">
+              {t("wishes.line1")}
+              <br />
+              {t("wishes.line2")}
+              <br />
+              <span className="text-[#4a8a6e]">{t("wishes.line3")}</span>
+            </h2>
+            <p className="mt-8 text-[17px] font-medium leading-[1.7] text-[#2f4744] sm:text-[19px]">{t("wishes.p1")}</p>
+            <p className="mt-5 text-[15px] font-medium leading-[1.7] text-[#2f4744] sm:text-[17px]">{t("wishes.p2")}</p>
+          </div>
+
         </section>
 
         {/* --- 2. wordmark --------------------------------------------- */}
@@ -360,9 +391,7 @@ export function PreviewLanding() {
             blur also reaches past its own box, which eats the first stretch of
             whatever clearance it is given. */}
         <section className="mx-auto max-w-3xl px-6 pb-40 pt-16 text-center sm:pb-56 lg:px-8 lg:pb-64">
-          <p className="font-display text-[46px] font-light leading-none text-ink sm:text-[56px]">
-            The<span className="font-normal">ONE</span>
-          </p>
+          {/* The "TheONE" wordmark above this claim was removed on request. */}
           {/* The wordmark's line of copy is gone; this stands in its place as
               pure ornament. It says nothing the sections below do not say
               better, and a mark this loud under a mark that quiet is the
