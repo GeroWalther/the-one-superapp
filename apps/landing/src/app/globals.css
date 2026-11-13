@@ -1158,28 +1158,26 @@
   height: 190%;
   translate: -50% -50%;
   border-radius: 50%;
-  /* The POWER AI circle's palette: a soft beige light at the core with
-     several petrol shades turning around it, from pale to the dark wall. */
+  /* A light, clean shimmer: a white core and only pale petrol tints turning
+     around it, so the glow brightens the line instead of shading it. */
   background:
     radial-gradient(
       closest-side,
-      rgba(245, 238, 225, 0.95) 0%,
-      rgba(232, 220, 196, 0.7) 40%,
-      rgba(232, 220, 196, 0) 72%
+      rgba(255, 255, 255, 0.95) 0%,
+      rgba(255, 255, 255, 0.6) 45%,
+      rgba(255, 255, 255, 0) 75%
     ),
     conic-gradient(
       from var(--glow-angle),
-      rgba(0, 37, 42, 0.6) 0deg,
-      rgba(0, 68, 68, 0.55) 55deg,
-      rgba(26, 98, 107, 0.5) 110deg,
-      rgba(133, 172, 172, 0.55) 165deg,
-      rgba(214, 227, 227, 0.5) 205deg,
-      rgba(34, 126, 137, 0.5) 255deg,
-      rgba(0, 82, 82, 0.55) 305deg,
-      rgba(0, 37, 42, 0.6) 360deg
+      rgba(194, 226, 231, 0.75) 0deg,
+      rgba(133, 172, 172, 0.35) 70deg,
+      rgba(230, 243, 245, 0.8) 140deg,
+      rgba(79, 179, 191, 0.25) 210deg,
+      rgba(214, 227, 227, 0.8) 290deg,
+      rgba(194, 226, 231, 0.75) 360deg
     );
-  filter: blur(26px);
-  opacity: 0.9;
+  filter: blur(22px);
+  opacity: 1;
   z-index: -1;
   pointer-events: none;
   animation: tagline-glow-spin 12s linear infinite;
