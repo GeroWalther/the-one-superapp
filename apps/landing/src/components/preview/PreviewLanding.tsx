@@ -378,8 +378,8 @@ export function PreviewLanding() {
               <br />
               <span className="text-[#4a8a6e]">{t("wishes.line3")}</span>
             </h2>
-            <p className="mt-8 text-[17px] font-medium leading-[1.7] text-[#2f4744] sm:text-[19px]">{t("wishes.p1")}</p>
-            <p className="mt-5 text-[15px] font-medium leading-[1.7] text-[#2f4744] sm:text-[17px]">{t("wishes.p2")}</p>
+            <p className="mt-8 text-[17px] font-semibold leading-[1.7] text-[#2f4744] sm:text-[19px]">{t("wishes.p1")}</p>
+            <p className="mt-5 text-[15px] font-semibold leading-[1.7] text-[#2f4744] sm:text-[17px]">{t("wishes.p2")}</p>
           </div>
 
         </section>
