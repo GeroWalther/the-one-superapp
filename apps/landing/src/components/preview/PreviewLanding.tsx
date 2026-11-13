@@ -275,21 +275,22 @@ export function PreviewLanding() {
           </h1>
 
           {/* The app in use: real moments with TheONE POWER AI, set side by
-              side. Four on a computer, two per row on a phone; add a photo by
-              adding it to this list. Each is capped small so the row stays a
-              strip of moments rather than one large picture. */}
+              side at one height, each at its own width, so no one is cropped
+              out. On a phone the row wraps; add a photo by adding it here. */}
           <div data-reveal data-reveal-delay="220" className="mx-auto mt-10 flex max-w-4xl flex-wrap justify-center gap-4 sm:mt-12">
             {[
-              { src: "/images/theone-couple.jpg", w: 585, h: 512 },
+              { src: "/images/theone-couple.jpg", w: 585, h: 512, alt: "Paar entdeckt TheONE POWER AI auf dem Smartphone" },
+              { src: "/images/theone-businessman.jpg", w: 585, h: 729, alt: "Geschäftsmann zeigt die TheONE SUPER APP" },
+              { src: "/images/theone-emirati.jpg", w: 585, h: 389, alt: "Zwei Emiratis mit TheONE POWER AI in Dubai" },
             ].map((photo) => (
               <Image
                 key={photo.src}
                 src={photo.src}
-                alt="TheONE SUPER APP mit TheONE POWER AI auf dem Smartphone"
+                alt={photo.alt}
                 width={photo.w}
                 height={photo.h}
                 priority
-                className="aspect-[585/512] w-[calc(50%-8px)] rounded-2xl object-cover shadow-[0_18px_40px_-22px_rgba(0,37,42,0.55)] ring-1 ring-[#005252]/10 lg:w-[calc(25%-12px)]"
+                className="h-[150px] w-auto rounded-2xl shadow-[0_18px_40px_-22px_rgba(0,37,42,0.55)] ring-1 ring-[#005252]/10 sm:h-[180px] lg:h-[210px]"
               />
             ))}
           </div>
