@@ -443,12 +443,19 @@ export function PreviewLanding() {
               {/* Set identically to the "YOUR WORLD. UNDERSTOOD." claim above:
                   same clamp, leading and tracking, so the page makes its two
                   big statements in one voice rather than two near-misses. */}
-              <h2 className="font-display text-[clamp(26px,6vw,52px)] font-bold leading-[1.15] tracking-[0.06em] text-[#0a2f34] lg:relative lg:left-1/2 lg:w-max lg:-translate-x-1/2 lg:whitespace-nowrap lg:text-[min(42px,3.6vw)]">
+              <h2 className="font-display text-[clamp(26px,6vw,52px)] font-bold leading-[1.15] tracking-[0.06em] text-[#0a2f34]">
                 {/* Two keys rather than one string split on the full stop:
                     German puts a comma inside its first line, and any rule
                     that finds the break by punctuation would cut it in the
                     wrong place. */}
-                <span className="block">{t("everythingLine1")}</span>
+                {/* Three lines: "EVERYTHING THAT" / "MATTERS TO YOU" / "IN ONE PLACE". */}
+                {t("everythingLine1")
+                  .split(/(?<=THAT) /)
+                  .map((part) => (
+                    <span key={part} className="block whitespace-nowrap">
+                      {part}
+                    </span>
+                  ))}
                 <span className="mt-1 block text-[#8a6420] sm:mt-2">
                   {t("everythingLine2")}
                 </span>
