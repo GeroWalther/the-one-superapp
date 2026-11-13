@@ -274,6 +274,19 @@ export function PreviewLanding() {
             ))}
           </h1>
 
+          {/* The app in use: a couple discovering TheONE POWER AI together.
+              The source is 585px wide, so it is capped there to stay sharp. */}
+          <div data-reveal data-reveal-delay="220" className="mx-auto mt-10 max-w-[560px] sm:mt-12">
+            <Image
+              src="/images/theone-couple.jpg"
+              alt="TheONE SUPER APP mit TheONE POWER AI auf dem Smartphone"
+              width={585}
+              height={512}
+              priority
+              className="h-auto w-full rounded-3xl shadow-[0_24px_50px_-24px_rgba(0,37,42,0.55)] ring-1 ring-[#005252]/10"
+            />
+          </div>
+
           {/* A hairline closing the masthead before the axis changes to the
               split below — without it the centred block and the left-aligned
               column read as one ragged run. */}
