@@ -1136,3 +1136,50 @@
     animation: none !important;
   }
 }
+
+/* A living light behind the masthead line: a soft petrol-and-gold glow under
+   the words whose colours circle slowly, like a small POWER AI vortex. Only
+   the gradient's angle turns, so the glow keeps its wide, low shape. */
+@property --glow-angle {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
+}
+.tagline-glow {
+  position: relative;
+  isolation: isolate;
+}
+.tagline-glow::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: min(620px, 96vw);
+  height: 190%;
+  translate: -50% -50%;
+  border-radius: 50%;
+  background: conic-gradient(
+    from var(--glow-angle),
+    rgba(79, 179, 191, 0.1) 0deg,
+    rgba(79, 179, 191, 0.65) 70deg,
+    rgba(230, 184, 73, 0.55) 140deg,
+    rgba(79, 179, 191, 0.1) 210deg,
+    rgba(0, 82, 82, 0.5) 290deg,
+    rgba(79, 179, 191, 0.1) 360deg
+  );
+  filter: blur(34px);
+  opacity: 0.8;
+  z-index: -1;
+  pointer-events: none;
+  animation: tagline-glow-spin 12s linear infinite;
+}
+@keyframes tagline-glow-spin {
+  to {
+    --glow-angle: 360deg;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .tagline-glow::before {
+    animation: none;
+  }
+}
