@@ -312,7 +312,11 @@ export function PreviewLanding() {
               <div className="card-brand mt-9 px-6 py-7 text-center sm:mt-10 sm:px-8">
                 <p className="text-balance font-sans text-[20px] font-semibold leading-snug tracking-[0.06em] text-[#0a2f34] sm:text-[23px]">
                   {/* Caps live in the message, so "TheONE" keeps its brand casing. */}
-                  {t("businessClaim")}
+                  {t("businessClaim").split("|").map((line) => (
+                    <span key={line} className="block">
+                      {line}
+                    </span>
+                  ))}
                 </p>
                 {/* German only: the longer pitch under the claim. */}
                 {t.has("businessText") && (
