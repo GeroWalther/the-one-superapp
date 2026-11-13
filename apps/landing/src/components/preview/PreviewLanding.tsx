@@ -367,6 +367,21 @@ export function PreviewLanding() {
             </div>
           </div>
 
+          {/* "Deine Wünsche. Deine Welt. Deine TheONE." under the phone, set as
+              live text from the supplied artwork. On wide screens it sits in
+              the phone's column (right), on phones it follows the device. */}
+          <div data-reveal className="mt-16 max-w-[560px] lg:ml-auto lg:mt-20">
+            <h2 className="font-sans text-[40px] font-medium leading-[1.08] tracking-[-0.02em] text-[#123b38] sm:text-[52px] lg:text-[56px]">
+              {t("wishes.line1")}
+              <br />
+              {t("wishes.line2")}
+              <br />
+              <span className="text-[#4a8a6e]">{t("wishes.line3")}</span>
+            </h2>
+            <p className="mt-8 text-[17px] leading-[1.7] text-[#3d5552] sm:text-[19px]">{t("wishes.p1")}</p>
+            <p className="mt-5 text-[15px] leading-[1.7] text-[#3d5552] sm:text-[17px]">{t("wishes.p2")}</p>
+          </div>
+
         </section>
 
         {/* --- 2. wordmark --------------------------------------------- */}

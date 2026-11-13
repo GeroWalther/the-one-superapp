@@ -102,8 +102,9 @@ export function Wordmark({
           height={146}
           unoptimized
           priority
-          style={{ height: compact ? 30 : 34, width: "auto" }}
-          className="block"
+          /* Smaller on phones so logo, language switch and menu fit in one
+             row at 375px without pushing the menu off screen. */
+          className={`block w-auto ${compact ? "h-[26px] sm:h-[30px]" : "h-[26px] sm:h-[34px]"}`}
         />
       )}
     </Link>

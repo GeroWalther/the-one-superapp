@@ -792,7 +792,14 @@
       "applyBody": "Der Zugang erfolgt ausschließlich auf Bewerbung. Bewerben Sie sich jetzt und werden Sie Teil von TheONE."
     },
     "everythingLine1": "EVERYTHING THAT MATTERS TO YOU",
-    "everythingLine2": "IN ONE PLACE"
+    "everythingLine2": "IN ONE PLACE",
+    "wishes": {
+      "line1": "Deine Wünsche.",
+      "line2": "Deine Welt.",
+      "line3": "Deine TheONE.",
+      "p1": "TheONE POWER AI versteht dich. Deine Wünsche, Ziele und persönlichen Prioritäten stehen im Mittelpunkt.",
+      "p2": "Wir verbinden dich gezielt mit einer ausgewählten Premium-Welt und den richtigen Partnern."
+    }
   },
   "giveaway": {
     "eyebrow": "Weihnachtsverlosung 2026",
