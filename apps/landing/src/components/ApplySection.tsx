@@ -19,9 +19,13 @@ export function ApplySection({ inviteCode }: { inviteCode?: string }) {
     <section id="apply" className="scroll-mt-24 py-20 sm:py-24">
       <div className="mx-auto max-w-2xl px-6 lg:px-8">
         <div data-reveal className="text-center">
-          <p className="font-display text-[22px] font-medium tracking-[0.02em] text-[#004444] sm:text-[26px]">
-            {tBrand("brandName")}
-          </p>
+          {/* The name as the logo's own lettering (the artwork, never a font),
+              in the dark petrol green through a mask. */}
+          <span
+            role="img"
+            aria-label={tBrand("brandName")}
+            className="mx-auto block aspect-[397/146] h-[56px] bg-[#1a626b] [mask-image:url(/images/theone-wordmark.png)] [mask-position:center] [mask-repeat:no-repeat] [mask-size:contain] sm:h-[72px]"
+          />
           {/* The claim is set the way the page's other claims are — caps,
               tracked out, in the dark petrol — so it reads as the brand
               speaking rather than as a subtitle to the wordmark. */}
