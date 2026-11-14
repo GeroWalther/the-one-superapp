@@ -25,7 +25,7 @@ export function ApplySection({ inviteCode }: { inviteCode?: string }) {
           <p className="font-display text-[clamp(21px,5.73vw,30.9px)] font-bold tracking-[0.05em] text-[#000f11] [-webkit-text-stroke:0.6px_currentColor]">
             {tBrand("brandClaim")}
           </p>
-          <p className="mx-auto mt-5 max-w-xl text-pretty text-[15.75px] font-medium leading-[1.7] text-[#052226] sm:text-[17.85px]">
+          <p className="mx-auto mt-3 max-w-xl text-pretty text-[15.75px] font-medium leading-[1.7] text-[#052226] sm:text-[17.85px]">
             {/* Its own line, not brandBody: that one already closes the
                 What-is section above, and repeating it word for word read as
                 filler. */}
