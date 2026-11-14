@@ -83,14 +83,14 @@ export function PositioningSection() {
                 The scene-setting paragraph above it is not gone from the site:
                 the about page still opens with `intro`, which is why the key
                 stays in the message files. */}
-            <p className="msg-line mx-auto max-w-2xl text-pretty font-display text-[20px] font-medium leading-[1.55] text-white sm:text-[27px]">
+            <p className="msg-line mx-auto max-w-2xl text-pretty font-sans text-[17px] font-medium leading-[1.65] text-white sm:text-[22px]">
               {t.rich("intro2", {
                 /* The one phrase the client wants picked out, set in the
                    brand gold so it lifts off the petrol without breaking the
                    line. The tag lives in the message file because the phrase
                    sits in a different place in each locale. */
                 gold: (chunks) => (
-                  <span className="text-gold-gradient text-[24px] font-semibold sm:text-[33px]">
+                  <span className="text-gold-gradient text-[18.5px] font-semibold sm:text-[24px]">
                     {chunks}
                   </span>
                 ),
