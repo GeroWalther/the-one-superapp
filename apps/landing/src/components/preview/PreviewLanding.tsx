@@ -274,7 +274,7 @@ export function PreviewLanding() {
               <div className="card-brand mt-9 px-6 py-7 text-center sm:mt-10 sm:px-8 lg:[zoom:1.05]">
                 {/* Set like "TheONE POWER AI UNDERSTANDS YOU": the display face in
                     bold tracked caps, with "TheONE" as the logo's own lettering. */}
-                <p className="text-balance font-display text-[24px] font-bold leading-snug tracking-[0.05em] text-[#004444] sm:text-[28px]">
+                <p className="text-balance font-display text-[24px] font-bold leading-snug tracking-[0.05em] text-[#000f11] sm:text-[28px]">
                   {t("businessClaim").split("|").map((line) => (
                     <span key={line} className="block">
                       {line.startsWith("TheONE") ? (
