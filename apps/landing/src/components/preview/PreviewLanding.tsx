@@ -143,13 +143,13 @@ export function PreviewLanding() {
 
       <div className="relative">
         {/* --- 1. split hero ------------------------------------------- */}
-        <section className="mx-auto max-w-6xl px-6 pb-16 pt-12 sm:pb-20 sm:pt-16 lg:max-w-4xl lg:px-8 lg:pb-24 lg:pt-24">
+        <section className="mx-auto max-w-6xl px-6 pb-16 pt-[88px] sm:pb-20 lg:max-w-4xl lg:px-8 lg:pb-24">
           {/* The mark, the claim and the tagline are one centred masthead;
               the split below then breaks the axis deliberately. The stagger
               runs top-down — 0, 120, 200, 280 — so the eye is led rather than
               having the tagline arrive before the line above it, which is what
               the old 120/40 pairing did. */}
-          <div data-reveal className="flex justify-center pt-9 lg:pt-11">
+          <div data-reveal className="flex justify-center">
             <div className="float-slow relative">
               <div
                 aria-hidden="true"
