@@ -231,8 +231,8 @@ export function PreviewLanding() {
             </h2>
             <p className="-mx-3 mt-2 text-[15px] leading-[1.55] text-[var(--petrol-900)] sm:mx-0 sm:text-[18px] sm:leading-[1.7]">
               {t("askLine1")}
-              {" "}<span className="sm:block">{t.rich("askLine2", { b: (c) => <strong className="font-semibold">{c}</strong> })}</span>
-              {" "}<span className="sm:block">{t.rich("askLine3", { b: (c) => <strong className="font-semibold">{c}</strong> })}</span>
+              {" "}<span className="sm:block">{t.rich("askLine2", { b: (c) => <strong className="font-semibold text-[#8a6420]">{c}</strong> })}</span>
+              {" "}<span className="sm:block">{t.rich("askLine3", { b: (c) => <strong className="font-semibold text-[#8a6420]">{c}</strong> })}</span>
             </p>
           </div>
 
