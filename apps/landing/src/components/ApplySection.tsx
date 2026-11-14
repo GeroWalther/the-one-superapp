@@ -19,13 +19,10 @@ export function ApplySection({ inviteCode }: { inviteCode?: string }) {
     <section id="apply" className="scroll-mt-24 py-20 sm:py-24">
       <div className="mx-auto max-w-2xl px-6 lg:px-8">
         <div data-reveal className="text-center">
-          <p className="font-display text-[22px] font-medium tracking-[0.02em] text-[#004444] sm:text-[26px]">
-            {tBrand("brandName")}
-          </p>
           {/* The claim is set the way the page's other claims are — caps,
               tracked out, in the dark petrol — so it reads as the brand
               speaking rather than as a subtitle to the wordmark. */}
-          <p className="mt-3 font-display text-[clamp(19px,5.2vw,28px)] font-bold tracking-[0.05em] text-[#004444]">
+          <p className="font-display text-[clamp(20px,5.46vw,29.4px)] font-bold tracking-[0.05em] text-[#004444]">
             {tBrand("brandClaim")}
           </p>
           <p className="mx-auto mt-5 max-w-xl text-pretty text-[15.75px] font-medium leading-[1.7] text-[#052226] sm:text-[17.85px]">
