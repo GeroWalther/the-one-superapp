@@ -235,7 +235,18 @@ export function PreviewLanding() {
                 aria-label="TheONE"
                 className="mr-[0.28em] inline-block aspect-[397/76] h-[0.74em] bg-current align-[-0.02em] [mask-image:url(/images/theone-word.png)] [mask-position:center] [mask-repeat:no-repeat] [mask-size:contain]"
               />
-              {t("uniqueTitle").replace(/^TheONE\s*/, "")}
+              {(() => {
+                /* "POWER AI" stays petrol; what follows it is the gold accent,
+                   the same pattern as THE INFRASTRUCTURE / FOR A BETTER LIFE. */
+                const rest = t("uniqueTitle").replace(/^TheONE\s*/, "");
+                const cut = rest.indexOf("POWER AI") + "POWER AI".length;
+                return (
+                  <>
+                    {rest.slice(0, cut)}{" "}
+                    <span className="text-[#8a6420]">{rest.slice(cut).trim()}</span>
+                  </>
+                );
+              })()}
             </h2>
             <h3 className="mt-4 font-display text-[22px] font-bold uppercase leading-[1.3] tracking-[0.02em] text-[#00252a] sm:text-[24px] sm:tracking-[0.05em] lg:text-[28px]">
               {t("askTitle")}
