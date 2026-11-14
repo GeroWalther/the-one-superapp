@@ -187,13 +187,11 @@ export function WhatIsSection() {
           style={{ borderColor: "rgba(13,80,88,0.7)" }}
         >
           {/* The name as the logo's own lettering (the artwork, never a font),
-              turned white for the petrol ground. */}
-          <Image
-            src="/images/theone-wordmark.png"
-            alt={t("brandName")}
-            width={397}
-            height={146}
-            className="mx-auto h-[64px] w-auto [filter:brightness(0)_invert(1)] sm:h-[84px]"
+              coloured through a mask so it can take any brand tone. */}
+          <span
+            role="img"
+            aria-label={t("brandName")}
+            className="mx-auto block aspect-[397/146] h-[64px] bg-[#1a626b] [mask-image:url(/images/theone-wordmark.png)] [mask-position:center] [mask-repeat:no-repeat] [mask-size:contain] sm:h-[84px]"
           />
           <p
             className="mt-4 font-display text-[22px] font-bold tracking-[0.14em] sm:text-[30px]"
