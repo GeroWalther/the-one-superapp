@@ -75,23 +75,16 @@ export function Wordmark({
       </span>
 
       {light ? (
-        <span className="flex flex-col leading-none">
-          <span
-            className={`font-display leading-none tracking-[0.04em] ${
-              large ? "text-[30px]" : "text-[20px]"
-            } text-gold-gradient`}
-          >
-            <span className="font-light">The</span>
-            <span className="font-semibold">ONE</span>
-          </span>
-          <span
-            className={`mt-[3px] font-semibold uppercase tracking-[0.3em] ${
-              large ? "text-[11.5px]" : "text-[8px]"
-            } text-gold-gradient`}
-          >
-            Super App
-          </span>
-        </span>
+        /* Footer: the same lettering as the header (the wordmark cut from
+           the hero lockup, "SUPER APP" centred under "TheONE"), never re-set
+           in a font. The artwork is used as a mask so it can take the gold
+           gradient on the dark ground. */
+        <span
+          aria-hidden="true"
+          className={`block aspect-[397/146] bg-[linear-gradient(100deg,#b8914a_0%,#e3bf72_45%,#f2dda4_100%)] [mask-image:url(/images/theone-wordmark.png)] [mask-position:center] [mask-repeat:no-repeat] [mask-size:contain] ${
+            large ? "h-[52px]" : "h-[34px]"
+          }`}
+        />
       ) : (
         /* Header: the wordmark cut from the hero lockup itself, so the name
            next to the icon is the exact same lettering as the logo. */
