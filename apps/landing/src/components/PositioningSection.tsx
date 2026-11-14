@@ -42,7 +42,22 @@ export function PositioningSection() {
              most of the section's gutter on a phone. */
           className="-mx-4 font-display text-[clamp(23.4px,8.1vw,46.8px)] font-bold leading-[1.2] tracking-[0.05em] text-[#004444] sm:mx-0 sm:whitespace-nowrap sm:text-[min(4.23vw,30.6px)]"
         >
-          <span className="block whitespace-nowrap sm:inline">{titleHead}</span>{" "}
+          <span className="block whitespace-nowrap sm:inline">
+            {titleHead.startsWith("TheONE") ? (
+              <>
+                {/* "TheONE" as the logo's own lettering (the artwork, never a
+                    font), tinted to the heading colour through a mask. */}
+                <span
+                  role="img"
+                  aria-label="TheONE"
+                  className="mr-[0.28em] inline-block aspect-[397/76] h-[0.74em] bg-current align-[-0.02em] [mask-image:url(/images/theone-word.png)] [mask-position:center] [mask-repeat:no-repeat] [mask-size:contain]"
+                />
+                {titleHead.slice("TheONE".length).trim()}
+              </>
+            ) : (
+              titleHead
+            )}
+          </span>{" "}
           <span className="block whitespace-nowrap sm:inline">{titleTail}</span>
         </h2>
 
