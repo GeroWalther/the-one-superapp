@@ -71,7 +71,7 @@ export function PositioningSection() {
         <div
           data-reveal
           data-reveal-delay="80"
-          className="msg-halo mt-10 sm:mt-12"
+          className="msg-halo mt-8 sm:mt-10"
         >
           <div className="msg-panel rounded-3xl bg-[#004444] px-6 py-10 sm:px-12 sm:py-14">
             {/* One paragraph, opening on the phrase the client wants read
