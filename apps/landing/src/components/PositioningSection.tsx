@@ -40,7 +40,7 @@ export function PositioningSection() {
              font-size to set on one line, so 4.7vw is the largest that always
              fits), capped at 34px. -mx-4 gives back
              most of the section's gutter on a phone. */
-          className="-mx-4 font-display text-[clamp(23.4px,8.1vw,46.8px)] font-bold leading-[1.2] tracking-[0.05em] text-[#004444] [-webkit-text-stroke:0.6px_currentColor] sm:mx-0 sm:whitespace-nowrap sm:text-[min(4.23vw,30.6px)]"
+          className="relative z-[1] -mx-4 font-sans text-[clamp(23.4px,8.1vw,46.8px)] font-bold leading-[1.2] tracking-[0.05em] text-[#004444] sm:mx-0 sm:whitespace-nowrap sm:text-[min(4.23vw,30.6px)]"
         >
           <span className="block whitespace-nowrap sm:inline">
             {titleHead.startsWith("TheONE") ? (
@@ -71,7 +71,7 @@ export function PositioningSection() {
         <div
           data-reveal
           data-reveal-delay="80"
-          className="msg-halo mt-10 sm:mt-12"
+          className="msg-halo mt-8 sm:mt-10"
         >
           <div className="msg-panel rounded-3xl bg-[#004444] px-6 py-10 sm:px-12 sm:py-14">
             {/* One paragraph, opening on the phrase the client wants read
@@ -83,14 +83,14 @@ export function PositioningSection() {
                 The scene-setting paragraph above it is not gone from the site:
                 the about page still opens with `intro`, which is why the key
                 stays in the message files. */}
-            <p className="msg-line mx-auto max-w-2xl text-pretty font-display text-[20px] font-medium leading-[1.55] text-white sm:text-[27px]">
+            <p className="msg-line mx-auto max-w-2xl text-pretty font-sans text-[17px] font-medium leading-[1.65] text-white sm:text-[22px]">
               {t.rich("intro2", {
                 /* The one phrase the client wants picked out, set in the
                    brand gold so it lifts off the petrol without breaking the
                    line. The tag lives in the message file because the phrase
                    sits in a different place in each locale. */
                 gold: (chunks) => (
-                  <span className="text-gold-gradient text-[24px] font-semibold sm:text-[33px]">
+                  <span className="text-gold-gradient text-[18.5px] font-semibold sm:text-[24px]">
                     {chunks}
                   </span>
                 ),

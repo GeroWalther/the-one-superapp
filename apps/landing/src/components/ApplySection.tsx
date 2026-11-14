@@ -18,7 +18,7 @@ export function ApplySection({ inviteCode }: { inviteCode?: string }) {
   return (
     <section id="apply" className="scroll-mt-24 pb-20 pt-16 sm:pb-24 sm:pt-20">
       <div className="mx-auto max-w-2xl px-6 lg:px-8">
-        <div data-reveal className="text-center">
+        <div data-reveal className="relative z-[1] text-center">
           {/* The claim is set the way the page's other claims are — caps,
               tracked out, in black, with a hairline stroke because the face stops at 700 — so it reads as the brand
               speaking rather than as a subtitle to the wordmark. */}
