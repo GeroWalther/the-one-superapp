@@ -16,7 +16,7 @@ export function ApplySection({ inviteCode }: { inviteCode?: string }) {
   const tBrand = useTranslations("preview.about");
 
   return (
-    <section id="apply" className="scroll-mt-24 py-20 sm:py-24">
+    <section id="apply" className="scroll-mt-24 pb-20 pt-16 sm:pb-24 sm:pt-20">
       <div className="mx-auto max-w-2xl px-6 lg:px-8">
         <div data-reveal className="text-center">
           {/* The claim is set the way the page's other claims are — caps,

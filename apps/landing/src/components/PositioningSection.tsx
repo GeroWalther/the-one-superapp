@@ -24,7 +24,7 @@ export function PositioningSection() {
     splitAt === -1 ? "" : title.slice(splitAt + TITLE_TERM.length).trim();
 
   return (
-    <section className="relative py-16 sm:py-20">
+    <section className="relative pb-6 pt-16 sm:pb-8 sm:pt-20">
       <div className="mx-auto max-w-3xl px-6 text-center lg:px-8">
         {/* The claim stays English in the German build, as the page's other
             claims do — "YOUR WORLD YOUR MATCH", "ONE WORLD ONE POWER AI". */}
