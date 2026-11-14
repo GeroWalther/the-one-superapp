@@ -82,7 +82,7 @@ struct DiscoverView: View {
                         Text(model.savedOnly
                              ? "Nothing saved yet."
                              : "No business partners match this search.")
-                            .font(.system(size: 14))
+                            .font(.sans(14))
                             .foregroundStyle(Theme.inkSoft)
                             .padding(.top, 40)
                     }
@@ -133,7 +133,7 @@ struct DiscoverView: View {
     private func chip(_ label: String, active: Bool, action: @escaping () -> Void) -> some View {
         Button(action: action) {
             Text(label)
-                .font(.system(size: 13, weight: active ? .semibold : .regular))
+                .font(.sans(13, active ? .semibold : .regular))
                 .foregroundStyle(active ? Theme.onAccent : Theme.inkSoft)
                 .padding(.horizontal, 14)
                 .padding(.vertical, 7)
@@ -153,15 +153,15 @@ struct PartnerRow: View {
         HStack(alignment: .top, spacing: 12) {
             VStack(alignment: .leading, spacing: 4) {
                 Text(partner.name)
-                    .font(.system(size: 16, weight: .medium))
+                    .font(.sans(16, .medium))
                     .foregroundStyle(Theme.ink)
 
                 Text("\(partner.city), \(partner.country)")
-                    .font(.system(size: 12.5))
+                    .font(.sans(12.5))
                     .foregroundStyle(Theme.inkFaint)
 
                 Text(partner.description)
-                    .font(.system(size: 13))
+                    .font(.sans(13))
                     .foregroundStyle(Theme.inkSoft)
                     .lineLimit(2)
                     .padding(.top, 2)
@@ -171,7 +171,7 @@ struct PartnerRow: View {
 
             Button(action: onToggleSaved) {
                 Image(systemName: partner.saved ? "bookmark.fill" : "bookmark")
-                    .font(.system(size: 16))
+                    .font(.sans(16))
                     .foregroundStyle(partner.saved ? Theme.aqua : Theme.inkFaint)
             }
             .buttonStyle(.plain)

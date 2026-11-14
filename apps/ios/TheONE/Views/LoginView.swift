@@ -19,18 +19,18 @@ struct LoginView: View {
                     .padding(.top, 16)
 
                 Text("MEMBERS & BUSINESS PARTNERS")
-                    .font(.system(size: 10, weight: .semibold))
+                    .font(.sans(10, .semibold))
                     .tracking(3)
                     .foregroundStyle(Theme.aqua)
                     .padding(.top, 34)
 
                 Text("Sign in")
-                    .font(.system(size: 32, weight: .light, design: .serif))
+                    .font(.serif(32, .light))
                     .foregroundStyle(Theme.ink)
                     .padding(.top, 8)
 
                 Text("Only live accounts can use the app.")
-                    .font(.system(size: 14))
+                    .font(.sans(14))
                     .foregroundStyle(Theme.inkSoft)
                     .padding(.top, 6)
 
@@ -67,7 +67,7 @@ struct LoginView: View {
 
                     if let error = session.signInError {
                         Text(error)
-                            .font(.system(size: 13))
+                            .font(.sans(13))
                             .foregroundStyle(Color(red: 0.95, green: 0.45, blue: 0.45))
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .padding(.horizontal, 2)
@@ -87,14 +87,14 @@ struct LoginView: View {
 
                 VStack(spacing: 10) {
                     Text("Not a member yet?")
-                        .font(.system(size: 13))
+                        .font(.sans(13))
                         .foregroundStyle(Theme.inkFaint)
 
                     // Enrolment is a long, reviewed form with payment at the
                     // end, so it lives on the web rather than being rebuilt
                     // here where it would immediately drift.
                     Link("Apply for access", destination: enrolURL)
-                        .font(.system(size: 14, weight: .medium))
+                        .font(.sans(14, .medium))
                         .foregroundStyle(Theme.aqua)
                 }
                 .padding(.top, 26)
@@ -114,10 +114,10 @@ struct LoginView: View {
     ) -> some View {
         VStack(alignment: .leading, spacing: 7) {
             Text(label)
-                .font(.system(size: 13, weight: .medium))
+                .font(.sans(13, .medium))
                 .foregroundStyle(Theme.ink)
             content()
-                .font(.system(size: 16))
+                .font(.sans(16))
                 .foregroundStyle(Theme.ink)
                 .padding(.horizontal, 14)
                 .padding(.vertical, 12)

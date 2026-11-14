@@ -121,7 +121,7 @@ struct AssistantView: View {
 
                 if let error = model.error {
                     Text(error)
-                        .font(.system(size: 13))
+                        .font(.sans(13))
                         .foregroundStyle(Color(red: 0.95, green: 0.45, blue: 0.45))
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .padding(.horizontal, 18)
@@ -181,11 +181,11 @@ struct AssistantView: View {
     private var intro: some View {
         VStack(alignment: .leading, spacing: 12) {
             Text("Ask me anything")
-                .font(.system(size: 26, weight: .light, design: .serif))
+                .font(.serif(26, .light))
                 .foregroundStyle(Theme.ink)
 
             Text("I know TheONE's verified business partners and what you told us when you applied. Tell me what you need — or just describe the problem.")
-                .font(.system(size: 14))
+                .font(.sans(14))
                 .foregroundStyle(Theme.inkSoft)
 
             VStack(alignment: .leading, spacing: 8) {
@@ -198,7 +198,7 @@ struct AssistantView: View {
                         model.draft = example
                     } label: {
                         Text(example)
-                            .font(.system(size: 13.5))
+                            .font(.sans(13.5))
                             .foregroundStyle(Theme.aquaSoft)
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .padding(.horizontal, 14)
@@ -236,7 +236,7 @@ struct AssistantView: View {
                 }
             } label: {
                 Image(systemName: speech.isListening ? "waveform.circle.fill" : "mic")
-                    .font(.system(size: 21))
+                    .font(.sans(21))
                     .foregroundStyle(speech.isListening ? Theme.aqua : Theme.inkSoft)
                     .frame(width: 42, height: 42)
                     .background(Circle().fill(Theme.paperSoft))
@@ -245,7 +245,7 @@ struct AssistantView: View {
 
             TextField("Message", text: $model.draft, axis: .vertical)
                 .lineLimit(1...5)
-                .font(.system(size: 16))
+                .font(.sans(16))
                 .foregroundStyle(Theme.ink)
                 .padding(.horizontal, 14)
                 .padding(.vertical, 11)
@@ -268,7 +268,7 @@ struct AssistantView: View {
                 }
             } label: {
                 Image(systemName: "arrow.up")
-                    .font(.system(size: 17, weight: .semibold))
+                    .font(.sans(17, .semibold))
                     .foregroundStyle(Theme.onAccent)
                     .frame(width: 42, height: 42)
                     .background(Circle().fill(Theme.aqua))
@@ -292,14 +292,14 @@ private struct TurnBubble: View {
                 HStack(spacing: 6) {
                     ProgressView().controlSize(.mini).tint(Theme.aqua)
                     Text(label(for: tool))
-                        .font(.system(size: 12))
+                        .font(.sans(12))
                         .foregroundStyle(Theme.aqua)
                 }
             }
 
             if !turn.text.isEmpty {
                 Text(turn.text)
-                    .font(.system(size: 15.5))
+                    .font(.sans(15.5))
                     .foregroundStyle(turn.role == .user ? Theme.onAccent : Theme.ink)
                     .padding(.horizontal, 14)
                     .padding(.vertical, 11)

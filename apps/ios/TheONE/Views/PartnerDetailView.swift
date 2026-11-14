@@ -14,27 +14,27 @@ struct PartnerDetailView: View {
                 VStack(alignment: .leading, spacing: 18) {
                     VStack(alignment: .leading, spacing: 6) {
                         Text(partner.name)
-                            .font(.system(size: 27, weight: .light, design: .serif))
+                            .font(.serif(27, .light))
                             .foregroundStyle(Theme.ink)
                         Text([partner.street, partner.postalCode, partner.city, partner.country]
                             .compactMap { $0 }
                             .joined(separator: ", "))
-                            .font(.system(size: 13))
+                            .font(.sans(13))
                             .foregroundStyle(Theme.inkFaint)
                     }
 
                     Text(partner.description)
-                        .font(.system(size: 15))
+                        .font(.sans(15))
                         .foregroundStyle(Theme.inkSoft)
 
                     if let clientele = partner.targetClientele, !clientele.isEmpty {
                         VStack(alignment: .leading, spacing: 5) {
                             Text("TYPICAL CLIENTS")
-                                .font(.system(size: 10, weight: .semibold))
+                                .font(.sans(10, .semibold))
                                 .tracking(2)
                                 .foregroundStyle(Theme.aqua)
                             Text(clientele)
-                                .font(.system(size: 14))
+                                .font(.sans(14))
                                 .foregroundStyle(Theme.inkSoft)
                         }
                     }
@@ -60,7 +60,7 @@ struct PartnerDetailView: View {
 
                     if let error {
                         Text(error)
-                            .font(.system(size: 13))
+                            .font(.sans(13))
                             .foregroundStyle(Color(red: 0.95, green: 0.45, blue: 0.45))
                     }
                 }
@@ -82,11 +82,11 @@ struct PartnerDetailView: View {
     private func contactRow(_ icon: String, _ label: String, url: URL?) -> some View {
         HStack(spacing: 12) {
             Image(systemName: icon)
-                .font(.system(size: 13))
+                .font(.sans(13))
                 .foregroundStyle(Theme.aqua)
                 .frame(width: 22)
             Text(label)
-                .font(.system(size: 14.5))
+                .font(.sans(14.5))
                 .foregroundStyle(Theme.ink)
             Spacer()
         }
