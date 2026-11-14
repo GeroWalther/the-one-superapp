@@ -249,7 +249,7 @@ export function WhatIsSection() {
               <Building2 className="h-5 w-5 text-white" strokeWidth={1.6} />
             </span>
 
-            <h3 className="mt-7 text-balance font-display text-[30px] font-semibold leading-[1.1] tracking-[-0.01em] text-[#000f11] sm:text-[36px]">
+            <h3 className="mt-7 text-balance font-display text-[31.5px] font-semibold leading-[1.1] tracking-[-0.01em] text-[#000f11] sm:text-[37.8px]">
               {t("partnerTitle")}
             </h3>
             <p className="mt-4 text-[16.8px] font-semibold text-[#005252] sm:text-[17.85px]">
