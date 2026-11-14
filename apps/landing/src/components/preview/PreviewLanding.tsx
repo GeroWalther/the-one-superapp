@@ -228,7 +228,7 @@ export function PreviewLanding() {
           {/* The invitation in the same dark petrol panel as "Ihre persönliche
               POWER AI": it lands, breathes and a halo turns behind it. */}
           <div data-reveal data-reveal-delay="240" className="msg-halo mx-auto mt-10 max-w-2xl sm:mt-12 lg:max-w-[640px]">
-            <div className="msg-panel rounded-3xl before:opacity-35 bg-[#0a2f34] px-6 py-10 text-center sm:px-12 sm:py-12 lg:px-10 lg:py-8">
+            <div className="msg-panel rounded-3xl before:opacity-35 bg-[#17535c] px-6 py-10 text-center sm:px-12 sm:py-12 lg:px-10 lg:py-8">
               <h2 className="text-gold-gradient font-display text-[28px] font-semibold leading-tight sm:text-[34px]">
                 {t("askTitle")}
               </h2>
