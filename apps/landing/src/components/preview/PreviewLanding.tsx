@@ -225,15 +225,19 @@ export function PreviewLanding() {
 
           {/* Under the photos: the invitation, first to members, then to
               business partners. */}
-          <div data-reveal data-reveal-delay="240" className="mx-auto mt-10 max-w-2xl text-center sm:mt-12">
-            <h2 className="font-display text-[28px] font-semibold leading-tight text-[var(--petrol-900)] sm:text-[34px]">
-              {t("askTitle")}
-            </h2>
-            <p className="mt-2 text-pretty text-[16px] leading-[1.7] text-[var(--petrol-900)] sm:text-[18px]">
-              {t("askLine1")}
-              <span className="block">{t.rich("askLine2", { b: (c) => <strong className="font-semibold">{c}</strong> })}</span>
-              <span className="block">{t.rich("askLine3", { b: (c) => <strong className="font-semibold">{c}</strong> })}</span>
-            </p>
+          {/* The invitation in the same dark petrol panel as "Ihre persönliche
+              POWER AI": it lands, breathes and a halo turns behind it. */}
+          <div data-reveal data-reveal-delay="240" className="msg-halo mx-auto mt-10 max-w-2xl sm:mt-12 lg:max-w-[640px]">
+            <div className="msg-panel rounded-3xl before:opacity-35 bg-[#17535c] px-6 py-10 text-center sm:px-12 sm:py-12 lg:px-10 lg:py-8">
+              <h2 className="text-gold-gradient font-display text-[28px] font-semibold leading-tight sm:text-[34px]">
+                {t("askTitle")}
+              </h2>
+              <p className="mt-3 text-pretty text-[16px] leading-[1.7] text-white/90 sm:text-[18px]">
+                {t("askLine1")}
+                <span className="block">{t.rich("askLine2", { b: (c) => <strong className="font-semibold text-white">{c}</strong> })}</span>
+                <span className="block">{t.rich("askLine3", { b: (c) => <strong className="font-semibold text-white">{c}</strong> })}</span>
+              </p>
+            </div>
           </div>
 
           {/* A hairline closing the masthead before the axis changes to the
