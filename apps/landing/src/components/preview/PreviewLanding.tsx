@@ -226,7 +226,7 @@ export function PreviewLanding() {
           {/* Under the photos: the invitation, first to members, then to
               business partners. */}
           <div data-reveal data-reveal-delay="240" className="mx-auto mt-10 max-w-2xl text-center sm:mt-12">
-            <h2 className="font-display text-[28px] font-semibold leading-tight text-[#8a6420] sm:text-[34px]">
+            <h2 className="font-display text-[22px] font-bold uppercase leading-[1.3] tracking-[0.04em] text-[#8a6420] sm:text-[24px] sm:tracking-[0.08em] lg:text-[28px]">
               {t("askTitle")}
             </h2>
             <p className="-mx-3 mt-2 text-[15px] leading-[1.7] text-[var(--petrol-900)] sm:mx-0 sm:text-[18px]">
