@@ -20,9 +20,9 @@ export function ApplySection({ inviteCode }: { inviteCode?: string }) {
       <div className="mx-auto max-w-2xl px-6 lg:px-8">
         <div data-reveal className="text-center">
           {/* The claim is set the way the page's other claims are — caps,
-              tracked out, in the gold of the claim in the dark section above — so it reads as the brand
+              tracked out, in black, with a hairline stroke because the face stops at 700 — so it reads as the brand
               speaking rather than as a subtitle to the wordmark. */}
-          <p className="font-display text-[clamp(21px,5.73vw,30.9px)] font-bold tracking-[0.14em] text-[#e6b849]">
+          <p className="font-display text-[clamp(21px,5.73vw,30.9px)] font-bold tracking-[0.05em] text-[#000f11] [-webkit-text-stroke:0.6px_currentColor]">
             {tBrand("brandClaim")}
           </p>
           <p className="mx-auto mt-5 max-w-xl text-pretty text-[15.75px] font-medium leading-[1.7] text-[#052226] sm:text-[17.85px]">
