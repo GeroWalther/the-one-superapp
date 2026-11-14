@@ -40,7 +40,7 @@ export function PositioningSection() {
              font-size to set on one line, so 4.7vw is the largest that always
              fits), capped at 34px. -mx-4 gives back
              most of the section's gutter on a phone. */
-          className="-mx-4 font-display text-[clamp(23.4px,8.1vw,46.8px)] font-bold leading-[1.2] tracking-[0.05em] text-[#004444] [-webkit-text-stroke:0.6px_currentColor] sm:mx-0 sm:whitespace-nowrap sm:text-[min(4.23vw,30.6px)]"
+          className="relative z-[1] -mx-4 font-sans text-[clamp(23.4px,8.1vw,46.8px)] font-bold leading-[1.2] tracking-[0.05em] text-[#004444] sm:mx-0 sm:whitespace-nowrap sm:text-[min(4.23vw,30.6px)]"
         >
           <span className="block whitespace-nowrap sm:inline">
             {titleHead.startsWith("TheONE") ? (
