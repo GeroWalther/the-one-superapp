@@ -252,7 +252,7 @@ export function WhatIsSection() {
             <h3 className="mt-7 text-balance font-display text-[30px] font-semibold leading-[1.1] tracking-[-0.01em] text-[#000f11] sm:text-[36px]">
               {t("partnerTitle")}
             </h3>
-            <p className="mt-4 text-[16px] font-semibold text-[#005252] sm:text-[17px]">
+            <p className="mt-4 text-[16.8px] font-semibold text-[#005252] sm:text-[17.85px]">
               {t("partnerLead")}
             </p>
 
@@ -269,7 +269,7 @@ export function WhatIsSection() {
             />
 
             {/* Two columns from lg, so the four paragraphs read as two pairs. */}
-            <div className="mt-8 gap-x-12 text-[15px] leading-[1.8] text-[#37414d] sm:text-[16px] ">
+            <div className="mt-8 gap-x-12 text-[15.75px] leading-[1.8] text-[#37414d] sm:text-[16.8px]">
               {partnerBody.map(({ key, line }) => (
                 <p key={key} className="mb-5 break-inside-avoid text-pretty">
                   {line}

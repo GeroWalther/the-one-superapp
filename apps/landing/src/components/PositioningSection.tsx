@@ -42,7 +42,22 @@ export function PositioningSection() {
              most of the section's gutter on a phone. */
           className="-mx-4 font-display text-[clamp(23.4px,8.1vw,46.8px)] font-bold leading-[1.2] tracking-[0.05em] text-[#004444] sm:mx-0 sm:whitespace-nowrap sm:text-[min(4.23vw,30.6px)]"
         >
-          <span className="block whitespace-nowrap sm:inline">{titleHead}</span>{" "}
+          <span className="block whitespace-nowrap sm:inline">
+            {titleHead.startsWith("TheONE") ? (
+              <>
+                {/* "TheONE" as the logo's own lettering (the artwork, never a
+                    font), tinted to the heading colour through a mask. */}
+                <span
+                  role="img"
+                  aria-label="TheONE"
+                  className="mr-[0.28em] inline-block aspect-[397/76] h-[0.74em] bg-current align-[-0.02em] [mask-image:url(/images/theone-word.png)] [mask-position:center] [mask-repeat:no-repeat] [mask-size:contain]"
+                />
+                {titleHead.slice("TheONE".length).trim()}
+              </>
+            ) : (
+              titleHead
+            )}
+          </span>{" "}
           <span className="block whitespace-nowrap sm:inline">{titleTail}</span>
         </h2>
 
@@ -68,14 +83,14 @@ export function PositioningSection() {
                 The scene-setting paragraph above it is not gone from the site:
                 the about page still opens with `intro`, which is why the key
                 stays in the message files. */}
-            <p className="msg-line mx-auto max-w-2xl text-pretty text-[17.8px] leading-[1.7] text-white sm:text-[24.2px]">
+            <p className="msg-line mx-auto max-w-2xl text-pretty font-display text-[20px] font-medium leading-[1.55] text-white sm:text-[27px]">
               {t.rich("intro2", {
                 /* The one phrase the client wants picked out, set in the
                    brand gold so it lifts off the petrol without breaking the
                    line. The tag lives in the message file because the phrase
                    sits in a different place in each locale. */
                 gold: (chunks) => (
-                  <span className="text-gold-gradient text-[22px] font-medium sm:text-[30px]">
+                  <span className="text-gold-gradient text-[24px] font-semibold sm:text-[33px]">
                     {chunks}
                   </span>
                 ),

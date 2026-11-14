@@ -226,9 +226,20 @@ export function PreviewLanding() {
           {/* Under the photos: the invitation, first to members, then to
               business partners. */}
           <div data-reveal data-reveal-delay="240" className="mx-auto mt-10 max-w-2xl text-center sm:mt-12">
-            <h2 className="font-display text-[22px] font-bold uppercase leading-[1.3] tracking-[0.02em] text-[#00252a] sm:text-[24px] sm:tracking-[0.05em] lg:text-[28px]">
-              {t("askTitle")}
+            {/* The section's headline, set like "TheONE POWER AI UNDERSTANDS
+                YOU": "TheONE" in the logo's own lettering, the rest in bold
+                tracked caps. The question follows beneath it. */}
+            <h2 className="text-balance font-display text-[26px] font-bold leading-snug tracking-[0.05em] text-[#004444] sm:text-[30px] lg:text-[34px]">
+              <span
+                role="img"
+                aria-label="TheONE"
+                className="mr-[0.28em] inline-block aspect-[397/76] h-[0.74em] bg-current align-[-0.02em] [mask-image:url(/images/theone-word.png)] [mask-position:center] [mask-repeat:no-repeat] [mask-size:contain]"
+              />
+              {t("uniqueTitle").replace(/^TheONE\s*/, "")}
             </h2>
+            <h3 className="mt-4 font-display text-[22px] font-bold uppercase leading-[1.3] tracking-[0.02em] text-[#00252a] sm:text-[24px] sm:tracking-[0.05em] lg:text-[28px]">
+              {t("askTitle")}
+            </h3>
             <p className="-mx-3 mt-2 text-[15px] leading-[1.55] text-[var(--petrol-900)] sm:mx-0 sm:text-[18px] sm:leading-[1.7]">
               {t("askLine1")}
               {" "}<span className="sm:block">{t.rich("askLine2", { b: (c) => <strong className="font-semibold">{c}</strong> })}</span>
@@ -272,11 +283,23 @@ export function PreviewLanding() {
                   top) so the business pitch reads as one unit with the two
                   application cards below it. */}
               <div className="card-brand mt-9 px-6 py-7 text-center sm:mt-10 sm:px-8 lg:[zoom:1.05]">
-                <p className="text-balance font-sans text-[20px] font-semibold leading-snug tracking-[0.06em] text-[#0a2f34] sm:text-[23px]">
-                  {/* Caps live in the message, so "TheONE" keeps its brand casing. */}
+                {/* Set like "TheONE POWER AI UNDERSTANDS YOU": the display face in
+                    bold tracked caps, with "TheONE" as the logo's own lettering. */}
+                <p className="text-balance font-display text-[24px] font-bold leading-snug tracking-[0.05em] text-[#000f11] sm:text-[28px]">
                   {t("businessClaim").split("|").map((line) => (
                     <span key={line} className="block">
-                      {line}
+                      {line.startsWith("TheONE") ? (
+                        <>
+                          <span
+                            role="img"
+                            aria-label="TheONE"
+                            className="mr-[0.28em] inline-block aspect-[397/76] h-[0.74em] bg-current align-[-0.02em] [mask-image:url(/images/theone-word.png)] [mask-position:center] [mask-repeat:no-repeat] [mask-size:contain]"
+                          />
+                          {line.slice("TheONE".length).trim()}
+                        </>
+                      ) : (
+                        line
+                      )}
                     </span>
                   ))}
                 </p>
