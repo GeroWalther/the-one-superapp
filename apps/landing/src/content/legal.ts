@@ -343,10 +343,10 @@ const privacy: Record<Locale, LegalDocument> = {
         ],
       },
       {
-        heading: "11. Christmas lottery",
+        heading: "11. Christmas prize draw",
         blocks: [
-          "For the Christmas lottery we use the data from your application to run the draw and to notify winners by email. It is not passed to third parties for marketing.",
-          { link: { path: "giveaway-terms", label: "Terms and conditions of the Christmas lottery" } },
+          "For the Christmas prize draw we use the data from your application to run the draw and to notify winners by email. It is not passed to third parties for marketing.",
+          { link: { path: "giveaway-terms", label: "Terms and conditions of the Christmas prize draw" } },
         ],
       },
       {
@@ -462,12 +462,12 @@ const giveawayTerms: Record<Locale, LegalDocument> = {
     updated: UPDATED.de,
   },
   en: {
-    title: "Terms and Conditions: TheONE Christmas Lottery 2026",
+    title: "Terms and Conditions: TheONE Christmas Prize Draw 2026",
     sections: [
       {
         heading: "1. Organiser",
         blocks: [
-          `The lottery is organised by ${COMPANY.name}, ${COMPANY.street}, ${COMPANY.city}, Spain, tax ID ${COMPANY.taxId}, email: ${COMPANY.email} ("TheONE").`,
+          `The prize draw is organised by ${COMPANY.name}, ${COMPANY.street}, ${COMPANY.city}, Spain, tax ID ${COMPANY.taxId}, email: ${COMPANY.email} ("TheONE").`,
         ],
       },
       {
@@ -487,7 +487,7 @@ const giveawayTerms: Record<Locale, LegalDocument> = {
       {
         heading: "4. Prizes",
         blocks: [
-          "12 free admissions to TheONE are being given away, as a membership for private individuals or a partnership for businesses. The free admission is granted exclusively as part of the Christmas Lottery 2026. It is valid for 12 months from activation. Membership fees or the annual partnership fee are waived for this period.",
+          "12 free admissions to TheONE are being given away, as a membership for private individuals or a partnership for businesses. The free admission is granted exclusively as part of the Christmas Prize Draw 2026. It is valid for 12 months from activation. Membership fees or the annual partnership fee are waived for this period.",
           "After 12 months the free admission ends automatically, with no need to cancel. There are no costs and no automatic renewal. Anyone who wishes to continue using TheONE can take out a paid membership or partnership at the terms valid at that time.",
           "Prizes are non-transferable and cannot be exchanged for cash.",
         ],
@@ -509,7 +509,7 @@ const giveawayTerms: Record<Locale, LegalDocument> = {
       {
         heading: "7. Early termination",
         blocks: [
-          "TheONE may cancel or change the lottery in whole or in part for good cause, in particular if it cannot be run properly for technical or legal reasons.",
+          "TheONE may cancel or change the prize draw in whole or in part for good cause, in particular if it cannot be run properly for technical or legal reasons.",
         ],
       },
       {
@@ -527,7 +527,7 @@ const giveawayTerms: Record<Locale, LegalDocument> = {
       {
         heading: "10. Note on Apple",
         blocks: [
-          "Apple Inc. is not a sponsor of this lottery and is not involved in it in any way. Apple is not affiliated with the lottery, does not endorse it and is not responsible for running it.",
+          "Apple Inc. is not a sponsor of this prize draw and is not involved in it in any way. Apple is not affiliated with the prize draw, does not endorse it and is not responsible for running it.",
         ],
       },
     ],
