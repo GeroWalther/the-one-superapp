@@ -294,7 +294,7 @@ export function WhatIsSection() {
                 href={`/business-information/TheONE-Business-Information-${locale === "de" ? "DE" : "EN"}.pdf`}
                 target="_blank"
                 rel="noopener"
-                className="btn border border-[#1a626b]/35 bg-white/70 px-6 py-3.5 text-[15px] font-semibold text-[#00353b] hover:-translate-y-px hover:bg-white"
+                className="btn bg-gradient-to-br from-[#2e8f99] to-[#1a626b] px-6 py-3.5 text-[15px] font-semibold text-white shadow-[0_12px_28px_-14px_rgba(0,68,68,0.7)] hover:-translate-y-px"
               >
                 <FileText className="h-4 w-4" strokeWidth={1.8} />
                 {tPreview("viewBusinessInfo")}
