@@ -48,10 +48,12 @@ struct HomeView: View {
         .background(HomeBackground())
         .overlay(alignment: .topTrailing) {
             AvatarButton(signedIn: session.account != nil) {
-                if session.account != nil {
-                    showAccount = true
-                } else {
-                    showLogin = true
+                switch session.state {
+                // The stored session is still being checked; a tap now would
+                // open the sign-in for a member who is about to be signed in.
+                case .loading: break
+                case .signedIn: showAccount = true
+                case .signedOut: showLogin = true
                 }
             }
             .padding(.trailing, 20)

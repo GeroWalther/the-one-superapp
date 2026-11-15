@@ -4,26 +4,10 @@ struct RootView: View {
     @State private var session = SessionStore()
 
     var body: some View {
-        Group {
-            switch session.state {
-            case .loading:
-                // Centred exactly like the launch screen's image, so the hand-over
-                // from launch to app is invisible; the spinner hangs below it.
-                BrandMark(size: launchMarkSize)
-                    .overlay(alignment: .bottom) {
-                        ProgressView()
-                            .tint(Theme.aqua)
-                            .offset(y: 64)
-                    }
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    .background(Theme.paper.ignoresSafeArea())
-
-            // The start screen for everyone; its avatar leads on to the
-            // sign-in or, once signed in, the member area.
-            case .signedOut, .signedIn:
-                HomeView()
-            }
-        }
+        // The start screen is the first thing anyone sees, while the stored
+        // session is still being checked; its avatar leads on to the sign-in
+        // or, once signed in, the member area.
+        HomeView()
         .environment(session)
         // Pinned rather than adaptive: the palette is a single light set, so a
         // system dark mode would recolour the chrome and leave the content light.

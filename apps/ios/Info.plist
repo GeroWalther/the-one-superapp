@@ -16,16 +16,12 @@
 		<key>NSAllowsLocalNetworking</key>
 		<true/>
 	</dict>
-	<!-- The mark on white. RootView's loading state draws the same mark at the
-	     same size, so launch hands over to the app without a visible jump. -->
+	<!-- Plain start-screen colour, no image: the app opens straight on the
+	     start screen, whose top is this colour, so launch hands over without a jump. -->
 	<key>UILaunchScreen</key>
 	<dict>
 		<key>UIColorName</key>
 		<string>LaunchBackground</string>
-		<key>UIImageName</key>
-		<string>LaunchMark</string>
-		<key>UIImageRespectsSafeAreaInsets</key>
-		<false/>
 	</dict>
 </dict>
 </plist>
