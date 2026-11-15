@@ -1,5 +1,5 @@
-import { useTranslations } from "next-intl";
-import { Building2, UsersRound } from "lucide-react";
+import { useLocale, useTranslations } from "next-intl";
+import { Building2, FileText, UsersRound } from "lucide-react";
 import { PhoneMockup } from "@/components/PhoneMockup";
 import { Vortex } from "./Vortex";
 import { WhatIsSection } from "./WhatIsSection";
@@ -133,6 +133,7 @@ export function PreviewLanding() {
      from the same messages rather than a preview-only copy that would drift. */
   const tHero = useTranslations("hero");
   const tEnroll = useTranslations("enroll");
+  const locale = useLocale();
 
   return (
     /* Ground tinted off the petrol family rather than neutral grey, so the
@@ -285,6 +286,17 @@ export function PreviewLanding() {
                     <UsersRound className="h-5 w-5 text-white" strokeWidth={1.6} />
                   </span>
                 </div>
+                {/* The partner brochure, for a business that wants the whole
+                    story before it applies. */}
+                <a
+                  href={`/business-information/TheONE-Business-Information-${locale === "de" ? "DE" : "EN"}.pdf`}
+                  target="_blank"
+                  rel="noopener"
+                  className="btn mt-7 bg-gradient-to-br from-[#2e8f99] to-[#1a626b] px-6 py-3 text-[15px] font-semibold text-white shadow-[0_12px_28px_-14px_rgba(0,68,68,0.7)] hover:-translate-y-px"
+                >
+                  <FileText className="h-4 w-4" strokeWidth={1.8} />
+                  {t("viewBusinessInfo")}
+                </a>
               </div>
               <h3 className="mt-16 font-display text-[26px] font-medium leading-tight text-ink sm:mt-20 sm:text-[30px]">
                 {tEnroll("chooser.title")}
@@ -292,7 +304,7 @@ export function PreviewLanding() {
               {/* Padding pulled in from p-7 for the fill: in this column the
                   pair has ~268px a card, and 28px of inset on both sides left
                   the description setting too narrow. */}
-              <div className="mt-6 [&_button]:p-6">
+              <div className="mt-6 [&_.card-brand-fill]:p-6">
                 <ApplyChooser tone="fill" showProcessNote={false} />
               </div>
             </div>

@@ -1,6 +1,6 @@
 import Image from "next/image";
-import { useTranslations } from "next-intl";
-import { ArrowRight, Building2, Compass, MessagesSquare, Sparkles } from "lucide-react";
+import { useLocale, useTranslations } from "next-intl";
+import { ArrowRight, Building2, Compass, FileText, MessagesSquare, Sparkles } from "lucide-react";
 
 /**
  * "What is TheONE SUPER APP" — the section that tells the whole story, for a
@@ -30,6 +30,7 @@ const GOLD = "#e6b849";
 export function WhatIsSection() {
   const t = useTranslations("preview.about");
   const tPreview = useTranslations("preview");
+  const locale = useLocale();
 
   /* The three beats, in the order the copy makes them: the AI matches, then
      understands, then connects. Each is a node on the spine. */
@@ -279,13 +280,26 @@ export function WhatIsSection() {
 
             {/* The copy ends on "apply now", so the panel ends on the way to
                 do it: straight into the partner form in the apply section. */}
-            <a
-              href="#apply-partner"
-              className="btn mt-4 bg-gradient-to-br from-[#1a626b] to-[#00353b] px-7 py-3.5 text-[15px] font-semibold text-white shadow-[0_12px_28px_-14px_rgba(0,37,42,0.8)] hover:-translate-y-px"
-            >
-              {tPreview("becomePartner")}
-              <ArrowRight className="h-4 w-4" strokeWidth={2} />
-            </a>
+            <div className="mt-4 flex flex-wrap items-center gap-3">
+              <a
+                href="#apply-partner"
+                className="btn bg-gradient-to-br from-[#1a626b] to-[#00353b] px-7 py-3.5 text-[15px] font-semibold text-white shadow-[0_12px_28px_-14px_rgba(0,37,42,0.8)] hover:-translate-y-px"
+              >
+                {tPreview("becomePartner")}
+                <ArrowRight className="h-4 w-4" strokeWidth={2} />
+              </a>
+              {/* The partner brochure, opened in the browser's own PDF view.
+                  Its apply button leads back to the partner form. */}
+              <a
+                href={`/business-information/TheONE-Business-Information-${locale === "de" ? "DE" : "EN"}.pdf`}
+                target="_blank"
+                rel="noopener"
+                className="btn bg-gradient-to-br from-[#2e8f99] to-[#1a626b] px-6 py-3.5 text-[15px] font-semibold text-white shadow-[0_12px_28px_-14px_rgba(0,68,68,0.7)] hover:-translate-y-px"
+              >
+                <FileText className="h-4 w-4" strokeWidth={1.8} />
+                {tPreview("viewBusinessInfo")}
+              </a>
+            </div>
           </div>
         </div>
 

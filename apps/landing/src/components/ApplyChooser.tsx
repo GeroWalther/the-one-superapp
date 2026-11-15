@@ -1,8 +1,8 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { useTranslations } from "next-intl";
-import { ArrowLeft, ArrowRight, Building2, UserRound } from "lucide-react";
+import { useLocale, useTranslations } from "next-intl";
+import { ArrowLeft, ArrowRight, Building2, FileText, UserRound } from "lucide-react";
 import { MemberEnrollForm } from "@/components/enroll/MemberEnrollForm";
 import { PartnerEnrollForm } from "@/components/enroll/PartnerEnrollForm";
 
@@ -37,6 +37,8 @@ export function ApplyChooser({
   openPartnerOnHash?: string;
 }) {
   const t = useTranslations("enroll");
+  const tPreview = useTranslations("preview");
+  const locale = useLocale();
   const [choice, setChoice] = useState<Choice | null>(restrictTo ?? null);
   const formRef = useRef<HTMLDivElement>(null);
 
@@ -124,11 +126,12 @@ export function ApplyChooser({
     <div>
       <div className="grid gap-4 sm:grid-cols-2">
         {paths.map((path) => (
-          <button
+          /* The card is a div, not a button, so the partner card can also
+             hold a link to the brochure; the start button below stretches
+             over the whole card, so a click anywhere still opens the form. */
+          <div
             key={path.role}
-            type="button"
-            onClick={() => setChoice(path.role)}
-            className={`group flex flex-col p-7 text-left ${
+            className={`group relative flex flex-col p-7 text-left ${
               fill ? "card-brand-fill" : "card-brand-soft"
             }`}
           >
@@ -177,23 +180,41 @@ export function ApplyChooser({
             >
               {path.meta}
             </span>
-            {/* Styled as a button, though the whole card is the control: a
-                real <button> can't sit inside another. Deep petrol with white
-                type on both tones. */}
-            <span
-              className={`mt-5 inline-flex items-center gap-2 self-start rounded-xl px-5 py-2.5 text-[15px] font-semibold shadow-[0_8px_20px_-10px_rgba(0,37,42,0.55)] transition-colors duration-300 ${
-                fill
-                  ? "bg-[#00353b] text-white group-hover:bg-[#00252a]"
-                  : "bg-[#005252] text-white group-hover:bg-[#004444]"
-              }`}
-            >
-              {t("chooser.start")}
-              <ArrowRight
-                className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1"
-                strokeWidth={1.8}
-              />
-            </span>
-          </button>
+            <div className="mt-5 flex flex-wrap items-center gap-3">
+              {/* Deep petrol with white type on both tones. Its ::after covers
+                  the whole card, which keeps the card itself clickable. */}
+              <button
+                type="button"
+                onClick={() => setChoice(path.role)}
+                className={`inline-flex items-center gap-2 rounded-xl px-5 py-2.5 text-[15px] font-semibold shadow-[0_8px_20px_-10px_rgba(0,37,42,0.55)] transition-colors duration-300 after:absolute after:inset-0 after:content-[''] ${
+                  fill
+                    ? "bg-[#00353b] text-white group-hover:bg-[#00252a]"
+                    : "bg-[#005252] text-white group-hover:bg-[#004444]"
+                }`}
+              >
+                {t("chooser.start")}
+                <ArrowRight
+                  className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1"
+                  strokeWidth={1.8}
+                />
+              </button>
+              {path.role === "partner" && (
+                <a
+                  href={`/business-information/TheONE-Business-Information-${locale === "de" ? "DE" : "EN"}.pdf`}
+                  target="_blank"
+                  rel="noopener"
+                  className={`relative z-10 inline-flex items-center gap-2 rounded-xl px-5 py-2.5 text-[15px] font-semibold shadow-[0_8px_20px_-10px_rgba(0,37,42,0.45)] transition-transform duration-300 hover:-translate-y-px ${
+                    fill
+                      ? "bg-white text-[#00353b]"
+                      : "bg-gradient-to-br from-[#2e8f99] to-[#1a626b] text-white"
+                  }`}
+                >
+                  <FileText className="h-4 w-4" strokeWidth={1.8} />
+                  {tPreview("viewBusinessInfo")}
+                </a>
+              )}
+            </div>
+          </div>
         ))}
       </div>
 
