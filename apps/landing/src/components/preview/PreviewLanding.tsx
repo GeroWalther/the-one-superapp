@@ -202,6 +202,17 @@ export function PreviewLanding() {
             <span className="text-[#8a6420]">{tHero("titleAccent")}</span>
           </h1>
 
+          {/* The slogan, directly under the claim. Caps live in the message so
+              "TheONE" keeps its brand casing; same face as the claim, a step
+              smaller, so the h1 still leads. */}
+          <p
+            data-reveal
+            data-reveal-delay="180"
+            className="mx-auto mt-3 max-w-3xl text-balance text-center font-display text-[19px] font-semibold leading-[1.3] tracking-[0.06em] text-[#0a2f34] sm:mt-4 sm:text-[21px] sm:tracking-[0.1em] lg:text-[24px]"
+          >
+            {tHero("slogan")}
+          </p>
+
 
           {/* A hairline closing the masthead before the axis changes to the
               split below — without it the centred block and the left-aligned
