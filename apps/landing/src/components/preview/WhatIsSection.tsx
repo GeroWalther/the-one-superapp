@@ -283,18 +283,20 @@ export function WhatIsSection() {
             <div className="mt-4 flex flex-wrap items-center gap-3">
               <a
                 href="#apply-partner"
-                className="btn bg-gradient-to-br from-[#1a626b] to-[#00353b] px-7 py-3.5 text-[15px] font-semibold text-white shadow-[0_12px_28px_-14px_rgba(0,37,42,0.8)] hover:-translate-y-px"
+                className="btn w-full bg-gradient-to-br from-[#1a626b] to-[#00353b] px-7 py-3.5 sm:w-auto text-[15px] font-semibold text-white shadow-[0_12px_28px_-14px_rgba(0,37,42,0.8)] hover:-translate-y-px"
               >
                 {tPreview("becomePartner")}
                 <ArrowRight className="h-4 w-4" strokeWidth={2} />
               </a>
               {/* The partner brochure, opened in the browser's own PDF view.
-                  Its apply button leads back to the partner form. */}
+                  Its apply button leads back to the partner form. On a phone
+                  both buttons take the full width of the box and the label
+                  may wrap, so neither reaches past the box's edge. */}
               <a
                 href={`/business-information/TheONE-Business-Information-${locale === "de" ? "DE" : "EN"}.pdf`}
                 target="_blank"
                 rel="noopener"
-                className="btn bg-gradient-to-br from-[#2e8f99] to-[#1a626b] px-6 py-3.5 text-[15px] font-semibold text-white shadow-[0_12px_28px_-14px_rgba(0,68,68,0.7)] hover:-translate-y-px"
+                className="btn w-full whitespace-normal bg-gradient-to-br from-[#2e8f99] to-[#1a626b] px-5 py-3.5 text-[15px] sm:w-auto sm:whitespace-nowrap sm:px-6 font-semibold text-white shadow-[0_12px_28px_-14px_rgba(0,68,68,0.7)] hover:-translate-y-px"
               >
                 <FileText className="h-4 w-4" strokeWidth={1.8} />
                 {tPreview("viewBusinessInfo")}

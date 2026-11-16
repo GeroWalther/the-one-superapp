@@ -213,7 +213,10 @@ export function PreviewLanding() {
             className="mx-auto mt-10 h-px w-24 bg-gradient-to-r from-transparent via-[#8a6420]/45 to-transparent sm:mt-12"
           />
 
-          <div className="mt-12 grid items-center gap-16 sm:mt-16 sm:gap-[72px] lg:mt-20  ">
+          {/* One column that may shrink below its content's natural width: an
+              auto column grew to the widest child and pushed the cards past
+              the right edge of a phone. */}
+          <div className="mt-12 grid grid-cols-[minmax(0,1fr)] items-center gap-16 sm:mt-16 sm:gap-[72px] lg:mt-20">
             {/* Centred while the column is stacked, so the phone doesn't sit
                 under a left-ragged block on one axis and a centred masthead on
                 another; left-aligned only once the split actually exists. */}
@@ -292,7 +295,7 @@ export function PreviewLanding() {
                   href={`/business-information/TheONE-Business-Information-${locale === "de" ? "DE" : "EN"}.pdf`}
                   target="_blank"
                   rel="noopener"
-                  className="btn mt-7 bg-gradient-to-br from-[#2e8f99] to-[#1a626b] px-6 py-3 text-[15px] font-semibold text-white shadow-[0_12px_28px_-14px_rgba(0,68,68,0.7)] hover:-translate-y-px"
+                  className="btn mt-7 max-w-full whitespace-normal bg-gradient-to-br from-[#2e8f99] to-[#1a626b] px-5 py-3 text-[15px] sm:whitespace-nowrap sm:px-6 font-semibold text-white shadow-[0_12px_28px_-14px_rgba(0,68,68,0.7)] hover:-translate-y-px"
                 >
                   <FileText className="h-4 w-4" strokeWidth={1.8} />
                   {t("viewBusinessInfo")}
