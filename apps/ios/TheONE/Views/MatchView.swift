@@ -64,7 +64,7 @@ struct MatchView: View {
             }
             .animation(.easeInOut(duration: 0.45), value: position)
             .background(HomeBackground())
-            .navigationTitle("MATCH")
+            .navigationTitle(Text(verbatim: "TheONE MATCH"))
             .navigationBarTitleDisplayMode(.inline)
             .brandedNavigationBar()
             .homeButton()

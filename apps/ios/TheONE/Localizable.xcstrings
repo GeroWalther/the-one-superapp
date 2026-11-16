@@ -3482,61 +3482,61 @@
         }
       }
     },
-    "Delete MATCH profile": {
+    "Delete TheONE MATCH profile": {
       "extractionState": "manual",
       "localizations": {
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "MATCH Profil löschen"
+            "value": "TheONE MATCH Profil löschen"
           }
         },
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Supprimer le profil MATCH"
+            "value": "Supprimer le profil TheONE MATCH"
           }
         },
         "it": {
           "stringUnit": {
             "state": "translated",
-            "value": "Elimina profilo MATCH"
+            "value": "Elimina il profilo TheONE MATCH"
           }
         },
         "ar": {
           "stringUnit": {
             "state": "translated",
-            "value": "حذف ملف MATCH"
+            "value": "حذف ملف TheONE MATCH"
           }
         },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "删除 MATCH 资料"
+            "value": "删除 TheONE MATCH 资料"
           }
         },
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Eliminar perfil MATCH"
+            "value": "Eliminar el perfil de TheONE MATCH"
           }
         },
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Izbriši MATCH profil"
+            "value": "Izbriši TheONE MATCH profil"
           }
         },
         "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Удалить профиль MATCH"
+            "value": "Удалить профиль TheONE MATCH"
           }
         },
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "MATCH profilini sil"
+            "value": "TheONE MATCH profilini sil"
           }
         }
       }
@@ -3600,61 +3600,61 @@
         }
       }
     },
-    "Delete your MATCH profile?": {
+    "Delete your TheONE MATCH profile?": {
       "extractionState": "manual",
       "localizations": {
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "MATCH Profil löschen?"
+            "value": "TheONE MATCH Profil löschen?"
           }
         },
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Supprimer ton profil MATCH ?"
+            "value": "Supprimer ton profil TheONE MATCH ?"
           }
         },
         "it": {
           "stringUnit": {
             "state": "translated",
-            "value": "Eliminare il tuo profilo MATCH?"
+            "value": "Eliminare il tuo profilo TheONE MATCH?"
           }
         },
         "ar": {
           "stringUnit": {
             "state": "translated",
-            "value": "حذف ملف MATCH الخاص بك؟"
+            "value": "هل تريد حذف ملف TheONE MATCH الخاص بك؟"
           }
         },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "删除你的 MATCH 资料？"
+            "value": "删除你的 TheONE MATCH 资料？"
           }
         },
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "¿Eliminar tu perfil MATCH?"
+            "value": "¿Eliminar tu perfil de TheONE MATCH?"
           }
         },
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Želiš li izbrisati svoj MATCH profil?"
+            "value": "Izbrisati tvoj TheONE MATCH profil?"
           }
         },
         "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Удалить твой профиль MATCH?"
+            "value": "Удалить твой профиль TheONE MATCH?"
           }
         },
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "MATCH profilin silinsin mi?"
+            "value": "TheONE MATCH profilin silinsin mi?"
           }
         }
       }
@@ -4662,61 +4662,61 @@
         }
       }
     },
-    "Fits your skin analysis": {
+    "Fits your TheONE SKIN SCAN": {
       "extractionState": "manual",
       "localizations": {
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Passt zu deiner Hautanalyse"
+            "value": "Passt zu deinem TheONE SKIN SCAN"
           }
         },
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Adapté à ton analyse de peau"
+            "value": "Adapté à ton TheONE SKIN SCAN"
           }
         },
         "it": {
           "stringUnit": {
             "state": "translated",
-            "value": "Adatto alla tua analisi della pelle"
+            "value": "Adatto al tuo TheONE SKIN SCAN"
           }
         },
         "ar": {
           "stringUnit": {
             "state": "translated",
-            "value": "يناسب تحليل بشرتك"
+            "value": "يناسب نتيجة TheONE SKIN SCAN"
           }
         },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "契合你的皮肤分析"
+            "value": "契合你的 TheONE SKIN SCAN"
           }
         },
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Encaja con tu análisis de piel"
+            "value": "Encaja con tu TheONE SKIN SCAN"
           }
         },
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Odgovara tvojoj analizi kože"
+            "value": "Odgovara tvom TheONE SKIN SCAN rezultatu"
           }
         },
         "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Подходит к твоему анализу кожи"
+            "value": "Подходит к твоему TheONE SKIN SCAN"
           }
         },
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Cilt analizine uygun"
+            "value": "TheONE SKIN SCAN sonucuna uygun"
           }
         }
       }
@@ -6137,61 +6137,61 @@
         }
       }
     },
-    "I have just done my skin analysis. What do you recommend for me?": {
+    "I have just done my TheONE SKIN SCAN. What do you recommend for me?": {
       "extractionState": "manual",
       "localizations": {
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Ich habe gerade meine Hautanalyse gemacht. Was empfiehlst du mir?"
+            "value": "Ich habe gerade meinen TheONE SKIN SCAN gemacht. Was empfiehlst du mir?"
           }
         },
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Je viens de faire mon analyse de peau. Que me recommandes-tu ?"
+            "value": "Je viens de faire mon TheONE SKIN SCAN. Que me recommandes-tu ?"
           }
         },
         "it": {
           "stringUnit": {
             "state": "translated",
-            "value": "Ho appena fatto la mia analisi della pelle. Cosa mi consigli?"
+            "value": "Ho appena fatto il mio TheONE SKIN SCAN. Cosa mi consigli?"
           }
         },
         "ar": {
           "stringUnit": {
             "state": "translated",
-            "value": "أجريت للتو تحليل بشرتي. بماذا تنصحني؟"
+            "value": "أجريتُ للتو TheONE SKIN SCAN. بماذا تنصحني؟"
           }
         },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "我刚做完肌肤分析。你会给我什么建议？"
+            "value": "我刚做完 TheONE SKIN SCAN。你推荐我用什么？"
           }
         },
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Acabo de hacer mi análisis de piel. ¿Qué me recomiendas?"
+            "value": "Acabo de hacer mi TheONE SKIN SCAN. ¿Qué me recomiendas?"
           }
         },
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Upravo mi je gotova analiza kože. Što mi preporučuješ?"
+            "value": "Moj TheONE SKIN SCAN je upravo gotov. Što mi preporučuješ?"
           }
         },
         "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Мой анализ кожи только что готов. Что ты мне посоветуешь?"
+            "value": "Мой TheONE SKIN SCAN только что готов. Что ты мне посоветуешь?"
           }
         },
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Cilt analizimi az önce yaptım. Bana ne önerirsin?"
+            "value": "TheONE SKIN SCAN'imi az önce yaptım. Bana ne önerirsin?"
           }
         }
       }
@@ -7199,65 +7199,6 @@
         }
       }
     },
-    "Match": {
-      "extractionState": "manual",
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Match"
-          }
-        },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Match"
-          }
-        },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Match"
-          }
-        },
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Match"
-          }
-        },
-        "zh-Hans": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Match"
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Match"
-          }
-        },
-        "hr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Match"
-          }
-        },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Match"
-          }
-        },
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Match"
-          }
-        }
-      }
-    },
     "Maximum height": {
       "extractionState": "manual",
       "localizations": {
@@ -7966,65 +7907,6 @@
         }
       }
     },
-    "My skin analyses": {
-      "extractionState": "manual",
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Meine Hautanalysen"
-          }
-        },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Mes analyses de peau"
-          }
-        },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Le mie analisi della pelle"
-          }
-        },
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "تحليلات بشرتي"
-          }
-        },
-        "zh-Hans": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "我的肌肤分析"
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Mis análisis de piel"
-          }
-        },
-        "hr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Moje analize kože"
-          }
-        },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Мои анализы кожи"
-          }
-        },
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Cilt analizlerim"
-          }
-        }
-      }
-    },
     "My teeth have been hurting for a week.": {
       "extractionState": "manual",
       "localizations": {
@@ -8198,6 +8080,65 @@
           "stringUnit": {
             "state": "translated",
             "value": "Bağlantılar ve tanıştırmalar"
+          }
+        }
+      }
+    },
+    "No TheONE SKIN SCAN yet": {
+      "extractionState": "manual",
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Noch kein TheONE SKIN SCAN"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pas encore de TheONE SKIN SCAN"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ancora nessun TheONE SKIN SCAN"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "لا يوجد TheONE SKIN SCAN بعد"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "还没有 TheONE SKIN SCAN"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aún no hay TheONE SKIN SCAN"
+          }
+        },
+        "hr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Još nema TheONE SKIN SCAN rezultata"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Пока нет TheONE SKIN SCAN"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Henüz TheONE SKIN SCAN yok"
           }
         }
       }
@@ -8434,65 +8375,6 @@
           "stringUnit": {
             "state": "translated",
             "value": "Henüz mesaj yok"
-          }
-        }
-      }
-    },
-    "No skin analysis yet": {
-      "extractionState": "manual",
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Noch keine Hautanalyse"
-          }
-        },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Aucune analyse de peau pour l'instant"
-          }
-        },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ancora nessuna analisi della pelle"
-          }
-        },
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "لا يوجد تحليل للبشرة بعد"
-          }
-        },
-        "zh-Hans": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "暂无肌肤分析"
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Aún no hay ningún análisis de piel"
-          }
-        },
-        "hr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Još nema analize kože"
-          }
-        },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Анализов кожи пока нет"
-          }
-        },
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Henüz cilt analizi yok"
           }
         }
       }
@@ -11801,65 +11683,6 @@
         }
       }
     },
-    "Skin analysis": {
-      "extractionState": "manual",
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Hautanalyse"
-          }
-        },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Analyse de peau"
-          }
-        },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Analisi della pelle"
-          }
-        },
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "تحليل البشرة"
-          }
-        },
-        "zh-Hans": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "肌肤分析"
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Análisis de piel"
-          }
-        },
-        "hr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Analiza kože"
-          }
-        },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Анализ кожи"
-          }
-        },
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Cilt analizi"
-          }
-        }
-      }
-    },
     "Skin score": {
       "extractionState": "manual",
       "localizations": {
@@ -12332,61 +12155,61 @@
         }
       }
     },
-    "Start my skin analysis": {
+    "Start TheONE SKIN SCAN": {
       "extractionState": "manual",
       "localizations": {
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Meine Hautanalyse starten"
+            "value": "TheONE SKIN SCAN starten"
           }
         },
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Commencer mon analyse de peau"
+            "value": "Lancer TheONE SKIN SCAN"
           }
         },
         "it": {
           "stringUnit": {
             "state": "translated",
-            "value": "Inizia la mia analisi della pelle"
+            "value": "Avvia TheONE SKIN SCAN"
           }
         },
         "ar": {
           "stringUnit": {
             "state": "translated",
-            "value": "ابدأ تحليل بشرتي"
+            "value": "ابدأ TheONE SKIN SCAN"
           }
         },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "开始我的肌肤分析"
+            "value": "开始 TheONE SKIN SCAN"
           }
         },
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Empezar mi análisis de piel"
+            "value": "Iniciar TheONE SKIN SCAN"
           }
         },
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Pokreni moju analizu kože"
+            "value": "Pokreni TheONE SKIN SCAN"
           }
         },
         "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Начать анализ кожи"
+            "value": "Запустить TheONE SKIN SCAN"
           }
         },
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Cilt analizimi başlat"
+            "value": "TheONE SKIN SCAN'i başlat"
           }
         }
       }
@@ -13036,6 +12859,65 @@
           "stringUnit": {
             "state": "translated",
             "value": "TheONE"
+          }
+        }
+      }
+    },
+    "TheONE SKIN SCAN: my results": {
+      "extractionState": "manual",
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "TheONE SKIN SCAN: meine Ergebnisse"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "TheONE SKIN SCAN : mes résultats"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "TheONE SKIN SCAN: i miei risultati"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "TheONE SKIN SCAN: نتائجي"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "TheONE SKIN SCAN：我的结果"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "TheONE SKIN SCAN: mis resultados"
+          }
+        },
+        "hr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "TheONE SKIN SCAN: moji rezultati"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "TheONE SKIN SCAN: мои результаты"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "TheONE SKIN SCAN: sonuçlarım"
           }
         }
       }
@@ -14987,61 +14869,61 @@
         }
       }
     },
-    "You have done several analyses today. Please try again tomorrow.": {
+    "You have done TheONE SKIN SCAN several times today. Please try again tomorrow.": {
       "extractionState": "manual",
       "localizations": {
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Du hast heute schon mehrere Analysen gemacht. Bitte versuche es morgen noch einmal."
+            "value": "Du hast den TheONE SKIN SCAN heute schon mehrmals gemacht. Bitte versuche es morgen noch einmal."
           }
         },
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Tu as déjà fait plusieurs analyses aujourd'hui. Réessaie demain, s'il te plaît."
+            "value": "Tu as déjà fait TheONE SKIN SCAN plusieurs fois aujourd'hui. Essaie demain."
           }
         },
         "it": {
           "stringUnit": {
             "state": "translated",
-            "value": "Oggi hai già fatto diverse analisi. Riprova domani."
+            "value": "Oggi hai già fatto TheONE SKIN SCAN più volte. Riprova domani."
           }
         },
         "ar": {
           "stringUnit": {
             "state": "translated",
-            "value": "لقد أجريت عدة تحليلات اليوم. يُرجى المحاولة مرة أخرى غداً."
+            "value": "أجريت TheONE SKIN SCAN عدة مرات اليوم. يُرجى المحاولة غدًا."
           }
         },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "你今天已经做了几次分析，请明天再试。"
+            "value": "你今天已经做过好几次 TheONE SKIN SCAN，请明天再试。"
           }
         },
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Hoy ya has hecho varios análisis. Inténtalo otra vez mañana, por favor."
+            "value": "Hoy ya has hecho TheONE SKIN SCAN varias veces. Inténtalo mañana."
           }
         },
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Danas već imaš nekoliko analiza. Pokušaj opet sutra."
+            "value": "Danas je TheONE SKIN SCAN već napravljen nekoliko puta. Pokušaj sutra."
           }
         },
         "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Сегодня уже было несколько анализов. Попробуй ещё раз завтра."
+            "value": "Сегодня TheONE SKIN SCAN уже сделан несколько раз. Попробуй завтра."
           }
         },
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Bugün zaten birkaç analiz yaptın. Lütfen yarın tekrar dene."
+            "value": "Bugün TheONE SKIN SCAN'i zaten birkaç kez yaptın. Lütfen yarın tekrar dene."
           }
         }
       }

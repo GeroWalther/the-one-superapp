@@ -18,10 +18,10 @@ struct SkinHistoryView: View {
                     ProgressView().tint(Theme.aqua)
                 } else if scans.isEmpty {
                     VStack(spacing: 14) {
-                        Text(tr("No skin analysis yet"))
+                        Text(tr("No TheONE SKIN SCAN yet"))
                             .font(.system(size: 22, weight: .light, design: .serif))
                             .foregroundStyle(Theme.ink)
-                        Button(tr("Start my skin analysis"), action: onNewScan)
+                        Button(tr("Start TheONE SKIN SCAN"), action: onNewScan)
                             .font(.system(size: 16, weight: .medium))
                     }
                 } else {
@@ -48,7 +48,7 @@ struct SkinHistoryView: View {
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .background(HomeBackground())
-            .navigationTitle(tr("My skin analyses"))
+            .navigationTitle(tr("TheONE SKIN SCAN: my results"))
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
@@ -57,7 +57,7 @@ struct SkinHistoryView: View {
                 }
                 ToolbarItem(placement: .primaryAction) {
                     Button(action: onNewScan) { Image(systemName: "plus") }
-                        .accessibilityLabel(tr("Start my skin analysis"))
+                        .accessibilityLabel(tr("Start TheONE SKIN SCAN"))
                 }
             }
             .task { await load() }

@@ -92,7 +92,7 @@ export const ASSISTANT_TOOLS: Anthropic.Tool[] = [
   {
     name: "search_selection",
     description:
-      "TheONE SELECTION: the exact products, treatments, programmes and stays that TheONE's business partners offer, with prices. Use it to recommend one specific item rather than a brand. Filter by kind and by the skin analysis keys an item helps with (hydration, lines, pigmentation, redness, pores, evenness, radiance).",
+      "TheONE SELECTION: the exact products, treatments, programmes and stays that TheONE's business partners offer, with prices. Use it to recommend one specific item rather than a brand. Filter by kind and by the TheONE SKIN SCAN keys an item helps with (hydration, lines, pigmentation, redness, pores, evenness, radiance).",
     input_schema: {
       type: "object",
       properties: {
@@ -114,7 +114,7 @@ export const ASSISTANT_TOOLS: Anthropic.Tool[] = [
   {
     name: "get_skin_analysis",
     description:
-      "The member's latest TheONE skin analyses (face scans): scores 0 to 100 where higher is better, focus areas, routine, and the business partners suggested with them. Call this whenever the member talks about their skin, looking younger or more radiant, or has just done a scan.",
+      "The member's latest TheONE SKIN SCAN results (face scans): scores 0 to 100 where higher is better, focus areas, routine, and the business partners suggested with them. Call this whenever the member talks about their skin, looking younger or more radiant, or has just done a scan.",
     input_schema: { type: "object", properties: {}, additionalProperties: false },
   },
   {
@@ -269,7 +269,7 @@ export async function runAssistantTool(
         if (scans.length === 0) {
           return {
             content:
-              "No skin analysis yet. Offer one: the member taps the face scan button next to the microphone in the assistant.",
+              "No TheONE SKIN SCAN yet. Offer one: the member taps the face scan button next to the microphone in the assistant.",
           };
         }
         return { content: JSON.stringify(scans) };

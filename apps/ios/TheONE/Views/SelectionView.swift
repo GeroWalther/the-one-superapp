@@ -62,7 +62,7 @@ struct SelectionView: View {
                 }
             }
             .background(HomeBackground())
-            .navigationTitle("SELECTION")
+            .navigationTitle(Text(verbatim: "TheONE SELECTION"))
             .navigationBarTitleDisplayMode(.inline)
             .brandedNavigationBar()
             .homeButton()
@@ -204,7 +204,7 @@ struct OfferingCard: View {
                         .lineLimit(3)
                         .multilineTextAlignment(.leading)
                 } else if showReason, offering.basis == "skin" {
-                    Label(tr("Fits your skin analysis"), systemImage: "face.smiling")
+                    Label(tr("Fits your TheONE SKIN SCAN"), systemImage: "face.smiling")
                         .font(.system(size: 11.5))
                         .foregroundStyle(Theme.aqua)
                 }

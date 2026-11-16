@@ -71,7 +71,8 @@ struct SelectionSection: Codable, Sendable, Hashable, Identifiable {
         switch key {
         case "skincare": tr("Skincare")
         case "aesthetics": tr("Aesthetic doctors")
-        case "longevity": tr("Longevity clinics")
+        // A TheONE name, so English and the same in every language.
+        case "longevity": "TheONE LONGEVITY"
         case "stays": tr("Hotels and resorts")
         case "medicine": tr("Medicine")
         case "property": tr("Real Estate")

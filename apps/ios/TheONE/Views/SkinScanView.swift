@@ -35,7 +35,8 @@ struct SkinScanView: View {
                 case .failed(let message): failed(message)
                 }
             }
-            .navigationTitle(tr("Skin analysis"))
+            // A name, so English in every language.
+            .navigationTitle(Text(verbatim: "TheONE SKIN SCAN"))
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
@@ -99,7 +100,7 @@ struct SkinScanView: View {
                     UserDefaults.standard.set(true, forKey: "skin.consent.v1")
                     step = .capture
                 } label: {
-                    Text(tr("Start my skin analysis"))
+                    Text(tr("Start TheONE SKIN SCAN"))
                         .font(.system(size: 16, weight: .medium))
                         .foregroundStyle(Theme.onAccent)
                         .padding(.horizontal, 30)

@@ -151,12 +151,12 @@ struct AssistantView: View {
                         Button {
                             showSkin = true
                         } label: {
-                            Label("Skin analysis", systemImage: "face.smiling")
+                            Label { Text(verbatim: "TheONE SKIN SCAN") } icon: { Image(systemName: "face.smiling") }
                         }
                         Button {
                             showSkinHistory = true
                         } label: {
-                            Label("My skin analyses", systemImage: "chart.line.uptrend.xyaxis")
+                            Label(tr("TheONE SKIN SCAN: my results"), systemImage: "chart.line.uptrend.xyaxis")
                         }
                         Toggle("Speak replies", isOn: $model.speakReplies)
                         Button("Clear conversation") {
@@ -196,7 +196,7 @@ struct AssistantView: View {
             try? await Task.sleep(for: .milliseconds(500))
             speech.stopListening()
             greeter.stop()
-            model.draft = tr("I have just done my skin analysis. What do you recommend for me?")
+            model.draft = tr("I have just done my TheONE SKIN SCAN. What do you recommend for me?")
             await model.send(speech: speech, opening: greeter.text)
         }
     }
@@ -286,7 +286,7 @@ struct AssistantView: View {
                     .frame(width: 42, height: 42)
                     .background(Circle().fill(Theme.paperSoft))
             }
-            .accessibilityLabel(tr("Skin analysis"))
+            .accessibilityLabel(Text(verbatim: "TheONE SKIN SCAN"))
             .accessibilityIdentifier("assistant.skin")
 
             Button {

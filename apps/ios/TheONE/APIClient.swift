@@ -262,7 +262,7 @@ actor APIClient {
         }
 
         switch code {
-        case "too_many": return .server(tr("You have done several analyses today. Please try again tomorrow."))
+        case "too_many": return .server(tr("You have done TheONE SKIN SCAN several times today. Please try again tomorrow."))
         case "unusable": return .server(tr("Your face could not be seen clearly. Please try again in good light, facing the camera."))
         case "payment_required": return .paymentRequired
         case "account_inactive": return .inactive

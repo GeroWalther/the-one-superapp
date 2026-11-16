@@ -50,10 +50,10 @@ struct MainTabs: View {
             // TheONE SELECTION took the place of the plain partner list, which
             // is still one tap away inside it.
             SelectionView()
-                .tabItem { Label { Text(verbatim: "SELECTION") } icon: { Image(systemName: "sparkle") } }
+                .tabItem { Label { Text(verbatim: "TheONE SELECTION") } icon: { Image(systemName: "sparkle") } }
                 .tag(Tab.selection)
             MatchView()
-                .tabItem { Label("Match", systemImage: "person.2") }
+                .tabItem { Label { Text(verbatim: "TheONE MATCH") } icon: { Image(systemName: "person.2") } }
                 .tag(Tab.match)
             MessagesView()
                 .tabItem { Label("Messages", systemImage: "bubble.left.and.bubble.right") }

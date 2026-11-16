@@ -133,7 +133,7 @@ struct MatchProfileForm: View {
                     }
 
                     Section {
-                        Button(words("MATCH Profil löschen", "Delete MATCH profile"), role: .destructive) {
+                        Button(words("TheONE MATCH Profil löschen", "Delete TheONE MATCH profile"), role: .destructive) {
                             confirmDelete = true
                         }
                     }
@@ -163,7 +163,7 @@ struct MatchProfileForm: View {
                 }
             }
             .confirmationDialog(
-                words("MATCH Profil löschen?", "Delete your MATCH profile?"),
+                words("TheONE MATCH Profil löschen?", "Delete your TheONE MATCH profile?"),
                 isPresented: $confirmDelete,
                 titleVisibility: .visible
             ) {
