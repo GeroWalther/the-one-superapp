@@ -13,7 +13,7 @@ final class TheONEUITests: XCTestCase {
         app = XCUIApplication()
         // The app follows the phone's language. MATCH is checked as a German
         // phone, the Japanese walkthrough as a Japanese one, the rest as is.
-        if name.contains("testMatchFlow") || name.contains("testSkinAnalysis") {
+        if name.contains("testMatchFlow") || name.contains("testSkinAnalysis") || name.contains("testSelection") {
             app.launchArguments += ["-AppleLanguages", "(de)", "-AppleLocale", "de_DE"]
         } else if name.contains("testJapaneseMember") {
             app.launchArguments += ["-AppleLanguages", "(ja)", "-AppleLocale", "ja_JP"]
@@ -515,5 +515,43 @@ final class TheONEUITests: XCTestCase {
         discuss.tap()
         sleep(45)
         capture("s10-assistant")
+    }
+
+    /// TheONE SELECTION: chosen for you, the areas, one offering in full, and
+    /// the request that opens a chat with the partner.
+    func testSelection() throws {
+        assertOnLoginScreen()
+        type("testmember", into: app.textFields.firstMatch)
+        type("TestPassword2026!", into: app.secureTextFields.firstMatch)
+        app.buttons["login.submit"].tap()
+        dismissSystemPrompts()
+        XCTAssertTrue(app.tabBars.firstMatch.waitForExistence(timeout: 25))
+        dismissSystemPrompts()
+
+        let header = app.staticTexts["TheONE SELECTION"]
+        for _ in 0..<4 where !header.exists {
+            dismissSystemPrompts()
+            app.tabBars.buttons.element(boundBy: 1).tap()
+            _ = header.waitForExistence(timeout: 8)
+        }
+        XCTAssertTrue(header.exists, "SELECTION did not open")
+        sleep(3)
+        capture("x1-selection")
+        for step in 2...5 {
+            app.swipeUp()
+            sleep(1)
+            capture("x\(step)-selection-lower")
+        }
+
+        // Back to the top, then the first card under "chosen for you".
+        for _ in 0..<8 { app.swipeDown() }
+        sleep(1)
+        app.coordinate(withNormalizedOffset: CGVector(dx: 0.3, dy: 0.55)).tap()
+        let request = app.buttons["offering.request"]
+        XCTAssertTrue(request.waitForExistence(timeout: 10))
+        capture("x6-offering")
+        request.tap()
+        sleep(5)
+        capture("x7-chat")
     }
 }

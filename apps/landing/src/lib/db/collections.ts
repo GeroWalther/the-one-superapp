@@ -330,6 +330,32 @@ export type MatchProfileDoc = {
 };
 
 /**
+ * One thing a business partner offers in TheONE SELECTION: a product to buy,
+ * a treatment or programme to book, a stay to request.
+ *
+ * `concerns` are the skin analysis keys it helps with, so a reading can point
+ * at the exact product or treatment rather than at a brand.
+ */
+export type OfferingDoc = {
+  _id: ObjectId;
+  partnerProfileId: ObjectId;
+  kind: "product" | "treatment" | "program" | "stay" | "service";
+  title: string;
+  description: string;
+  /** In the smallest unit (cents, Rappen); null when priced on request. */
+  priceCents: number | null;
+  currency: string;
+  /** e.g. "from", "per night"; shown next to the price. */
+  priceNote: string | null;
+  imageUrl: string | null;
+  concerns: string[];
+  published: boolean;
+  isTestAccount?: boolean;
+  createdAt: Date;
+  updatedAt: Date;
+};
+
+/**
  * One TheONE skin analysis: the scores and advice, never the photo.
  *
  * The face photo is read once to write this and then discarded; a member who
@@ -346,6 +372,8 @@ export type SkinScanDoc = {
   morning: string[];
   evening: string[];
   partners: { partnerProfileId: ObjectId; reason: string }[];
+  /** The exact products and treatments chosen for this skin. */
+  offerings?: { offeringId: ObjectId; reason: string }[];
   seeDoctor: boolean;
   doctorNote: string;
   createdAt: Date;
@@ -515,6 +543,11 @@ async function ensureIndexes(): Promise<void> {
 
     db.collection<SkinScanDoc>("skinScans").createIndex({ accountId: 1, createdAt: -1 }),
 
+    db.collection<OfferingDoc>("offerings").createIndexes([
+      { key: { partnerProfileId: 1, published: 1 } },
+      { key: { published: 1, concerns: 1 } },
+    ]),
+
     db.collection<RefreshTokenDoc>("refreshTokens").createIndexes([
       { key: { tokenHash: 1 }, unique: true },
       { key: { accountId: 1 } },
@@ -548,6 +581,7 @@ export const conversations = () => collection<ConversationDoc>("conversations");
 export const messages = () => collection<MessageDoc>("messages");
 export const aiThreads = () => collection<AiThreadDoc>("aiThreads");
 export const skinScans = () => collection<SkinScanDoc>("skinScans");
+export const offerings = () => collection<OfferingDoc>("offerings");
 export const matchProfiles = () => collection<MatchProfileDoc>("matchProfiles");
 export const matchDecisions = () => collection<MatchDecisionDoc>("matchDecisions");
 export const appointmentRequests = () =>

@@ -326,6 +326,31 @@ struct SkinResultView: View {
                     }
                 }
 
+                if let products = scan.products, !products.isEmpty {
+                    VStack(alignment: .leading, spacing: 12) {
+                        Text(verbatim: "TheONE SELECTION")
+                            .font(.system(size: 11, weight: .medium))
+                            .tracking(MemberLanguage.spacing(2.2))
+                            .foregroundStyle(Theme.aqua)
+                        Text(tr("Chosen for your skin"))
+                            .font(.system(size: 20, weight: .light, design: .serif))
+                            .foregroundStyle(Theme.ink)
+                        ScrollView(.horizontal, showsIndicators: false) {
+                            HStack(spacing: 12) {
+                                ForEach(products) { product in
+                                    NavigationLink {
+                                        OfferingDetailView(offering: product)
+                                    } label: {
+                                        OfferingCard(offering: product, width: 220, showReason: true)
+                                    }
+                                    .buttonStyle(.plain)
+                                }
+                            }
+                        }
+                    }
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                }
+
                 if !scan.partners.isEmpty {
                     card(tr("TheONE business partners for you")) {
                         VStack(spacing: 12) {

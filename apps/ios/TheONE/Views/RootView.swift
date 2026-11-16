@@ -30,7 +30,7 @@ struct RootView: View {
 
 struct MainTabs: View {
     enum Tab: Hashable, Identifiable {
-        case assistant, discover, match, messages, profile
+        case assistant, selection, match, messages, profile
         var id: Self { self }
     }
 
@@ -47,9 +47,11 @@ struct MainTabs: View {
             AssistantView()
                 .tabItem { Label("Assistant", systemImage: "sparkles") }
                 .tag(Tab.assistant)
-            DiscoverView()
-                .tabItem { Label("Discover", systemImage: "magnifyingglass") }
-                .tag(Tab.discover)
+            // TheONE SELECTION took the place of the plain partner list, which
+            // is still one tap away inside it.
+            SelectionView()
+                .tabItem { Label { Text(verbatim: "SELECTION") } icon: { Image(systemName: "sparkle") } }
+                .tag(Tab.selection)
             MatchView()
                 .tabItem { Label("Match", systemImage: "person.2") }
                 .tag(Tab.match)

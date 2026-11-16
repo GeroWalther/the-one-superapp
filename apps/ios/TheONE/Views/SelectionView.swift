@@ -1,0 +1,354 @@
+import SwiftUI
+
+/// TheONE SELECTION: what TheONE has chosen, area by area, and above it what
+/// it has chosen for this member. Never a market: two or three partners per
+/// area and city, each with the exact things they offer.
+struct SelectionView: View {
+    @State private var feed: SelectionFeed?
+    @State private var error: String?
+    @State private var showAllPartners = false
+
+    var body: some View {
+        NavigationStack {
+            ScrollView {
+                VStack(alignment: .leading, spacing: 30) {
+                    header
+
+                    if let feed {
+                        if !feed.forYou.isEmpty {
+                            VStack(alignment: .leading, spacing: 12) {
+                                sectionTitle(tr("Chosen for you"))
+                                ScrollView(.horizontal, showsIndicators: false) {
+                                    HStack(spacing: 14) {
+                                        ForEach(feed.forYou) { offering in
+                                            NavigationLink(value: offering) {
+                                                OfferingCard(offering: offering, width: 230, showReason: true)
+                                            }
+                                            .buttonStyle(.plain)
+                                        }
+                                    }
+                                    .padding(.horizontal, 20)
+                                }
+                            }
+                        }
+
+                        ForEach(feed.sections) { section in
+                            VStack(alignment: .leading, spacing: 14) {
+                                sectionBanner(section)
+                                ForEach(section.partners) { partner in
+                                    partnerBlock(partner, sectionKey: section.key)
+                                }
+                            }
+                        }
+
+                        Button { showAllPartners = true } label: {
+                            Label(tr("All business partners"), systemImage: "magnifyingglass")
+                                .font(.system(size: 15, weight: .medium))
+                                .foregroundStyle(Theme.aqua)
+                                .frame(maxWidth: .infinity)
+                        }
+                        .padding(.bottom, 30)
+                    } else if let error {
+                        Text(error)
+                            .font(.system(size: 14))
+                            .foregroundStyle(Theme.inkSoft)
+                            .frame(maxWidth: .infinity)
+                            .padding(.top, 40)
+                    } else {
+                        ProgressView().tint(Theme.aqua)
+                            .frame(maxWidth: .infinity)
+                            .padding(.top, 60)
+                    }
+                }
+            }
+            .background(HomeBackground())
+            .navigationTitle("SELECTION")
+            .navigationBarTitleDisplayMode(.inline)
+            .brandedNavigationBar()
+            .homeButton()
+            .navigationDestination(for: Offering.self) { OfferingDetailView(offering: $0) }
+            .refreshable { await load() }
+            .task { if feed == nil { await load() } }
+            .sheet(isPresented: $showAllPartners) {
+                DiscoverView()
+                    // In a sheet the house would close the whole member area.
+                    .environment(\.closeToHome, nil)
+            }
+        }
+    }
+
+    private var header: some View {
+        VStack(spacing: 10) {
+            Text(verbatim: "TheONE SELECTION")
+                .font(.system(size: 24, weight: .regular, design: .serif))
+                .tracking(2.5)
+                .foregroundStyle(Theme.ink)
+            Text(tr("Hand-picked for you: only the best two or three in each area, with exactly what they offer."))
+                .font(.system(size: 15, weight: .light, design: .serif))
+                .multilineTextAlignment(.center)
+                .foregroundStyle(Theme.inkSoft)
+        }
+        .frame(maxWidth: .infinity)
+        .padding(.horizontal, 24)
+        .padding(.vertical, 22)
+        .background(
+            RoundedRectangle(cornerRadius: 22, style: .continuous)
+                .fill(Theme.aquaTint.opacity(0.92))
+                .overlay(RoundedRectangle(cornerRadius: 22, style: .continuous).stroke(Theme.aqua.opacity(0.3), lineWidth: 1))
+        )
+        .padding(.horizontal, 20)
+        .padding(.top, 16)
+    }
+
+    private func sectionTitle(_ text: String) -> some View {
+        Text(text.uppercased().replacingOccurrences(of: "THEONE", with: "TheONE"))
+            .font(.system(size: 12, weight: .medium))
+            .tracking(MemberLanguage.spacing(2.4))
+            .foregroundStyle(Theme.aqua)
+            .padding(.horizontal, 20)
+    }
+
+    private func sectionBanner(_ section: SelectionSection) -> some View {
+        ZStack(alignment: .bottomLeading) {
+            AsyncImage(url: Site.url(section.imagePath)) { image in
+                image.resizable().scaledToFill()
+            } placeholder: {
+                Theme.aquaTint
+            }
+            .frame(height: 120)
+            .frame(maxWidth: .infinity)
+            .clipped()
+            LinearGradient(colors: [.clear, Vortex.abyss.opacity(0.65)], startPoint: .top, endPoint: .bottom)
+            Text(section.title)
+                .font(.system(size: 22, weight: .regular, design: .serif))
+                .foregroundStyle(.white)
+                .padding(16)
+        }
+        .frame(height: 120)
+        .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
+        .padding(.horizontal, 20)
+    }
+
+    private func partnerBlock(_ partner: SelectionPartner, sectionKey: String) -> some View {
+        VStack(alignment: .leading, spacing: 10) {
+            NavigationLink {
+                PartnerDetailView(partnerId: partner.id)
+            } label: {
+                HStack {
+                    VStack(alignment: .leading, spacing: 2) {
+                        Text(partner.name)
+                            .font(.system(size: 17, weight: .medium))
+                            .foregroundStyle(Theme.ink)
+                        Text(partner.city)
+                            .font(.system(size: 12.5))
+                            .foregroundStyle(Theme.inkFaint)
+                    }
+                    Spacer()
+                    Image(systemName: "chevron.right")
+                        .font(.system(size: 12, weight: .semibold))
+                        .foregroundStyle(Theme.inkFaint)
+                }
+            }
+            .buttonStyle(.plain)
+            .padding(.horizontal, 20)
+
+            ScrollView(.horizontal, showsIndicators: false) {
+                HStack(spacing: 12) {
+                    ForEach(partner.offerings) { offering in
+                        NavigationLink(value: offering) {
+                            OfferingCard(offering: offering, width: 190, showReason: false)
+                        }
+                        .buttonStyle(.plain)
+                    }
+                }
+                .padding(.horizontal, 20)
+            }
+        }
+    }
+
+    private func load() async {
+        do {
+            feed = try await APIClient.shared.send("/selection")
+            error = nil
+        } catch {
+            self.error = (error as? APIError)?.errorDescription ?? tr("Could not load business partners.")
+        }
+    }
+}
+
+/// One product, treatment, programme or stay, as a card.
+struct OfferingCard: View {
+    let offering: Offering
+    let width: CGFloat
+    let showReason: Bool
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 0) {
+            OfferingImage(offering: offering)
+                .frame(width: width, height: width * 0.62)
+                .clipped()
+            VStack(alignment: .leading, spacing: 5) {
+                Text(offering.title)
+                    .font(.system(size: 14.5, weight: .medium))
+                    .foregroundStyle(Theme.ink)
+                    .lineLimit(2)
+                    .multilineTextAlignment(.leading)
+                Text(offering.partner.name)
+                    .font(.system(size: 12))
+                    .foregroundStyle(Theme.inkFaint)
+                    .lineLimit(1)
+                if showReason, let reason = offering.reason, !reason.isEmpty {
+                    Text(reason)
+                        .font(.system(size: 12))
+                        .foregroundStyle(Theme.inkSoft)
+                        .lineLimit(3)
+                        .multilineTextAlignment(.leading)
+                } else if showReason, offering.basis == "skin" {
+                    Label(tr("Fits your skin analysis"), systemImage: "face.smiling")
+                        .font(.system(size: 11.5))
+                        .foregroundStyle(Theme.aqua)
+                }
+                Text(offering.priceText)
+                    .font(.system(size: 13.5, weight: .semibold))
+                    .foregroundStyle(Theme.aqua)
+                    .padding(.top, 2)
+            }
+            .padding(12)
+            .frame(width: width, alignment: .leading)
+        }
+        .background(Theme.panel)
+        .clipShape(RoundedRectangle(cornerRadius: 18, style: .continuous))
+        .overlay(RoundedRectangle(cornerRadius: 18, style: .continuous).stroke(Theme.line, lineWidth: 1))
+        .shadow(color: Vortex.abyss.opacity(0.08), radius: 8, y: 4)
+    }
+}
+
+/// The partner's own picture, or the area's picture until they add one.
+struct OfferingImage: View {
+    let offering: Offering
+
+    var body: some View {
+        let url = offering.imageUrl.flatMap(URL.init(string:))
+            ?? Site.url(SelectionSection.image(for: SelectionSection.key(for: offering)))
+        AsyncImage(url: url) { image in
+            image.resizable().scaledToFill()
+        } placeholder: {
+            Theme.aquaTint
+        }
+    }
+}
+
+/// One offering in full, and the way to ask the partner for it.
+struct OfferingDetailView: View {
+    let offering: Offering
+
+    @State private var sending = false
+    @State private var chat: (id: String, name: String)?
+    @State private var error: String?
+
+    private struct Response: Decodable { let conversationId: String; let partnerName: String }
+
+    var body: some View {
+        ScrollView {
+            VStack(alignment: .leading, spacing: 16) {
+                OfferingImage(offering: offering)
+                    .frame(height: 230)
+                    .frame(maxWidth: .infinity)
+                    .clipped()
+
+                VStack(alignment: .leading, spacing: 14) {
+                    Text(offering.title)
+                        .font(.system(size: 26, weight: .light, design: .serif))
+                        .foregroundStyle(Theme.ink)
+                    NavigationLink {
+                        PartnerDetailView(partnerId: offering.partner.id)
+                    } label: {
+                        Label("\(offering.partner.name) · \(offering.partner.city)", systemImage: "building.2")
+                            .font(.system(size: 14))
+                            .foregroundStyle(Theme.aqua)
+                    }
+                    Text(offering.priceText)
+                        .font(.system(size: 20, weight: .medium))
+                        .foregroundStyle(Theme.ink)
+
+                    if let reason = offering.reason, !reason.isEmpty {
+                        HStack(alignment: .top, spacing: 10) {
+                            Image(systemName: "sparkles").foregroundStyle(Theme.aqua)
+                            Text(reason)
+                                .font(.system(size: 14.5))
+                                .foregroundStyle(Theme.ink)
+                        }
+                        .padding(14)
+                        .background(RoundedRectangle(cornerRadius: 14, style: .continuous).fill(Theme.aquaTint))
+                    }
+
+                    Text(offering.description)
+                        .font(.system(size: 15.5))
+                        .lineSpacing(3)
+                        .foregroundStyle(Theme.inkSoft)
+
+                    if !offering.concerns.isEmpty {
+                        Text(tr("Helps with"))
+                            .font(.system(size: 12, weight: .medium))
+                            .foregroundStyle(Theme.inkFaint)
+                        FlowLayout(spacing: 8) {
+                            ForEach(offering.concerns, id: \.self) { concern in
+                                Text(SkinWords.label(concern))
+                                    .font(.system(size: 13))
+                                    .foregroundStyle(Theme.aqua)
+                                    .padding(.horizontal, 11)
+                                    .padding(.vertical, 6)
+                                    .background(Capsule().fill(Theme.aquaTint))
+                            }
+                        }
+                    }
+
+                    if let error {
+                        Text(error).font(.system(size: 13)).foregroundStyle(.red)
+                    }
+
+                    Button {
+                        Task { await request() }
+                    } label: {
+                        HStack {
+                            if sending { ProgressView().tint(Theme.onAccent) }
+                            Text(offering.actionTitle)
+                        }
+                        .font(.system(size: 16, weight: .medium))
+                        .foregroundStyle(Theme.onAccent)
+                        .frame(maxWidth: .infinity)
+                        .padding(.vertical, 15)
+                        .background(Capsule().fill(Theme.aqua))
+                    }
+                    .disabled(sending)
+                    .accessibilityIdentifier("offering.request")
+
+                    Text(tr("Your request goes straight to the business partner, who will reply in Messages."))
+                        .font(.system(size: 12))
+                        .foregroundStyle(Theme.inkFaint)
+                }
+                .padding(.horizontal, 20)
+                .padding(.bottom, 30)
+            }
+        }
+        .background(HomeBackground())
+        .navigationBarTitleDisplayMode(.inline)
+        .navigationDestination(isPresented: Binding(get: { chat != nil }, set: { if !$0 { chat = nil } })) {
+            if let chat { ConversationView(conversationId: chat.id, title: chat.name) }
+        }
+    }
+
+    private func request() async {
+        sending = true
+        error = nil
+        defer { sending = false }
+        do {
+            let response: Response = try await APIClient.shared.send(
+                "/selection/request", method: "POST", body: ["offeringId": offering.id]
+            )
+            chat = (response.conversationId, response.partnerName)
+        } catch {
+            self.error = (error as? APIError)?.errorDescription ?? tr("Something went wrong. Please try again.")
+        }
+    }
+}

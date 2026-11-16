@@ -4,6 +4,7 @@ import { ObjectId } from "mongodb";
 import type { PublicAccount } from "../auth/accounts";
 import { accounts, partnerProfiles, skinScans, type SkinScanDoc } from "../db/collections";
 import { getMemberProfile } from "../profile/service";
+import { offeringsForAdvice, type OfferingView } from "../selection/service";
 
 /**
  * TheONE skin analysis: one face photo in, a cosmetic reading out.
@@ -95,6 +96,8 @@ export type SkinScan = {
   morning: string[];
   evening: string[];
   partners: SkinPartner[];
+  /** The exact products and treatments chosen for this skin, from SELECTION. */
+  products: (OfferingView & { reason: string })[];
   seeDoctor: boolean;
   doctorNote: string;
 };
@@ -110,6 +113,12 @@ async function view(docs: SkinScanDoc[]): Promise<SkinScan[]> {
         .toArray()
     : [];
   const byId = new Map(partners.map((p) => [p._id.toHexString(), p]));
+
+  const offeringIds = new Set(docs.flatMap((d) => (d.offerings ?? []).map((o) => o.offeringId.toHexString())));
+  const offeringViews = offeringIds.size && docs[0]
+    ? await offeringsForAdvice({ accountId: docs[0].accountId.toHexString(), limit: 500 })
+    : [];
+  const offeringById = new Map(offeringViews.map((o) => [o.id, o]));
 
   return docs.map((d) => ({
     id: d._id.toHexString(),
@@ -131,6 +140,10 @@ async function view(docs: SkinScanDoc[]): Promise<SkinScan[]> {
             reason: p.reason,
           }]
         : [];
+    }),
+    products: (d.offerings ?? []).flatMap((pick) => {
+      const offering = offeringById.get(pick.offeringId.toHexString());
+      return offering ? [{ ...offering, reason: pick.reason }] : [];
     }),
     seeDoctor: d.seeDoctor,
     doctorNote: d.doctorNote,
@@ -164,7 +177,7 @@ const OUTPUT_SCHEMA = {
   additionalProperties: false,
   required: [
     "usable", "problem", "overall", "summary", "scores", "focus",
-    "morning", "evening", "partners", "seeDoctor", "doctorNote",
+    "morning", "evening", "partners", "products", "seeDoctor", "doctorNote",
   ],
   properties: {
     usable: { type: "boolean" },
@@ -196,6 +209,15 @@ const OUTPUT_SCHEMA = {
         properties: { id: { type: "string" }, reason: { type: "string" } },
       },
     },
+    products: {
+      type: "array",
+      items: {
+        type: "object",
+        additionalProperties: false,
+        required: ["id", "reason"],
+        properties: { id: { type: "string" }, reason: { type: "string" } },
+      },
+    },
     seeDoctor: { type: "boolean" },
     doctorNote: { type: "string" },
   },
@@ -211,6 +233,7 @@ type ModelOutput = {
   morning: string[];
   evening: string[];
   partners: { id: string; reason: string }[];
+  products: { id: string; reason: string }[];
   seeDoctor: boolean;
   doctorNote: string;
 };
@@ -278,6 +301,23 @@ export async function analyseSkin(input: {
   const nearby = candidates.filter(
     (p) => p.category === "beauty" || !city || p.city.trim().toLowerCase() === city,
   );
+  const advice = await offeringsForAdvice({
+    accountId: input.account.id,
+    kinds: ["product", "treatment", "program"],
+    limit: 120,
+  });
+  const nearbyIds = new Set(nearby.map((p) => p._id.toHexString()));
+  const catalogue = advice
+    .filter((o) => nearbyIds.has(o.partner.id))
+    .map((o) => ({
+      id: o.id,
+      partnerId: o.partner.id,
+      kind: o.kind,
+      title: o.title,
+      helpsWith: o.concerns,
+      price: o.priceCents === null ? "on request" : `${o.priceNote ? o.priceNote + " " : ""}${(o.priceCents / 100).toFixed(0)} ${o.currency}`,
+      about: o.description.slice(0, 200),
+    }));
   const directory = nearby.map((p) => ({
     id: p._id.toHexString(),
     name: p.name,
@@ -294,6 +334,7 @@ Rules:
 - If the photo does not show one face clearly enough (no face, several faces, very dark, blurred, heavy filter or make-up that hides the skin), set usable to false, explain in problem in one friendly sentence how to retake it, and leave the other fields empty or zero.
 - Scores are 0 to 100 where higher is always better: hydration (looks well hydrated), lines (few fine lines and wrinkles), pigmentation (few dark spots), redness (calm, little redness), pores (refined pores), evenness (even tone and texture), radiance (glow). Give all seven, each with one short, kind, specific note. overall is your overall impression, 0 to 100.
 - summary: two or three warm sentences addressed to the member${informal}. focus: the two most worthwhile things to work on. morning and evening: a short, realistic routine, three to five steps each, ingredient-led (e.g. vitamin C serum, SPF 50, retinol at night), no brand names in the routine.
+- products: the two or three exact products and treatments from the TheONE SELECTION catalogue below that will make the biggest visible difference for this skin, by exact id, each with one sentence naming the score it improves and why it fits. Choose products whose helpsWith matches this skin's weakest scores; prefer one product for daily care and one treatment when the scores call for it. Never invent an id; if nothing fits, return an empty list.
 - partners: up to three entries from the directory below, by exact id, whose products or treatments fit this skin: skincare brands for products, aesthetic doctors and practices for treatments, longevity clinics for the bigger picture. TheONE recommends only two or three hand-picked doctors or clinics per city, so name at most three in total and choose the very best fit. Each with a one-sentence reason. If none fits, return an empty list. Never invent a partner or an id.
 - Be clear and decisive, like an expert who knows exactly what this skin needs. In the routine, name one specific thing per step and nothing vague: no "or", no "maybe", no lists of alternatives. Recommend only what truly fits these scores; every partner reason names the concrete product or treatment from that partner's description and which score it improves.
 - Write every text in ${spoken}, addressing the member${informal}. Never use dashes; use a comma or a colon. Write TheONE, POWER AI and MATCH exactly like this. Never call TheONE "new".`;
@@ -320,7 +361,7 @@ Rules:
             },
             {
               type: "text",
-              text: `This is my face. Please read my skin.\n\nTheONE business partners you may recommend (JSON):\n${JSON.stringify(directory)}`,
+              text: `This is my face. Please scan my skin.\n\nTheONE business partners you may recommend (JSON):\n${JSON.stringify(directory)}\n\nTheONE SELECTION catalogue of their products and treatments (JSON):\n${JSON.stringify(catalogue)}`,
             },
           ],
         },
@@ -364,6 +405,10 @@ Rules:
     focus: out.focus.slice(0, 3).map(noDashes),
     morning: out.morning.slice(0, 6).map(noDashes),
     evening: out.evening.slice(0, 6).map(noDashes),
+    offerings: (out.products ?? [])
+      .filter((p) => catalogue.some((c) => c.id === p.id))
+      .slice(0, 3)
+      .map((p) => ({ offeringId: new ObjectId(p.id), reason: noDashes(p.reason) })),
     partners: out.partners
       .filter((p) => allowed.has(p.id))
       .slice(0, 3)

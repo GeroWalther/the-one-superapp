@@ -7,6 +7,7 @@ import { getPartner, searchPartners, setSaved } from "../api/partners";
 import { getMemberProfile } from "../profile/service";
 import { openConversation, sendMessage } from "../api/chat";
 import { listSkinScans } from "../skin/service";
+import { offeringsForAdvice } from "../selection/service";
 
 /**
  * The assistant's tools.
@@ -85,6 +86,28 @@ export const ASSISTANT_TOOLS: Anthropic.Tool[] = [
         partnerId: { type: "string" },
       },
       required: ["partnerId"],
+      additionalProperties: false,
+    },
+  },
+  {
+    name: "search_selection",
+    description:
+      "TheONE SELECTION: the exact products, treatments, programmes and stays that TheONE's business partners offer, with prices. Use it to recommend one specific item rather than a brand. Filter by kind and by the skin analysis keys an item helps with (hydration, lines, pigmentation, redness, pores, evenness, radiance).",
+    input_schema: {
+      type: "object",
+      properties: {
+        kinds: {
+          type: "array",
+          items: { type: "string", enum: ["product", "treatment", "program", "stay", "service"] },
+        },
+        concerns: {
+          type: "array",
+          items: {
+            type: "string",
+            enum: ["hydration", "lines", "pigmentation", "redness", "pores", "evenness", "radiance"],
+          },
+        },
+      },
       additionalProperties: false,
     },
   },
@@ -216,6 +239,29 @@ export async function runAssistantTool(
         return ok
           ? { content: "Saved to the member's list." }
           : { content: "No such partner.", isError: true };
+      }
+
+      case "search_selection": {
+        const items = await offeringsForAdvice({
+          accountId: account.id,
+          kinds: Array.isArray(input.kinds) ? (input.kinds as never[]) : undefined,
+          concerns: Array.isArray(input.concerns) ? (input.concerns as string[]) : undefined,
+          limit: 30,
+        });
+        if (items.length === 0) return { content: "Nothing in TheONE SELECTION matches yet." };
+        return {
+          content: JSON.stringify(
+            items.map((o) => ({
+              id: o.id,
+              kind: o.kind,
+              title: o.title,
+              partner: o.partner,
+              helpsWith: o.concerns,
+              price: o.priceCents === null ? "on request" : `${(o.priceCents / 100).toFixed(0)} ${o.currency}${o.priceNote ? " " + o.priceNote : ""}`,
+              about: o.description,
+            })),
+          ),
+        };
       }
 
       case "get_skin_analysis": {
