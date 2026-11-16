@@ -22,7 +22,7 @@ export function ApplySection({ inviteCode }: { inviteCode?: string }) {
             once the visitor has seen what TheONE does. English in every
             language, like all of TheONE's claims. */}
         <div data-reveal className="relative z-[1] mb-14 text-center sm:mb-16">
-          <p className="text-balance font-display text-[clamp(30px,8.4vw,48px)] font-bold leading-[1.12] tracking-[0.05em] text-[#0a2f34] [-webkit-text-stroke:0.6px_currentColor]">
+          <p className="text-balance font-display text-[clamp(30px,8.4vw,48px)] font-semibold leading-[1.12] tracking-[0.05em] text-[#0a2f34]">
             {tBrand("closingSlogan")}
           </p>
           <div
