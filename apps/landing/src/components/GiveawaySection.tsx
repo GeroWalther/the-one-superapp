@@ -113,7 +113,7 @@ export function GiveawaySection() {
 
             <a
               href="#apply"
-              className="btn mt-6 px-7 py-3.5 text-[15px] font-semibold text-white shadow-[0_14px_30px_-14px_rgba(0,0,0,0.7)] hover:-translate-y-px hover:brightness-110"
+              className="btn mt-6 max-w-full whitespace-normal px-6 py-3.5 text-center text-[15px] font-semibold text-white shadow-[0_14px_30px_-14px_rgba(0,0,0,0.7)] sm:whitespace-nowrap sm:px-7 hover:-translate-y-px hover:brightness-110"
               style={{ background: BORDEAUX }}
             >
               {t("cta")}
