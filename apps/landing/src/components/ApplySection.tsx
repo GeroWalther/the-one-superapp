@@ -18,6 +18,19 @@ export function ApplySection({ inviteCode }: { inviteCode?: string }) {
   return (
     <section id="apply" className="scroll-mt-24 pb-20 pt-16 sm:pb-24 sm:pt-20">
       <div className="mx-auto max-w-2xl px-6 lg:px-8">
+        {/* The page's last word before the application: the big promise,
+            once the visitor has seen what TheONE does. English in every
+            language, like all of TheONE's claims. */}
+        <div data-reveal className="relative z-[1] mb-14 text-center sm:mb-16">
+          <p className="text-balance font-display text-[clamp(30px,8.4vw,48px)] font-bold leading-[1.12] tracking-[0.05em] text-[#0a2f34] [-webkit-text-stroke:0.6px_currentColor]">
+            {tBrand("closingSlogan")}
+          </p>
+          <div
+            aria-hidden="true"
+            className="mx-auto mt-8 h-px w-24 bg-gradient-to-r from-transparent via-[#8a6420]/45 to-transparent sm:mt-10"
+          />
+        </div>
+
         <div data-reveal className="relative z-[1] text-center">
           {/* The claim is set the way the page's other claims are — caps,
               tracked out, in black, with a hairline stroke because the face stops at 700 — so it reads as the brand

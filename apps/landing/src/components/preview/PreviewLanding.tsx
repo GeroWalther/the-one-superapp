@@ -202,9 +202,9 @@ export function PreviewLanding() {
             <span className="text-[#8a6420]">{tHero("titleAccent")}</span>
           </h1>
 
-          {/* The slogan, directly under the claim. Caps live in the message so
-              "TheONE" keeps its brand casing; same face as the claim, a step
-              smaller, so the h1 still leads. */}
+          {/* What TheONE is, directly under the claim: THE POWER AI THAT
+              UNDERSTANDS YOU, English in every language. Same face as the
+              claim, a step smaller, so the h1 still leads. */}
           <p
             data-reveal
             data-reveal-delay="180"
