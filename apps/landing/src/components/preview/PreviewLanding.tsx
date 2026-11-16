@@ -202,23 +202,15 @@ export function PreviewLanding() {
             <span className="text-[#8a6420]">{tHero("titleAccent")}</span>
           </h1>
 
-          {/* Under the claim: the promise (TheONE CHANGES EVERYTHING), then
-              what TheONE is (THE POWER AI THAT UNDERSTANDS YOU). English in
-              every language. Same face as the claim, a step smaller, so the h1
-              still leads; the second line quieter again. */}
+          {/* Under the claim: the promise, TheONE CHANGES EVERYTHING. English
+              in every language. Same face as the claim, a step smaller, so
+              the h1 still leads. */}
           <p
             data-reveal
             data-reveal-delay="180"
             className="mx-auto mt-3 max-w-3xl text-balance text-center font-display text-[19px] font-semibold leading-[1.3] tracking-[0.06em] text-[#0a2f34] sm:mt-4 sm:text-[21px] sm:tracking-[0.1em] lg:text-[24px]"
           >
             {tHero("slogan")}
-          </p>
-          <p
-            data-reveal
-            data-reveal-delay="210"
-            className="mx-auto mt-2 max-w-3xl text-balance text-center font-display text-[16px] font-medium leading-[1.35] tracking-[0.06em] text-[#37414d] sm:mt-3 sm:text-[18px] sm:tracking-[0.1em] lg:text-[20px]"
-          >
-            {tHero("powerLine")}
           </p>
 
 
