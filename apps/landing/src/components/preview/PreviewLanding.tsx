@@ -186,11 +186,13 @@ export function PreviewLanding() {
             /* max-w-3xl, not 6xl: the hero sets this claim inside a max-w-3xl
                column, so an unconstrained line here would run to 1152px and
                set the identical words at a completely different measure. */
+            /* From iPad up it is held to one line, as the owner wants: it grows
+               with the screen to 32px, tighter tracked until there is room. */
             /* On a phone it is set for reading, not held to one line: squeezed
                onto one it came out around 17px, too small to read comfortably,
                so it takes two balanced lines at 22px instead. Above sm it
                returns to the tracked, centred setting. */
-            className="mx-auto mt-4 max-w-3xl text-balance text-center font-display text-[22px] font-bold leading-[1.3] tracking-[0.04em] text-[#0a2f34] sm:mx-auto sm:mt-6 sm:text-[24px] sm:tracking-[0.08em] lg:text-[28px]"
+            className="mx-auto mt-4 max-w-3xl text-balance text-center font-display text-[22px] font-bold leading-[1.3] tracking-[0.04em] text-[#0a2f34] sm:mx-auto sm:mt-6 sm:whitespace-nowrap sm:text-[clamp(24px,3.9vw,32px)] sm:tracking-[0.04em] lg:text-[32px] lg:tracking-[0.08em]"
           >
             {tHero("titleLine1")}{" "}
             {/* Inline, not a block: the two halves are one sentence, and forcing
@@ -210,7 +212,7 @@ export function PreviewLanding() {
           <p
             data-reveal
             data-reveal-delay="180"
-            className="mx-auto mt-3 max-w-3xl text-balance text-center font-display text-[19px] font-bold leading-[1.3] tracking-[0.06em] text-[#0a2f34] sm:mt-5 sm:text-[26px] sm:tracking-[0.08em] lg:text-[31px]"
+            className="mx-auto mt-3 max-w-3xl text-balance text-center font-display text-[19px] font-bold leading-[1.3] tracking-[0.06em] text-[#0a2f34] sm:mt-5 sm:text-[clamp(26px,4.6vw,36px)] sm:tracking-[0.08em]"
           >
             {tHero("slogan")}
           </p>
