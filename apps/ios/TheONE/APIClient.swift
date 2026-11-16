@@ -162,7 +162,7 @@ actor APIClient {
     }
 
     /// Builds a request the streaming assistant endpoint can consume.
-    func assistantRequest(message: String, threadId: String?) -> URLRequest? {
+    func assistantRequest(message: String, threadId: String?, opening: String? = nil) -> URLRequest? {
         guard let accessToken else { return nil }
 
         var request = URLRequest(url: baseURL.appendingPathComponent("assistant"))
@@ -173,6 +173,7 @@ actor APIClient {
 
         var payload: [String: Any] = ["message": message]
         if let threadId { payload["threadId"] = threadId }
+        if let opening { payload["opening"] = opening }
         request.httpBody = try? JSONSerialization.data(withJSONObject: payload)
 
         return request

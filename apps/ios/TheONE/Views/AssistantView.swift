@@ -12,7 +12,7 @@ final class AssistantModel {
 
     private var threadId: String?
 
-    func send(speech: SpeechController, locale: String) async {
+    func send(speech: SpeechController, locale: String, opening: String? = nil) async {
         let message = draft.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !message.isEmpty, !isStreaming else { return }
 
@@ -20,6 +20,10 @@ final class AssistantModel {
         error = nil
         speech.stopSpeaking()
 
+        // The greeting stays at the top of the conversation it opened.
+        if turns.isEmpty, threadId == nil, let opening {
+            turns.append(AssistantTurn(role: .assistant, text: opening))
+        }
         turns.append(AssistantTurn(role: .user, text: message))
         turns.append(AssistantTurn(role: .assistant, text: ""))
         let replyIndex = turns.count - 1
@@ -32,7 +36,10 @@ final class AssistantModel {
 
         guard let request = await APIClient.shared.assistantRequest(
             message: message,
-            threadId: threadId
+            threadId: threadId,
+            // Only a new conversation carries the greeting; an ongoing one
+            // already has it on the server.
+            opening: threadId == nil ? opening : nil
         ) else {
             error = APIError.unauthorized.errorDescription
             return
@@ -111,6 +118,7 @@ final class AssistantModel {
 
 struct AssistantView: View {
     @Environment(SessionStore.self) private var session
+    @Environment(Greeter.self) private var greeter
     @State private var model = AssistantModel()
     @State private var speech = SpeechController()
 
@@ -152,6 +160,7 @@ struct AssistantView: View {
         .onChange(of: speech.transcript) { _, new in
             if speech.isListening { model.draft = new }
         }
+        .onAppear { speech.locale = session.account?.locale ?? "en" }
     }
 
     private var transcript: some View {
@@ -185,9 +194,16 @@ struct AssistantView: View {
                 .font(.system(size: 26, weight: .light, design: .serif))
                 .foregroundStyle(Theme.ink)
 
-            Text("I know TheONE's verified business partners and what you told us when you applied. Tell me what you need — or just describe the problem.")
-                .font(.system(size: 14))
-                .foregroundStyle(Theme.inkSoft)
+            if let words = greeter.text {
+                // The greeting from the start screen, as the assistant's
+                // opening line: the member's answer continues from it.
+                TurnBubble(turn: AssistantTurn(role: .assistant, text: words))
+                    .accessibilityIdentifier("assistant.greeting")
+            } else {
+                Text("I know TheONE's verified business partners and what you told us when you applied. Tell me what you need — or just describe the problem.")
+                    .font(.system(size: 14))
+                    .foregroundStyle(Theme.inkSoft)
+            }
 
             VStack(alignment: .leading, spacing: 8) {
                 ForEach([
@@ -226,6 +242,7 @@ struct AssistantView: View {
                 if speech.isListening {
                     speech.stopListening()
                 } else {
+                    greeter.stop()
                     // Permission is requested here rather than when the tab
                     // opens: a microphone prompt before the member has shown
                     // any interest in talking reads as intrusive, and it lands
@@ -261,10 +278,12 @@ struct AssistantView: View {
 
             Button {
                 speech.stopListening()
+                greeter.stop()
                 Task {
                     await model.send(
                         speech: speech,
-                        locale: session.account?.locale ?? "en"
+                        locale: session.account?.locale ?? "en",
+                        opening: greeter.text
                     )
                 }
             } label: {

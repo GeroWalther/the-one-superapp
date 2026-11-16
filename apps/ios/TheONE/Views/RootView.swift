@@ -2,6 +2,7 @@ import SwiftUI
 
 struct RootView: View {
     @State private var session = SessionStore()
+    @State private var greeter = Greeter()
 
     var body: some View {
         // The start screen is the first thing anyone sees, while the stored
@@ -9,6 +10,16 @@ struct RootView: View {
         // or, once signed in, the member area.
         HomeView()
         .environment(session)
+        .environment(greeter)
+        // Every launch, as soon as the member is known to be signed in; and
+        // again for whoever signs in next, after a sign-out.
+        .task(id: session.account?.id) {
+            if let account = session.account {
+                await greeter.greet(account)
+            } else if session.state == .signedOut {
+                greeter.reset()
+            }
+        }
         // Pinned rather than adaptive: the palette is a single light set, so a
         // system dark mode would recolour the chrome and leave the content light.
         .preferredColorScheme(.light)

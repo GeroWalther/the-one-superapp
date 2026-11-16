@@ -8,6 +8,7 @@ import SwiftUI
 /// carries on to where the tap meant to go.
 struct HomeView: View {
     @Environment(SessionStore.self) private var session
+    @Environment(Greeter.self) private var greeter
 
     @State private var showLogin = false
     /// The member area shown over the start screen, opened on this tab.
@@ -55,11 +56,28 @@ struct HomeView: View {
                     .accessibilityIdentifier("home.storm")
                     .frame(width: min(proxy.size.width - 32, 420))
                     .padding(.top, 30)
-                    .padding(.bottom, 32)
+
+                    // What the app just said aloud, so it can be read too,
+                    // and so it is there for anyone with the sound off.
+                    if let words = greeter.text, session.account != nil {
+                        Text(words)
+                            .font(.system(size: 17, weight: .regular, design: .serif))
+                            .italic()
+                            .lineSpacing(3)
+                            .multilineTextAlignment(.center)
+                            .foregroundStyle(Self.headline)
+                            .padding(.horizontal, 32)
+                            .padding(.top, 22)
+                            .transition(.opacity)
+                            .accessibilityIdentifier("home.greeting")
+                    }
+
+                    Spacer(minLength: 32)
                 }
                 .frame(maxWidth: .infinity)
             }
             .scrollBounceBehavior(.basedOnSize)
+            .animation(.easeIn(duration: 0.6), value: greeter.text)
         }
         .background(HomeBackground())
         .overlay(alignment: .topTrailing) {

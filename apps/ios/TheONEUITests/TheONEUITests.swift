@@ -100,6 +100,24 @@ final class TheONEUITests: XCTestCase {
         XCTFail("could not focus \(field)")
     }
 
+    /// Taps the house until `screen` is gone.
+    ///
+    /// iOS can still be busy with its password card when the house is first
+    /// tapped, and that tap is lost; a second one goes through.
+    private func goHome(leaving screen: XCUIElement) {
+        var home = false
+        for _ in 0..<3 where !home {
+            app.buttons["Start"].tap()
+            let gone = XCTNSPredicateExpectation(
+                predicate: NSPredicate(format: "exists == false"),
+                object: screen
+            )
+            home = XCTWaiter().wait(for: [gone], timeout: 5) == .completed
+            if !home { dismissSystemPrompts() }
+        }
+        XCTAssertTrue(home, "the house did not return to the start screen")
+    }
+
     private func capture(_ name: String) {
         let shot = XCTAttachment(screenshot: XCUIScreen.main.screenshot())
         shot.name = name
@@ -134,19 +152,7 @@ final class TheONEUITests: XCTestCase {
         // the house goes back to the start screen, the avatar returns
         // The start screen stays in the tree under the account, so the avatar
         // "exists" all along; the account leaving is what proves the way back.
-        // iOS can still be busy with its password card when the house is
-        // first tapped, and that tap is lost; a second one goes through.
-        var home = false
-        for _ in 0..<3 where !home {
-            app.buttons["Start"].tap()
-            let gone = XCTNSPredicateExpectation(
-                predicate: NSPredicate(format: "exists == false"),
-                object: app.navigationBars["Profile"]
-            )
-            home = XCTWaiter().wait(for: [gone], timeout: 5) == .completed
-            if !home { dismissSystemPrompts() }
-        }
-        XCTAssertTrue(home, "the house did not return to the start screen")
+        goHome(leaving: app.navigationBars["Profile"])
         let avatar = app.buttons["home.avatar"]
         capture("01c-back-home")
         avatar.tap()
@@ -247,12 +253,7 @@ final class TheONEUITests: XCTestCase {
         dismissSystemPrompts()
 
         // Back home, the storm now goes straight to the assistant.
-        app.buttons["Start"].tap()
-        let gone = XCTNSPredicateExpectation(
-            predicate: NSPredicate(format: "exists == false"),
-            object: app.staticTexts["Ask me anything"]
-        )
-        XCTAssertEqual(XCTWaiter().wait(for: [gone], timeout: 10), .completed, "the house did not return to the start screen")
+        goHome(leaving: app.staticTexts["Ask me anything"])
         storm.tap()
         XCTAssertTrue(
             app.staticTexts["Ask me anything"].waitForExistence(timeout: 10),

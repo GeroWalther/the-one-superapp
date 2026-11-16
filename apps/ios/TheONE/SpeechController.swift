@@ -16,7 +16,11 @@ final class SpeechController: NSObject {
     var isSpeaking = false
     var permissionDenied = false
 
-    private let recogniser = SFSpeechRecognizer(locale: Locale(identifier: "en-US"))
+    /// The member's language, `"de"` or `"en"`; listening follows it, so a
+    /// German member is understood in German.
+    var locale = "en"
+
+    private var recogniser: SFSpeechRecognizer?
     private let engine = AVAudioEngine()
     private var request: SFSpeechAudioBufferRecognitionRequest?
     private var task: SFSpeechRecognitionTask?
@@ -43,7 +47,12 @@ final class SpeechController: NSObject {
     }
 
     func startListening() {
-        guard !isListening, let recogniser, recogniser.isAvailable else { return }
+        guard !isListening else { return }
+        let recogniser = SFSpeechRecognizer(
+            locale: Locale(identifier: locale == "de" ? "de-DE" : "en-US")
+        )
+        guard let recogniser, recogniser.isAvailable else { return }
+        self.recogniser = recogniser
 
         stopSpeaking()
         transcript = ""
@@ -101,26 +110,54 @@ final class SpeechController: NSObject {
         try? AVAudioSession.sharedInstance().setActive(false, options: .notifyOthersOnDeactivation)
     }
 
-    func speak(_ text: String, locale: String) {
+    /// Speaks `text` in the warmest voice installed for the member's language.
+    ///
+    /// `respectSilentSwitch` is for speech the member did not ask for, such as
+    /// the greeting at launch: with the phone on silent it stays quiet, so the
+    /// app never talks out loud in a meeting.
+    func speak(_ text: String, locale: String, respectSilentSwitch: Bool = false) {
         guard !text.isEmpty else { return }
         stopSpeaking()
 
         do {
             let session = AVAudioSession.sharedInstance()
-            try session.setCategory(.playback, mode: .spokenAudio, options: .duckOthers)
+            if respectSilentSwitch {
+                try session.setCategory(.ambient, mode: .spokenAudio, options: .duckOthers)
+            } else {
+                try session.setCategory(.playback, mode: .spokenAudio, options: .duckOthers)
+            }
             try session.setActive(true)
         } catch {
             return
         }
 
         let utterance = AVSpeechUtterance(string: text)
-        utterance.voice = AVSpeechSynthesisVoice(
-            language: locale == "de" ? "de-DE" : "en-US"
-        )
-        utterance.rate = AVSpeechUtteranceDefaultSpeechRate * 0.96
+        utterance.voice = Self.bestVoice(for: locale)
+        // A touch slower than the default reads as calm rather than hurried.
+        utterance.rate = AVSpeechUtteranceDefaultSpeechRate * 0.92
 
         isSpeaking = true
         synthesiser.speak(utterance)
+    }
+
+    /// The best voice on this phone for the language: Premium over Enhanced
+    /// over the compact default, the member's own region first. Premium voices
+    /// are a free download in Settings > Accessibility > Spoken Content.
+    static func bestVoice(for locale: String) -> AVSpeechSynthesisVoice? {
+        let language = locale == "de" ? "de" : "en"
+        let home = locale == "de" ? "de-DE" : "en-US"
+
+        func score(_ voice: AVSpeechSynthesisVoice) -> Int {
+            voice.quality.rawValue * 10 + (voice.language == home ? 1 : 0)
+        }
+
+        let candidates = AVSpeechSynthesisVoice.speechVoices().filter {
+            $0.language.hasPrefix(language)
+                && !$0.voiceTraits.contains(.isNoveltyVoice)
+                && !$0.voiceTraits.contains(.isPersonalVoice)
+        }
+        return candidates.max { score($0) < score($1) }
+            ?? AVSpeechSynthesisVoice(language: home)
     }
 
     func stopSpeaking() {
