@@ -56,7 +56,34 @@ function anthropic(): Anthropic | null {
   return client;
 }
 
-function systemPrompt(account: PublicAccount): string {
+/**
+ * A language tag from the member's phone ("fr-CH"), checked, or null.
+ *
+ * The member speaks whatever language they speak, not only the two the
+ * website is written in, so the phone's language is what the assistant and
+ * its voice follow.
+ */
+export function languageTag(raw: unknown): string | null {
+  if (typeof raw !== "string" || raw.length > 35) return null;
+  try {
+    return Intl.getCanonicalLocales(raw.trim())[0] ?? null;
+  } catch {
+    return null;
+  }
+}
+
+/** "fr-CH" → "French". Falls back to the account's own language. */
+function languageName(account: PublicAccount, tag?: string | null): string {
+  const base = (tag ?? account.locale).split("-")[0];
+  try {
+    return new Intl.DisplayNames(["en"], { type: "language" }).of(base) ?? "English";
+  } catch {
+    return account.locale === "de" ? "German" : "English";
+  }
+}
+
+function systemPrompt(account: PublicAccount, language?: string | null): string {
+  const spoken = languageName(account, language);
   return `You are the concierge inside TheONE, a private decision-support platform for health, longevity, wealth, property, and lifestyle. You are speaking with ${account.displayName}, a ${account.role}.
 
 # What you are for
@@ -86,7 +113,7 @@ If anything suggests they might harm themselves or are in danger, put that first
 Treat what the member wants as yours to arrange. Find the right business partner, check the details, and with their yes, save it or request the appointment, so they leave with something done rather than a list to work through.
 
 # Voice
-Members often speak to you rather than type, so answers are read aloud. Lead with the answer, then the reasoning. Keep it to a few sentences unless they ask for depth. No headers or bullet lists in short replies — they sound wrong spoken. Write plainly, in ${account.locale === "de" ? "German" : "English"} unless the member writes in the other language. In German, address the member as "Sie".
+Members often speak to you rather than type, so answers are read aloud. Lead with the answer, then the reasoning. Keep it to a few sentences unless they ask for depth. No headers or bullet lists in short replies — they sound wrong spoken. Write plainly in the member's own language. Their phone is set to ${spoken}, so use ${spoken}; but whenever they write or speak to you in another language, answer in that language instead. In German, address the member informally as "du", warm and familiar like a trusted friend, never "Sie". In other languages, use the warm address a trusted personal assistant would naturally use. A member may be abroad and speak no English: you are their voice. Everything a business partner reads (an appointment request, a message) you write in the partner's language, and you tell the member in their own language what you arranged. No dashes in what you say. Never call TheONE or anything in it "new" ("neu"): TheONE is an infrastructure, not a newcomer competing with others.
 
 Be warm and direct, like a trusted personal assistant who has known them for years. If the member is about to make an expensive mistake, say so.`;
 }
@@ -112,6 +139,8 @@ export async function* runAssistant(input: {
   message: string;
   /** What the app said aloud to open the conversation, if it greeted them. */
   opening?: string;
+  /** The phone's language tag, which replies follow. */
+  language?: string | null;
 }): AsyncGenerator<StreamEvent> {
   const client = anthropic();
   if (!client) {
@@ -140,7 +169,7 @@ export async function* runAssistant(input: {
         system: [
           {
             type: "text",
-            text: systemPrompt(input.account),
+            text: systemPrompt(input.account, input.language),
             // Identical on every turn, so caching it turns the largest fixed
             // cost of each request into a cache read.
             cache_control: { type: "ephemeral" },
@@ -318,7 +347,16 @@ export async function dailyTip(account: PublicAccount): Promise<string | null> {
 export async function greeting(
   account: PublicAccount,
   hour: number,
+  /** The phone's language tag; the greeting is spoken in it. */
+  language?: string | null,
+  /** First names of MATCH matches the member has not yet been told about. */
+  matches: string[] = [],
 ): Promise<string | null> {
+  const spoken = languageName(account, language);
+  const informal = spoken === "German" ? ", addressing me informally as du" : "";
+  const matchNews = matches.length
+    ? `\n\nAlso tell me, warmly and in one short sentence, that I have ${matches.length === 1 ? `a match in TheONE MATCH with ${matches[0]}` : `${matches.length} matches in TheONE MATCH (${matches.join(", ")})`}: they would like to meet me too. Never call it "new".`
+    : "";
   const client = anthropic();
   if (!client) return null;
 
@@ -350,7 +388,7 @@ export async function greeting(
       ...(effortFor(ASSISTANT_MODEL)
         ? { output_config: effortFor(ASSISTANT_MODEL) }
         : {}),
-      system: systemPrompt(account),
+      system: systemPrompt(account, language),
       messages: [
         {
           role: "user",
@@ -360,7 +398,7 @@ My profile: ${profile.content}
 
 ${lastTalk}
 
-Greet me by my first name, ${account.firstName || account.displayName}, in a way that fits the time of day. Then either ask warmly how I am, or, if the last conversation left something open (an appointment, a search, a worry), ask about that. Two short sentences at most, natural to hear and warm, no emoji, no lists, no dashes, nothing in brackets. Write it entirely in ${account.locale === "de" ? "German, addressing me as Sie" : "English"}. Reply with the greeting only.]`,
+Greet me by my first name, ${account.firstName || account.displayName}, in a way that fits the time of day. Then either ask warmly how I am, or, if the last conversation left something open (an appointment, a search, a worry), ask about that. ${matches.length ? "Three" : "Two"} short sentences at most, natural to hear and warm, no emoji, no lists, no dashes, nothing in brackets. Write it entirely in ${spoken}${informal}.${matchNews}\n\nReply with the greeting only.]`,
         },
       ],
     });
@@ -368,7 +406,8 @@ Greet me by my first name, ${account.firstName || account.displayName}, in a way
     const text = response.content.find(
       (block): block is Anthropic.TextBlock => block.type === "text",
     );
-    return text?.text.trim() || null;
+    // Shown under the storm as well as spoken, and TheONE copy uses no dashes.
+    return text?.text.trim().replace(/\s*[–—]\s*/g, ", ") || null;
   } catch (error) {
     console.error("[assistant] greeting failed:", error);
     return null;

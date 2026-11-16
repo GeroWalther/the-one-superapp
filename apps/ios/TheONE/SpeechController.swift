@@ -16,9 +16,6 @@ final class SpeechController: NSObject {
     var isSpeaking = false
     var permissionDenied = false
 
-    /// The member's language, `"de"` or `"en"`; listening follows it, so a
-    /// German member is understood in German.
-    var locale = "en"
 
     private var recogniser: SFSpeechRecognizer?
     private let engine = AVAudioEngine()
@@ -48,9 +45,10 @@ final class SpeechController: NSObject {
 
     func startListening() {
         guard !isListening else { return }
-        let recogniser = SFSpeechRecognizer(
-            locale: Locale(identifier: locale == "de" ? "de-DE" : "en-US")
-        )
+        // Listening follows the phone's language, so a Japanese member is
+        // understood in Japanese; English where the phone's is not supported.
+        let recogniser = SFSpeechRecognizer(locale: Locale(identifier: MemberLanguage.tag))
+            ?? SFSpeechRecognizer(locale: Locale(identifier: "en-US"))
         guard let recogniser, recogniser.isAvailable else { return }
         self.recogniser = recogniser
 
@@ -115,7 +113,9 @@ final class SpeechController: NSObject {
     /// `respectSilentSwitch` is for speech the member did not ask for, such as
     /// the greeting at launch: with the phone on silent it stays quiet, so the
     /// app never talks out loud in a meeting.
-    func speak(_ text: String, locale: String, respectSilentSwitch: Bool = false) {
+    /// Reads `text` aloud in the voice of the language it is written in, so a
+    /// reply in Japanese is spoken by a Japanese voice.
+    func speak(_ text: String, respectSilentSwitch: Bool = false) {
         guard !text.isEmpty else { return }
         stopSpeaking()
 
@@ -132,7 +132,7 @@ final class SpeechController: NSObject {
         }
 
         let utterance = AVSpeechUtterance(string: text)
-        utterance.voice = Self.bestVoice(for: locale)
+        utterance.voice = Self.bestVoice(for: MemberLanguage.of(text))
         // A touch slower than the default reads as calm rather than hurried.
         utterance.rate = AVSpeechUtteranceDefaultSpeechRate * 0.92
 
@@ -143,21 +143,25 @@ final class SpeechController: NSObject {
     /// The best voice on this phone for the language: Premium over Enhanced
     /// over the compact default, the member's own region first. Premium voices
     /// are a free download in Settings > Accessibility > Spoken Content.
-    static func bestVoice(for locale: String) -> AVSpeechSynthesisVoice? {
-        let language = locale == "de" ? "de" : "en"
-        let home = locale == "de" ? "de-DE" : "en-US"
+    static func bestVoice(for languageTag: String) -> AVSpeechSynthesisVoice? {
+        // "zh-Hans" or "ja": only the language part decides which voices fit.
+        let language = String(languageTag.split(separator: "-").first ?? "en").lowercased()
+        // A tie goes to the phone's own region, so a Swiss phone hears Swiss
+        // German rather than any German voice.
+        let phone = MemberLanguage.tag
+        let home = phone.lowercased().hasPrefix(language) ? phone : languageTag
 
         func score(_ voice: AVSpeechSynthesisVoice) -> Int {
             voice.quality.rawValue * 10 + (voice.language == home ? 1 : 0)
         }
 
         let candidates = AVSpeechSynthesisVoice.speechVoices().filter {
-            $0.language.hasPrefix(language)
+            $0.language.lowercased().hasPrefix(language)
                 && !$0.voiceTraits.contains(.isNoveltyVoice)
                 && !$0.voiceTraits.contains(.isPersonalVoice)
         }
         return candidates.max { score($0) < score($1) }
-            ?? AVSpeechSynthesisVoice(language: home)
+            ?? AVSpeechSynthesisVoice(language: languageTag)
     }
 
     func stopSpeaking() {

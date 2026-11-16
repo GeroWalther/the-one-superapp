@@ -287,6 +287,58 @@ export type AppointmentRequestDoc = {
 };
 
 /**
+ * A member's TheONE MATCH profile: who they are and who they hope to meet.
+ *
+ * Kept apart from `accounts.profile` on purpose. Dating details are among the
+ * most personal things a member tells us, so they live in one collection that
+ * can be shown, paused or erased as a whole, and nothing else reads them.
+ */
+export type MatchProfileDoc = {
+  _id: ObjectId;
+  accountId: ObjectId;
+  /** Copied from the account at save time; the only name a suggestion shows. */
+  firstName: string;
+  gender: "woman" | "man";
+  seeking: "woman" | "man";
+  birthYear: number;
+  heightCm: number;
+  hairColor: string;
+  eyeColor: string;
+  figure: string;
+  profession: string;
+  city: string;
+  hobbies: string[];
+  intention: string;
+  about: string;
+  wishes: {
+    ageMin: number;
+    ageMax: number;
+    heightMin: number | null;
+    heightMax: number | null;
+    /** Empty means "no preference". */
+    hairColors: string[];
+    eyeColors: string[];
+    figures: string[];
+  };
+  photos: string[];
+  /** Paused profiles keep their data but are suggested to no one. */
+  visible: boolean;
+  /** Seeded test accounts only ever meet each other, never a real member. */
+  isTest: boolean;
+  createdAt: Date;
+  updatedAt: Date;
+};
+
+/** One member's yes or no to one suggestion. A yes both ways is a match. */
+export type MatchDecisionDoc = {
+  _id: ObjectId;
+  fromId: ObjectId;
+  toId: ObjectId;
+  decision: "like" | "pass";
+  createdAt: Date;
+};
+
+/**
  * One page view on the public site. Cookieless: `visitorId` is a hash of IP,
  * user agent and the day, salted with HASH_SECRET, so it counts unique
  * visitors per day without storing an IP or recognising anyone tomorrow.
@@ -429,6 +481,16 @@ async function ensureIndexes(): Promise<void> {
       { key: { at: 1 }, expireAfterSeconds: 60 * 60 * 24 * 395, name: "at_ttl" },
     ]),
 
+    db.collection<MatchProfileDoc>("matchProfiles").createIndexes([
+      { key: { accountId: 1 }, unique: true },
+      { key: { gender: 1, seeking: 1, visible: 1, isTest: 1, birthYear: 1 } },
+    ]),
+
+    db.collection<MatchDecisionDoc>("matchDecisions").createIndexes([
+      { key: { fromId: 1, toId: 1 }, unique: true },
+      { key: { toId: 1, decision: 1 } },
+    ]),
+
     db.collection<RefreshTokenDoc>("refreshTokens").createIndexes([
       { key: { tokenHash: 1 }, unique: true },
       { key: { accountId: 1 } },
@@ -461,6 +523,8 @@ export const savedPartners = () => collection<SavedPartnerDoc>("savedPartners");
 export const conversations = () => collection<ConversationDoc>("conversations");
 export const messages = () => collection<MessageDoc>("messages");
 export const aiThreads = () => collection<AiThreadDoc>("aiThreads");
+export const matchProfiles = () => collection<MatchProfileDoc>("matchProfiles");
+export const matchDecisions = () => collection<MatchDecisionDoc>("matchDecisions");
 export const appointmentRequests = () =>
   collection<AppointmentRequestDoc>("appointmentRequests");
 export const refreshTokens = () => collection<RefreshTokenDoc>("refreshTokens");

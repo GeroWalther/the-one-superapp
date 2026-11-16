@@ -12,7 +12,7 @@ final class AssistantModel {
 
     private var threadId: String?
 
-    func send(speech: SpeechController, locale: String, opening: String? = nil) async {
+    func send(speech: SpeechController, opening: String? = nil) async {
         let message = draft.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !message.isEmpty, !isStreaming else { return }
 
@@ -83,7 +83,7 @@ final class AssistantModel {
                 case "done":
                     turns[replyIndex].runningTool = nil
                     if speakReplies {
-                        speech.speak(turns[replyIndex].text, locale: locale)
+                        speech.speak(turns[replyIndex].text)
                     }
 
                 case "error":
@@ -147,7 +147,7 @@ struct AssistantView: View {
                 ToolbarItem(placement: .topBarTrailing) {
                     Menu {
                         Toggle("Speak replies", isOn: $model.speakReplies)
-                        Button("New conversation") {
+                        Button("Clear conversation") {
                             speech.stopSpeaking()
                             model.reset()
                         }
@@ -160,7 +160,6 @@ struct AssistantView: View {
         .onChange(of: speech.transcript) { _, new in
             if speech.isListening { model.draft = new }
         }
-        .onAppear { speech.locale = session.account?.locale ?? "en" }
     }
 
     private var transcript: some View {
@@ -282,7 +281,6 @@ struct AssistantView: View {
                 Task {
                     await model.send(
                         speech: speech,
-                        locale: session.account?.locale ?? "en",
                         opening: greeter.text
                     )
                 }

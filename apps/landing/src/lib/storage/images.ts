@@ -76,6 +76,15 @@ export async function uploadPartnerImage(input: {
   accountId: string;
   file: File;
 }): Promise<UploadOutcome> {
+  return uploadImage({ folder: "partners", ownerId: input.accountId, file: input.file });
+}
+
+/** Same checks as a partner image, filed under another folder. */
+export async function uploadImage(input: {
+  folder: "partners" | "match";
+  ownerId: string;
+  file: File;
+}): Promise<UploadOutcome> {
   if (!isImageStorageConfigured()) return { ok: false, reason: "not_configured" };
 
   const bytes = new Uint8Array(await input.file.arrayBuffer());
@@ -90,7 +99,7 @@ export async function uploadPartnerImage(input: {
 
   try {
     const blob = await put(
-      `partners/${input.accountId}/${crypto.randomUUID()}.${detected.extension}`,
+      `${input.folder}/${input.ownerId}/${crypto.randomUUID()}.${detected.extension}`,
       Buffer.from(bytes),
       {
         access: "public",
@@ -117,6 +126,10 @@ export async function uploadPartnerImage(input: {
  * that blocks the profile save is a user-facing one.
  */
 export async function deletePartnerImage(url: string): Promise<void> {
+  return deleteImage(url);
+}
+
+export async function deleteImage(url: string): Promise<void> {
   if (!isImageStorageConfigured()) return;
   try {
     await del(url);

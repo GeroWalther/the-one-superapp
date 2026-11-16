@@ -3,6 +3,7 @@ import { apiError, authenticateRequest } from "@/lib/api/auth";
 import { aiThreads } from "@/lib/db/collections";
 import {
   isAssistantConfigured,
+  languageTag,
   runAssistant,
   type AssistantTurn,
 } from "@/lib/ai/assistant";
@@ -22,7 +23,7 @@ export async function POST(request: Request) {
     return apiError("assistant_not_configured", 503);
   }
 
-  let body: { message?: string; threadId?: string; opening?: string };
+  let body: { message?: string; threadId?: string; opening?: string; language?: unknown };
   try {
     body = await request.json();
   } catch {
@@ -74,6 +75,7 @@ export async function POST(request: Request) {
           history,
           message,
           opening,
+          language: languageTag(body.language),
         })) {
           if (event.type === "done") finalText = event.text;
           send(event);

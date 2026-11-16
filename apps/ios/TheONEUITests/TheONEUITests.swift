@@ -11,6 +11,13 @@ final class TheONEUITests: XCTestCase {
         continueAfterFailure = false
 
         app = XCUIApplication()
+        // The app follows the phone's language. MATCH is checked as a German
+        // phone, the Japanese walkthrough as a Japanese one, the rest as is.
+        if name.contains("testMatchFlow") {
+            app.launchArguments += ["-AppleLanguages", "(de)", "-AppleLocale", "de_DE"]
+        } else if name.contains("testJapaneseMember") {
+            app.launchArguments += ["-AppleLanguages", "(ja)", "-AppleLocale", "ja_JP"]
+        }
         app.launch()
     }
 
@@ -278,5 +285,117 @@ final class TheONEUITests: XCTestCase {
         let error = app.staticTexts["Those details do not match an account."]
         XCTAssertTrue(error.waitForExistence(timeout: 20), "no error shown for a bad password")
         capture("09-login-error")
+    }
+
+    /// TheONE MATCH from the empty state to a match: profile, one
+    /// introduction, a yes that the other side already gave, and the chat.
+    ///
+    /// Needs `scripts/seed-match-profiles.mjs` and no MATCH profile yet for
+    /// `testmember`; the screenshots are the walkthrough shown to the owner.
+    func testMatchFlow() throws {
+        assertOnLoginScreen()
+        type("testmember", into: app.textFields.firstMatch)
+        type("TestPassword2026!", into: app.secureTextFields.firstMatch)
+        app.buttons["Sign in"].tap()
+        dismissSystemPrompts()
+        XCTAssertTrue(app.navigationBars["Profile"].waitForExistence(timeout: 25))
+        dismissSystemPrompts()
+
+        // --- the MATCH tab ------------------------------------------------
+        var opened = false
+        for candidate in [app.tabBars.buttons["Match"], app.buttons["Match"]] where !opened && candidate.exists {
+            candidate.tap()
+            opened = app.buttons["match.create"].waitForExistence(timeout: 15)
+        }
+        XCTAssertTrue(opened, "the MATCH welcome did not appear")
+        capture("m01-welcome")
+        app.swipeUp()
+        capture("m02-welcome-lower")
+
+        // --- the profile --------------------------------------------------
+        app.buttons["match.create"].tap()
+        let profession = app.textFields["match.profession"]
+        XCTAssertTrue(profession.waitForExistence(timeout: 10))
+        capture("m03-form-top")
+        type("Unternehmerin", into: profession)
+        type("Zurich", into: app.textFields["match.city"])
+        // Return closes the keyboard; left up, it hides what comes next and
+        // the search below scrolls straight past it.
+        app.typeText("\n")
+
+        /// Scrolls a short way at a time, so a lazy list never skips the row.
+        func reveal(_ element: XCUIElement) {
+            for _ in 0..<14 where !(element.exists && element.isHittable) {
+                let start = app.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.55))
+                let end = app.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.40))
+                start.press(forDuration: 0.05, thenDragTo: end)
+            }
+        }
+        for hobby in ["Reisen", "Golf", "Kunst", "Wein"] {
+            let chip = app.buttons[hobby]
+            reveal(chip)
+            chip.tap()
+        }
+        capture("m04-form-pastimes")
+
+        let about = app.descendants(matching: .any)["match.about"].firstMatch
+        reveal(about)
+        type("Ich liebe das Meer, gute Gespräche und Abende mit Freunden.", into: about)
+        // A short pull down closes the keyboard (the form dismisses it on scroll).
+        app.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.25))
+            .press(forDuration: 0.05, thenDragTo: app.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.32)))
+
+        let athletic = app.buttons["Sportlich"]
+        reveal(athletic)
+        athletic.tap()
+        capture("m05-form-wishes")
+        app.swipeUp()
+        capture("m06-form-wishes-lower")
+
+        app.buttons["match.save"].tap()
+
+        // --- one introduction ---------------------------------------------
+        let name = app.staticTexts["match.name"]
+        XCTAssertTrue(name.waitForExistence(timeout: 20), "no introduction after saving")
+        capture("m07-introduction")
+        app.swipeUp()
+        capture("m08-introduction-lower")
+
+        // --- yes, and they had already said yes ---------------------------
+        let yes = app.buttons["match.yes"]
+        reveal(yes)
+        yes.tap()
+        let moment = app.staticTexts["Ihr beide sagt Ja."]
+        XCTAssertTrue(moment.waitForExistence(timeout: 15), "the match moment did not appear")
+        capture("m09-match")
+
+        app.buttons["Nachricht schreiben"].tap()
+        sleep(3)
+        capture("m10-chat")
+    }
+
+    /// A Japanese member who speaks no English: the greeting, the question
+    /// and the answer are all in Japanese. Screenshots for the owner.
+    func testJapaneseMember() throws {
+        assertOnLoginScreen()
+        type("testmember", into: app.textFields.firstMatch)
+        type("TestPassword2026!", into: app.secureTextFields.firstMatch)
+        app.buttons["Sign in"].tap()
+        dismissSystemPrompts()
+        XCTAssertTrue(app.navigationBars["Profile"].waitForExistence(timeout: 25))
+        dismissSystemPrompts()
+        goHome(leaving: app.navigationBars["Profile"])
+
+        let greeting = app.staticTexts["home.greeting"]
+        XCTAssertTrue(greeting.waitForExistence(timeout: 20), "no greeting under the storm")
+        capture("j01-greeting")
+
+        app.buttons["home.storm"].tap()
+        let field = app.textFields["Message"].firstMatch
+        XCTAssertTrue(field.waitForExistence(timeout: 15))
+        type("チューリッヒでおすすめのウェルネスリゾートはありますか？", into: field)
+        app.buttons["Send"].tap()
+        sleep(40)
+        capture("j02-answer")
     }
 }

@@ -121,7 +121,7 @@ actor APIClient {
         authenticated: Bool = true,
         allowRetry: Bool = true
     ) async throws -> Data {
-        var request = URLRequest(url: baseURL.appendingPathComponent(path.hasPrefix("/") ? String(path.dropFirst()) : path))
+        var request = URLRequest(url: url(for: path))
         request.httpMethod = method
         request.setValue("application/json", forHTTPHeaderField: "content-type")
 
@@ -161,6 +161,61 @@ actor APIClient {
         return data
     }
 
+    /// `appendingPathComponent` escapes a `?`, so a query is attached separately.
+    private func url(for path: String) -> URL {
+        let trimmed = path.hasPrefix("/") ? String(path.dropFirst()) : path
+        let parts = trimmed.split(separator: "?", maxSplits: 1).map(String.init)
+        let base = baseURL.appendingPathComponent(parts[0])
+        guard parts.count == 2,
+              var components = URLComponents(url: base, resolvingAgainstBaseURL: false)
+        else { return base }
+        components.percentEncodedQuery = parts[1]
+        return components.url ?? base
+    }
+
+    /// Uploads one JPEG as multipart form field `image`, and decodes the answer.
+    func upload<T: Decodable>(_ path: String, jpeg: Data, allowRetry: Bool = true) async throws -> T {
+        let boundary = "TheONE-\(UUID().uuidString)"
+        var request = URLRequest(url: url(for: path))
+        request.httpMethod = "POST"
+        request.timeoutInterval = 120
+        request.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "content-type")
+        if let accessToken {
+            request.setValue("Bearer \(accessToken)", forHTTPHeaderField: "authorization")
+        }
+
+        var body = Data()
+        body.append(Data("--\(boundary)\r\n".utf8))
+        body.append(Data("Content-Disposition: form-data; name=\"image\"; filename=\"photo.jpg\"\r\n".utf8))
+        body.append(Data("Content-Type: image/jpeg\r\n\r\n".utf8))
+        body.append(jpeg)
+        body.append(Data("\r\n--\(boundary)--\r\n".utf8))
+        request.httpBody = body
+
+        let data: Data
+        let response: URLResponse
+        do {
+            (data, response) = try await URLSession.shared.data(for: request)
+        } catch {
+            throw APIError.network
+        }
+        guard let http = response as? HTTPURLResponse else { throw APIError.network }
+
+        if http.statusCode == 401, allowRetry {
+            if await refresh() { return try await upload(path, jpeg: jpeg, allowRetry: false) }
+            clear()
+            throw APIError.unauthorized
+        }
+        guard (200..<300).contains(http.statusCode) else {
+            throw Self.mapError(status: http.statusCode, data: data)
+        }
+        do {
+            return try decoder.decode(T.self, from: data)
+        } catch {
+            throw APIError.server("Unexpected response from TheONE.")
+        }
+    }
+
     /// Builds a request the streaming assistant endpoint can consume.
     func assistantRequest(message: String, threadId: String?, opening: String? = nil) -> URLRequest? {
         guard let accessToken else { return nil }
@@ -171,7 +226,8 @@ actor APIClient {
         request.setValue("Bearer \(accessToken)", forHTTPHeaderField: "authorization")
         request.timeoutInterval = 180
 
-        var payload: [String: Any] = ["message": message]
+        // Replies follow the member's language, starting from the phone's.
+        var payload: [String: Any] = ["message": message, "language": MemberLanguage.tag]
         if let threadId { payload["threadId"] = threadId }
         if let opening { payload["opening"] = opening }
         request.httpBody = try? JSONSerialization.data(withJSONObject: payload)

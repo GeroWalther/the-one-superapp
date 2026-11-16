@@ -30,7 +30,7 @@ struct RootView: View {
 
 struct MainTabs: View {
     enum Tab: Hashable, Identifiable {
-        case assistant, discover, messages, profile
+        case assistant, discover, match, messages, profile
         var id: Self { self }
     }
 
@@ -50,6 +50,9 @@ struct MainTabs: View {
             DiscoverView()
                 .tabItem { Label("Discover", systemImage: "magnifyingglass") }
                 .tag(Tab.discover)
+            MatchView()
+                .tabItem { Label("Match", systemImage: "person.2") }
+                .tag(Tab.match)
             MessagesView()
                 .tabItem { Label("Messages", systemImage: "bubble.left.and.bubble.right") }
                 .tag(Tab.messages)

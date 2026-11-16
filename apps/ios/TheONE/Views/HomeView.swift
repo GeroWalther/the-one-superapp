@@ -174,8 +174,9 @@ private struct AvatarButton: View {
 }
 
 /// The site's ground behind the phone: pale paper, a petrol wash from the top
-/// and three soft ribbons across the middle.
-private struct HomeBackground: View {
+/// and three soft ribbons across the middle. Shared with MATCH, so the two
+/// feel like one place.
+struct HomeBackground: View {
     var body: some View {
         ZStack {
             Color(red: 0.933, green: 0.953, blue: 0.953)

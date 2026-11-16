@@ -37,7 +37,7 @@ export const ASSISTANT_TOOLS: Anthropic.Tool[] = [
         query: {
           type: "string",
           description:
-            "Free text describing the need, e.g. 'dentist', 'longevity clinic', 'spa'.",
+            "Free text describing the need, always in English whatever language the member speaks, e.g. 'dentist', 'longevity clinic', 'spa'. The directory is written in English and German.",
         },
         focusArea: {
           type: "string",
@@ -55,7 +55,7 @@ export const ASSISTANT_TOOLS: Anthropic.Tool[] = [
         city: {
           type: "string",
           description:
-            "Restrict to a city. Use the member's own city for 'near me' requests.",
+            "Restrict to a city, spelled in Latin letters as locals write it (Zurich, Munich, Vienna). Use the member's own city for 'near me' requests.",
         },
       },
       additionalProperties: false,
@@ -98,11 +98,17 @@ export const ASSISTANT_TOOLS: Anthropic.Tool[] = [
         summary: {
           type: "string",
           description:
-            "What the member needs, in one or two sentences, written for the partner to read.",
+            "What the member needs, in one or two sentences, written for the partner to read. Write it in the partner's language (German for a partner in a German-speaking country, otherwise English), never in the member's language if that differs, and if the member speaks another language, say which, so the partner can prepare.",
         },
         preferredTiming: {
           type: "string",
-          description: "The member's stated availability, if they gave any.",
+          description:
+            "The member's stated availability, if they gave any, in the partner's language (German or English), like the summary.",
+        },
+        memberLanguage: {
+          type: "string",
+          description:
+            "The language the member speaks with you, named in English (\"Japanese\"), so the partner can prepare.",
         },
       },
       required: ["partnerId", "summary"],
@@ -112,6 +118,15 @@ export const ASSISTANT_TOOLS: Anthropic.Tool[] = [
 ];
 
 export type ToolResult = { content: string; isError?: boolean };
+
+/** Partner countries whose businesses read German; everyone else gets English. */
+const GERMAN_SPEAKING = new Set([
+  "germany", "deutschland", "austria", "österreich", "switzerland", "schweiz",
+  "liechtenstein", "luxembourg", "luxemburg",
+]);
+
+/** Latin letters, digits, punctuation, symbols and spaces only. */
+const LATIN_ONLY = /^[\p{Script=Latin}\p{N}\p{P}\p{S}\p{Z}\s]*$/u;
 
 export async function runAssistantTool(
   name: string,
@@ -223,6 +238,21 @@ export async function runAssistantTool(
             ? input.preferredTiming
             : null;
 
+        /* A member abroad may speak no English, but the clinic reading this
+           has to understand it. Partners work in German or English, so text
+           in another script is turned back to be written again. */
+        const partnerLanguage = GERMAN_SPEAKING.has(partner.country.trim().toLowerCase())
+          ? "German"
+          : "English";
+        if (!LATIN_ONLY.test(summary) || (preferredTiming && !LATIN_ONLY.test(preferredTiming))) {
+          return {
+            content: `Nothing was sent. The partner reads ${partnerLanguage}: write summary and preferredTiming in ${partnerLanguage}, set memberLanguage, and call request_appointment again. Keep talking to the member in their own language.`,
+            isError: true,
+          };
+        }
+        const memberLanguage =
+          typeof input.memberLanguage === "string" ? input.memberLanguage.trim().slice(0, 40) : "";
+
         await (
           await appointmentRequests()
         ).insertOne({
@@ -250,6 +280,9 @@ export async function runAssistantTool(
               `Appointment request from ${account.displayName}:`,
               summary,
               preferredTiming ? `Preferred timing: ${preferredTiming}` : null,
+              memberLanguage && !/^(english|german|deutsch)$/i.test(memberLanguage)
+                ? `The member speaks ${memberLanguage}.`
+                : null,
             ]
               .filter(Boolean)
               .join("\n\n"),
