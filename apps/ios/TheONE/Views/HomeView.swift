@@ -3,13 +3,20 @@ import SwiftUI
 /// The first screen of the app, the same piece the website's phone mockup shows:
 /// the lockup, the line under it, and the POWER AI storm.
 ///
-/// The avatar top right is the way in. Signed out it opens the sign-in; signed
-/// in it opens the member area.
+/// Two ways in: the avatar top right leads to the account, the storm to the
+/// assistant. Signed out, either one asks for the sign-in first and then
+/// carries on to where the tap meant to go.
 struct HomeView: View {
     @Environment(SessionStore.self) private var session
 
     @State private var showLogin = false
-    @State private var showAccount = false
+    /// The member area shown over the start screen, opened on this tab.
+    @State private var destination: MainTabs.Tab?
+    /// Where a tap made while signed out was headed, once the sign-in is done.
+    @State private var afterLogin: MainTabs.Tab = .profile
+    /// A tap made in the moment after launch, while the stored session is
+    /// still being checked; it goes through as soon as the answer is in.
+    @State private var waiting: MainTabs.Tab?
 
     var body: some View {
         GeometryReader { proxy in
@@ -31,12 +38,21 @@ struct HomeView: View {
                         .foregroundStyle(Self.headline)
                         .padding(.top, 26)
 
-                    VortexView {
-                        Text("POWER AI")
-                            .font(.system(size: 18, weight: .bold, design: .serif))
-                            .tracking(3.6)
-                            .foregroundStyle(Self.eyeInk)
+                    Button { open(.assistant) } label: {
+                        VortexView {
+                            Text("POWER AI")
+                                .font(.system(size: 18, weight: .bold, design: .serif))
+                                .tracking(3.6)
+                                .foregroundStyle(Self.eyeInk)
+                        }
+                        // The storm is drawn from gradients that change every
+                        // frame; a fixed shape keeps the whole disc pressable.
+                        .contentShape(Circle())
                     }
+                    .buttonStyle(StormPress())
+                    .accessibilityLabel("POWER AI")
+                    .accessibilityHint("Opens the assistant")
+                    .accessibilityIdentifier("home.storm")
                     .frame(width: min(proxy.size.width - 32, 420))
                     .padding(.top, 30)
                     .padding(.bottom, 32)
@@ -47,15 +63,7 @@ struct HomeView: View {
         }
         .background(HomeBackground())
         .overlay(alignment: .topTrailing) {
-            AvatarButton(signedIn: session.account != nil) {
-                switch session.state {
-                // The stored session is still being checked; a tap now would
-                // open the sign-in for a member who is about to be signed in.
-                case .loading: break
-                case .signedIn: showAccount = true
-                case .signedOut: showLogin = true
-                }
-            }
+            AvatarButton(signedIn: session.account != nil) { open(.profile) }
             .padding(.trailing, 20)
             .padding(.top, 8)
         }
@@ -63,8 +71,8 @@ struct HomeView: View {
             LoginView()
                 .presentationDragIndicator(.visible)
         }
-        // A successful sign-in from here goes straight on to the account, so
-        // the tap that started it ends where the member meant to go.
+        // A successful sign-in from here goes straight on, so the tap that
+        // started it ends where the member meant to go.
         .onChange(of: session.account?.id) { _, id in
             guard id != nil, showLogin else { return }
             showLogin = false
@@ -72,22 +80,49 @@ struct HomeView: View {
                 // Let the sheet finish leaving before the cover arrives;
                 // presenting both in one pass drops the second.
                 try? await Task.sleep(for: .milliseconds(450))
-                showAccount = true
+                destination = afterLogin
             }
         }
-        .fullScreenCover(isPresented: $showAccount) {
-            MainTabs(initialTab: .profile)
-                .environment(\.closeToHome) { showAccount = false }
+        .fullScreenCover(item: $destination) { tab in
+            MainTabs(initialTab: tab)
+                .environment(\.closeToHome) { destination = nil }
         }
-        // Signing out inside the account returns here rather than leaving an
-        // empty member area on screen.
+        .onChange(of: session.state) { _, _ in
+            guard let tab = waiting else { return }
+            waiting = nil
+            open(tab)
+        }
+        // Signing out inside the member area returns here rather than leaving
+        // an empty member area on screen.
         .onChange(of: session.account == nil) { _, signedOut in
-            if signedOut { showAccount = false }
+            if signedOut { destination = nil }
+        }
+    }
+
+    /// Opens the member area on `tab`, or the sign-in first when signed out.
+    private func open(_ tab: MainTabs.Tab) {
+        switch session.state {
+        // The stored session is still being checked; deciding now would open
+        // the sign-in for a member who is about to be signed in.
+        case .loading: waiting = tab
+        case .signedIn: destination = tab
+        case .signedOut:
+            afterLogin = tab
+            showLogin = true
         }
     }
 
     private static let headline = Color(red: 0.020, green: 0.133, blue: 0.149)
     private static let eyeInk = Color(red: 0.039, green: 0.184, blue: 0.204)
+}
+
+/// A light give under the finger, so the storm reads as something to press.
+private struct StormPress: ButtonStyle {
+    func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+            .scaleEffect(configuration.isPressed ? 0.97 : 1)
+            .animation(.easeOut(duration: 0.15), value: configuration.isPressed)
+    }
 }
 
 /// The profile disc in the corner: the storm's dark green with a soft shadow.

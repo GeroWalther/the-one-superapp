@@ -18,7 +18,10 @@ struct RootView: View {
 }
 
 struct MainTabs: View {
-    enum Tab: Hashable { case assistant, discover, messages, profile }
+    enum Tab: Hashable, Identifiable {
+        case assistant, discover, messages, profile
+        var id: Self { self }
+    }
 
     @State private var selection: Tab
 

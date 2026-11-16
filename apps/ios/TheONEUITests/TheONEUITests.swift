@@ -134,12 +134,19 @@ final class TheONEUITests: XCTestCase {
         // the house goes back to the start screen, the avatar returns
         // The start screen stays in the tree under the account, so the avatar
         // "exists" all along; the account leaving is what proves the way back.
-        app.buttons["Start"].tap()
-        let gone = XCTNSPredicateExpectation(
-            predicate: NSPredicate(format: "exists == false"),
-            object: app.navigationBars["Profile"]
-        )
-        XCTAssertEqual(XCTWaiter().wait(for: [gone], timeout: 10), .completed, "the house did not return to the start screen")
+        // iOS can still be busy with its password card when the house is
+        // first tapped, and that tap is lost; a second one goes through.
+        var home = false
+        for _ in 0..<3 where !home {
+            app.buttons["Start"].tap()
+            let gone = XCTNSPredicateExpectation(
+                predicate: NSPredicate(format: "exists == false"),
+                object: app.navigationBars["Profile"]
+            )
+            home = XCTWaiter().wait(for: [gone], timeout: 5) == .completed
+            if !home { dismissSystemPrompts() }
+        }
+        XCTAssertTrue(home, "the house did not return to the start screen")
         let avatar = app.buttons["home.avatar"]
         capture("01c-back-home")
         avatar.tap()
@@ -212,6 +219,45 @@ final class TheONEUITests: XCTestCase {
         )
         XCTAssertTrue(app.staticTexts["@testmember · Member"].exists)
         capture("08-profile")
+    }
+
+    /// The POWER AI storm is the second way in: signed out it asks for the
+    /// sign-in, then carries on to the assistant rather than the account.
+    func testStormOpensAssistant() throws {
+        let storm = app.buttons["home.storm"]
+        XCTAssertTrue(storm.waitForExistence(timeout: 20), "the storm is not on the start screen")
+        // Tapped at once, while the stored session is still being checked:
+        // the tap must not be lost.
+        storm.tap()
+        XCTAssertTrue(
+            app.secureTextFields.firstMatch.waitForExistence(timeout: 20),
+            "the storm did not open the sign-in"
+        )
+
+        type("testmember", into: app.textFields.firstMatch)
+        type("TestPassword2026!", into: app.secureTextFields.firstMatch)
+        app.buttons["Sign in"].tap()
+        dismissSystemPrompts()
+
+        XCTAssertTrue(
+            app.staticTexts["Ask me anything"].waitForExistence(timeout: 25),
+            "signing in from the storm did not open the assistant"
+        )
+        capture("10-storm-assistant")
+        dismissSystemPrompts()
+
+        // Back home, the storm now goes straight to the assistant.
+        app.buttons["Start"].tap()
+        let gone = XCTNSPredicateExpectation(
+            predicate: NSPredicate(format: "exists == false"),
+            object: app.staticTexts["Ask me anything"]
+        )
+        XCTAssertEqual(XCTWaiter().wait(for: [gone], timeout: 10), .completed, "the house did not return to the start screen")
+        storm.tap()
+        XCTAssertTrue(
+            app.staticTexts["Ask me anything"].waitForExistence(timeout: 10),
+            "the storm did not open the assistant when signed in"
+        )
     }
 
     /// An account that has not paid must be told why, not handed a generic
