@@ -5,6 +5,8 @@
 	<!-- Only standard HTTPS, so no export-compliance paperwork per upload. -->
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
+	<key>NSCameraUsageDescription</key>
+	<string>TheONE uses the camera for your skin analysis. The photo is only used for the analysis and is not stored by TheONE.</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>TheONE uses the microphone so you can speak to your concierge instead of typing.</string>
 	<key>NSSpeechRecognitionUsageDescription</key>

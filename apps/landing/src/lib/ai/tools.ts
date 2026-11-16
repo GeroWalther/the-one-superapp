@@ -6,6 +6,7 @@ import type { PublicAccount } from "../auth/accounts";
 import { getPartner, searchPartners, setSaved } from "../api/partners";
 import { getMemberProfile } from "../profile/service";
 import { openConversation, sendMessage } from "../api/chat";
+import { listSkinScans } from "../skin/service";
 
 /**
  * The assistant's tools.
@@ -86,6 +87,12 @@ export const ASSISTANT_TOOLS: Anthropic.Tool[] = [
       required: ["partnerId"],
       additionalProperties: false,
     },
+  },
+  {
+    name: "get_skin_analysis",
+    description:
+      "The member's latest TheONE skin analyses (face scans): scores 0 to 100 where higher is better, focus areas, routine, and the business partners suggested with them. Call this whenever the member talks about their skin, looking younger or more radiant, or has just done a scan.",
+    input_schema: { type: "object", properties: {}, additionalProperties: false },
   },
   {
     name: "request_appointment",
@@ -209,6 +216,17 @@ export async function runAssistantTool(
         return ok
           ? { content: "Saved to the member's list." }
           : { content: "No such partner.", isError: true };
+      }
+
+      case "get_skin_analysis": {
+        const scans = await listSkinScans(account.id, 3);
+        if (scans.length === 0) {
+          return {
+            content:
+              "No skin analysis yet. Offer one: the member taps the face scan button next to the microphone in the assistant.",
+          };
+        }
+        return { content: JSON.stringify(scans) };
       }
 
       case "request_appointment": {

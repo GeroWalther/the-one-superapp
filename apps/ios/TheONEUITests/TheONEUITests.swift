@@ -13,7 +13,7 @@ final class TheONEUITests: XCTestCase {
         app = XCUIApplication()
         // The app follows the phone's language. MATCH is checked as a German
         // phone, the Japanese walkthrough as a Japanese one, the rest as is.
-        if name.contains("testMatchFlow") {
+        if name.contains("testMatchFlow") || name.contains("testSkinAnalysis") {
             app.launchArguments += ["-AppleLanguages", "(de)", "-AppleLocale", "de_DE"]
         } else if name.contains("testJapaneseMember") {
             app.launchArguments += ["-AppleLanguages", "(ja)", "-AppleLocale", "ja_JP"]
@@ -460,5 +460,60 @@ final class TheONEUITests: XCTestCase {
         app.buttons["assistant.send"].tap()
         sleep(40)
         capture("\(tag)-6-answer")
+    }
+
+    /// The skin analysis from the assistant: consent, a photo from the
+    /// library (the simulator has no camera), the reading, and the talk with
+    /// POWER AI about it. Needs a face photo added with `simctl addmedia`.
+    func testSkinAnalysis() throws {
+        assertOnLoginScreen()
+        type("testmember", into: app.textFields.firstMatch)
+        type("TestPassword2026!", into: app.secureTextFields.firstMatch)
+        app.buttons["login.submit"].tap()
+        dismissSystemPrompts()
+        XCTAssertTrue(app.tabBars.firstMatch.waitForExistence(timeout: 25))
+        dismissSystemPrompts()
+        let scan = app.buttons["assistant.skin"]
+        for _ in 0..<4 where !scan.exists {
+            dismissSystemPrompts()
+            app.tabBars.buttons.element(boundBy: 0).tap()
+            _ = scan.waitForExistence(timeout: 6)
+        }
+        XCTAssertTrue(scan.exists, "the assistant's scan button did not appear")
+        scan.tap()
+
+        let start = app.buttons["skin.start"]
+        if start.waitForExistence(timeout: 5) {
+            capture("s1-consent")
+            start.tap()
+        }
+        let pick = app.buttons["skin.pick"]
+        XCTAssertTrue(pick.waitForExistence(timeout: 10))
+        capture("s2-capture")
+        pick.tap()
+        sleep(12)
+        capture("s3-picker")
+        let dump = XCTAttachment(string: app.debugDescription)
+        dump.name = "picker-tree"
+        dump.lifetime = .keepAlways
+        add(dump)
+
+        // The system photo picker: the newest photo is first in the grid.
+        // It runs in its own process, outside the app's element tree, so the
+        // first cell is tapped by position.
+        app.coordinate(withNormalizedOffset: CGVector(dx: 0.15, dy: 0.43)).tap()
+        sleep(2)
+        capture("s4-analysing")
+
+        let discuss = app.buttons["skin.discuss"]
+        XCTAssertTrue(discuss.waitForExistence(timeout: 90), "no result after the scan")
+        capture("s5-result")
+        for step in 6...9 {
+            app.swipeUp()
+            capture("s\(step)-result-lower")
+        }
+        discuss.tap()
+        sleep(45)
+        capture("s10-assistant")
     }
 }

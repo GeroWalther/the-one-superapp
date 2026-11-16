@@ -329,6 +329,28 @@ export type MatchProfileDoc = {
   updatedAt: Date;
 };
 
+/**
+ * One TheONE skin analysis: the scores and advice, never the photo.
+ *
+ * The face photo is read once to write this and then discarded; a member who
+ * wants a before and after keeps their own photos on their phone.
+ */
+export type SkinScanDoc = {
+  _id: ObjectId;
+  accountId: ObjectId;
+  language: string;
+  overall: number;
+  scores: { key: string; score: number; note: string }[];
+  summary: string;
+  focus: string[];
+  morning: string[];
+  evening: string[];
+  partners: { partnerProfileId: ObjectId; reason: string }[];
+  seeDoctor: boolean;
+  doctorNote: string;
+  createdAt: Date;
+};
+
 /** One member's yes or no to one suggestion. A yes both ways is a match. */
 export type MatchDecisionDoc = {
   _id: ObjectId;
@@ -491,6 +513,8 @@ async function ensureIndexes(): Promise<void> {
       { key: { toId: 1, decision: 1 } },
     ]),
 
+    db.collection<SkinScanDoc>("skinScans").createIndex({ accountId: 1, createdAt: -1 }),
+
     db.collection<RefreshTokenDoc>("refreshTokens").createIndexes([
       { key: { tokenHash: 1 }, unique: true },
       { key: { accountId: 1 } },
@@ -523,6 +547,7 @@ export const savedPartners = () => collection<SavedPartnerDoc>("savedPartners");
 export const conversations = () => collection<ConversationDoc>("conversations");
 export const messages = () => collection<MessageDoc>("messages");
 export const aiThreads = () => collection<AiThreadDoc>("aiThreads");
+export const skinScans = () => collection<SkinScanDoc>("skinScans");
 export const matchProfiles = () => collection<MatchProfileDoc>("matchProfiles");
 export const matchDecisions = () => collection<MatchDecisionDoc>("matchDecisions");
 export const appointmentRequests = () =>

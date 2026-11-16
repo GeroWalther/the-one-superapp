@@ -174,17 +174,26 @@ actor APIClient {
     }
 
     /// Uploads one JPEG as multipart form field `image`, and decodes the answer.
-    func upload<T: Decodable>(_ path: String, jpeg: Data, allowRetry: Bool = true) async throws -> T {
+    func upload<T: Decodable>(
+        _ path: String,
+        jpeg: Data,
+        fields: [String: String] = [:],
+        timeout: TimeInterval = 120,
+        allowRetry: Bool = true
+    ) async throws -> T {
         let boundary = "TheONE-\(UUID().uuidString)"
         var request = URLRequest(url: url(for: path))
         request.httpMethod = "POST"
-        request.timeoutInterval = 120
+        request.timeoutInterval = timeout
         request.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "content-type")
         if let accessToken {
             request.setValue("Bearer \(accessToken)", forHTTPHeaderField: "authorization")
         }
 
         var body = Data()
+        for (name, value) in fields {
+            body.append(Data("--\(boundary)\r\nContent-Disposition: form-data; name=\"\(name)\"\r\n\r\n\(value)\r\n".utf8))
+        }
         body.append(Data("--\(boundary)\r\n".utf8))
         body.append(Data("Content-Disposition: form-data; name=\"image\"; filename=\"photo.jpg\"\r\n".utf8))
         body.append(Data("Content-Type: image/jpeg\r\n\r\n".utf8))
@@ -202,7 +211,9 @@ actor APIClient {
         guard let http = response as? HTTPURLResponse else { throw APIError.network }
 
         if http.statusCode == 401, allowRetry {
-            if await refresh() { return try await upload(path, jpeg: jpeg, allowRetry: false) }
+            if await refresh() {
+                return try await upload(path, jpeg: jpeg, fields: fields, timeout: timeout, allowRetry: false)
+            }
             clear()
             throw APIError.unauthorized
         }
@@ -242,9 +253,17 @@ actor APIClient {
     }
 
     private static func mapError(status: Int, data: Data) -> APIError {
-        let code = (try? JSONSerialization.jsonObject(with: data) as? [String: Any])?["code"] as? String
+        let json = (try? JSONSerialization.jsonObject(with: data)) as? [String: Any]
+        let code = json?["code"] as? String
+
+        // A reason written for the member (e.g. how to retake a skin photo).
+        if let message = json?["message"] as? String, !message.isEmpty {
+            return .server(message)
+        }
 
         switch code {
+        case "too_many": return .server(tr("You have done several analyses today. Please try again tomorrow."))
+        case "unusable": return .server(tr("Your face could not be seen clearly. Please try again in good light, facing the camera."))
         case "payment_required": return .paymentRequired
         case "account_inactive": return .inactive
         case "invalid_credentials", "missing_token", "invalid_token": return .unauthorized

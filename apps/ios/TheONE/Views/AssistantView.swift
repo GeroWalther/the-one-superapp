@@ -121,6 +121,8 @@ struct AssistantView: View {
     @Environment(Greeter.self) private var greeter
     @State private var model = AssistantModel()
     @State private var speech = SpeechController()
+    @State private var showSkin = false
+    @State private var showSkinHistory = false
 
     var body: some View {
         NavigationStack {
@@ -146,6 +148,16 @@ struct AssistantView: View {
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     Menu {
+                        Button {
+                            showSkin = true
+                        } label: {
+                            Label("Skin analysis", systemImage: "face.smiling")
+                        }
+                        Button {
+                            showSkinHistory = true
+                        } label: {
+                            Label("My skin analyses", systemImage: "chart.line.uptrend.xyaxis")
+                        }
                         Toggle("Speak replies", isOn: $model.speakReplies)
                         Button("Clear conversation") {
                             speech.stopSpeaking()
@@ -159,6 +171,33 @@ struct AssistantView: View {
         }
         .onChange(of: speech.transcript) { _, new in
             if speech.isListening { model.draft = new }
+        }
+        .fullScreenCover(isPresented: $showSkin) {
+            SkinScanView { _ in
+                showSkin = false
+                discussSkin()
+            }
+        }
+        .sheet(isPresented: $showSkinHistory) {
+            SkinHistoryView {
+                showSkinHistory = false
+                Task {
+                    try? await Task.sleep(for: .milliseconds(450))
+                    showSkin = true
+                }
+            }
+        }
+    }
+
+    /// Back in the conversation after a scan: the member's own words open the
+    /// talk, and the assistant reads the results with its skin tool.
+    private func discussSkin() {
+        Task {
+            try? await Task.sleep(for: .milliseconds(500))
+            speech.stopListening()
+            greeter.stop()
+            model.draft = tr("I have just done my skin analysis. What do you recommend for me?")
+            await model.send(speech: speech, opening: greeter.text)
         }
     }
 
@@ -237,6 +276,19 @@ struct AssistantView: View {
 
     private var composer: some View {
         HStack(alignment: .bottom, spacing: 10) {
+            Button {
+                speech.stopListening()
+                showSkin = true
+            } label: {
+                Image(systemName: "face.smiling")
+                    .font(.system(size: 21))
+                    .foregroundStyle(Theme.inkSoft)
+                    .frame(width: 42, height: 42)
+                    .background(Circle().fill(Theme.paperSoft))
+            }
+            .accessibilityLabel(tr("Skin analysis"))
+            .accessibilityIdentifier("assistant.skin")
+
             Button {
                 if speech.isListening {
                     speech.stopListening()
