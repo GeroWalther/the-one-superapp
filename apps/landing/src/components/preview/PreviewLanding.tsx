@@ -203,14 +203,14 @@ export function PreviewLanding() {
           </h1>
 
           {/* Under the claim: the promise, TheONE CHANGES EVERYTHING, at weight
-              600 on every screen (the owner's choice). English
+              700 on every screen (the owner's choice). English
               in every language, in the claim's face. On iPad and desktop it is
               set as large as the claim itself so it reads at a glance; the
               phone keeps it a step smaller so it stays on one line. */}
           <p
             data-reveal
             data-reveal-delay="180"
-            className="mx-auto mt-3 max-w-3xl text-balance text-center font-display text-[19px] font-semibold leading-[1.3] tracking-[0.06em] text-[#0a2f34] sm:mt-5 sm:text-[26px] sm:tracking-[0.08em] lg:text-[31px]"
+            className="mx-auto mt-3 max-w-3xl text-balance text-center font-display text-[19px] font-bold leading-[1.3] tracking-[0.06em] text-[#0a2f34] sm:mt-5 sm:text-[26px] sm:tracking-[0.08em] lg:text-[31px]"
           >
             {tHero("slogan")}
           </p>
