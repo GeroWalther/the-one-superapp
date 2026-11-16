@@ -269,6 +269,8 @@ export type AiThreadDoc = {
   accountId: ObjectId;
   title: string;
   messages: AiMessage[];
+  /** The greeting the app spoke before the member's first message. */
+  opening?: string;
   createdAt: Date;
   updatedAt: Date;
 };
