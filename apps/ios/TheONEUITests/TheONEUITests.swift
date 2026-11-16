@@ -17,6 +17,11 @@ final class TheONEUITests: XCTestCase {
             app.launchArguments += ["-AppleLanguages", "(de)", "-AppleLocale", "de_DE"]
         } else if name.contains("testJapaneseMember") {
             app.launchArguments += ["-AppleLanguages", "(ja)", "-AppleLocale", "ja_JP"]
+        } else if let tour = Self.tours.first(where: { name.contains($0.test) }) {
+            app.launchArguments += ["-AppleLanguages", "(\(tour.language))", "-AppleLocale", tour.locale]
+        } else {
+            // Everything else checks the English labels it names.
+            app.launchArguments += ["-AppleLanguages", "(en)", "-AppleLocale", "en_US"]
         }
         app.launch()
     }
@@ -114,7 +119,7 @@ final class TheONEUITests: XCTestCase {
     private func goHome(leaving screen: XCUIElement) {
         var home = false
         for _ in 0..<3 where !home {
-            app.buttons["Start"].tap()
+            app.buttons["home.button"].tap()
             let gone = XCTNSPredicateExpectation(
                 predicate: NSPredicate(format: "exists == false"),
                 object: screen
@@ -296,14 +301,14 @@ final class TheONEUITests: XCTestCase {
         assertOnLoginScreen()
         type("testmember", into: app.textFields.firstMatch)
         type("TestPassword2026!", into: app.secureTextFields.firstMatch)
-        app.buttons["Sign in"].tap()
+        app.buttons["login.submit"].tap()
         dismissSystemPrompts()
-        XCTAssertTrue(app.navigationBars["Profile"].waitForExistence(timeout: 25))
+        XCTAssertTrue(app.tabBars.firstMatch.waitForExistence(timeout: 25))
         dismissSystemPrompts()
 
         // --- the MATCH tab ------------------------------------------------
         var opened = false
-        for candidate in [app.tabBars.buttons["Match"], app.buttons["Match"]] where !opened && candidate.exists {
+        for candidate in [app.tabBars.buttons["Match"], app.buttons["Match"], app.tabBars.buttons.element(boundBy: 2)] where !opened && candidate.exists {
             candidate.tap()
             opened = app.buttons["match.create"].waitForExistence(timeout: 15)
         }
@@ -380,22 +385,80 @@ final class TheONEUITests: XCTestCase {
         assertOnLoginScreen()
         type("testmember", into: app.textFields.firstMatch)
         type("TestPassword2026!", into: app.secureTextFields.firstMatch)
-        app.buttons["Sign in"].tap()
+        app.buttons["login.submit"].tap()
         dismissSystemPrompts()
-        XCTAssertTrue(app.navigationBars["Profile"].waitForExistence(timeout: 25))
+        XCTAssertTrue(app.tabBars.firstMatch.waitForExistence(timeout: 25))
         dismissSystemPrompts()
-        goHome(leaving: app.navigationBars["Profile"])
+        goHome(leaving: app.tabBars.firstMatch)
 
         let greeting = app.staticTexts["home.greeting"]
         XCTAssertTrue(greeting.waitForExistence(timeout: 20), "no greeting under the storm")
         capture("j01-greeting")
 
         app.buttons["home.storm"].tap()
-        let field = app.textFields["Message"].firstMatch
+        let field = app.descendants(matching: .any)["assistant.input"].firstMatch
         XCTAssertTrue(field.waitForExistence(timeout: 15))
         type("チューリッヒでおすすめのウェルネスリゾートはありますか？", into: field)
-        app.buttons["Send"].tap()
+        app.buttons["assistant.send"].tap()
         sleep(40)
         capture("j02-answer")
+    }
+
+    // MARK: - Language tours
+
+    private static let tours: [(test: String, language: String, locale: String, question: String)] = [
+        ("testTourFrench", "fr", "fr_FR", "Je cherche une clinique de longévité près de Zurich."),
+        ("testTourItalian", "it", "it_IT", "Cerco una clinica della longevità vicino a Zurigo."),
+        ("testTourArabic", "ar", "ar_AE", "أبحث عن عيادة لطول العمر بالقرب من زيورخ."),
+        ("testTourChinese", "zh-Hans", "zh_CN", "我在找苏黎世附近的长寿诊所。"),
+        ("testTourSpanish", "es", "es_ES", "Busco una clínica de longevidad cerca de Zúrich."),
+        ("testTourCroatian", "hr", "hr_HR", "Tražim kliniku za dugovječnost blizu Züricha."),
+        ("testTourRussian", "ru", "ru_RU", "Я ищу клинику долголетия рядом с Цюрихом."),
+        ("testTourTurkish", "tr", "tr_TR", "Zürih yakınlarında bir uzun ömür kliniği arıyorum."),
+    ]
+
+    func testTourFrench() throws { try tour("fr") }
+    func testTourItalian() throws { try tour("it") }
+    func testTourArabic() throws { try tour("ar") }
+    func testTourChinese() throws { try tour("zh-Hans") }
+    func testTourSpanish() throws { try tour("es") }
+    func testTourCroatian() throws { try tour("hr") }
+    func testTourRussian() throws { try tour("ru") }
+    func testTourTurkish() throws { try tour("tr") }
+
+    /// One pass through the app in a language: sign-in, MATCH, the greeting
+    /// and an answer from the assistant. The screenshots are the proof.
+    private func tour(_ language: String) throws {
+        let question = Self.tours.first { $0.language == language }!.question
+        let tag = language.prefix(2)
+
+        app.buttons["home.avatar"].tap()
+        XCTAssertTrue(app.secureTextFields.firstMatch.waitForExistence(timeout: 20))
+        capture("\(tag)-1-login")
+        type("testmember", into: app.textFields.firstMatch)
+        type("TestPassword2026!", into: app.secureTextFields.firstMatch)
+        app.buttons["login.submit"].tap()
+        dismissSystemPrompts()
+        XCTAssertTrue(app.tabBars.firstMatch.waitForExistence(timeout: 25))
+        dismissSystemPrompts()
+        capture("\(tag)-2-profile")
+
+        app.tabBars.buttons.element(boundBy: 2).tap()
+        sleep(6)
+        capture("\(tag)-3-match")
+        app.swipeUp()
+        capture("\(tag)-4-match-lower")
+
+        goHome(leaving: app.tabBars.firstMatch)
+        _ = app.staticTexts["home.greeting"].waitForExistence(timeout: 20)
+        capture("\(tag)-5-greeting")
+
+        app.buttons["home.storm"].tap()
+        let field = app.descendants(matching: .any)["assistant.input"].firstMatch
+        XCTAssertTrue(field.waitForExistence(timeout: 15))
+        type(question, into: field)
+        app.buttons["assistant.send"].tap()
+        sleep(40)
+        capture("\(tag)-6-answer")
     }
 }

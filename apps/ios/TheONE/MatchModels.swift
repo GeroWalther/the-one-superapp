@@ -102,7 +102,10 @@ struct MatchWords {
     /// Follows the phone's language: German there, English everywhere else.
     init() { german = MemberLanguage.isGerman }
 
-    func callAsFunction(_ de: String, _ en: String) -> String { german ? de : en }
+    /// The German text on a German phone; otherwise the English text in the
+    /// phone's language from the catalog (French, Italian, Arabic, Chinese),
+    /// English where there is no translation.
+    func callAsFunction(_ de: String, _ en: String) -> String { german ? de : tr(en) }
 
     static let genders = ["woman", "man"]
     static let hairColors = ["blonde", "brown", "black", "red", "grey", "other"]
@@ -160,7 +163,7 @@ struct MatchWords {
         case "height": ("Größe", "Height")
         default: (key, key)
         }
-        return german ? pair.0 : pair.1
+        return german ? pair.0 : tr(pair.1)
     }
 
     func labels(_ keys: [String]) -> String {
@@ -170,7 +173,14 @@ struct MatchWords {
     /// "Reisen, Golf und Wein": a list the way it is said aloud.
     func spokenList(_ keys: [String]) -> String {
         let names = keys.map(label)
-        guard names.count > 1 else { return names.first ?? "" }
-        return names.dropLast().joined(separator: ", ") + (german ? " und " : " and ") + names[names.count - 1]
+        if german {
+            guard names.count > 1 else { return names.first ?? "" }
+            return names.dropLast().joined(separator: ", ") + " und " + names[names.count - 1]
+        }
+        // Mid-sentence, so lower case where the language has it ("golf and
+        // wine", "le golf et le vin"); the list's "and" follows the language.
+        let formatter = ListFormatter()
+        formatter.locale = Locale(identifier: MemberLanguage.tag)
+        return formatter.string(from: names.map { $0.lowercased() }) ?? names.joined(separator: ", ")
     }
 }

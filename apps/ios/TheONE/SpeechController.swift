@@ -131,7 +131,8 @@ final class SpeechController: NSObject {
             return
         }
 
-        let utterance = AVSpeechUtterance(string: text)
+        // Markdown stars are for the eye; the voice should not trip over them.
+        let utterance = AVSpeechUtterance(string: text.replacingOccurrences(of: "**", with: ""))
         utterance.voice = Self.bestVoice(for: MemberLanguage.of(text))
         // A touch slower than the default reads as calm rather than hurried.
         utterance.rate = AVSpeechUtteranceDefaultSpeechRate * 0.92

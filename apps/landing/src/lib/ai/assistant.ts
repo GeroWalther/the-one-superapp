@@ -113,7 +113,7 @@ If anything suggests they might harm themselves or are in danger, put that first
 Treat what the member wants as yours to arrange. Find the right business partner, check the details, and with their yes, save it or request the appointment, so they leave with something done rather than a list to work through.
 
 # Voice
-Members often speak to you rather than type, so answers are read aloud. Lead with the answer, then the reasoning. Keep it to a few sentences unless they ask for depth. No headers or bullet lists in short replies — they sound wrong spoken. Write plainly in the member's own language. Their phone is set to ${spoken}, so use ${spoken}; but whenever they write or speak to you in another language, answer in that language instead. In German, address the member informally as "du", warm and familiar like a trusted friend, never "Sie". In other languages, use the warm address a trusted personal assistant would naturally use. A member may be abroad and speak no English: you are their voice. Everything a business partner reads (an appointment request, a message) you write in the partner's language, and you tell the member in their own language what you arranged. No dashes in what you say. Never call TheONE or anything in it "new" ("neu"): TheONE is an infrastructure, not a newcomer competing with others.
+Members often speak to you rather than type, so answers are read aloud. Lead with the answer, then the reasoning. Keep it to a few sentences unless they ask for depth. No headers or bullet lists in short replies — they sound wrong spoken. Write plainly in the member's own language. Their phone is set to ${spoken}, so use ${spoken}; but whenever they write or speak to you in another language, answer in that language instead. In German, address the member informally as "du", warm and familiar like a trusted friend, never "Sie". In French and Italian say "tu", in Spanish "tú", in Croatian "ti", in Russian "ты", in Turkish "sen", in Chinese use 你 (never 您), in Arabic speak to them directly and warmly; in any other language use the warm, familiar address a trusted personal assistant would use. A member may be abroad and speak no English: you are their voice. Everything a business partner reads (an appointment request, a message) you write in the partner's language, and you tell the member in their own language what you arranged. No dashes in what you say. Always write the names TheONE, POWER AI and MATCH exactly like this, in Latin letters, in every language and script: never translate, transliterate or respell them. TheONE's English lines stay in English in every language too, quoted as they are: "THE INFRASTRUCTURE FOR A BETTER LIFE", "THE POWER AI THAT UNDERSTANDS YOU", "FIND YOUR MATCH", "ONE WORLD ONE MATCH". Never call TheONE or anything in it "new" ("neu"): TheONE is an infrastructure, not a newcomer competing with others.
 
 Be warm and direct, like a trusted personal assistant who has known them for years. If the member is about to make an expensive mistake, say so.`;
 }
@@ -199,12 +199,25 @@ export async function* runAssistant(input: {
 
     try {
       for await (const event of stream) {
+        // Text written before a tool call and text written after it arrive as
+        // separate blocks; without a break they run together ("pour toi.Excellent").
+        if (
+          event.type === "content_block_start" &&
+          event.content_block.type === "text" &&
+          assembled &&
+          !/\s$/.test(assembled)
+        ) {
+          assembled += "\n\n";
+          yield { type: "text", text: "\n\n" };
+        }
         if (
           event.type === "content_block_delta" &&
           event.delta.type === "text_delta"
         ) {
-          assembled += event.delta.text;
-          yield { type: "text", text: event.delta.text };
+          // TheONE's copy uses no dashes; a comma reads the same aloud.
+          const piece = event.delta.text.replace(/\s*[–—]\s*/g, ", ");
+          assembled += piece;
+          yield { type: "text", text: piece };
         }
       }
     } catch (error) {
@@ -258,7 +271,11 @@ export async function* runAssistant(input: {
 }
 
 /** A short, personal daily prompt built from the member's own profile. */
-export async function dailyTip(account: PublicAccount): Promise<string | null> {
+export async function dailyTip(
+  account: PublicAccount,
+  /** The phone's language tag; the tip is written in it. */
+  language?: string | null,
+): Promise<string | null> {
   const client = anthropic();
   if (!client) return null;
 
@@ -269,14 +286,14 @@ export async function dailyTip(account: PublicAccount): Promise<string | null> {
       ...(effortFor(ASSISTANT_MODEL)
         ? { output_config: effortFor(ASSISTANT_MODEL) }
         : {}),
-      system: systemPrompt(account),
+      system: systemPrompt(account, language),
       tools: ASSISTANT_TOOLS,
       tool_choice: { type: "tool", name: "get_member_profile" },
       messages: [
         {
           role: "user",
           content:
-            "Give me one specific, actionable improvement for today, grounded in my profile. Two sentences at most. No preamble, no greeting.",
+            `Give me one specific, actionable improvement for today, grounded in my profile. Two sentences at most. No preamble, no greeting. Write it in ${languageName(account, language)}.`,
         },
       ],
     });
@@ -289,7 +306,7 @@ export async function dailyTip(account: PublicAccount): Promise<string | null> {
       const text = response.content.find(
         (block): block is Anthropic.TextBlock => block.type === "text",
       );
-      return text?.text ?? null;
+      return text?.text.replace(/\s*[–—]\s*/g, ", ") ?? null;
     }
 
     const result = await runAssistantTool(
@@ -304,13 +321,13 @@ export async function dailyTip(account: PublicAccount): Promise<string | null> {
       ...(effortFor(ASSISTANT_MODEL)
         ? { output_config: effortFor(ASSISTANT_MODEL) }
         : {}),
-      system: systemPrompt(account),
+      system: systemPrompt(account, language),
       tools: ASSISTANT_TOOLS,
       messages: [
         {
           role: "user",
           content:
-            "Give me one specific, actionable improvement for today, grounded in my profile. Two sentences at most. No preamble, no greeting.",
+            `Give me one specific, actionable improvement for today, grounded in my profile. Two sentences at most. No preamble, no greeting. Write it in ${languageName(account, language)}.`,
         },
         { role: "assistant", content: response.content },
         {
@@ -329,7 +346,7 @@ export async function dailyTip(account: PublicAccount): Promise<string | null> {
     const text = followUp.content.find(
       (block): block is Anthropic.TextBlock => block.type === "text",
     );
-    return text?.text ?? null;
+    return text?.text.replace(/\s*[–—]\s*/g, ", ") ?? null;
   } catch (error) {
     console.error("[assistant] daily tip failed:", error);
     return null;
@@ -353,7 +370,17 @@ export async function greeting(
   matches: string[] = [],
 ): Promise<string | null> {
   const spoken = languageName(account, language);
-  const informal = spoken === "German" ? ", addressing me informally as du" : "";
+  const informal =
+    {
+      German: ", addressing me informally as du",
+      French: ", addressing me informally as tu",
+      Italian: ", addressing me informally as tu",
+      Chinese: ", addressing me as 你",
+      Spanish: ", addressing me informally as tú",
+      Croatian: ", addressing me informally as ti",
+      Russian: ", addressing me informally as ты",
+      Turkish: ", addressing me informally as sen",
+    }[spoken] ?? "";
   const matchNews = matches.length
     ? `\n\nAlso tell me, warmly and in one short sentence, that I have ${matches.length === 1 ? `a match in TheONE MATCH with ${matches[0]}` : `${matches.length} matches in TheONE MATCH (${matches.join(", ")})`}: they would like to meet me too. Never call it "new".`
     : "";

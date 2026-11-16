@@ -20,7 +20,7 @@ struct LoginView: View {
 
                 Text("MEMBERS & BUSINESS PARTNERS")
                     .font(.system(size: 10, weight: .semibold))
-                    .tracking(3)
+                    .tracking(MemberLanguage.spacing(3))
                     .foregroundStyle(Theme.aqua)
                     .padding(.top, 34)
 
@@ -61,7 +61,7 @@ struct LoginView: View {
                                 Image(systemName: showPassword ? "eye.slash" : "eye")
                                     .foregroundStyle(Theme.inkFaint)
                             }
-                            .accessibilityLabel(showPassword ? "Hide password" : "Show password")
+                            .accessibilityLabel(tr(showPassword ? "Hide password" : "Show password"))
                         }
                     }
 
@@ -76,9 +76,10 @@ struct LoginView: View {
                     Button {
                         Task { await session.signIn(identifier: identifier, password: password) }
                     } label: {
-                        Text(session.isWorking ? "Signing in…" : "Sign in")
+                        Text(tr(session.isWorking ? "Signing in…" : "Sign in"))
                     }
                     .buttonStyle(PrimaryButtonStyle())
+                    .accessibilityIdentifier("login.submit")
                     .disabled(session.isWorking || identifier.isEmpty || password.isEmpty)
                     .opacity(identifier.isEmpty || password.isEmpty ? 0.6 : 1)
                 }
@@ -113,7 +114,7 @@ struct LoginView: View {
         @ViewBuilder content: () -> Content
     ) -> some View {
         VStack(alignment: .leading, spacing: 7) {
-            Text(label)
+            Text(tr(label))
                 .font(.system(size: 13, weight: .medium))
                 .foregroundStyle(Theme.ink)
             content()

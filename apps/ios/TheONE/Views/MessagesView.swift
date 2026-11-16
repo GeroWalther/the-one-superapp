@@ -68,7 +68,7 @@ struct MessagesView: View {
                     .font(.system(size: 15.5, weight: .medium))
                     .foregroundStyle(Theme.ink)
                 Text(conversation.lastMessagePreview.isEmpty
-                     ? "No messages yet"
+                     ? tr("No messages yet")
                      : conversation.lastMessagePreview)
                     .font(.system(size: 13))
                     .foregroundStyle(Theme.inkFaint)

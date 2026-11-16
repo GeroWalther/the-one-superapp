@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { apiError, authenticateRequest } from "@/lib/api/auth";
-import { dailyTip, isAssistantConfigured } from "@/lib/ai/assistant";
+import { dailyTip, isAssistantConfigured, languageTag } from "@/lib/ai/assistant";
 
 export async function GET(request: Request) {
   const auth = await authenticateRequest(request);
@@ -10,7 +10,9 @@ export async function GET(request: Request) {
     return apiError("assistant_not_configured", 503);
   }
 
-  const tip = await dailyTip(auth.account);
+  // `?language=` from the phone, so the tip is in the member's language.
+  const language = languageTag(new URL(request.url).searchParams.get("language"));
+  const tip = await dailyTip(auth.account, language);
   if (!tip) return apiError("unavailable", 503);
 
   return NextResponse.json({ tip });

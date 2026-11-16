@@ -26,7 +26,7 @@ struct ProfileView: View {
                             Text(account.displayName)
                                 .font(.system(size: 22, weight: .light, design: .serif))
                                 .foregroundStyle(Theme.ink)
-                            Text("@\(account.username) · \(account.role == "partner" ? "Business partner" : account.role.capitalized)")
+                            Text(verbatim: "@\(account.username) · \(tr(account.role == "partner" ? "Business partner" : account.role.capitalized))")
                                 .font(.system(size: 13))
                                 .foregroundStyle(Theme.inkFaint)
                         }
@@ -36,7 +36,7 @@ struct ProfileView: View {
                             VStack(alignment: .leading, spacing: 8) {
                                 Text("TODAY")
                                     .font(.system(size: 10, weight: .semibold))
-                                    .tracking(2)
+                                    .tracking(MemberLanguage.spacing(2))
                                     .foregroundStyle(Theme.aqua)
                                 Text(tip)
                                     .font(.system(size: 15))
@@ -51,7 +51,7 @@ struct ProfileView: View {
                         VStack(spacing: 0) {
                             detailRow("Email", account.email)
                             Divider().overlay(Theme.line)
-                            detailRow("Status", account.status.replacingOccurrences(of: "_", with: " ").capitalized)
+                            detailRow("Status", tr(account.status.replacingOccurrences(of: "_", with: " ").capitalized))
                             if account.successfulReferrals > 0 {
                                 Divider().overlay(Theme.line)
                                 detailRow("Referrals", "\(account.successfulReferrals)")
@@ -67,7 +67,7 @@ struct ProfileView: View {
                             VStack(alignment: .leading, spacing: 10) {
                                 Text("YOUR PROFILE")
                                     .font(.system(size: 10, weight: .semibold))
-                                    .tracking(2)
+                                    .tracking(MemberLanguage.spacing(2))
                                     .foregroundStyle(Theme.aqua)
 
                                 Text("\(profile.city), \(profile.country)")
@@ -101,9 +101,9 @@ struct ProfileView: View {
                         // Billing and Stripe's own flows stay on the web, where
                         // they already exist.
                         Link(destination: accountURL) {
-                            Text(account.role == "partner"
+                            Text(tr(account.role == "partner"
                                  ? "Manage listing & billing"
-                                 : "Manage account & billing")
+                                 : "Manage account & billing"))
                         }
                         .buttonStyle(GhostButtonStyle())
 
@@ -141,7 +141,7 @@ struct ProfileView: View {
 
     private func detailRow(_ label: String, _ value: String) -> some View {
         HStack {
-            Text(label)
+            Text(tr(label))
                 .font(.system(size: 13))
                 .foregroundStyle(Theme.inkFaint)
             Spacer()
@@ -158,7 +158,9 @@ struct ProfileView: View {
         defer { loadingTip = false }
         // A missing tip is not worth an error banner — the assistant may simply
         // not be configured on this deployment.
-        let response: TipResponse? = try? await APIClient.shared.send("/tips/daily")
+        let response: TipResponse? = try? await APIClient.shared.send(
+            "/tips/daily?language=\(MemberLanguage.tag.addingPercentEncoding(withAllowedCharacters: .alphanumerics) ?? "en")"
+        )
         tip = response?.tip
     }
 

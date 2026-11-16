@@ -31,7 +31,8 @@ struct HomeView: View {
                         .accessibilityLabel("TheONE Super App")
                         .padding(.top, 28)
 
-                    Text("THE POWER AI\nTHAT UNDERSTANDS YOU")
+                    // The brand's claim, in English in every language.
+                    Text(verbatim: "THE POWER AI\nTHAT UNDERSTANDS YOU")
                         .font(.system(size: 17, weight: .bold, design: .serif))
                         .tracking(1.4)
                         .lineSpacing(4)
@@ -41,7 +42,7 @@ struct HomeView: View {
 
                     Button { open(.assistant) } label: {
                         VortexView {
-                            Text("POWER AI")
+                            Text(verbatim: "POWER AI")
                                 .font(.system(size: 18, weight: .bold, design: .serif))
                                 .tracking(3.6)
                                 .foregroundStyle(Self.eyeInk)
@@ -243,6 +244,7 @@ private struct HomeButton: ViewModifier {
                         Image(systemName: "house")
                     }
                     .accessibilityLabel("Start")
+                    .accessibilityIdentifier("home.button")
                 }
             }
         }

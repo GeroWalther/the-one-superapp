@@ -31,7 +31,7 @@ struct PartnerDetailView: View {
                         VStack(alignment: .leading, spacing: 5) {
                             Text("TYPICAL CLIENTS")
                                 .font(.system(size: 10, weight: .semibold))
-                                .tracking(2)
+                                .tracking(MemberLanguage.spacing(2))
                                 .foregroundStyle(Theme.aqua)
                             Text(clientele)
                                 .font(.system(size: 14))
@@ -53,7 +53,7 @@ struct PartnerDetailView: View {
                     Button {
                         Task { await openChat(with: partner) }
                     } label: {
-                        Text(openingChat ? "Opening…" : "Message this business partner")
+                        Text(tr(openingChat ? "Opening…" : "Message this business partner"))
                     }
                     .buttonStyle(PrimaryButtonStyle())
                     .disabled(openingChat)
@@ -74,7 +74,7 @@ struct PartnerDetailView: View {
         .paperBackground()
         .navigationBarTitleDisplayMode(.inline)
         .navigationDestination(item: $conversationId) { id in
-            ConversationView(conversationId: id, title: partner?.name ?? "Business partner")
+            ConversationView(conversationId: id, title: partner?.name ?? tr("Business partner"))
         }
         .task { await load() }
     }
@@ -99,7 +99,7 @@ struct PartnerDetailView: View {
             let response: DetailResponse = try await APIClient.shared.send("/partners/\(partnerId)")
             partner = response.partner
         } catch {
-            self.error = (error as? APIError)?.errorDescription ?? "Could not load this business partner."
+            self.error = (error as? APIError)?.errorDescription ?? tr("Could not load this business partner.")
         }
     }
 
@@ -115,7 +115,7 @@ struct PartnerDetailView: View {
             )
             conversationId = response.conversationId
         } catch {
-            self.error = (error as? APIError)?.errorDescription ?? "Could not open the conversation."
+            self.error = (error as? APIError)?.errorDescription ?? tr("Could not open the conversation.")
         }
     }
 

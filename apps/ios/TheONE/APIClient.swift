@@ -109,7 +109,7 @@ actor APIClient {
         do {
             return try decoder.decode(T.self, from: data)
         } catch {
-            throw APIError.server("Unexpected response from TheONE.")
+            throw APIError.server(tr("Unexpected response from TheONE."))
         }
     }
 
@@ -212,7 +212,7 @@ actor APIClient {
         do {
             return try decoder.decode(T.self, from: data)
         } catch {
-            throw APIError.server("Unexpected response from TheONE.")
+            throw APIError.server(tr("Unexpected response from TheONE."))
         }
     }
 
@@ -253,8 +253,8 @@ actor APIClient {
         }
 
         if status == 401 { return .unauthorized }
-        if status == 429 { return .server("Too many attempts. Please wait a moment.") }
-        return .server("Something went wrong (\(status)).")
+        if status == 429 { return .server(tr("Too many attempts. Please wait a moment.")) }
+        return .server(tr("Something went wrong (%lld).", status))
     }
 }
 

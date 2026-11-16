@@ -51,7 +51,7 @@ final class AssistantModel {
             guard let http = response as? HTTPURLResponse, http.statusCode == 200 else {
                 error = (response as? HTTPURLResponse)?.statusCode == 503
                     ? APIError.notConfigured.errorDescription
-                    : APIError.server("The assistant is unavailable.").errorDescription
+                    : APIError.server(tr("The assistant is unavailable.")).errorDescription
                 turns.removeSubrange(replyIndex...)
                 return
             }
@@ -91,8 +91,8 @@ final class AssistantModel {
                     error = code == "assistant_not_configured"
                         ? APIError.notConfigured.errorDescription
                         : code == "refused"
-                            ? "I can't help with that one."
-                            : "Something went wrong. Please try again."
+                            ? tr("I can't help with that one.")
+                            : tr("Something went wrong. Please try again.")
                     if turns[replyIndex].text.isEmpty {
                         turns.removeSubrange(replyIndex...)
                     }
@@ -199,7 +199,7 @@ struct AssistantView: View {
                 TurnBubble(turn: AssistantTurn(role: .assistant, text: words))
                     .accessibilityIdentifier("assistant.greeting")
             } else {
-                Text("I know TheONE's verified business partners and what you told us when you applied. Tell me what you need — or just describe the problem.")
+                Text("I know TheONE's verified business partners and what you told us when you applied. Tell me what you need, or just describe the problem.")
                     .font(.system(size: 14))
                     .foregroundStyle(Theme.inkSoft)
             }
@@ -211,9 +211,9 @@ struct AssistantView: View {
                     "I need somewhere quiet to work for a month.",
                 ], id: \.self) { example in
                     Button {
-                        model.draft = example
+                        model.draft = tr(example)
                     } label: {
-                        Text(example)
+                        Text(tr(example))
                             .font(.system(size: 13.5))
                             .foregroundStyle(Theme.aquaSoft)
                             .frame(maxWidth: .infinity, alignment: .leading)
@@ -258,9 +258,10 @@ struct AssistantView: View {
                     .frame(width: 42, height: 42)
                     .background(Circle().fill(Theme.paperSoft))
             }
-            .accessibilityLabel(speech.isListening ? "Stop dictation" : "Dictate")
+            .accessibilityLabel(tr(speech.isListening ? "Stop dictation" : "Dictate"))
 
             TextField("Message", text: $model.draft, axis: .vertical)
+                .accessibilityIdentifier("assistant.input")
                 .lineLimit(1...5)
                 .font(.system(size: 16))
                 .foregroundStyle(Theme.ink)
@@ -294,6 +295,7 @@ struct AssistantView: View {
             .disabled(model.isStreaming || model.draft.trimmingCharacters(in: .whitespaces).isEmpty)
             .opacity(model.draft.trimmingCharacters(in: .whitespaces).isEmpty ? 0.5 : 1)
             .accessibilityLabel("Send")
+            .accessibilityIdentifier("assistant.send")
         }
         .padding(.horizontal, 16)
         .padding(.vertical, 12)
@@ -309,14 +311,21 @@ private struct TurnBubble: View {
             if let tool = turn.runningTool {
                 HStack(spacing: 6) {
                     ProgressView().controlSize(.mini).tint(Theme.aqua)
-                    Text(label(for: tool))
+                    Text(tr(label(for: tool)))
                         .font(.system(size: 12))
                         .foregroundStyle(Theme.aqua)
                 }
             }
 
             if !turn.text.isEmpty {
-                Text(turn.text)
+                // The assistant sometimes marks a name in **bold**; shown as
+                // bold rather than as stars.
+                Text(
+                    (try? AttributedString(
+                        markdown: turn.text,
+                        options: .init(interpretedSyntax: .inlineOnlyPreservingWhitespace)
+                    )) ?? AttributedString(turn.text)
+                )
                     .font(.system(size: 15.5))
                     .foregroundStyle(turn.role == .user ? Theme.onAccent : Theme.ink)
                     .padding(.horizontal, 14)

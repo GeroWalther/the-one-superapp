@@ -75,8 +75,8 @@ final class Greeter {
                 : "Und eine schöne Nachricht: Du hast \(matches.count) Matches."
         }
         return matches.count == 1
-            ? "And some lovely news: you have a match with \(matches[0].firstName)."
-            : "And some lovely news: you have \(matches.count) matches."
+            ? tr("And some lovely news: you have a match with %@.", matches[0].firstName)
+            : tr("And some lovely news: you have %lld matches.", matches.count)
     }
 
     private func capped<T: Sendable>(seconds: Double, _ work: @escaping @Sendable () async -> T?) async -> T? {
@@ -133,7 +133,10 @@ final class Greeter {
             let time = hour < 11 ? "Guten Morgen" : hour < 18 ? "Guten Tag" : "Guten Abend"
             return "\(time), \(name). Wie geht es dir heute?"
         }
-        let time = hour < 12 ? "Good morning" : hour < 18 ? "Good afternoon" : "Good evening"
-        return "\(time), \(name). How are you today?"
+        return hour < 12
+            ? tr("Good morning, %@. How are you today?", name)
+            : hour < 18
+                ? tr("Good afternoon, %@. How are you today?", name)
+                : tr("Good evening, %@. How are you today?", name)
     }
 }

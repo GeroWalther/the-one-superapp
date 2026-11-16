@@ -1,5 +1,17 @@
 import Foundation
+import CoreGraphics
 import NaturalLanguage
+
+/// The app's own words in the phone's language, from Localizable.xcstrings,
+/// keyed by the English text. Text the catalog does not have stays English.
+func tr(_ english: String) -> String {
+    NSLocalizedString(english, comment: "")
+}
+
+/// A translated sentence with values filled in, e.g. "%@ would like to meet you too."
+func tr(_ english: String, _ values: CVarArg...) -> String {
+    String(format: NSLocalizedString(english, comment: ""), locale: Locale(identifier: MemberLanguage.tag), arguments: values)
+}
 
 /// The language of whoever is holding the phone.
 ///
@@ -17,6 +29,12 @@ enum MemberLanguage {
     }
 
     static var isGerman: Bool { code == "de" }
+
+    /// Letter spacing suits Latin capitals; in Arabic it tears the joined
+    /// letters apart, and Chinese needs none, so it is only used where it fits.
+    static func spacing(_ points: CGFloat) -> CGFloat {
+        ["ar", "fa", "he", "ur", "zh", "ja", "ko", "th", "hi"].contains(code) ? 0 : points
+    }
 
     /// The language `text` is written in, so the right voice reads it aloud;
     /// the phone's language when the text is too short to tell.
@@ -36,6 +54,8 @@ enum MemberLanguage {
         case "es": "Tienes un match. \(name) también quiere conocerte."
         case "pt": "Você tem um match. \(name) também quer conhecer você."
         case "ru": "У тебя есть совпадение. \(name) тоже хочет с тобой познакомиться."
+        case "hr": "Imaš match. I \(name) te želi upoznati."
+        case "tr": "Bir eşleşmen var. \(name) da seninle tanışmak istiyor."
         case "ja": "マッチしました。\(name)さんもあなたに会いたいと思っています。"
         case "zh": "你有一个配对。\(name)也想认识你。"
         case "ar": "لديك تطابق. \(name) يرغب أيضًا في التعرف عليك."

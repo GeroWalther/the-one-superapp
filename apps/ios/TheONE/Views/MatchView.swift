@@ -56,7 +56,7 @@ struct MatchView: View {
                         Text(error ?? words("Etwas ist schiefgelaufen.", "Something went wrong."))
                             .font(.system(size: 15))
                             .foregroundStyle(Theme.inkSoft)
-                        Button(words("Erneut versuchen", "Try again")) { Task { await load() } }
+                        Button(words("Noch einmal versuchen", "Try again")) { Task { await load() } }
                             .tint(Theme.aqua)
                     }
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -126,7 +126,8 @@ struct MatchView: View {
         ScrollView {
             VStack(spacing: 0) {
                 VStack(spacing: 16) {
-                    Text("FIND YOUR MATCH")
+                    // English in every language, like all of TheONE's claims.
+                    Text(verbatim: "FIND YOUR MATCH")
                         .font(.system(size: 26, weight: .regular, design: .serif))
                         .tracking(3)
                         .multilineTextAlignment(.center)
@@ -322,11 +323,11 @@ private struct Introduction: View {
             VStack(spacing: 0) {
                 Text(words("DEINE VERBINDUNG", "YOUR CONNECTION"))
                     .font(.system(size: 11, weight: .medium))
-                    .tracking(3)
+                    .tracking(MemberLanguage.spacing(3))
                     .foregroundStyle(Theme.aqua)
                     .padding(.top, 26)
                 if count.1 > 1 {
-                    Text(words("\(count.0) von \(count.1)", "\(count.0) of \(count.1)"))
+                    Text(words.german ? "\(count.0) von \(count.1)" : tr("%1$lld of %2$lld", count.0, count.1))
                         .font(.system(size: 12))
                         .foregroundStyle(Theme.inkFaint)
                         .padding(.top, 4)
@@ -335,13 +336,13 @@ private struct Introduction: View {
                 Portrait(url: card.photos.first, initial: String(card.firstName.prefix(1)), size: 156)
                     .padding(.top, 22)
 
-                Text("\(card.firstName), \(card.age)")
+                Text(verbatim: "\(card.firstName), \(card.age)")
                     .font(.system(size: 32, weight: .light, design: .serif))
                     .foregroundStyle(Theme.ink)
                     .padding(.top, 18)
                     .accessibilityIdentifier("match.name")
 
-                Text("\(card.profession) · \(card.city)")
+                Text(verbatim: "\(card.profession) · \(card.city)")
                     .font(.system(size: 15))
                     .foregroundStyle(Theme.inkSoft)
                     .padding(.top, 4)
@@ -369,11 +370,11 @@ private struct Introduction: View {
 
                 if !card.about.isEmpty {
                     VStack(spacing: 8) {
-                        Text(words("IN \(he ? "SEINEN" : "IHREN") WORTEN", "IN \(he ? "HIS" : "HER") WORDS"))
+                        Text(he ? words("IN SEINEN WORTEN", "IN HIS WORDS") : words("IN IHREN WORTEN", "IN HER WORDS"))
                             .font(.system(size: 10.5, weight: .medium))
-                            .tracking(2.4)
+                            .tracking(MemberLanguage.spacing(2.4))
                             .foregroundStyle(Theme.inkFaint)
-                        Text("„\(card.about)“")
+                        Text(words.german ? "„\(card.about)“" : tr("“%@”", card.about))
                             .font(.system(size: 16, design: .serif))
                             .multilineTextAlignment(.center)
                             .foregroundStyle(Theme.inkSoft)
@@ -419,26 +420,39 @@ private struct Introduction: View {
     /// Written like a note from a concierge, not a list of attributes.
     private var letter: String {
         let name = card.firstName
-        var text = words.german
-            ? "Wir möchten dich mit \(name) verbinden. \(he ? "Er" : "Sie") erfüllt jeden deiner Wünsche, und du erfüllst jeden \(he ? "seiner" : "ihrer")."
-            : "We would like to connect you with \(name). \(he ? "He" : "She") meets every wish of yours, and you meet every one of \(he ? "his" : "hers")."
+        guard words.german else { return translatedLetter }
+        var text = "Wir möchten dich mit \(name) verbinden. \(he ? "Er" : "Sie") erfüllt jeden deiner Wünsche, und du erfüllst jeden \(he ? "seiner" : "ihrer")."
 
         let bond: String = switch myIntention {
         case "relationship": words("eine feste Beziehung", "a lasting relationship")
         case "friendship": words("eine Freundschaft", "a friendship")
         default: words("schöne Begegnungen", "lovely encounters")
         }
-        text += words.german ? " Ihr beide wünscht euch \(bond)" : " You both hope for \(bond)"
-
-        if card.sharedHobbies.isEmpty {
-            text += "."
-        } else {
-            let shared = words.spokenList(card.sharedHobbies)
-            text += words.german
-                ? " und teilt eure Freude an \(shared)."
-                : " and share a love of \(shared.lowercased())."
-        }
+        text += " Ihr beide wünscht euch \(bond)"
+        text += card.sharedHobbies.isEmpty
+            ? "."
+            : " und teilt eure Freude an \(words.spokenList(card.sharedHobbies))."
         return text
+    }
+
+    /// The same letter in every other language, built from whole translated
+    /// sentences so each language keeps its own word order.
+    private var translatedLetter: String {
+        let opening = tr(
+            he
+                ? "We would like to connect you with %@. He meets every wish of yours, and you meet every one of his."
+                : "We would like to connect you with %@. She meets every wish of yours, and you meet every one of hers.",
+            card.firstName
+        )
+        let bond: String = switch myIntention {
+        case "relationship": tr("a lasting relationship")
+        case "friendship": tr("a friendship")
+        default: tr("lovely encounters")
+        }
+        let together = card.sharedHobbies.isEmpty
+            ? tr("You both hope for %@.", bond)
+            : tr("You both hope for %1$@ and share a love of %2$@.", bond, words.spokenList(card.sharedHobbies))
+        return opening + tr(" ") + together
     }
 
     private var details: some View {
@@ -454,7 +468,7 @@ private struct Introduction: View {
 
             Text(words("FREIZEIT", "PASTIMES"))
                 .font(.system(size: 10.5, weight: .medium))
-                .tracking(2.4)
+                .tracking(MemberLanguage.spacing(2.4))
                 .foregroundStyle(Theme.inkFaint)
             FlowLayout(spacing: 8) {
                 ForEach(card.hobbies, id: \.self) { hobby in
@@ -522,10 +536,9 @@ private struct MatchMoment: View {
                 .foregroundStyle(Theme.ink)
                 .padding(.top, 22)
 
-            Text(words(
-                "\(match.firstName) möchte dich auch kennenlernen. Schreib ein paar persönliche Zeilen.",
-                "\(match.firstName) would like to meet you too. Write a few personal lines."
-            ))
+            Text(words.german
+                ? "\(match.firstName) möchte dich auch kennenlernen. Schreib ein paar persönliche Zeilen."
+                : tr("%@ would like to meet you too. Write a few personal lines.", match.firstName))
             .font(.system(size: 16))
             .multilineTextAlignment(.center)
             .foregroundStyle(Theme.inkSoft)
@@ -593,7 +606,7 @@ private struct ConnectionsView: View {
                         HStack(spacing: 14) {
                             Portrait(url: match.photo, initial: String(match.firstName.prefix(1)), size: 52)
                             VStack(alignment: .leading, spacing: 3) {
-                                Text("\(match.firstName), \(match.age)")
+                                Text(verbatim: "\(match.firstName), \(match.age)")
                                     .font(.system(size: 18, weight: .light, design: .serif))
                                     .foregroundStyle(Theme.ink)
                                 Text(match.city)

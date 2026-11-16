@@ -35,7 +35,7 @@ final class DiscoverModel {
             let response: PartnersResponse = try await APIClient.shared.send(path)
             partners = response.partners
         } catch {
-            self.error = (error as? APIError)?.errorDescription ?? "Could not load business partners."
+            self.error = (error as? APIError)?.errorDescription ?? tr("Could not load business partners.")
         }
     }
 
@@ -80,8 +80,8 @@ struct DiscoverView: View {
                         ProgressView().tint(Theme.aqua).padding(.top, 40)
                     } else if model.partners.isEmpty {
                         Text(model.savedOnly
-                             ? "Nothing saved yet."
-                             : "No business partners match this search.")
+                             ? tr("Nothing saved yet.")
+                             : tr("No business partners match this search."))
                             .font(.system(size: 14))
                             .foregroundStyle(Theme.inkSoft)
                             .padding(.top, 40)
@@ -133,7 +133,7 @@ struct DiscoverView: View {
 
     private func chip(_ label: String, active: Bool, action: @escaping () -> Void) -> some View {
         Button(action: action) {
-            Text(label)
+            Text(tr(label))
                 .font(.system(size: 13, weight: active ? .semibold : .regular))
                 .foregroundStyle(active ? Theme.onAccent : Theme.inkSoft)
                 .padding(.horizontal, 14)
@@ -176,7 +176,7 @@ struct PartnerRow: View {
                     .foregroundStyle(partner.saved ? Theme.aqua : Theme.inkFaint)
             }
             .buttonStyle(.plain)
-            .accessibilityLabel(partner.saved ? "Remove bookmark" : "Save business partner")
+            .accessibilityLabel(tr(partner.saved ? "Remove bookmark" : "Save business partner"))
         }
         .glassCard()
     }

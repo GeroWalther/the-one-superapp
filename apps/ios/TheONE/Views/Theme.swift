@@ -106,17 +106,22 @@ struct GhostButtonStyle: ButtonStyle {
     }
 }
 
-/// Wordmark, matching the site.
+/// The "TheONE" lettering, cut from the logo artwork itself.
+///
+/// Never re-set in a font: the owner wants the name to look exactly like the
+/// logo everywhere. As an image it also reads left to right in Arabic, where
+/// two text pieces side by side would swap into "ONEThe".
 struct Wordmark: View {
+    /// Roughly the cap height of the text it replaces.
     var size: CGFloat = 22
 
     var body: some View {
-        HStack(spacing: 0) {
-            Text("The").font(.system(size: size, weight: .light, design: .serif))
-                .foregroundStyle(Theme.ink)
-            Text("ONE").font(.system(size: size, weight: .semibold, design: .serif))
-                .foregroundStyle(Theme.aqua)
-        }
+        Image("WordmarkTheONE")
+            .resizable()
+            .interpolation(.high)
+            .scaledToFit()
+            .frame(height: size * 1.05)
+            .accessibilityLabel(Text(verbatim: "TheONE"))
     }
 }
 
