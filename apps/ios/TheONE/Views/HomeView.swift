@@ -43,7 +43,7 @@ struct HomeView: View {
 
                     // The brand's claim, in English in every language.
                     Text(verbatim: "THE POWER AI\nTHAT UNDERSTANDS YOU")
-                        .font(.system(size: 17, weight: .bold, design: .serif))
+                        .font(.theoneHeading(15.5, medium: true))
                         .tracking(1.4)
                         .lineSpacing(4)
                         .multilineTextAlignment(.center)
@@ -53,7 +53,7 @@ struct HomeView: View {
                     Button { open(.tab(.assistant)) } label: {
                         VortexView {
                             Text(verbatim: "POWER AI")
-                                .font(.system(size: 18, weight: .bold, design: .serif))
+                                .font(.theoneHeading(16, medium: true))
                                 .tracking(3.6)
                                 .foregroundStyle(Self.eyeInk)
                         }
@@ -72,8 +72,7 @@ struct HomeView: View {
                     // and so it is there for anyone with the sound off.
                     if let words = greeter.text, session.account != nil {
                         Text(words)
-                            .font(.system(size: 17, weight: .regular, design: .serif))
-                            .italic()
+                            .font(.theoneHeading(16.5))
                             .lineSpacing(3)
                             .multilineTextAlignment(.center)
                             .foregroundStyle(Self.headline)
@@ -131,14 +130,7 @@ struct HomeView: View {
         }
         // A result to talk through: close whatever is open over the start
         // screen and bring up the assistant, which sends the member's words.
-        .onChange(of: greeter.wantsAssistant) { _, _ in
-            areaCover = nil
-            skinCover = false
-            Task {
-                try? await Task.sleep(for: .milliseconds(450))
-                destination = .assistant
-            }
-        }
+        .onChange(of: greeter.wantsAssistant) { _, _ in openAssistant() }
         .onChange(of: session.state) { _, _ in
             guard let target = waiting else { return }
             waiting = nil
@@ -181,7 +173,7 @@ struct HomeView: View {
                                 )
                             )
                         Text(verbatim: item.0)
-                            .font(.system(size: 12.5, weight: .semibold))
+                            .font(.theone(12.5, weight: .semibold))
                             .tracking(0.3)
                             .foregroundStyle(Self.headline)
                             .multilineTextAlignment(.leading)
@@ -203,6 +195,17 @@ struct HomeView: View {
             }
         }
         .padding(.horizontal, 20)
+    }
+
+    /// Closes whatever is open over the start screen and brings up the
+    /// assistant, where POWER AI's question or the member's words wait.
+    private func openAssistant() {
+        areaCover = nil
+        skinCover = false
+        Task {
+            try? await Task.sleep(for: .milliseconds(450))
+            destination = .assistant
+        }
     }
 
     /// Goes where `target` leads, the member being signed in.

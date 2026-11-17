@@ -8,6 +8,9 @@ struct SelectionView: View {
     var area: Area = .selection
 
     @Environment(Greeter.self) private var greeter
+    @Environment(SessionStore.self) private var session
+    @State private var showSell = false
+    @State private var showFind = false
     @State private var showCheck = false
     @State private var lastCheck: LongevityCheck?
     @State private var completedLessons: Set<String> = []
@@ -22,11 +25,17 @@ struct SelectionView: View {
                 VStack(alignment: .leading, spacing: 30) {
                     header
 
+                    // Every area begins with POWER AI asking, aloud.
+                    opener
+
                     if area == .longevity {
                         longevityCheckCard
                         courseCard
                     }
-                    if area == .health { mentalCard }
+                    if area == .realestate {
+                        findCard
+                        sellCard
+                    }
 
                     if let feed {
                         if !feed.forYou.isEmpty {
@@ -39,6 +48,7 @@ struct SelectionView: View {
                                                 OfferingCard(offering: offering, width: 230, showReason: true)
                                             }
                                             .buttonStyle(.plain)
+                                            .accessibilityIdentifier("offering.card")
                                         }
                                     }
                                     .padding(.horizontal, 20)
@@ -57,7 +67,7 @@ struct SelectionView: View {
 
                         if feed.sections.isEmpty {
                             Text(tr("TheONE is choosing the best partners in your city. They will appear here."))
-                                .font(.system(size: 15, design: .serif))
+                                .font(.theoneHeading(15))
                                 .multilineTextAlignment(.center)
                                 .foregroundStyle(Theme.inkSoft)
                                 .frame(maxWidth: .infinity)
@@ -67,15 +77,15 @@ struct SelectionView: View {
                         if area == .selection {
                         Button { showAllPartners = true } label: {
                             Label(tr("All business partners"), systemImage: "magnifyingglass")
-                                .font(.system(size: 15, weight: .medium))
-                                .foregroundStyle(Theme.aqua)
+                                .font(.theone(15, weight: .medium))
+                                .foregroundStyle(Theme.accentText)
                                 .frame(maxWidth: .infinity)
                         }
                         .padding(.bottom, 30)
                         }
                     } else if let error {
                         Text(error)
-                            .font(.system(size: 14))
+                            .font(.theone(14))
                             .foregroundStyle(Theme.inkSoft)
                             .frame(maxWidth: .infinity)
                             .padding(.top, 40)
@@ -120,14 +130,14 @@ struct SelectionView: View {
     private var courseCard: some View {
         VStack(alignment: .leading, spacing: 12) {
             Text(verbatim: "TheONE LONGEVITY COURSE")
-                .font(.system(size: 13, weight: .semibold))
+                .font(.theone(13, weight: .semibold))
                 .tracking(1.6)
-                .foregroundStyle(Theme.aqua)
+                .foregroundStyle(Theme.accentText)
             Text(tr("Eight lessons with POWER AI, personal to you, each with one task for your week."))
-                .font(.system(size: 14))
+                .font(.theone(14))
                 .foregroundStyle(Theme.inkSoft)
             Text(tr("%lld of 8 done", completedLessons.count))
-                .font(.system(size: 12, weight: .medium))
+                .font(.theone(12, weight: .medium))
                 .foregroundStyle(Theme.inkFaint)
             ForEach(Self.lessons, id: \.0) { lesson in
                 let done = completedLessons.contains(lesson.0)
@@ -140,7 +150,7 @@ struct SelectionView: View {
                             .foregroundStyle(done ? Theme.aqua : Vortex.aqua700)
                             .frame(width: 26)
                         Text(lesson.1)
-                            .font(.system(size: 15))
+                            .font(.theone(15))
                             .foregroundStyle(Theme.ink)
                         Spacer()
                         Image(systemName: "play.circle")
@@ -180,37 +190,61 @@ struct SelectionView: View {
         ]
     }
 
-    /// In TheONE HEALTH: POWER AI as a good friend, for the body and the mind.
-    private var mentalCard: some View {
+    /// POWER AI's greeting for this area, with what only this area has.
+    @ViewBuilder private var opener: some View {
+        if area == .health {
+            // TheONE HEALTH: POWER AI as a good friend, for the body and the mind.
+            PowerAIOpener(
+                line: area.opener,
+                detail: tr("Like a good friend, POWER AI listens to you, then connects you with a trusted doctor, a wellness clinic or a five star sanatorium, and stays at your side until you feel well again.")
+            ) {
+                Button {
+                    greeter.talk(tr("I am not feeling so good right now. Can you help me?"))
+                } label: {
+                    Label(tr("I don't feel good mentally"), systemImage: "heart.circle")
+                        .font(.theone(16, weight: .medium))
+                        .foregroundStyle(Theme.accentText)
+                        .frame(maxWidth: .infinity)
+                        .padding(.vertical, 14)
+                        .background(Capsule().stroke(Theme.aqua, lineWidth: 1.2))
+                }
+                .accessibilityIdentifier("health.talk")
+            }
+        } else {
+            PowerAIOpener(line: area.opener)
+        }
+    }
+
+    /// TheONE REAL ESTATE, buying: the brokers have the portfolio and look for
+    /// clients; the member says once what they are looking for.
+    private var findCard: some View {
         VStack(alignment: .leading, spacing: 12) {
-            Text(tr("How are you feeling?"))
-                .font(.system(size: 20, weight: .light, design: .serif))
-                .foregroundStyle(Theme.ink)
-            Text(tr("Like a good friend, POWER AI listens to you, then connects you with a trusted doctor, a wellness clinic or a five star sanatorium, and stays at your side until you feel well again."))
-                .font(.system(size: 14))
+            Text(tr("Find your property with TheONE"))
+                .font(.theoneHeading(19))
+                .foregroundStyle(Theme.heading)
+            Text(tr("Tell TheONE what you are looking for. The two or three best brokers for that place send you the right properties from their portfolio, including those never publicly listed."))
+                .font(.theone(14))
                 .foregroundStyle(Theme.inkSoft)
             Button {
-                greeter.talk(tr("I would like to talk about my health."))
+                greeter.talk(tr("I am looking for a property."))
             } label: {
-                Label(tr("Talk about my health"), systemImage: "heart.text.square")
-                    .font(.system(size: 16, weight: .medium))
+                Label(tr("Tell POWER AI"), systemImage: "mic")
+                    .font(.theone(16, weight: .medium))
                     .foregroundStyle(Theme.onAccent)
                     .frame(maxWidth: .infinity)
                     .padding(.vertical, 14)
                     .background(Capsule().fill(Theme.aqua))
             }
-            .accessibilityIdentifier("health.body")
-            Button {
-                greeter.talk(tr("I am not feeling so good right now. Can you help me?"))
-            } label: {
-                Label(tr("I don't feel good mentally"), systemImage: "heart.circle")
-                    .font(.system(size: 16, weight: .medium))
-                    .foregroundStyle(Theme.aqua)
+            .accessibilityIdentifier("realestate.find.voice")
+            Button { showFind = true } label: {
+                Label(tr("Describe your wishes"), systemImage: "square.and.pencil")
+                    .font(.theone(16, weight: .medium))
+                    .foregroundStyle(Theme.accentText)
                     .frame(maxWidth: .infinity)
                     .padding(.vertical, 14)
                     .background(Capsule().stroke(Theme.aqua, lineWidth: 1.2))
             }
-            .accessibilityIdentifier("health.talk")
+            .accessibilityIdentifier("realestate.find.form")
         }
         .padding(18)
         .background(
@@ -219,6 +253,48 @@ struct SelectionView: View {
                 .overlay(RoundedRectangle(cornerRadius: 22, style: .continuous).stroke(Theme.line, lineWidth: 1))
         )
         .padding(.horizontal, 20)
+        .sheet(isPresented: $showFind) { PropertyRequestView(mode: .find) }
+    }
+
+    /// TheONE REAL ESTATE: selling a home, by voice with POWER AI or in a
+    /// short form; either way it goes to the best brokers for its place.
+    private var sellCard: some View {
+        VStack(alignment: .leading, spacing: 12) {
+            Text(tr("Sell your property with TheONE"))
+                .font(.theoneHeading(19))
+                .foregroundStyle(Theme.heading)
+            Text(tr("Tell TheONE about your property once. It goes to the two or three best brokers for its place, discreetly if you wish, and they reply to you directly in your messages."))
+                .font(.theone(14))
+                .foregroundStyle(Theme.inkSoft)
+            Button {
+                greeter.talk(tr("I would like to sell my property."))
+            } label: {
+                Label(tr("Tell POWER AI"), systemImage: "mic")
+                    .font(.theone(16, weight: .medium))
+                    .foregroundStyle(Theme.onAccent)
+                    .frame(maxWidth: .infinity)
+                    .padding(.vertical, 14)
+                    .background(Capsule().fill(Theme.aqua))
+            }
+            .accessibilityIdentifier("realestate.sell.voice")
+            Button { showSell = true } label: {
+                Label(tr("Describe your property"), systemImage: "square.and.pencil")
+                    .font(.theone(16, weight: .medium))
+                    .foregroundStyle(Theme.accentText)
+                    .frame(maxWidth: .infinity)
+                    .padding(.vertical, 14)
+                    .background(Capsule().stroke(Theme.aqua, lineWidth: 1.2))
+            }
+            .accessibilityIdentifier("realestate.sell.form")
+        }
+        .padding(18)
+        .background(
+            RoundedRectangle(cornerRadius: 22, style: .continuous)
+                .fill(Theme.panel.opacity(0.88))
+                .overlay(RoundedRectangle(cornerRadius: 22, style: .continuous).stroke(Theme.line, lineWidth: 1))
+        )
+        .padding(.horizontal, 20)
+        .sheet(isPresented: $showSell) { PropertyRequestView(mode: .sell) }
     }
 
     /// TheONE LONGEVITY's own check, with the latest result when there is one.
@@ -233,11 +309,11 @@ struct SelectionView: View {
                         ScoreRing(score: lastCheck.score, size: 64, label: "")
                         VStack(alignment: .leading, spacing: 4) {
                             Text(tr("Your longevity score"))
-                                .font(.system(size: 16, weight: .medium))
+                                .font(.theone(16, weight: .medium))
                                 .foregroundStyle(Theme.ink)
                             Text(tr("See your plan"))
-                                .font(.system(size: 13))
-                                .foregroundStyle(Theme.aqua)
+                                .font(.theone(13))
+                                .foregroundStyle(Theme.accentText)
                         }
                         Spacer()
                         Image(systemName: "chevron.right").foregroundStyle(Theme.inkFaint)
@@ -247,7 +323,7 @@ struct SelectionView: View {
             }
             Button { showCheck = true } label: {
                 Label(tr("Start TheONE LONGEVITY CHECK"), systemImage: "hourglass")
-                    .font(.system(size: 16, weight: .medium))
+                    .font(.theone(16, weight: .medium))
                     .foregroundStyle(Theme.onAccent)
                     .frame(maxWidth: .infinity)
                     .padding(.vertical, 15)
@@ -267,12 +343,12 @@ struct SelectionView: View {
     private var header: some View {
         VStack(spacing: 10) {
             Text(verbatim: area.name)
-                .font(.system(size: 24, weight: .regular, design: .serif))
+                .font(.theoneHeading(21))
                 .tracking(2.5)
                 .multilineTextAlignment(.center)
-                .foregroundStyle(Theme.ink)
+                .foregroundStyle(Theme.heading)
             Text(area.line)
-                .font(.system(size: 15, weight: .light, design: .serif))
+                .font(.theoneHeading(15))
                 .multilineTextAlignment(.center)
                 .foregroundStyle(Theme.inkSoft)
         }
@@ -290,9 +366,9 @@ struct SelectionView: View {
 
     private func sectionTitle(_ text: String) -> some View {
         Text(text.uppercased().replacingOccurrences(of: "THEONE", with: "TheONE"))
-            .font(.system(size: 12, weight: .medium))
+            .font(.theone(12, weight: .medium))
             .tracking(MemberLanguage.spacing(2.4))
-            .foregroundStyle(Theme.aqua)
+            .foregroundStyle(Theme.accentText)
             .padding(.horizontal, 20)
     }
 
@@ -304,12 +380,14 @@ struct SelectionView: View {
             .clipped()
             LinearGradient(colors: [.clear, Vortex.abyss.opacity(0.65)], startPoint: .top, endPoint: .bottom)
             Text(section.title)
-                .font(.system(size: 22, weight: .regular, design: .serif))
+                .font(.theoneHeading(19))
                 .foregroundStyle(.white)
                 .padding(16)
         }
         .frame(height: 120)
         .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
+        // Only the visible banner takes touches, never the picture's overflow.
+        .contentShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
         .padding(.horizontal, 20)
     }
 
@@ -321,11 +399,13 @@ struct SelectionView: View {
                 HStack {
                     VStack(alignment: .leading, spacing: 2) {
                         Text(partner.name)
-                            .font(.system(size: 17, weight: .medium))
+                            .font(.theone(17, weight: .medium))
                             .foregroundStyle(Theme.ink)
-                        Text(partner.city)
-                            .font(.system(size: 12.5))
-                            .foregroundStyle(Theme.inkFaint)
+                        if partner.category != "beauty" {
+                            Text(partner.city)
+                                .font(.theone(12.5))
+                                .foregroundStyle(Theme.inkFaint)
+                        }
                     }
                     Spacer()
                     Image(systemName: "chevron.right")
@@ -336,18 +416,100 @@ struct SelectionView: View {
             .buttonStyle(.plain)
             .padding(.horizontal, 20)
 
+            // The whole range at a glance, not only what fits in one row.
+            if partner.offerings.count > 2 {
+                NavigationLink {
+                    PartnerRangeView(partner: partner)
+                } label: {
+                    Label(tr("See all %lld", partner.offerings.count), systemImage: "square.grid.2x2")
+                        .font(.theone(13.5, weight: .medium))
+                        .foregroundStyle(Theme.accentText)
+                }
+                .buttonStyle(.plain)
+                .padding(.horizontal, 20)
+                .accessibilityIdentifier("partner.range")
+            }
+
+            // TheONE REAL ESTATE: each broker's office, to call or write to.
+            if area == .realestate, let office = partner.office {
+                officeCard(office, city: partner.city)
+            }
+
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(spacing: 12) {
                     ForEach(partner.offerings) { offering in
+                        // Narrow enough that a third card peeks in: the row goes on.
                         NavigationLink(value: offering) {
-                            OfferingCard(offering: offering, width: 190, showReason: false)
+                            OfferingCard(offering: offering, width: 158, showReason: false)
                         }
                         .buttonStyle(.plain)
+                        .accessibilityIdentifier("offering.card")
                     }
                 }
                 .padding(.horizontal, 20)
             }
         }
+    }
+
+    private func officeCard(_ office: SelectionPartner.Office, city: String) -> some View {
+        let address = [office.street, [office.postalCode, city].compactMap { $0 }.joined(separator: " ")]
+            .compactMap { $0 }
+            .filter { !$0.isEmpty }
+            .joined(separator: ", ")
+        let phoneURL = URL(string: "tel://\(office.phone.filter { $0.isNumber || $0 == "+" })")
+        let mailURL = URL(string: "mailto:\(office.email)")
+        return VStack(alignment: .leading, spacing: 10) {
+            HStack(alignment: .top, spacing: 10) {
+                Image(systemName: "building.2")
+                    .font(.system(size: 14, weight: .light))
+                    .foregroundStyle(Theme.aqua)
+                    .frame(width: 20)
+                VStack(alignment: .leading, spacing: 2) {
+                    Text(tr("Office").uppercased())
+                        .font(.theone(11, weight: .medium))
+                        .tracking(MemberLanguage.spacing(1.6))
+                        .foregroundStyle(Theme.accentText)
+                    Text(address)
+                        .font(.theone(14))
+                        .foregroundStyle(Theme.ink)
+                    if !office.phone.isEmpty {
+                        Text(office.phone)
+                            .font(.theone(13))
+                            .foregroundStyle(Theme.inkSoft)
+                    }
+                }
+            }
+            HStack(spacing: 10) {
+                if let phoneURL, !office.phone.isEmpty {
+                    Link(destination: phoneURL) {
+                        Label(tr("Call"), systemImage: "phone")
+                            .font(.theone(14, weight: .medium))
+                            .foregroundStyle(Theme.accentText)
+                            .frame(maxWidth: .infinity)
+                            .padding(.vertical, 10)
+                            .background(Capsule().stroke(Theme.aqua, lineWidth: 1))
+                    }
+                    .accessibilityIdentifier("office.call")
+                }
+                if let mailURL {
+                    Link(destination: mailURL) {
+                        Label(tr("Email"), systemImage: "envelope")
+                            .font(.theone(14, weight: .medium))
+                            .foregroundStyle(Theme.accentText)
+                            .frame(maxWidth: .infinity)
+                            .padding(.vertical, 10)
+                            .background(Capsule().stroke(Theme.aqua, lineWidth: 1))
+                    }
+                }
+            }
+        }
+        .padding(14)
+        .background(
+            RoundedRectangle(cornerRadius: 16, style: .continuous)
+                .fill(Theme.panel.opacity(0.85))
+                .overlay(RoundedRectangle(cornerRadius: 16, style: .continuous).stroke(Theme.line, lineWidth: 1))
+        )
+        .padding(.horizontal, 20)
     }
 
     private func load() async {
@@ -360,6 +522,45 @@ struct SelectionView: View {
     }
 }
 
+/// A partner's whole range as a grid, two cards per row.
+struct PartnerRangeView: View {
+    let partner: SelectionPartner
+
+    var body: some View {
+        GeometryReader { proxy in
+            let width = (proxy.size.width - 20 * 2 - 14) / 2
+            ScrollView {
+                VStack(alignment: .leading, spacing: 18) {
+                    VStack(alignment: .leading, spacing: 4) {
+                        Text(partner.name)
+                            .font(.theoneHeading(24))
+                            .foregroundStyle(Theme.heading)
+                        Text(tr("%lld products", partner.offerings.count))
+                            .font(.theone(13))
+                            .foregroundStyle(Theme.inkFaint)
+                    }
+                    LazyVGrid(columns: [GridItem(.fixed(width), spacing: 14), GridItem(.fixed(width))], alignment: .leading, spacing: 14) {
+                        ForEach(partner.offerings) { offering in
+                            // Pushed from a pushed view: a destination link,
+                            // since a value link would not push from here.
+                            NavigationLink {
+                                OfferingDetailView(offering: offering)
+                            } label: {
+                                OfferingCard(offering: offering, width: width, showReason: false)
+                            }
+                            .buttonStyle(.plain)
+                            .accessibilityIdentifier("offering.card")
+                        }
+                    }
+                }
+                .padding(20)
+            }
+        }
+        .background(HomeBackground())
+        .navigationBarTitleDisplayMode(.inline)
+    }
+}
+
 /// One product, treatment, programme or stay, as a card.
 struct OfferingCard: View {
     let offering: Offering
@@ -368,33 +569,36 @@ struct OfferingCard: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
+            // A product photographed by the partner is square: shown whole,
+            // so a jar is never cut off at the lid.
             OfferingImage(offering: offering)
-                .frame(width: width, height: width * 0.62)
+                .frame(width: width, height: offering.ownProductPhoto ? width : width * 0.62)
                 .clipped()
+                .contentShape(Rectangle())
             VStack(alignment: .leading, spacing: 5) {
                 Text(offering.title)
-                    .font(.system(size: 14.5, weight: .medium))
+                    .font(.theone(14.5, weight: .medium))
                     .foregroundStyle(Theme.ink)
                     .lineLimit(2)
                     .multilineTextAlignment(.leading)
                 Text(offering.partner.name)
-                    .font(.system(size: 12))
+                    .font(.theone(12))
                     .foregroundStyle(Theme.inkFaint)
                     .lineLimit(1)
                 if showReason, let reason = offering.reason, !reason.isEmpty {
                     Text(reason)
-                        .font(.system(size: 12))
+                        .font(.theone(12))
                         .foregroundStyle(Theme.inkSoft)
                         .lineLimit(3)
                         .multilineTextAlignment(.leading)
                 } else if showReason, offering.basis == "skin" {
                     Label(tr("Fits your TheONE SKIN SCAN"), systemImage: "face.smiling")
-                        .font(.system(size: 11.5))
-                        .foregroundStyle(Theme.aqua)
+                        .font(.theone(11.5))
+                        .foregroundStyle(Theme.accentText)
                 }
                 Text(offering.priceText)
-                    .font(.system(size: 13.5, weight: .semibold))
-                    .foregroundStyle(Theme.aqua)
+                    .font(.theone(13.5, weight: .semibold))
+                    .foregroundStyle(Theme.accentText)
                     .padding(.top, 2)
             }
             .padding(12)
@@ -415,13 +619,48 @@ struct OfferingImage: View {
         let key = SelectionSection.key(for: offering)
         if let url = offering.imageUrl.flatMap(URL.init(string:)) {
             AsyncImage(url: url) { image in
-                image.resizable().scaledToFill()
+                image.resizable().scaledToFill().allowsHitTesting(false)
             } placeholder: {
                 Theme.aquaTint
             }
         } else {
-            AreaPicture(path: SelectionSection.image(for: key), symbol: SelectionSection.symbol(for: key))
+            // No photo of its own: TheONE's lettering, never a borrowed picture
+            // repeated card after card (the owner asked for no doubled images).
+            OfferingLettering(label: offering.areaLabel, title: offering.partner.city)
         }
+    }
+}
+
+/// An offering without its own photo: TheONE's lettering from the logo
+/// artwork, the area beneath ("REAL ESTATE", "HEALTH"), and the city, on the
+/// website's pale ground.
+struct OfferingLettering: View {
+    let label: String
+    let title: String
+
+    var body: some View {
+        ZStack {
+            LinearGradient(colors: [Theme.aquaTint, Theme.paperSoft], startPoint: .topLeading, endPoint: .bottomTrailing)
+            VStack(spacing: 7) {
+                Wordmark(size: 17)
+                Text(verbatim: label)
+                    .font(.theone(12, weight: .medium))
+                    .multilineTextAlignment(.center)
+                    .tracking(4)
+                    .foregroundStyle(Theme.heading)
+                Rectangle()
+                    .fill(Theme.aqua.opacity(0.5))
+                    .frame(width: 26, height: 1)
+                    .padding(.vertical, 2)
+                Text(title.uppercased())
+                    .font(.theone(10.5))
+                    .tracking(MemberLanguage.spacing(2.4))
+                    .foregroundStyle(Theme.inkSoft)
+            }
+            .padding(12)
+        }
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel(Text(verbatim: "TheONE \(label), \(title)"))
     }
 }
 
@@ -433,7 +672,7 @@ struct AreaPicture: View {
     var body: some View {
         if let path {
             AsyncImage(url: Site.url(path)) { image in
-                image.resizable().scaledToFill()
+                image.resizable().scaledToFill().allowsHitTesting(false)
             } placeholder: {
                 Theme.aquaTint
             }
@@ -464,30 +703,31 @@ struct OfferingDetailView: View {
         ScrollView {
             VStack(alignment: .leading, spacing: 16) {
                 OfferingImage(offering: offering)
-                    .frame(height: 230)
                     .frame(maxWidth: .infinity)
+                    .frame(height: offering.ownProductPhoto ? nil : 230)
+                    .aspectRatio(offering.ownProductPhoto ? 1 : nil, contentMode: .fit)
                     .clipped()
 
                 VStack(alignment: .leading, spacing: 14) {
                     Text(offering.title)
-                        .font(.system(size: 26, weight: .light, design: .serif))
-                        .foregroundStyle(Theme.ink)
+                        .font(.theoneHeading(22))
+                        .foregroundStyle(Theme.heading)
                     NavigationLink {
                         PartnerDetailView(partnerId: offering.partner.id)
                     } label: {
-                        Label("\(offering.partner.name) · \(offering.partner.city)", systemImage: "building.2")
-                            .font(.system(size: 14))
-                            .foregroundStyle(Theme.aqua)
+                        Label(offering.partner.category == "beauty" ? offering.partner.name : "\(offering.partner.name) · \(offering.partner.city)", systemImage: "building.2")
+                            .font(.theone(14))
+                            .foregroundStyle(Theme.accentText)
                     }
                     Text(offering.priceText)
-                        .font(.system(size: 20, weight: .medium))
+                        .font(.theone(20, weight: .medium))
                         .foregroundStyle(Theme.ink)
 
                     if let reason = offering.reason, !reason.isEmpty {
                         HStack(alignment: .top, spacing: 10) {
                             Image(systemName: "sparkles").foregroundStyle(Theme.aqua)
                             Text(reason)
-                                .font(.system(size: 14.5))
+                                .font(.theone(14.5))
                                 .foregroundStyle(Theme.ink)
                         }
                         .padding(14)
@@ -495,49 +735,53 @@ struct OfferingDetailView: View {
                     }
 
                     Text(offering.description)
-                        .font(.system(size: 15.5))
+                        .font(.theone(15.5))
                         .lineSpacing(3)
                         .foregroundStyle(Theme.inkSoft)
 
-                    if !offering.concerns.isEmpty {
-                        Text(tr("Helps with"))
-                            .font(.system(size: 12, weight: .medium))
-                            .foregroundStyle(Theme.inkFaint)
-                        FlowLayout(spacing: 8) {
-                            ForEach(offering.concerns, id: \.self) { concern in
-                                Text(SkinWords.label(concern))
-                                    .font(.system(size: 13))
-                                    .foregroundStyle(Theme.aqua)
-                                    .padding(.horizontal, 11)
-                                    .padding(.vertical, 6)
-                                    .background(Capsule().fill(Theme.aquaTint))
-                            }
-                        }
-                    }
+                    // No "helps with" chips of TheONE's own: the page shows the
+                    // partner's texts only. The skin keys stay for recommendations.
 
                     if let error {
-                        Text(error).font(.system(size: 13)).foregroundStyle(.red)
+                        Text(error).font(.theone(13)).foregroundStyle(.red)
                     }
 
-                    Button {
-                        Task { await request() }
-                    } label: {
-                        HStack {
-                            if sending { ProgressView().tint(Theme.onAccent) }
-                            Text(offering.actionTitle)
+                    if let shop = offering.shopURL {
+                        // A partner with its own shop: bought there, directly.
+                        Link(destination: shop) {
+                            Label(tr("Buy in the shop"), systemImage: "bag")
+                                .font(.theone(16, weight: .medium))
+                                .foregroundStyle(Theme.onAccent)
+                                .frame(maxWidth: .infinity)
+                                .padding(.vertical, 15)
+                                .background(Capsule().fill(Theme.aqua))
                         }
-                        .font(.system(size: 16, weight: .medium))
-                        .foregroundStyle(Theme.onAccent)
-                        .frame(maxWidth: .infinity)
-                        .padding(.vertical, 15)
-                        .background(Capsule().fill(Theme.aqua))
-                    }
-                    .disabled(sending)
-                    .accessibilityIdentifier("offering.request")
+                        .accessibilityIdentifier("offering.shop")
 
-                    Text(tr("Your request goes straight to the business partner, who will reply in Messages."))
-                        .font(.system(size: 12))
-                        .foregroundStyle(Theme.inkFaint)
+                        Text(tr("You buy directly in the business partner's own shop."))
+                            .font(.theone(12))
+                            .foregroundStyle(Theme.inkFaint)
+                    } else {
+                        Button {
+                            Task { await request() }
+                        } label: {
+                            HStack {
+                                if sending { ProgressView().tint(Theme.onAccent) }
+                                Text(offering.actionTitle)
+                            }
+                            .font(.theone(16, weight: .medium))
+                            .foregroundStyle(Theme.onAccent)
+                            .frame(maxWidth: .infinity)
+                            .padding(.vertical, 15)
+                            .background(Capsule().fill(Theme.aqua))
+                        }
+                        .disabled(sending)
+                        .accessibilityIdentifier("offering.request")
+
+                        Text(tr("Your request goes straight to the business partner, who will reply in Messages."))
+                            .font(.theone(12))
+                            .foregroundStyle(Theme.inkFaint)
+                    }
                 }
                 .padding(.horizontal, 20)
                 .padding(.bottom, 30)

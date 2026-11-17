@@ -129,20 +129,20 @@ struct LongevityCheckView: View {
                     .accessibilityHidden(true)
                     .padding(.top, 20)
                 Text(tr("How young will you stay?"))
-                    .font(.system(size: 26, weight: .light, design: .serif))
+                    .font(.theoneHeading(22))
                     .multilineTextAlignment(.center)
-                    .foregroundStyle(Theme.ink)
+                    .foregroundStyle(Theme.heading)
                 Text(tr("Thirteen quick questions about how you live. POWER AI turns them into your longevity score, a four week plan and the clinics and products that fit you."))
-                    .font(.system(size: 15))
+                    .font(.theone(15))
                     .multilineTextAlignment(.center)
                     .foregroundStyle(Theme.inkSoft)
                     .padding(.horizontal, 10)
                 Text(tr("Lifestyle and prevention, not a medical diagnosis."))
-                    .font(.system(size: 12))
+                    .font(.theone(12))
                     .foregroundStyle(Theme.inkFaint)
                 Button { step = .question(0) } label: {
                     Text(tr("Start TheONE LONGEVITY CHECK"))
-                        .font(.system(size: 16, weight: .medium))
+                        .font(.theone(16, weight: .medium))
                         .foregroundStyle(Theme.onAccent)
                         .padding(.horizontal, 30)
                         .padding(.vertical, 15)
@@ -162,11 +162,11 @@ struct LongevityCheckView: View {
                 .tint(Theme.aqua)
                 .padding(.top, 16)
             Text("\(index + 1) / \(questions.count)")
-                .font(.system(size: 12, weight: .medium))
+                .font(.theone(12, weight: .medium))
                 .foregroundStyle(Theme.inkFaint)
             Text(q.text)
-                .font(.system(size: 24, weight: .light, design: .serif))
-                .foregroundStyle(Theme.ink)
+                .font(.theoneHeading(21))
+                .foregroundStyle(Theme.heading)
                 .fixedSize(horizontal: false, vertical: true)
             VStack(spacing: 10) {
                 ForEach(q.options, id: \.0) { option in
@@ -179,7 +179,7 @@ struct LongevityCheckView: View {
                         }
                     } label: {
                         Text(option.1)
-                            .font(.system(size: 16))
+                            .font(.theone(16))
                             .foregroundStyle(chosen ? Theme.onAccent : Theme.ink)
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .padding(.horizontal, 18)
@@ -196,7 +196,7 @@ struct LongevityCheckView: View {
             }
             if index > 0 {
                 Button(tr("Back")) { step = .question(index - 1) }
-                    .font(.system(size: 14))
+                    .font(.theone(14))
                     .foregroundStyle(Theme.inkSoft)
             }
             Spacer()
@@ -207,8 +207,8 @@ struct LongevityCheckView: View {
     private var noteStep: some View {
         VStack(alignment: .leading, spacing: 18) {
             Text(tr("Anything else POWER AI should know?"))
-                .font(.system(size: 24, weight: .light, design: .serif))
-                .foregroundStyle(Theme.ink)
+                .font(.theoneHeading(21))
+                .foregroundStyle(Theme.heading)
                 .padding(.top, 24)
             TextField(tr("Optional, in your own words"), text: $note, axis: .vertical)
                 .lineLimit(3...6)
@@ -216,7 +216,7 @@ struct LongevityCheckView: View {
                 .background(RoundedRectangle(cornerRadius: 16, style: .continuous).fill(Theme.panel.opacity(0.9)))
             Button { Task { await submit() } } label: {
                 Text(tr("See my result"))
-                    .font(.system(size: 16, weight: .medium))
+                    .font(.theone(16, weight: .medium))
                     .foregroundStyle(Theme.onAccent)
                     .frame(maxWidth: .infinity)
                     .padding(.vertical, 15)
@@ -232,10 +232,10 @@ struct LongevityCheckView: View {
         VStack(spacing: 22) {
             ProgressView().controlSize(.large).tint(Theme.aqua).padding(.top, 120)
             Text(tr("POWER AI is reading your answers…"))
-                .font(.system(size: 20, weight: .light, design: .serif))
-                .foregroundStyle(Theme.ink)
+                .font(.theoneHeading(17))
+                .foregroundStyle(Theme.heading)
             Text(tr("This takes about twenty seconds."))
-                .font(.system(size: 14))
+                .font(.theone(14))
                 .foregroundStyle(Theme.inkSoft)
             Spacer()
         }
@@ -270,8 +270,7 @@ struct LongevityResultView: View {
                     .padding(.top, 24)
 
                 Text(check.summary)
-                    .font(.system(size: 17, design: .serif))
-                    .italic()
+                    .font(.theoneHeading(16.5))
                     .lineSpacing(3)
                     .multilineTextAlignment(.center)
                     .foregroundStyle(Theme.ink)
@@ -282,12 +281,12 @@ struct LongevityResultView: View {
                             VStack(alignment: .leading, spacing: 5) {
                                 HStack {
                                     Text(Self.label(pillar.key))
-                                        .font(.system(size: 14.5, weight: .medium))
+                                        .font(.theone(14.5, weight: .medium))
                                         .foregroundStyle(Theme.ink)
                                     Spacer()
                                     Text("\(pillar.score)")
-                                        .font(.system(size: 14.5, weight: .semibold))
-                                        .foregroundStyle(Theme.aqua)
+                                        .font(.theone(14.5, weight: .semibold))
+                                        .foregroundStyle(Theme.accentText)
                                 }
                                 GeometryReader { proxy in
                                     ZStack(alignment: .leading) {
@@ -297,7 +296,7 @@ struct LongevityResultView: View {
                                 }
                                 .frame(height: 6)
                                 Text(pillar.note)
-                                    .font(.system(size: 13))
+                                    .font(.theone(13))
                                     .foregroundStyle(Theme.inkSoft)
                                     .fixedSize(horizontal: false, vertical: true)
                             }
@@ -310,7 +309,7 @@ struct LongevityResultView: View {
                         VStack(alignment: .leading, spacing: 10) {
                             ForEach(check.focus, id: \.self) { item in
                                 Label(item, systemImage: "sparkle")
-                                    .font(.system(size: 14))
+                                    .font(.theone(14))
                                     .foregroundStyle(Theme.ink)
                             }
                         }
@@ -322,11 +321,11 @@ struct LongevityResultView: View {
                         ForEach(check.plan, id: \.week) { week in
                             VStack(alignment: .leading, spacing: 6) {
                                 Text(tr("Week %lld", week.week))
-                                    .font(.system(size: 14, weight: .semibold))
+                                    .font(.theone(14, weight: .semibold))
                                     .foregroundStyle(Theme.ink)
                                 ForEach(week.steps, id: \.self) { item in
                                     Text("· \(item)")
-                                        .font(.system(size: 14))
+                                        .font(.theone(14))
                                         .foregroundStyle(Theme.inkSoft)
                                         .fixedSize(horizontal: false, vertical: true)
                                 }
@@ -338,8 +337,8 @@ struct LongevityResultView: View {
                 if !check.picks.isEmpty {
                     VStack(alignment: .leading, spacing: 12) {
                         Text(tr("Chosen for you"))
-                            .font(.system(size: 20, weight: .light, design: .serif))
-                            .foregroundStyle(Theme.ink)
+                            .font(.theoneHeading(17))
+                            .foregroundStyle(Theme.heading)
                         ScrollView(.horizontal, showsIndicators: false) {
                             HStack(spacing: 12) {
                                 ForEach(check.picks) { pick in
@@ -359,7 +358,7 @@ struct LongevityResultView: View {
                 if check.seeDoctor, !check.doctorNote.isEmpty {
                     HStack(alignment: .top, spacing: 12) {
                         Image(systemName: "stethoscope").foregroundStyle(Theme.aqua)
-                        Text(check.doctorNote).font(.system(size: 14)).foregroundStyle(Theme.ink)
+                        Text(check.doctorNote).font(.theone(14)).foregroundStyle(Theme.ink)
                     }
                     .padding(16)
                     .background(RoundedRectangle(cornerRadius: 16, style: .continuous).fill(Theme.aquaTint))
@@ -368,7 +367,7 @@ struct LongevityResultView: View {
                 if let onDiscuss {
                     Button(action: onDiscuss) {
                         Label(tr("Talk it through with POWER AI"), systemImage: "sparkles")
-                            .font(.system(size: 16, weight: .medium))
+                            .font(.theone(16, weight: .medium))
                             .foregroundStyle(Theme.onAccent)
                             .frame(maxWidth: .infinity)
                             .padding(.vertical, 15)
@@ -378,7 +377,7 @@ struct LongevityResultView: View {
                 }
 
                 Text(tr("Lifestyle and prevention, not a medical diagnosis."))
-                    .font(.system(size: 11.5))
+                    .font(.theone(11.5))
                     .foregroundStyle(Theme.inkFaint)
                     .padding(.bottom, 30)
             }
@@ -400,9 +399,9 @@ struct LongevityResultView: View {
     private func panel<Content: View>(_ title: String, @ViewBuilder content: () -> Content) -> some View {
         VStack(alignment: .leading, spacing: 14) {
             Text(title.uppercased().replacingOccurrences(of: "THEONE", with: "TheONE"))
-                .font(.system(size: 11, weight: .medium))
+                .font(.theone(11, weight: .medium))
                 .tracking(MemberLanguage.spacing(2.2))
-                .foregroundStyle(Theme.aqua)
+                .foregroundStyle(Theme.accentText)
             content()
         }
         .frame(maxWidth: .infinity, alignment: .leading)

@@ -106,11 +106,11 @@ struct MatchProfileForm: View {
                 }
 
                 Section {
-                    Text(words("Haarfarbe", "Hair")).font(.system(size: 13)).foregroundStyle(Theme.inkFaint)
+                    Text(words("Haarfarbe", "Hair")).font(.theone(13)).foregroundStyle(Theme.inkFaint)
                     chips(MatchWords.hairColors, selection: $draft.wishes.hairColors)
-                    Text(words("Augenfarbe", "Eyes")).font(.system(size: 13)).foregroundStyle(Theme.inkFaint)
+                    Text(words("Augenfarbe", "Eyes")).font(.theone(13)).foregroundStyle(Theme.inkFaint)
                     chips(MatchWords.eyeColors, selection: $draft.wishes.eyeColors)
-                    Text(words("Figur", "Figure")).font(.system(size: 13)).foregroundStyle(Theme.inkFaint)
+                    Text(words("Figur", "Figure")).font(.theone(13)).foregroundStyle(Theme.inkFaint)
                     chips(MatchWords.figures, selection: $draft.wishes.figures)
                 } header: {
                     Text(words("Deine Wünsche an das Aussehen", "Your wishes for their looks"))
@@ -220,10 +220,10 @@ struct MatchProfileForm: View {
                                 } else {
                                     Image(systemName: "plus")
                                         .font(.system(size: 20, weight: .light))
-                                    Text(words("Foto", "Photo")).font(.system(size: 12))
+                                    Text(words("Foto", "Photo")).font(.theone(12))
                                 }
                             }
-                            .foregroundStyle(Theme.aqua)
+                            .foregroundStyle(Theme.accentText)
                             .frame(width: 92, height: 116)
                             .background(
                                 RoundedRectangle(cornerRadius: 14, style: .continuous)
@@ -286,7 +286,7 @@ struct MatchProfileForm: View {
                     }
                 } label: {
                     Text(words.label(key))
-                        .font(.system(size: 14))
+                        .font(.theone(14))
                         .foregroundStyle(on ? Theme.onAccent : Theme.inkSoft)
                         .padding(.horizontal, 13)
                         .padding(.vertical, 8)

@@ -27,7 +27,9 @@ struct SkinScanView: View {
             ZStack {
                 HomeBackground()
                 switch step {
-                case .consent: consent
+                case .consent:
+                    consent
+                        .powerAIGreeting(tr("Shall we look at your skin together? I will tell you exactly what it needs."))
                 case .capture: capture
                 case .analysing: analysing
                 case .result(let scan):
@@ -79,9 +81,9 @@ struct SkinScanView: View {
                 .padding(.top, 24)
 
                 Text(tr("Your skin, scanned by POWER AI"))
-                    .font(.system(size: 26, weight: .light, design: .serif))
+                    .font(.theoneHeading(22))
                     .multilineTextAlignment(.center)
-                    .foregroundStyle(Theme.ink)
+                    .foregroundStyle(Theme.heading)
 
                 VStack(alignment: .leading, spacing: 16) {
                     point("sparkles", tr("A precise reading of seven skin qualities, your personal routine and the business partners who can help."))
@@ -101,7 +103,7 @@ struct SkinScanView: View {
                     step = .capture
                 } label: {
                     Text(tr("Start TheONE SKIN SCAN"))
-                        .font(.system(size: 16, weight: .medium))
+                        .font(.theone(16, weight: .medium))
                         .foregroundStyle(Theme.onAccent)
                         .padding(.horizontal, 30)
                         .padding(.vertical, 15)
@@ -132,7 +134,7 @@ struct SkinScanView: View {
             .padding(.top, 24)
 
             Text(tr("Face the camera in soft daylight, without make-up if you can, hair away from your face."))
-                .font(.system(size: 14))
+                .font(.theone(14))
                 .multilineTextAlignment(.center)
                 .foregroundStyle(Theme.inkSoft)
                 .padding(.horizontal, 34)
@@ -154,8 +156,8 @@ struct SkinScanView: View {
 
             PhotosPicker(selection: $picked, matching: .images) {
                 Label(tr("Choose a photo"), systemImage: "photo.on.rectangle")
-                    .font(.system(size: 15, weight: .medium))
-                    .foregroundStyle(Theme.aqua)
+                    .font(.theone(15, weight: .medium))
+                    .foregroundStyle(Theme.accentText)
             }
             .accessibilityIdentifier("skin.pick")
 
@@ -180,10 +182,10 @@ struct SkinScanView: View {
             .padding(.top, 40)
 
             Text(tr("POWER AI is scanning your skin…"))
-                .font(.system(size: 20, weight: .light, design: .serif))
-                .foregroundStyle(Theme.ink)
+                .font(.theoneHeading(17))
+                .foregroundStyle(Theme.heading)
             Text(tr("This takes about twenty seconds."))
-                .font(.system(size: 14))
+                .font(.theone(14))
                 .foregroundStyle(Theme.inkSoft)
             Spacer()
         }
@@ -196,12 +198,12 @@ struct SkinScanView: View {
                 .foregroundStyle(Theme.aqua)
                 .padding(.top, 60)
             Text(message)
-                .font(.system(size: 16))
+                .font(.theone(16))
                 .multilineTextAlignment(.center)
                 .foregroundStyle(Theme.ink)
                 .padding(.horizontal, 30)
             Button(tr("Try again")) { step = .capture }
-                .font(.system(size: 16, weight: .medium))
+                .font(.theone(16, weight: .medium))
             Spacer()
         }
     }
@@ -213,7 +215,7 @@ struct SkinScanView: View {
                 .foregroundStyle(Theme.aqua)
                 .frame(width: 24)
             Text(text)
-                .font(.system(size: 14.5))
+                .font(.theone(14.5))
                 .foregroundStyle(Theme.inkSoft)
                 .fixedSize(horizontal: false, vertical: true)
         }
@@ -261,7 +263,7 @@ struct SkinResultView: View {
         ScrollView {
             VStack(spacing: 22) {
                 Text(scan.date.formatted(date: .long, time: .omitted))
-                    .font(.system(size: 12, weight: .medium))
+                    .font(.theone(12, weight: .medium))
                     .tracking(MemberLanguage.spacing(2))
                     .foregroundStyle(Theme.inkFaint)
                     .padding(.top, 20)
@@ -278,8 +280,7 @@ struct SkinResultView: View {
                 }
 
                 Text(scan.summary)
-                    .font(.system(size: 17, design: .serif))
-                    .italic()
+                    .font(.theoneHeading(16.5))
                     .lineSpacing(3)
                     .multilineTextAlignment(.center)
                     .foregroundStyle(Theme.ink)
@@ -291,16 +292,16 @@ struct SkinResultView: View {
                             VStack(alignment: .leading, spacing: 5) {
                                 HStack {
                                     Text(SkinWords.label(score.key))
-                                        .font(.system(size: 14.5, weight: .medium))
+                                        .font(.theone(14.5, weight: .medium))
                                         .foregroundStyle(Theme.ink)
                                     Spacer()
                                     Text("\(score.score)")
-                                        .font(.system(size: 14.5, weight: .semibold))
-                                        .foregroundStyle(Theme.aqua)
+                                        .font(.theone(14.5, weight: .semibold))
+                                        .foregroundStyle(Theme.accentText)
                                 }
                                 ScoreBar(score: score.score)
                                 Text(score.note)
-                                    .font(.system(size: 13))
+                                    .font(.theone(13))
                                     .foregroundStyle(Theme.inkSoft)
                                     .fixedSize(horizontal: false, vertical: true)
                             }
@@ -317,11 +318,11 @@ struct SkinResultView: View {
                 card(tr("Your routine")) {
                     VStack(alignment: .leading, spacing: 16) {
                         Label(tr("Morning"), systemImage: "sun.max")
-                            .font(.system(size: 14, weight: .semibold))
+                            .font(.theone(14, weight: .semibold))
                             .foregroundStyle(Theme.ink)
                         list(scan.morning, numbered: true)
                         Label(tr("Evening"), systemImage: "moon")
-                            .font(.system(size: 14, weight: .semibold))
+                            .font(.theone(14, weight: .semibold))
                             .foregroundStyle(Theme.ink)
                         list(scan.evening, numbered: true)
                     }
@@ -330,12 +331,12 @@ struct SkinResultView: View {
                 if let products = scan.products, !products.isEmpty {
                     VStack(alignment: .leading, spacing: 12) {
                         Text(verbatim: "TheONE SELECTION")
-                            .font(.system(size: 11, weight: .medium))
+                            .font(.theone(11, weight: .medium))
                             .tracking(MemberLanguage.spacing(2.2))
-                            .foregroundStyle(Theme.aqua)
+                            .foregroundStyle(Theme.accentText)
                         Text(tr("Chosen for your skin"))
-                            .font(.system(size: 20, weight: .light, design: .serif))
-                            .foregroundStyle(Theme.ink)
+                            .font(.theoneHeading(17))
+                            .foregroundStyle(Theme.heading)
                         ScrollView(.horizontal, showsIndicators: false) {
                             HStack(spacing: 12) {
                                 ForEach(products) { product in
@@ -366,13 +367,13 @@ struct SkinResultView: View {
                                             .frame(width: 26)
                                         VStack(alignment: .leading, spacing: 3) {
                                             Text(partner.name)
-                                                .font(.system(size: 15.5, weight: .medium))
+                                                .font(.theone(15.5, weight: .medium))
                                                 .foregroundStyle(Theme.ink)
                                             Text(partner.city)
-                                                .font(.system(size: 12))
+                                                .font(.theone(12))
                                                 .foregroundStyle(Theme.inkFaint)
                                             Text(partner.reason)
-                                                .font(.system(size: 13))
+                                                .font(.theone(13))
                                                 .foregroundStyle(Theme.inkSoft)
                                                 .multilineTextAlignment(.leading)
                                                 .fixedSize(horizontal: false, vertical: true)
@@ -394,7 +395,7 @@ struct SkinResultView: View {
                         Image(systemName: "stethoscope")
                             .foregroundStyle(Theme.aqua)
                         Text(scan.doctorNote)
-                            .font(.system(size: 14))
+                            .font(.theone(14))
                             .foregroundStyle(Theme.ink)
                     }
                     .padding(16)
@@ -403,7 +404,7 @@ struct SkinResultView: View {
 
                 if freshPhoto != nil {
                     Toggle(tr("Keep this photo on this iPhone for a before and after"), isOn: $keepPhoto)
-                        .font(.system(size: 14))
+                        .font(.theone(14))
                         .tint(Theme.aqua)
                         .padding(.horizontal, 4)
                 }
@@ -411,7 +412,7 @@ struct SkinResultView: View {
                 if let onDiscuss {
                     Button(action: onDiscuss) {
                         Label(tr("Talk it through with POWER AI"), systemImage: "sparkles")
-                            .font(.system(size: 16, weight: .medium))
+                            .font(.theone(16, weight: .medium))
                             .foregroundStyle(Theme.onAccent)
                             .frame(maxWidth: .infinity)
                             .padding(.vertical, 15)
@@ -421,7 +422,7 @@ struct SkinResultView: View {
                 }
 
                 Text(tr("A cosmetic assessment, not a medical diagnosis."))
-                    .font(.system(size: 11.5))
+                    .font(.theone(11.5))
                     .foregroundStyle(Theme.inkFaint)
                     .padding(.bottom, 30)
             }
@@ -441,9 +442,9 @@ struct SkinResultView: View {
         VStack(alignment: .leading, spacing: 14) {
             // Capitals for the heading, but the name keeps its own spelling.
             Text(title.uppercased().replacingOccurrences(of: "THEONE", with: "TheONE"))
-                .font(.system(size: 11, weight: .medium))
+                .font(.theone(11, weight: .medium))
                 .tracking(MemberLanguage.spacing(2.2))
-                .foregroundStyle(Theme.aqua)
+                .foregroundStyle(Theme.accentText)
             content()
         }
         .frame(maxWidth: .infinity, alignment: .leading)
@@ -461,8 +462,8 @@ struct SkinResultView: View {
                 HStack(alignment: .top, spacing: 10) {
                     if numbered {
                         Text("\(index + 1)")
-                            .font(.system(size: 12, weight: .semibold))
-                            .foregroundStyle(Theme.aqua)
+                            .font(.theone(12, weight: .semibold))
+                            .foregroundStyle(Theme.accentText)
                             .frame(width: 18)
                     } else if let symbol {
                         Image(systemName: symbol)
@@ -472,7 +473,7 @@ struct SkinResultView: View {
                             .padding(.top, 3)
                     }
                     Text(item)
-                        .font(.system(size: 14))
+                        .font(.theone(14))
                         .foregroundStyle(Theme.ink)
                         .fixedSize(horizontal: false, vertical: true)
                 }
@@ -509,10 +510,10 @@ struct ScoreRing: View {
                 .rotationEffect(.degrees(-90))
             VStack(spacing: 2) {
                 Text("\(score)")
-                    .font(.system(size: size * 0.32, weight: .light, design: .serif))
-                    .foregroundStyle(Theme.ink)
+                    .font(.theone(size * 0.3, weight: .light))
+                    .foregroundStyle(Theme.heading)
                 Text(label)
-                    .font(.system(size: size * 0.09))
+                    .font(.theone(size * 0.09))
                     .foregroundStyle(Theme.inkFaint)
             }
         }

@@ -54,7 +54,7 @@ struct MatchView: View {
                 case .failed:
                     VStack(spacing: 14) {
                         Text(error ?? words("Etwas ist schiefgelaufen.", "Something went wrong."))
-                            .font(.system(size: 15))
+                            .font(.theone(15))
                             .foregroundStyle(Theme.inkSoft)
                         Button(words("Noch einmal versuchen", "Try again")) { Task { await load() } }
                             .tint(Theme.aqua)
@@ -92,6 +92,7 @@ struct MatchView: View {
                 }
             }
         }
+        .powerAIGreeting(tr("Shall we find the one person who truly fits you, one hundred percent, both ways?"))
         .task { await load() }
         .sheet(isPresented: $editing) {
             MatchProfileForm(
@@ -128,7 +129,7 @@ struct MatchView: View {
                 VStack(spacing: 16) {
                     // English in every language, like all of TheONE's claims.
                     Text(verbatim: "FIND YOUR MATCH")
-                        .font(.system(size: 26, weight: .regular, design: .serif))
+                        .font(.theoneHeading(23))
                         .tracking(3)
                         .multilineTextAlignment(.center)
                         .foregroundStyle(Theme.ink)
@@ -138,9 +139,9 @@ struct MatchView: View {
                         "Du wirst mit dem einen einzigen Menschen verbunden, der dein MATCH ist.",
                         "You will be connected with the one and only person who is your MATCH."
                     ))
-                    .font(.system(size: 20, weight: .light, design: .serif))
+                    .font(.theoneHeading(17))
                     .multilineTextAlignment(.center)
-                    .foregroundStyle(Theme.ink)
+                    .foregroundStyle(Theme.heading)
                 }
                 .padding(.horizontal, 24)
                 .padding(.vertical, 28)
@@ -197,7 +198,7 @@ struct MatchView: View {
 
                 Button { editing = true } label: {
                     Text(words("Mein Profil anlegen", "Create my profile"))
-                        .font(.system(size: 16, weight: .medium))
+                        .font(.theone(16, weight: .medium))
                         .foregroundStyle(Theme.onAccent)
                         .padding(.horizontal, 30)
                         .padding(.vertical, 15)
@@ -217,25 +218,25 @@ struct MatchView: View {
                 .font(.system(size: 30, weight: .light))
                 .foregroundStyle(Theme.aqua)
             Text(words("Wir suchen für dich.", "We are looking for you."))
-                .font(.system(size: 26, weight: .light, design: .serif))
-                .foregroundStyle(Theme.ink)
+                .font(.theoneHeading(22))
+                .foregroundStyle(Theme.heading)
             Text(words(
                 "Im Moment passt niemand in allem zu dir. Sobald es jemanden gibt, der jeden deiner Wünsche erfüllt, verbinden wir dich.",
                 "Nobody fits you in every way just now. As soon as someone meets every wish of yours, we will connect you."
             ))
-            .font(.system(size: 15))
+            .font(.theone(15))
             .multilineTextAlignment(.center)
             .foregroundStyle(Theme.inkSoft)
             .padding(.horizontal, 34)
 
             if profile?.photos.isEmpty == true {
                 Button(words("Foto hinzufügen", "Add a photo")) { editing = true }
-                    .font(.system(size: 15, weight: .medium))
+                    .font(.theone(15, weight: .medium))
                     .tint(Theme.aqua)
                     .padding(.top, 6)
             }
             Button(words("Wünsche ansehen", "Review my wishes")) { editing = true }
-                .font(.system(size: 15))
+                .font(.theone(15))
                 .tint(Theme.aqua)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -322,13 +323,13 @@ private struct Introduction: View {
         ScrollView {
             VStack(spacing: 0) {
                 Text(words("DEINE VERBINDUNG", "YOUR CONNECTION"))
-                    .font(.system(size: 11, weight: .medium))
+                    .font(.theone(11, weight: .medium))
                     .tracking(MemberLanguage.spacing(3))
-                    .foregroundStyle(Theme.aqua)
+                    .foregroundStyle(Theme.accentText)
                     .padding(.top, 26)
                 if count.1 > 1 {
                     Text(words.german ? "\(count.0) von \(count.1)" : tr("%1$lld of %2$lld", count.0, count.1))
-                        .font(.system(size: 12))
+                        .font(.theone(12))
                         .foregroundStyle(Theme.inkFaint)
                         .padding(.top, 4)
                 }
@@ -337,19 +338,19 @@ private struct Introduction: View {
                     .padding(.top, 22)
 
                 Text(verbatim: "\(card.firstName), \(card.age)")
-                    .font(.system(size: 32, weight: .light, design: .serif))
-                    .foregroundStyle(Theme.ink)
+                    .font(.theoneHeading(28))
+                    .foregroundStyle(Theme.heading)
                     .padding(.top, 18)
                     .accessibilityIdentifier("match.name")
 
                 Text(verbatim: "\(card.profession) · \(card.city)")
-                    .font(.system(size: 15))
+                    .font(.theone(15))
                     .foregroundStyle(Theme.inkSoft)
                     .padding(.top, 4)
 
                 Label(words("100 % Übereinstimmung", "100 % fit"), systemImage: "checkmark.seal")
-                    .font(.system(size: 13, weight: .medium))
-                    .foregroundStyle(Theme.aqua)
+                    .font(.theone(13, weight: .medium))
+                    .foregroundStyle(Theme.accentText)
                     .padding(.horizontal, 14)
                     .padding(.vertical, 7)
                     .background(
@@ -360,8 +361,7 @@ private struct Introduction: View {
                     .padding(.top, 14)
 
                 Text(letter)
-                    .font(.system(size: 18, weight: .regular, design: .serif))
-                    .italic()
+                    .font(.theoneHeading(16.5))
                     .lineSpacing(4)
                     .multilineTextAlignment(.center)
                     .foregroundStyle(Theme.ink)
@@ -371,11 +371,11 @@ private struct Introduction: View {
                 if !card.about.isEmpty {
                     VStack(spacing: 8) {
                         Text(he ? words("IN SEINEN WORTEN", "IN HIS WORDS") : words("IN IHREN WORTEN", "IN HER WORDS"))
-                            .font(.system(size: 10.5, weight: .medium))
+                            .font(.theone(10.5, weight: .medium))
                             .tracking(MemberLanguage.spacing(2.4))
                             .foregroundStyle(Theme.inkFaint)
                         Text(words.german ? "„\(card.about)“" : tr("“%@”", card.about))
-                            .font(.system(size: 16, design: .serif))
+                            .font(.theone(15))
                             .multilineTextAlignment(.center)
                             .foregroundStyle(Theme.inkSoft)
                     }
@@ -390,7 +390,7 @@ private struct Introduction: View {
                 VStack(spacing: 6) {
                     Button { onAnswer(true) } label: {
                         Text(words("Gern kennenlernen", "I would like to meet"))
-                            .font(.system(size: 16, weight: .medium))
+                            .font(.theone(16, weight: .medium))
                             .foregroundStyle(Theme.onAccent)
                             .frame(maxWidth: .infinity)
                             .padding(.vertical, 15)
@@ -400,7 +400,7 @@ private struct Introduction: View {
 
                     Button { onAnswer(false) } label: {
                         Text(words("Nicht jetzt", "Not now"))
-                            .font(.system(size: 15))
+                            .font(.theone(15))
                             .foregroundStyle(Theme.inkSoft)
                             .frame(maxWidth: .infinity)
                             .padding(.vertical, 12)
@@ -467,14 +467,14 @@ private struct Introduction: View {
             Divider().overlay(Theme.line)
 
             Text(words("FREIZEIT", "PASTIMES"))
-                .font(.system(size: 10.5, weight: .medium))
+                .font(.theone(10.5, weight: .medium))
                 .tracking(MemberLanguage.spacing(2.4))
                 .foregroundStyle(Theme.inkFaint)
             FlowLayout(spacing: 8) {
                 ForEach(card.hobbies, id: \.self) { hobby in
                     let shared = card.sharedHobbies.contains(hobby)
                     Text(words.label(hobby))
-                        .font(.system(size: 13.5))
+                        .font(.theone(13.5))
                         .foregroundStyle(shared ? Theme.aqua : Theme.inkSoft)
                         .padding(.horizontal, 12)
                         .padding(.vertical, 7)
@@ -501,11 +501,11 @@ private struct Introduction: View {
     private func row(_ title: String, _ value: String, fits: Bool) -> some View {
         GridRow {
             Text(title)
-                .font(.system(size: 14))
+                .font(.theone(14))
                 .foregroundStyle(Theme.inkFaint)
             HStack(spacing: 6) {
                 Text(value)
-                    .font(.system(size: 15))
+                    .font(.theone(15))
                     .foregroundStyle(Theme.ink)
                 if fits {
                     Image(systemName: "checkmark")
@@ -532,14 +532,14 @@ private struct MatchMoment: View {
                 .padding(.top, 40)
 
             Text(words("Ihr beide sagt Ja.", "You both said yes."))
-                .font(.system(size: 30, weight: .light, design: .serif))
-                .foregroundStyle(Theme.ink)
+                .font(.theoneHeading(26))
+                .foregroundStyle(Theme.heading)
                 .padding(.top, 22)
 
             Text(words.german
                 ? "\(match.firstName) möchte dich auch kennenlernen. Schreib ein paar persönliche Zeilen."
                 : tr("%@ would like to meet you too. Write a few personal lines.", match.firstName))
-            .font(.system(size: 16))
+            .font(.theone(16))
             .multilineTextAlignment(.center)
             .foregroundStyle(Theme.inkSoft)
             .padding(.horizontal, 34)
@@ -547,7 +547,7 @@ private struct MatchMoment: View {
 
             Button(action: onWrite) {
                 Text(words("Nachricht schreiben", "Write a message"))
-                    .font(.system(size: 16, weight: .medium))
+                    .font(.theone(16, weight: .medium))
                     .foregroundStyle(Theme.onAccent)
                     .padding(.horizontal, 30)
                     .padding(.vertical, 15)
@@ -557,7 +557,7 @@ private struct MatchMoment: View {
             .disabled(match.conversationId == nil)
 
             Button(words("Später", "Later")) { dismiss() }
-                .font(.system(size: 15))
+                .font(.theone(15))
                 .tint(Theme.inkSoft)
                 .padding(.top, 12)
 
@@ -585,13 +585,13 @@ private struct ConnectionsView: View {
             } else if matches.isEmpty {
                 VStack(spacing: 10) {
                     Text(words("Noch keine Verbindungen", "No connections yet"))
-                        .font(.system(size: 22, weight: .light, design: .serif))
-                        .foregroundStyle(Theme.ink)
+                        .font(.theoneHeading(19))
+                        .foregroundStyle(Theme.heading)
                     Text(words(
                         "Sobald ihr beide Ja sagt, findest du dein Gegenüber hier.",
                         "Once you both say yes, you will find each other here."
                     ))
-                    .font(.system(size: 14))
+                    .font(.theone(14))
                     .multilineTextAlignment(.center)
                     .foregroundStyle(Theme.inkSoft)
                     .padding(.horizontal, 40)
@@ -607,10 +607,10 @@ private struct ConnectionsView: View {
                             Portrait(url: match.photo, initial: String(match.firstName.prefix(1)), size: 52)
                             VStack(alignment: .leading, spacing: 3) {
                                 Text(verbatim: "\(match.firstName), \(match.age)")
-                                    .font(.system(size: 18, weight: .light, design: .serif))
-                                    .foregroundStyle(Theme.ink)
+                                    .font(.theoneHeading(15))
+                                    .foregroundStyle(Theme.heading)
                                 Text(match.city)
-                                    .font(.system(size: 13))
+                                    .font(.theone(13))
                                     .foregroundStyle(Theme.inkFaint)
                             }
                         }
@@ -652,7 +652,7 @@ struct Portrait: View {
                 )
             )
             Text(initial)
-                .font(.system(size: size * 0.42, weight: .light, design: .serif))
+                .font(.theone(size * 0.38, weight: .light))
                 .foregroundStyle(.white.opacity(0.92))
 
             if let url, let link = URL(string: url) {
@@ -683,10 +683,10 @@ private struct Promise: View {
                 .frame(width: 26)
             VStack(alignment: .leading, spacing: 4) {
                 Text(title)
-                    .font(.system(size: 17, design: .serif))
-                    .foregroundStyle(Theme.ink)
+                    .font(.theoneHeading(17))
+                    .foregroundStyle(Theme.heading)
                 Text(text)
-                    .font(.system(size: 14))
+                    .font(.theone(14))
                     .foregroundStyle(Theme.inkSoft)
                     .fixedSize(horizontal: false, vertical: true)
             }

@@ -13,7 +13,7 @@ final class TheONEUITests: XCTestCase {
         app = XCUIApplication()
         // The app follows the phone's language. MATCH is checked as a German
         // phone, the Japanese walkthrough as a Japanese one, the rest as is.
-        if name.contains("testMatchFlow") || name.contains("testSkinAnalysis") || name.contains("testSelection") || name.contains("testHomeFunctions") || name.contains("testLongevityCheck") {
+        if name.contains("testMatchFlow") || name.contains("testSkinAnalysis") || name.contains("testSelection") || name.contains("testHomeFunctions") || name.contains("testLongevityCheck") || name.contains("testRealEstate") || name.contains("testBeauty5") || name.contains("testPersonalCare") {
             app.launchArguments += ["-AppleLanguages", "(de)", "-AppleLocale", "de_DE"]
         } else if name.contains("testJapaneseMember") {
             app.launchArguments += ["-AppleLanguages", "(ja)", "-AppleLocale", "ja_JP"]
@@ -546,7 +546,10 @@ final class TheONEUITests: XCTestCase {
         // Back to the top, then the first card under "chosen for you".
         for _ in 0..<8 { app.swipeDown() }
         sleep(1)
-        app.coordinate(withNormalizedOffset: CGVector(dx: 0.3, dy: 0.55)).tap()
+        let card = app.buttons["offering.card"].firstMatch
+        XCTAssertTrue(card.waitForExistence(timeout: 10))
+        if !card.isHittable { app.swipeUp(); sleep(1) }
+        card.tap()
         let request = app.buttons["offering.request"]
         XCTAssertTrue(request.waitForExistence(timeout: 10))
         capture("x6-offering")
@@ -576,12 +579,181 @@ final class TheONEUITests: XCTestCase {
             entry.tap()
             sleep(5)
             capture("h\(index + 2)-area")
+            if name == "TheONE HEALTH" {
+                // POWER AI asks aloud as the area opens; the member answers.
+                let answer = app.buttons["opener.answer"]
+                XCTAssertTrue(answer.waitForExistence(timeout: 10))
+                answer.tap()
+                XCTAssertTrue(app.staticTexts["assistant.greeting"].waitForExistence(timeout: 10), "Answer did not open POWER AI")
+                capture("h9-health-answer")
+                return
+            }
             app.swipeUp()
             sleep(1)
             capture("h\(index + 2)b-area-lower")
             app.buttons["home.button"].firstMatch.tap()
             sleep(2)
         }
+    }
+
+    /// BEAUTY5 in TheONE SELECTION: its products, one product, its profile.
+    func testBeauty5() throws {
+        assertOnLoginScreen()
+        type("testmember", into: app.textFields.firstMatch)
+        type("TestPassword2026!", into: app.secureTextFields.firstMatch)
+        app.buttons["login.submit"].tap()
+        dismissSystemPrompts()
+        XCTAssertTrue(app.tabBars.firstMatch.waitForExistence(timeout: 25))
+        dismissSystemPrompts()
+        goHome(leaving: app.tabBars.firstMatch)
+        sleep(2)
+        app.swipeUp()
+        let entry = app.buttons["home.fn.TheONE SELECTION"]
+        XCTAssertTrue(entry.waitForExistence(timeout: 10))
+        entry.tap()
+        XCTAssertTrue(app.buttons["opener.answer"].waitForExistence(timeout: 10))
+        sleep(3)
+        let brand = app.staticTexts["BEAUTY5"].firstMatch
+        // Small drags, so the brand stops in view instead of flying past.
+        func nudge() {
+            let from = app.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.75))
+            from.press(forDuration: 0.05, thenDragTo: app.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.45)))
+            sleep(1)
+        }
+        for _ in 0..<20 where !(brand.exists && brand.frame.minY > 0 && brand.frame.minY < app.frame.height * 0.35) { nudge() }
+        XCTAssertTrue(brand.exists, "BEAUTY5 is not in TheONE SELECTION")
+        capture("b1-beauty5-products")
+        // The whole range, then one product from it.
+        let range = app.buttons.matching(identifier: "partner.range").firstMatch
+        XCTAssertTrue(range.waitForExistence(timeout: 5))
+        range.tap()
+        sleep(3)
+        capture("b1b-beauty5-range")
+        // The first card of the grid, top left.
+        app.coordinate(withNormalizedOffset: CGVector(dx: 0.3, dy: 0.38)).tap()
+        // A shop link is a link, not a button, to accessibility.
+        XCTAssertTrue(app.descendants(matching: .any)["offering.shop"].waitForExistence(timeout: 10), "BEAUTY5 product has no shop link")
+        sleep(2)
+        capture("b2-product")
+        app.swipeUp()
+        sleep(1)
+        capture("b3-product-lower")
+        app.swipeDown()
+        app.swipeDown()
+        sleep(1)
+        let partnerLink = app.buttons.matching(NSPredicate(format: "label BEGINSWITH 'BEAUTY5'")).firstMatch
+        if partnerLink.exists {
+            partnerLink.tap()
+            sleep(3)
+            capture("b4-profile")
+        }
+    }
+
+    /// TheONE personalcare in TheONE SELECTION: its products and one of them.
+    func testPersonalCare() throws {
+        assertOnLoginScreen()
+        type("testmember", into: app.textFields.firstMatch)
+        type("TestPassword2026!", into: app.secureTextFields.firstMatch)
+        app.buttons["login.submit"].tap()
+        dismissSystemPrompts()
+        XCTAssertTrue(app.tabBars.firstMatch.waitForExistence(timeout: 25))
+        dismissSystemPrompts()
+        goHome(leaving: app.tabBars.firstMatch)
+        sleep(2)
+        app.swipeUp()
+        let entry = app.buttons["home.fn.TheONE SELECTION"]
+        XCTAssertTrue(entry.waitForExistence(timeout: 10))
+        entry.tap()
+        XCTAssertTrue(app.buttons["opener.answer"].waitForExistence(timeout: 10))
+        sleep(3)
+        let brand = app.staticTexts["TheONE personalcare"].firstMatch
+        func nudge() {
+            let from = app.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.75))
+            from.press(forDuration: 0.05, thenDragTo: app.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.45)))
+            sleep(1)
+        }
+        for _ in 0..<25 where !(brand.exists && brand.frame.minY > 0 && brand.frame.minY < app.frame.height * 0.35) { nudge() }
+        XCTAssertTrue(brand.exists, "TheONE personalcare is not in TheONE SELECTION")
+        capture("p1-personalcare")
+        let cards = app.buttons.matching(NSPredicate(format: "identifier == 'offering.card' AND label CONTAINS 'TheONE Women'"))
+        cards.firstMatch.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.4)).tap()
+        sleep(3)
+        capture("p2-product")
+        app.swipeUp()
+        sleep(1)
+        capture("p3-product-lower")
+    }
+
+    /// TheONE REAL ESTATE: POWER AI's greeting, the estates of the best
+    /// brokers worldwide, and a home sent to the brokers for its place.
+    func testRealEstate() throws {
+        assertOnLoginScreen()
+        type("testmember", into: app.textFields.firstMatch)
+        type("TestPassword2026!", into: app.secureTextFields.firstMatch)
+        app.buttons["login.submit"].tap()
+        dismissSystemPrompts()
+        XCTAssertTrue(app.tabBars.firstMatch.waitForExistence(timeout: 25))
+        dismissSystemPrompts()
+        goHome(leaving: app.tabBars.firstMatch)
+        sleep(2)
+        app.swipeUp()
+        let entry = app.buttons["home.fn.TheONE REAL ESTATE"]
+        XCTAssertTrue(entry.waitForExistence(timeout: 10))
+        entry.tap()
+        XCTAssertTrue(app.buttons["opener.answer"].waitForExistence(timeout: 10))
+        sleep(4)
+        capture("r1-realestate")
+        app.swipeUp()
+        sleep(2)
+        capture("r2-estates")
+        app.swipeUp()
+        sleep(1)
+        capture("r2b-estates-more")
+        app.swipeDown()
+        app.swipeDown()
+        sleep(1)
+        let form = app.buttons["realestate.sell.form"]
+        XCTAssertTrue(form.waitForExistence(timeout: 5))
+        form.tap()
+        XCTAssertTrue(app.buttons["sell.villa"].waitForExistence(timeout: 5))
+        // Return goes on to the next field, as a member would type it.
+        type("Küsnacht\n", into: app.textFields["sell.city"])
+        app.typeText("Switzerland\n")
+        app.typeText("7\n")
+        app.typeText("320\n")
+        capture("r3-sell-form")
+        app.typeText("1800\n")
+        app.typeText("6500000\n")
+        app.typeText("Seeblick, ruhiger Garten, Bootsplatz")
+        sleep(1)
+        capture("r4-sell-form-lower")
+        let send = app.buttons["sell.send"]
+        if !send.isHittable { app.swipeUp() }
+        send.tap()
+        XCTAssertTrue(app.buttons["sell.broker"].firstMatch.waitForExistence(timeout: 20), "The sale did not reach a broker")
+        capture("r5-sell-sent")
+
+        // Buying: the wishes go to the brokers, who answer from their portfolio.
+        app.buttons["request.close"].tap()
+        sleep(2)
+        let find = app.buttons["realestate.find.form"]
+        XCTAssertTrue(find.waitForExistence(timeout: 5))
+        find.tap()
+        XCTAssertTrue(app.buttons["find.villa"].waitForExistence(timeout: 5))
+        app.buttons["find.villa"].tap()
+        app.buttons["find.estate"].tap()
+        type("Palma\n", into: app.textFields["sell.city"])
+        app.typeText("Spain\n")
+        app.typeText("5\n")
+        app.typeText("400\n")
+        app.typeText("9000000\n")
+        app.typeText("Meerblick, ruhig, nah an einer guten Schule")
+        capture("r6-find-form")
+        let findSend = app.buttons["sell.send"]
+        if !findSend.isHittable { app.swipeUp() }
+        findSend.tap()
+        XCTAssertTrue(app.buttons["sell.broker"].firstMatch.waitForExistence(timeout: 20), "The wishes did not reach a broker")
+        capture("r7-find-sent")
     }
 
     /// TheONE LONGEVITY CHECK from the start screen: thirteen answers, the

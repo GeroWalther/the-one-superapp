@@ -296,6 +296,65 @@
         }
       }
     },
+    "%lld products": {
+      "extractionState": "manual",
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld Produkte"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld produits"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld prodotti"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld منتجًا"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld 件产品"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld productos"
+          }
+        },
+        "hr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld proizvoda"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Товаров: %lld"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld ürün"
+          }
+        }
+      }
+    },
     "0 to 1 days": {
       "extractionState": "manual",
       "localizations": {
@@ -2243,6 +2302,65 @@
         }
       }
     },
+    "Answer": {
+      "extractionState": "manual",
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Antworten"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Répondre"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rispondi"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "أجب"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "回答"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Responder"
+          }
+        },
+        "hr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Odgovori"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ответить"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Yanıtla"
+          }
+        }
+      }
+    },
     "Anything else POWER AI should know?": {
       "extractionState": "manual",
       "localizations": {
@@ -2361,6 +2479,65 @@
         }
       }
     },
+    "Apartment": {
+      "extractionState": "manual",
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wohnung"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Appartement"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Appartamento"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "شقة"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "公寓"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Apartamento"
+          }
+        },
+        "hr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Stan"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Квартира"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Daire"
+          }
+        }
+      }
+    },
     "Apply for access": {
       "extractionState": "manual",
       "localizations": {
@@ -2416,6 +2593,65 @@
           "stringUnit": {
             "state": "translated",
             "value": "Erişim için başvur"
+          }
+        }
+      }
+    },
+    "Are you looking for a home, or would you like to sell your property? I will connect you with the best brokers in the world.": {
+      "extractionState": "manual",
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Suchst du ein Zuhause, oder möchtest du deine Immobilie verkaufen? Ich verbinde dich mit den besten Maklern der Welt."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tu cherches une maison, ou tu aimerais vendre ton bien ? Je te mets en relation avec les meilleurs agents immobiliers du monde."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cerchi una casa, o vorresti vendere il tuo immobile? Ti metto in contatto con i migliori agenti immobiliari del mondo."
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "هل تبحث عن منزل، أم تود بيع عقارك؟ سأصلك بأفضل الوسطاء العقاريين في العالم."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "你在找一个家，还是想出售你的房产？我会为你联系全球最好的房产经纪人。"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "¿Buscas un hogar, o te gustaría vender tu propiedad? Te conecto con los mejores agentes inmobiliarios del mundo."
+          }
+        },
+        "hr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tražiš dom ili bi želio prodati svoju nekretninu? Povezat ću te s najboljim agentima za nekretnine na svijetu."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ты ищешь дом или хочешь продать свою недвижимость? Я свяжу тебя с лучшими брокерами мира."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bir ev mi arıyorsun, yoksa mülkünü mü satmak istiyorsun? Seni dünyanın en iyi emlak danışmanlarıyla buluşturayım."
           }
         }
       }
@@ -2593,6 +2829,65 @@
           "stringUnit": {
             "state": "translated",
             "value": "Asistan"
+          }
+        }
+      }
+    },
+    "At least": {
+      "extractionState": "manual",
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mindestens"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Au minimum"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Almeno"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "على الأقل"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "至少"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Como mínimo"
+          }
+        },
+        "hr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Najmanje"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Не менее"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "En az"
           }
         }
       }
@@ -2888,6 +3183,65 @@
           "stringUnit": {
             "state": "translated",
             "value": "Güzellik & Cilt Bakımı"
+          }
+        }
+      }
+    },
+    "Beauty and care": {
+      "extractionState": "manual",
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Beauty und Pflege"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Beauté et soins"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bellezza e cura"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "الجمال والعناية"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "美容与护理"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Belleza y cuidado"
+          }
+        },
+        "hr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ljepota i njega"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Красота и уход"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Güzellik ve bakım"
           }
         }
       }
@@ -3246,6 +3600,65 @@
         }
       }
     },
+    "Budget": {
+      "extractionState": "manual",
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Budget"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Budget"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Budget"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "الميزانية"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "预算"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Presupuesto"
+          }
+        },
+        "hr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Budžet"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Бюджет"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bütçe"
+          }
+        }
+      }
+    },
     "Business partner": {
       "extractionState": "manual",
       "localizations": {
@@ -3301,6 +3714,124 @@
           "stringUnit": {
             "state": "translated",
             "value": "İş ortağı"
+          }
+        }
+      }
+    },
+    "Buy in the shop": {
+      "extractionState": "manual",
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Im Shop kaufen"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Acheter dans la boutique"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Acquista nello shop"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "اشترِ من المتجر"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "在商店购买"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Comprar en la tienda"
+          }
+        },
+        "hr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kupi u trgovini"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Купить в магазине"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mağazada satın al"
+          }
+        }
+      }
+    },
+    "Call": {
+      "extractionState": "manual",
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Anrufen"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Appeler"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chiama"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "اتصال"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "致电"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Llamar"
+          }
+        },
+        "hr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nazovi"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Позвонить"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ara"
           }
         }
       }
@@ -3419,6 +3950,65 @@
           "stringUnit": {
             "state": "translated",
             "value": "Vazgeç"
+          }
+        }
+      }
+    },
+    "Chalet": {
+      "extractionState": "manual",
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chalet"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chalet"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chalet"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "شاليه"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "山间木屋"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chalet"
+          }
+        },
+        "hr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Planinska kuća"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Шале"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dağ evi"
           }
         }
       }
@@ -4780,6 +5370,65 @@
         }
       }
     },
+    "Currency": {
+      "extractionState": "manual",
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Währung"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Devise"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Valuta"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "العملة"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "货币"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Moneda"
+          }
+        },
+        "hr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Valuta"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Валюта"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Para birimi"
+          }
+        }
+      }
+    },
     "Curvy": {
       "extractionState": "manual",
       "localizations": {
@@ -5193,6 +5842,124 @@
         }
       }
     },
+    "Describe your property": {
+      "extractionState": "manual",
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Immobilie beschreiben"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Décrire ton bien"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Descrivi il tuo immobile"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "صف عقارك"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "描述你的房产"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Describir tu propiedad"
+          }
+        },
+        "hr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Opiši svoju nekretninu"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Описать недвижимость"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mülkünü tanımla"
+          }
+        }
+      }
+    },
+    "Describe your wishes": {
+      "extractionState": "manual",
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wünsche beschreiben"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Décrire tes souhaits"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Descrivi i tuoi desideri"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "صف رغباتك"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "描述你的需求"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Describir tus deseos"
+          }
+        },
+        "hr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Opiši svoje želje"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Описать пожелания"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "İsteklerini anlat"
+          }
+        }
+      }
+    },
     "Dictate": {
       "extractionState": "manual",
       "localizations": {
@@ -5370,6 +6137,65 @@
         }
       }
     },
+    "Discreetly, off market": {
+      "extractionState": "manual",
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Diskret, off market"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "En toute discrétion, off market"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Con discrezione, off market"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "بسرية، off market"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "保密出售，off market"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Con discreción, off market"
+          }
+        },
+        "hr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Diskretno, off market"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Конфиденциально, off market"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gizlilikle, off market"
+          }
+        }
+      }
+    },
     "Display name": {
       "extractionState": "manual",
       "localizations": {
@@ -5543,6 +6369,124 @@
           "stringUnit": {
             "state": "translated",
             "value": "Her hafta kuvvet antrenmanı yapıyor musun?"
+          }
+        }
+      }
+    },
+    "Each of them has your property in a chat of their own and will reply to you there with a first assessment and a date for a viewing.": {
+      "extractionState": "manual",
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Jeder von ihnen hat deine Immobilie in einem eigenen Chat und antwortet dir dort mit einer ersten Einschätzung und einem Termin für eine Besichtigung."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chacun d'eux a ton bien dans sa propre conversation et te répondra là avec une première estimation et une date de visite."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ognuno di loro ha il tuo immobile in una chat dedicata e ti risponderà lì con una prima valutazione e una data per la visita."
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "لدى كل واحد منهم عقارك في محادثة خاصة به، وسيرد عليك هناك بتقييم أولي وموعد للمعاينة."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "每位经纪人都会在单独的聊天中收到你的房产信息，并在那里回复你初步评估和看房时间。"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cada uno de ellos tiene tu propiedad en su propio chat y te responderá allí con una primera valoración y una fecha para la visita."
+          }
+        },
+        "hr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Svaki od njih ima tvoju nekretninu u vlastitom chatu i tamo će ti odgovoriti s prvom procjenom i terminom za razgledavanje."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "У каждого из них твоя недвижимость в отдельном чате, и там они ответят тебе с первой оценкой и датой просмотра."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Her biri mülkünü kendi sohbetinde aldı ve sana orada ilk değerlendirme ve bir görüş tarihiyle yanıt verecek."
+          }
+        }
+      }
+    },
+    "Each of them has your wishes in a chat of their own and will send you the right properties from their portfolio there.": {
+      "extractionState": "manual",
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Jeder von ihnen hat deine Wünsche in einem eigenen Chat und schickt dir dort die passenden Immobilien aus seinem Portfolio."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chacun d'eux a tes souhaits dans sa propre conversation et t'y enverra les biens qui conviennent dans son portefeuille."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ognuno di loro ha i tuoi desideri in una chat dedicata e lì ti invierà gli immobili giusti dal suo portafoglio."
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "لدى كل واحد منهم رغباتك في محادثة خاصة به، وسيرسل لك هناك العقارات المناسبة من محفظته."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "每位经纪人都会在单独的聊天中收到你的需求，并在那里为你推荐他们房源中合适的房产。"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cada uno de ellos tiene tus deseos en su propio chat y te enviará allí las propiedades adecuadas de su cartera."
+          }
+        },
+        "hr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Svaki od njih ima tvoje želje u vlastitom chatu i tamo će ti poslati prave nekretnine iz svog portfelja."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "У каждого из них твои пожелания в отдельном чате, и там он пришлёт тебе подходящие объекты из своего портфеля."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Her biri isteklerini kendi sohbetinde aldı ve sana orada portföyünden uygun mülkleri gönderecek."
           }
         }
       }
@@ -5783,6 +6727,65 @@
         }
       }
     },
+    "Estate": {
+      "extractionState": "manual",
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Anwesen"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Domaine"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tenuta"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "عقار فاخر"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "庄园"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Finca"
+          }
+        },
+        "hr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Imanje"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Поместье"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Malikane"
+          }
+        }
+      }
+    },
     "Evening": {
       "extractionState": "manual",
       "localizations": {
@@ -6015,6 +7018,65 @@
           "stringUnit": {
             "state": "translated",
             "value": "Her isteğin karşılanıyor, sen de karşındakinin her isteğini karşılıyorsun."
+          }
+        }
+      }
+    },
+    "Exceptional estates worldwide": {
+      "extractionState": "manual",
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Außergewöhnliche Anwesen weltweit"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Propriétés d'exception dans le monde"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Proprietà eccezionali nel mondo"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "عقارات استثنائية حول العالم"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "全球非凡房产"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Propiedades excepcionales en todo el mundo"
+          }
+        },
+        "hr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Iznimne nekretnine diljem svijeta"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Исключительная недвижимость по всему миру"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dünya çapında olağanüstü mülkler"
           }
         }
       }
@@ -6373,6 +7435,65 @@
         }
       }
     },
+    "Find your property with TheONE": {
+      "extractionState": "manual",
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Deine Immobilie mit TheONE finden"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Trouver ton bien avec TheONE"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Trova il tuo immobile con TheONE"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "اعثر على عقارك مع TheONE"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "通过 TheONE 找到你的房产"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Encuentra tu propiedad con TheONE"
+          }
+        },
+        "hr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pronađi svoju nekretninu uz TheONE"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Найди свою недвижимость с TheONE"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mülkünü TheONE ile bul"
+          }
+        }
+      }
+    },
     "Fine lines": {
       "extractionState": "manual",
       "localizations": {
@@ -6428,6 +7549,65 @@
           "stringUnit": {
             "state": "translated",
             "value": "İnce çizgiler"
+          }
+        }
+      }
+    },
+    "First the value": {
+      "extractionState": "manual",
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Erst den Wert kennen"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "D'abord connaître la valeur"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Prima conoscere il valore"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "معرفة القيمة أولًا"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "先了解价值"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Primero conocer el valor"
+          }
+        },
+        "hr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Prvo saznati vrijednost"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сначала узнать стоимость"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Önce değerini öğrenmek"
           }
         }
       }
@@ -7730,6 +8910,124 @@
         }
       }
     },
+    "Hello %@, how are you feeling?": {
+      "extractionState": "manual",
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hallo %@, wie geht es dir?"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bonjour %@, comment te sens-tu ?"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ciao %@, come ti senti?"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "مرحبًا %@، كيف تشعر؟"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "你好，%@，你感觉怎么样？"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hola %@, ¿cómo te sientes?"
+          }
+        },
+        "hr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bok %@, kako se osjećaš?"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Привет, %@, как ты себя чувствуешь?"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Merhaba %@, nasıl hissediyorsun?"
+          }
+        }
+      }
+    },
+    "Hello %@, how are you? I am here for you.": {
+      "extractionState": "manual",
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hallo %@, wie geht es dir? Ich bin für dich da."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bonjour %@, comment vas-tu ? Je suis là pour toi."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ciao %@, come stai? Sono qui per te."
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "مرحبًا %@، كيف حالك؟ أنا هنا من أجلك."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "你好，%@，你好吗？我在这里陪着你。"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hola %@, ¿cómo estás? Estoy aquí para ti."
+          }
+        },
+        "hr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bok %@, kako si? Tu sam za tebe."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Привет, %@, как ты? Я рядом с тобой."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Merhaba %@, nasılsın? Senin için buradayım."
+          }
+        }
+      }
+    },
     "Helps with": {
       "extractionState": "manual",
       "localizations": {
@@ -8084,6 +9382,65 @@
         }
       }
     },
+    "House": {
+      "extractionState": "manual",
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Haus"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Maison"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Casa"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "منزل"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "住宅"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Casa"
+          }
+        },
+        "hr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kuća"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Дом"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ev"
+          }
+        }
+      }
+    },
     "How are you feeling?": {
       "extractionState": "manual",
       "localizations": {
@@ -8139,6 +9496,65 @@
           "stringUnit": {
             "state": "translated",
             "value": "Nasıl hissediyorsun?"
+          }
+        }
+      }
+    },
+    "How are you? I am here for you.": {
+      "extractionState": "manual",
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wie geht es dir? Ich bin für dich da."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Comment vas-tu ? Je suis là pour toi."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Come stai? Sono qui per te."
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "كيف حالك؟ أنا هنا من أجلك."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "你好吗？我在这里陪着你。"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "¿Cómo estás? Estoy aquí para ti."
+          }
+        },
+        "hr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kako si? Tu sam za tebe."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Как ты? Я рядом с тобой."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nasılsın? Senin için buradayım."
           }
         }
       }
@@ -8851,6 +10267,65 @@
         }
       }
     },
+    "I am looking for a property.": {
+      "extractionState": "manual",
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ich suche eine Immobilie."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Je cherche un bien immobilier."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cerco un immobile."
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "أبحث عن عقار."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "我在找一处房产。"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Busco una propiedad."
+          }
+        },
+        "hr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tražim nekretninu."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Я ищу недвижимость."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bir mülk arıyorum."
+          }
+        }
+      }
+    },
     "I am not feeling so good right now. Can you help me?": {
       "extractionState": "manual",
       "localizations": {
@@ -9382,61 +10857,61 @@
         }
       }
     },
-    "I would like to talk about my health.": {
+    "I would like to sell my property.": {
       "extractionState": "manual",
       "localizations": {
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Ich möchte über meine Gesundheit sprechen."
+            "value": "Ich möchte meine Immobilie verkaufen."
           }
         },
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "J'aimerais parler de ma santé."
+            "value": "J'aimerais vendre mon bien."
           }
         },
         "it": {
           "stringUnit": {
             "state": "translated",
-            "value": "Vorrei parlare della mia salute."
+            "value": "Vorrei vendere il mio immobile."
           }
         },
         "ar": {
           "stringUnit": {
             "state": "translated",
-            "value": "أود التحدث عن صحتي."
+            "value": "أود بيع عقاري."
           }
         },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "我想聊聊我的健康。"
+            "value": "我想出售我的房产。"
           }
         },
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Me gustaría hablar de mi salud."
+            "value": "Me gustaría vender mi propiedad."
           }
         },
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Želim razgovarati o svom zdravlju."
+            "value": "Želio bih prodati svoju nekretninu."
           }
         },
         "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Я хочу поговорить о своём здоровье."
+            "value": "Я хотел бы продать свою недвижимость."
           }
         },
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Sağlığım hakkında konuşmak istiyorum."
+            "value": "Mülkümü satmak istiyorum."
           }
         }
       }
@@ -9618,6 +11093,65 @@
         }
       }
     },
+    "In the coming months": {
+      "extractionState": "manual",
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "In den nächsten Monaten"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dans les prochains mois"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nei prossimi mesi"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "خلال الأشهر القادمة"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "未来几个月"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "En los próximos meses"
+          }
+        },
+        "hr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "U sljedećim mjesecima"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "В ближайшие месяцы"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Önümüzdeki aylarda"
+          }
+        }
+      }
+    },
     "Insurance": {
       "extractionState": "manual",
       "localizations": {
@@ -9673,6 +11207,65 @@
           "stringUnit": {
             "state": "translated",
             "value": "Sigorta"
+          }
+        }
+      }
+    },
+    "Just looking": {
+      "extractionState": "manual",
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Erst einmal schauen"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Je regarde simplement"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sto solo guardando"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "أتصفح فقط"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "先随便看看"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Solo estoy mirando"
+          }
+        },
+        "hr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Samo razgledavam"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Пока просто смотрю"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sadece bakıyorum"
           }
         }
       }
@@ -9931,19 +11524,19 @@
         "it": {
           "stringUnit": {
             "state": "translated",
-            "value": "Come un buon amico, POWER AI ti ascolta, ti mette in contatto con un medico di fiducia, una clinica del benessere o un sanatorio a cinque stelle e resta al tuo fianco finché non stai di nuovo bene."
+            "value": "Come un buon amico, POWER AI ti ascolta, ti mette in contatto con un medico di fiducia, una clinica del benessere o un sanatorio a cinque stelle e resta al tuo fianco finché non stai bene."
           }
         },
         "ar": {
           "stringUnit": {
             "state": "translated",
-            "value": "مثل صديق جيد، يستمع إليك POWER AI، ثم يربطك بطبيب موثوق أو عيادة عافية أو مصحة بخمس نجوم، ويبقى إلى جانبك حتى تشعر بالتحسن من جديد."
+            "value": "مثل صديق جيد، يستمع إليك POWER AI، ثم يربطك بطبيب موثوق أو عيادة عافية أو مصحة بخمس نجوم، ويبقى إلى جانبك حتى تستعيد عافيتك."
           }
         },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "像一位好朋友一样，POWER AI 倾听你的心声，再为你联系值得信赖的医生、养生诊所或五星级疗养院，并一直陪伴你，直到你重新感觉良好。"
+            "value": "像一位好朋友一样，POWER AI 倾听你的心声，再为你联系值得信赖的医生、养生诊所或五星级疗养院，并一直陪伴你，直到你感觉好起来。"
           }
         },
         "es": {
@@ -9968,6 +11561,65 @@
           "stringUnit": {
             "state": "translated",
             "value": "İyi bir dost gibi POWER AI seni dinler, seni güvenilir bir doktor, bir wellness kliniği ya da beş yıldızlı bir sanatoryumla buluşturur ve kendini yeniden iyi hissedene kadar yanında kalır."
+          }
+        }
+      }
+    },
+    "Living area m²": {
+      "extractionState": "manual",
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wohnfläche m²"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Surface habitable m²"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Superficie abitabile m²"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "المساحة السكنية م²"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "居住面积 m²"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Superficie habitable m²"
+          }
+        },
+        "hr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Stambena površina m²"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Жилая площадь м²"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Yaşam alanı m²"
           }
         }
       }
@@ -12804,6 +14456,65 @@
         }
       }
     },
+    "Office": {
+      "extractionState": "manual",
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Büro"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Agence"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ufficio"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "المكتب"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "办公室"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Oficina"
+          }
+        },
+        "hr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ured"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Офис"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ofis"
+          }
+        }
+      }
+    },
     "Often": {
       "extractionState": "manual",
       "localizations": {
@@ -13213,6 +14924,65 @@
           "stringUnit": {
             "state": "translated",
             "value": "Uygulamayı yalnızca aktif hesaplar kullanabilir."
+          }
+        }
+      }
+    },
+    "Only qualified buyers hear of it, never a public listing.": {
+      "extractionState": "manual",
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nur qualifizierte Käufer erfahren davon, nie ein öffentliches Inserat."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Seuls des acheteurs qualifiés en sont informés, jamais d'annonce publique."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lo sanno solo acquirenti qualificati, mai un annuncio pubblico."
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "لا يعلم به إلا مشترون مؤهلون، ولا يُنشر أي إعلان عام."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "只有合格买家知晓，绝不公开挂牌。"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Solo compradores cualificados se enteran, nunca un anuncio público."
+          }
+        },
+        "hr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Saznaju samo kvalificirani kupci, nikada javni oglas."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Узнают только квалифицированные покупатели, никакого публичного объявления."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Yalnızca nitelikli alıcılar duyar, asla herkese açık bir ilan olmaz."
           }
         }
       }
@@ -13807,6 +15577,65 @@
         }
       }
     },
+    "Penthouse": {
+      "extractionState": "manual",
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Penthouse"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Penthouse"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Attico"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "بنتهاوس"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "顶层公寓"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ático"
+          }
+        },
+        "hr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Penthouse"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Пентхаус"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Çatı katı"
+          }
+        }
+      }
+    },
     "Photo": {
       "extractionState": "manual",
       "localizations": {
@@ -14043,6 +15872,124 @@
         }
       }
     },
+    "Plot": {
+      "extractionState": "manual",
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Grundstück"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Terrain"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Terreno"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "أرض"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "土地"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Terreno"
+          }
+        },
+        "hr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zemljište"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Участок"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Arsa"
+          }
+        }
+      }
+    },
+    "Plot m²": {
+      "extractionState": "manual",
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Grundstück m²"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Terrain m²"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Terreno m²"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "مساحة الأرض م²"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "土地面积 m²"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Terreno m²"
+          }
+        },
+        "hr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zemljište m²"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Участок м²"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Arsa m²"
+          }
+        }
+      }
+    },
     "Pores": {
       "extractionState": "manual",
       "localizations": {
@@ -14157,6 +16104,65 @@
           "stringUnit": {
             "state": "translated",
             "value": "Önleme"
+          }
+        }
+      }
+    },
+    "Price": {
+      "extractionState": "manual",
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Preis"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Prix"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Prezzo"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "السعر"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "价格"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Precio"
+          }
+        },
+        "hr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cijena"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Цена"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fiyat"
           }
         }
       }
@@ -15518,6 +17524,65 @@
         }
       }
     },
+    "Rooms": {
+      "extractionState": "manual",
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zimmer"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pièces"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Locali"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "الغرف"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "房间"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Habitaciones"
+          }
+        },
+        "hr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sobe"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Комнаты"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Oda"
+          }
+        }
+      }
+    },
     "Sailing": {
       "extractionState": "manual",
       "localizations": {
@@ -15872,6 +17937,65 @@
         }
       }
     },
+    "Sea view, quiet, close to a good school …": {
+      "extractionState": "manual",
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Seeblick, ruhig, nah an einer guten Schule …"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vue sur la mer, calme, près d'une bonne école …"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vista mare, tranquillità, vicino a una buona scuola …"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "إطلالة على البحر، هدوء، قرب مدرسة جيدة …"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "海景、安静、靠近好学校 …"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vistas al mar, tranquilidad, cerca de un buen colegio …"
+          }
+        },
+        "hr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pogled na more, mir, blizu dobre škole …"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Вид на море, тишина, рядом хорошая школа …"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Deniz manzarası, sessizlik, iyi bir okula yakın …"
+          }
+        }
+      }
+    },
     "Search business partners": {
       "extractionState": "manual",
       "localizations": {
@@ -15986,6 +18110,65 @@
           "stringUnit": {
             "state": "translated",
             "value": "İş ortakları aranıyor…"
+          }
+        }
+      }
+    },
+    "See all %lld": {
+      "extractionState": "manual",
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Alle %lld ansehen"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Voir les %lld"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vedi tutti i %lld"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "عرض الكل (%lld)"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "查看全部 %lld 件"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ver los %lld"
+          }
+        },
+        "hr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pogledaj svih %lld"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Смотреть все %lld"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tümünü gör (%lld)"
           }
         }
       }
@@ -16108,6 +18291,65 @@
         }
       }
     },
+    "Sell your property with TheONE": {
+      "extractionState": "manual",
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Deine Immobilie mit TheONE verkaufen"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vendre ton bien avec TheONE"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vendi il tuo immobile con TheONE"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "بع عقارك مع TheONE"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "通过 TheONE 出售你的房产"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vende tu propiedad con TheONE"
+          }
+        },
+        "hr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Prodaj svoju nekretninu uz TheONE"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Продай свою недвижимость с TheONE"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mülkünü TheONE ile sat"
+          }
+        }
+      }
+    },
     "Send": {
       "extractionState": "manual",
       "localizations": {
@@ -16226,6 +18468,65 @@
         }
       }
     },
+    "Send to the best brokers": {
+      "extractionState": "manual",
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "An die besten Makler senden"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Envoyer aux meilleurs agents"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Invia ai migliori agenti"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "أرسل إلى أفضل الوسطاء"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "发送给最好的经纪人"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Enviar a los mejores agentes"
+          }
+        },
+        "hr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pošalji najboljim agentima"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Отправить лучшим брокерам"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "En iyi emlak danışmanlarına gönder"
+          }
+        }
+      }
+    },
     "Sending your request…": {
       "extractionState": "manual",
       "localizations": {
@@ -16281,6 +18582,124 @@
           "stringUnit": {
             "state": "translated",
             "value": "Talebin gönderiliyor…"
+          }
+        }
+      }
+    },
+    "Shall we find the one person who truly fits you, one hundred percent, both ways?": {
+      "extractionState": "manual",
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sollen wir den einen Menschen finden, der wirklich zu dir passt, zu 100 % in beide Richtungen?"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Et si nous trouvions la personne qui te correspond vraiment, à 100 %, dans les deux sens ?"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Troviamo l'unica persona che ti corrisponde davvero, al 100 %, in entrambe le direzioni?"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "هل نجد الشخص الوحيد الذي يناسبك حقًا، بنسبة 100 % ومن الطرفين؟"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "我们一起找到那个真正适合你的人好吗？双向百分之百契合。"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "¿Encontramos a la única persona que de verdad encaja contigo, al 100 %, en ambos sentidos?"
+          }
+        },
+        "hr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hoćemo li pronaći jedinu osobu koja ti stvarno odgovara, 100 %, u oba smjera?"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Найдём того единственного человека, который действительно тебе подходит, на 100 %, взаимно?"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sana gerçekten uyan o tek kişiyi, iki yönlü %100 uyumla bulalım mı?"
+          }
+        }
+      }
+    },
+    "Shall we look at your skin together? I will tell you exactly what it needs.": {
+      "extractionState": "manual",
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sollen wir uns deine Haut gemeinsam ansehen? Ich sage dir genau, was sie braucht."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "On regarde ta peau ensemble ? Je te dirai exactement ce dont elle a besoin."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Guardiamo insieme la tua pelle? Ti dirò esattamente di cosa ha bisogno."
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "هل ننظر إلى بشرتك معًا؟ سأخبرك بالضبط بما تحتاجه."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "我们一起看看你的皮肤好吗？我会准确告诉你它需要什么。"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "¿Miramos juntos tu piel? Te diré exactamente lo que necesita."
+          }
+        },
+        "hr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hoćemo li zajedno pogledati tvoju kožu? Reći ću ti točno što joj treba."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Посмотрим на твою кожу вместе? Я скажу тебе точно, что ей нужно."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cildine birlikte bakalım mı? Tam olarak neye ihtiyacı olduğunu sana söyleyeceğim."
           }
         }
       }
@@ -17996,65 +20415,6 @@
         }
       }
     },
-    "Talk about my health": {
-      "extractionState": "manual",
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Über meine Gesundheit sprechen"
-          }
-        },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Parler de ma santé"
-          }
-        },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Parlare della mia salute"
-          }
-        },
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "التحدث عن صحتي"
-          }
-        },
-        "zh-Hans": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "聊聊我的健康"
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Hablar de mi salud"
-          }
-        },
-        "hr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Razgovaraj o mom zdravlju"
-          }
-        },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Поговорить о здоровье"
-          }
-        },
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Sağlığım hakkında konuş"
-          }
-        }
-      }
-    },
     "Talk it through with POWER AI": {
       "extractionState": "manual",
       "localizations": {
@@ -18169,6 +20529,478 @@
           "stringUnit": {
             "state": "translated",
             "value": "Bana TheONE LONGEVITY COURSE içinden \"%@\" dersini anlat."
+          }
+        }
+      }
+    },
+    "Tell POWER AI": {
+      "extractionState": "manual",
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "POWER AI erzählen"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Le dire à POWER AI"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dillo a POWER AI"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "أخبر POWER AI"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "告诉 POWER AI"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Contárselo a POWER AI"
+          }
+        },
+        "hr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Reci POWER AI"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Рассказать POWER AI"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "POWER AI'a anlat"
+          }
+        }
+      }
+    },
+    "Tell TheONE about your property once. It goes to the two or three best brokers for its place, discreetly if you wish, and they reply to you directly in your messages.": {
+      "extractionState": "manual",
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Erzähl TheONE einmal von deiner Immobilie. Sie geht an die zwei oder drei besten Makler vor Ort, auf Wunsch diskret, und sie antworten dir direkt in deinen Nachrichten."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Parle une seule fois de ton bien à TheONE. Il est confié aux deux ou trois meilleurs agents de sa région, discrètement si tu le souhaites, et ils te répondent directement dans tes messages."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Racconta una sola volta il tuo immobile a TheONE. Arriva ai due o tre migliori agenti della zona, con discrezione se lo desideri, e ti rispondono direttamente nei tuoi messaggi."
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "أخبر TheONE عن عقارك مرة واحدة. يصل إلى أفضل وسيطين أو ثلاثة في مكانه، بسرية إن شئت، ويردون عليك مباشرة في رسائلك."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "只需向 TheONE 介绍一次你的房产。它会交给当地最好的两到三位经纪人，可按你的意愿保密进行，他们会直接在你的消息中回复你。"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cuéntale a TheONE una sola vez cómo es tu propiedad. Llega a los dos o tres mejores agentes de la zona, con discreción si lo deseas, y te responden directamente en tus mensajes."
+          }
+        },
+        "hr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Jednom ispričaj TheONE o svojoj nekretnini. Ide dvojici ili trojici najboljih agenata za to mjesto, diskretno ako želiš, a oni ti odgovaraju izravno u tvojim porukama."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Расскажи TheONE о своей недвижимости один раз. Она попадёт к двум или трём лучшим брокерам этого места, при желании конфиденциально, и они ответят тебе прямо в сообщениях."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mülkünü TheONE'a bir kez anlat. Bulunduğu yerin en iyi iki ya da üç emlak danışmanına gider, istersen gizlilikle, ve sana doğrudan mesajlarında yanıt verirler."
+          }
+        }
+      }
+    },
+    "Tell TheONE what you are looking for. The two or three best brokers for that place send you the right properties from their portfolio, including those never publicly listed.": {
+      "extractionState": "manual",
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sag TheONE, was du suchst. Die zwei oder drei besten Makler vor Ort schicken dir die passenden Immobilien aus ihrem Portfolio, auch solche, die nie öffentlich inseriert werden."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dis à TheONE ce que tu cherches. Les deux ou trois meilleurs agents de la région t'envoient les biens qui conviennent dans leur portefeuille, y compris ceux qui ne sont jamais publiés."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Di' a TheONE cosa cerchi. I due o tre migliori agenti della zona ti inviano gli immobili giusti dal loro portafoglio, anche quelli mai pubblicati."
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "أخبر TheONE بما تبحث عنه. يرسل لك أفضل وسيطين أو ثلاثة في ذلك المكان العقارات المناسبة من محفظتهم، بما فيها ما لا يُعرض علنًا أبدًا."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "告诉 TheONE 你在找什么。当地最好的两到三位经纪人会从他们的房源中为你推荐合适的房产，包括从不公开挂牌的房源。"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dile a TheONE lo que buscas. Los dos o tres mejores agentes de la zona te envían las propiedades adecuadas de su cartera, incluidas las que nunca se publican."
+          }
+        },
+        "hr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Reci TheONE što tražiš. Dvojica ili trojica najboljih agenata za to mjesto šalju ti prave nekretnine iz svog portfelja, i one koje nikada nisu javno oglašene."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Скажи TheONE, что ты ищешь. Два или три лучших брокера этого места пришлют тебе подходящие объекты из своего портфеля, в том числе те, что никогда не публикуются."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "TheONE'a ne aradığını söyle. O yerin en iyi iki ya da üç emlak danışmanı portföylerinden sana uygun mülkleri gönderir, hiç ilana çıkmayanlar dahil."
+          }
+        }
+      }
+    },
+    "Tell me how you feel. I am listening, and I will find the right help for you.": {
+      "extractionState": "manual",
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Erzähl mir, wie du dich fühlst. Ich höre dir zu und finde die richtige Hilfe für dich."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dis-moi comment tu te sens. Je t'écoute, et je trouverai l'aide qu'il te faut."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dimmi come ti senti. Ti ascolto, e troverò l'aiuto giusto per te."
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "أخبرني بما تشعر به. أنا أستمع إليك، وسأجد لك المساعدة المناسبة."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "告诉我你的感受。我在听，我会为你找到合适的帮助。"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dime cómo te sientes. Te escucho, y encontraré la ayuda adecuada para ti."
+          }
+        },
+        "hr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Reci mi kako se osjećaš. Slušam te i pronaći ću pravu pomoć za tebe."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Расскажи, как ты себя чувствуешь. Я слушаю и найду для тебя правильную помощь."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nasıl hissettiğini anlat. Seni dinliyorum ve senin için doğru yardımı bulacağım."
+          }
+        }
+      }
+    },
+    "Tell me how you live, and I will show you how to stay young and healthy for longer.": {
+      "extractionState": "manual",
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Erzähl mir, wie du lebst, und ich zeige dir, wie du länger jung und gesund bleibst."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Raconte-moi comment tu vis, et je te montrerai comment rester jeune et en bonne santé plus longtemps."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Raccontami come vivi, e ti mostrerò come restare giovane e in salute più a lungo."
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "أخبرني كيف تعيش، وسأريك كيف تبقى شابًا وبصحة جيدة لفترة أطول."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "告诉我你的生活方式，我会告诉你如何更长久地保持年轻和健康。"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cuéntame cómo vives, y te mostraré cómo mantenerte joven y sano por más tiempo."
+          }
+        },
+        "hr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ispričaj mi kako živiš, a ja ću ti pokazati kako dulje ostati mlad i zdrav."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Расскажи, как ты живёшь, и я покажу, как дольше оставаться молодым и здоровым."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nasıl yaşadığını anlat, sana daha uzun süre genç ve sağlıklı kalmanın yolunu göstereyim."
+          }
+        }
+      }
+    },
+    "Tell me what you are looking for, and I will find the products that truly suit you.": {
+      "extractionState": "manual",
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sag mir, was du suchst, und ich finde die Produkte, die wirklich zu dir passen."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dis-moi ce que tu cherches, et je trouverai les produits qui te conviennent vraiment."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dimmi cosa cerchi, e troverò i prodotti davvero adatti a te."
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "قل لي ما الذي تبحث عنه، وسأجد لك المنتجات التي تناسبك حقًا."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "告诉我你在找什么，我会为你找到真正适合你的产品。"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dime qué buscas, y encontraré los productos que de verdad te van."
+          }
+        },
+        "hr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Reci mi što tražiš, a ja ću pronaći proizvode koji ti stvarno odgovaraju."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Расскажи, что ты ищешь, и я найду продукты, которые действительно тебе подходят."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ne aradığını söyle, sana gerçekten uyan ürünleri bulayım."
+          }
+        }
+      }
+    },
+    "Tell me where you would like to go, and I will take care of your flight and everything around it.": {
+      "extractionState": "manual",
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sag mir, wohin du möchtest, und ich kümmere mich um deinen Flug und alles drumherum."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dis-moi où tu aimerais aller, et je m'occupe de ton vol et de tout le reste."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dimmi dove vorresti andare, e mi occuperò del tuo volo e di tutto il resto."
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "قل لي إلى أين تود السفر، وسأهتم برحلتك وبكل ما يحيط بها."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "告诉我你想去哪里，我会为你安排航班和一切相关事宜。"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dime adónde te gustaría ir, y me ocupo de tu vuelo y de todo lo demás."
+          }
+        },
+        "hr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Reci mi kamo bi želio putovati, a ja ću se pobrinuti za tvoj let i sve oko njega."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Скажи, куда ты хотел бы поехать, и я позабочусь о твоём перелёте и обо всём остальном."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nereye gitmek istediğini söyle, uçuşunla ve diğer her şeyle ben ilgileneyim."
+          }
+        }
+      }
+    },
+    "Tell me where you would like to rest, and I will find the perfect place for you.": {
+      "extractionState": "manual",
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sag mir, wo du dich erholen möchtest, und ich finde den perfekten Ort für dich."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dis-moi où tu aimerais te ressourcer, et je trouverai l'endroit parfait pour toi."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dimmi dove vorresti riposare, e troverò il posto perfetto per te."
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "قل لي أين تود أن تستريح، وسأجد لك المكان المثالي."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "告诉我你想在哪里休息，我会为你找到完美的地方。"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dime dónde te gustaría descansar, y encontraré el lugar perfecto para ti."
+          }
+        },
+        "hr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Reci mi gdje bi se želio odmoriti, a ja ću pronaći savršeno mjesto za tebe."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Скажи, где ты хотел бы отдохнуть, и я найду для тебя идеальное место."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nerede dinlenmek istediğini söyle, senin için mükemmel yeri bulayım."
           }
         }
       }
@@ -18350,6 +21182,124 @@
         }
       }
     },
+    "The best brokers in the world with their exceptional estates, and your own property sold with them.": {
+      "extractionState": "manual",
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Die besten Makler der Welt mit ihren außergewöhnlichen Anwesen. Und deine Immobilie verkaufst du mit ihnen."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Les meilleurs agents immobiliers du monde avec leurs propriétés d'exception, et ton propre bien vendu avec eux."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "I migliori agenti immobiliari del mondo con le loro proprietà eccezionali, e il tuo immobile venduto con loro."
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "أفضل الوسطاء العقاريين في العالم بعقاراتهم الاستثنائية، وعقارك أنت يُباع معهم."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "全球最好的房产经纪人和他们的非凡房产，你自己的房产也可以由他们出售。"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Los mejores agentes inmobiliarios del mundo con sus propiedades excepcionales, y tu propia propiedad vendida con ellos."
+          }
+        },
+        "hr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Najbolji agenti za nekretnine na svijetu sa svojim iznimnim nekretninama, i tvoja vlastita nekretnina prodana s njima."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Лучшие брокеры мира с их исключительной недвижимостью, и твоя собственная недвижимость, проданная вместе с ними."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dünyanın en iyi emlak danışmanları olağanüstü mülkleriyle, ve kendi mülkün onlarla satılır."
+          }
+        }
+      }
+    },
+    "The brokers also send you properties that are never publicly listed.": {
+      "extractionState": "manual",
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Die Makler schicken dir auch Immobilien, die nie öffentlich inseriert werden."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Les agents t'envoient aussi des biens qui ne sont jamais publiés."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gli agenti ti inviano anche immobili mai pubblicati."
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "يرسل لك الوسطاء أيضًا عقارات لا تُعرض علنًا أبدًا."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "经纪人也会为你推荐从不公开挂牌的房产。"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Los agentes también te envían propiedades que nunca se publican."
+          }
+        },
+        "hr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Agenti ti šalju i nekretnine koje nikada nisu javno oglašene."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Брокеры присылают тебе и объекты, которые никогда не публикуются."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Danışmanlar sana hiç ilana çıkmayan mülkleri de gönderir."
+          }
+        }
+      }
+    },
     "The finest hotels and resorts, chosen for you.": {
       "extractionState": "manual",
       "localizations": {
@@ -18464,6 +21414,124 @@
           "stringUnit": {
             "state": "translated",
             "value": "Uzun ömür bakış açısı"
+          }
+        }
+      }
+    },
+    "The property": {
+      "extractionState": "manual",
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Die Immobilie"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Le bien"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "L'immobile"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "العقار"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "房产"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La propiedad"
+          }
+        },
+        "hr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nekretnina"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Недвижимость"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mülk"
+          }
+        }
+      }
+    },
+    "The view, the light, the garden …": {
+      "extractionState": "manual",
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Die Aussicht, das Licht, der Garten …"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La vue, la lumière, le jardin …"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La vista, la luce, il giardino …"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "الإطلالة، الضوء، الحديقة …"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "景色、光线、花园 …"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Las vistas, la luz, el jardín …"
+          }
+        },
+        "hr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pogled, svjetlo, vrt …"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Вид, свет, сад …"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Manzara, ışık, bahçe …"
           }
         }
       }
@@ -19648,6 +22716,124 @@
         }
       }
     },
+    "Villa": {
+      "extractionState": "manual",
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Villa"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Villa"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Villa"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "فيلا"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "别墅"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Villa"
+          }
+        },
+        "hr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vila"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Вилла"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Villa"
+          }
+        }
+      }
+    },
+    "Visit the shop": {
+      "extractionState": "manual",
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zum Shop"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Voir la boutique"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vai allo shop"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "إلى المتجر"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "前往商店"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ir a la tienda"
+          }
+        },
+        "hr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Idi u trgovinu"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Перейти в магазин"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mağazaya git"
+          }
+        }
+      }
+    },
     "We are looking for you.": {
       "extractionState": "manual",
       "localizations": {
@@ -20002,6 +23188,65 @@
         }
       }
     },
+    "What are you looking for?": {
+      "extractionState": "manual",
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Was suchst du?"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Que cherches-tu ?"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cosa cerchi?"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "عمّ تبحث؟"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "你在找什么？"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "¿Qué buscas?"
+          }
+        },
+        "hr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Što tražiš?"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Что ты ищешь?"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ne arıyorsun?"
+          }
+        }
+      }
+    },
     "What brings you to TheONE": {
       "extractionState": "manual",
       "localizations": {
@@ -20057,6 +23302,65 @@
           "stringUnit": {
             "state": "translated",
             "value": "TheONE'dan beklentin"
+          }
+        }
+      }
+    },
+    "What makes it special?": {
+      "extractionState": "manual",
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Was macht sie besonders?"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Qu'est-ce qui la rend unique ?"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cosa la rende speciale?"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ما الذي يجعله مميزًا؟"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "它有什么特别之处？"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "¿Qué la hace especial?"
+          }
+        },
+        "hr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Što ga čini posebnim?"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Что делает его особенным?"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Onu özel kılan ne?"
           }
         }
       }
@@ -20179,6 +23483,65 @@
         }
       }
     },
+    "What matters to you?": {
+      "extractionState": "manual",
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Was ist dir wichtig?"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Qu'est-ce qui compte pour toi ?"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cosa conta per te?"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ما الذي يهمك؟"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "什么对你最重要？"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "¿Qué es importante para ti?"
+          }
+        },
+        "hr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Što ti je važno?"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Что для тебя важно?"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Senin için ne önemli?"
+          }
+        }
+      }
+    },
     "What should they know about you?": {
       "extractionState": "manual",
       "localizations": {
@@ -20297,6 +23660,65 @@
         }
       }
     },
+    "What would you like to sell?": {
+      "extractionState": "manual",
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Was möchtest du verkaufen?"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Que veux-tu vendre ?"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cosa vorresti vendere?"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ماذا تود أن تبيع؟"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "你想出售什么？"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "¿Qué te gustaría vender?"
+          }
+        },
+        "hr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Što bi želio prodati?"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Что ты хочешь продать?"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Neyi satmak istiyorsun?"
+          }
+        }
+      }
+    },
     "When was your last full health check-up?": {
       "extractionState": "manual",
       "localizations": {
@@ -20352,6 +23774,242 @@
           "stringUnit": {
             "state": "translated",
             "value": "En son kapsamlı check-up'ın ne zamandı?"
+          }
+        }
+      }
+    },
+    "When would you like to buy?": {
+      "extractionState": "manual",
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wann möchtest du kaufen?"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Quand aimerais-tu acheter ?"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Quando vorresti comprare?"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "متى تود الشراء؟"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "你希望什么时候购买？"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "¿Cuándo te gustaría comprar?"
+          }
+        },
+        "hr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kada bi želio kupiti?"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Когда ты хотел бы купить?"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ne zaman satın almak istersin?"
+          }
+        }
+      }
+    },
+    "When would you like to sell?": {
+      "extractionState": "manual",
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wann möchtest du verkaufen?"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Quand aimerais-tu vendre ?"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Quando vorresti vendere?"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "متى تود البيع؟"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "你希望什么时候出售？"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "¿Cuándo te gustaría vender?"
+          }
+        },
+        "hr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kada bi želio prodati?"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Когда ты хотел бы продать?"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ne zaman satmak istiyorsun?"
+          }
+        }
+      }
+    },
+    "Where is it?": {
+      "extractionState": "manual",
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wo liegt sie?"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Où se trouve-t-elle ?"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dove si trova?"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "أين يقع؟"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "它在哪里？"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "¿Dónde está?"
+          }
+        },
+        "hr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gdje se nalazi?"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Где это находится?"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nerede?"
+          }
+        }
+      }
+    },
+    "Where would you like to live?": {
+      "extractionState": "manual",
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wo möchtest du leben?"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Où aimerais-tu vivre ?"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dove vorresti vivere?"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "أين تود أن تعيش؟"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "你想住在哪里？"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "¿Dónde te gustaría vivir?"
+          }
+        },
+        "hr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gdje bi želio živjeti?"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Где ты хотел бы жить?"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nerede yaşamak istersin?"
           }
         }
       }
@@ -21241,6 +24899,65 @@
         }
       }
     },
+    "You buy directly in the business partner's own shop.": {
+      "extractionState": "manual",
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Du kaufst direkt im eigenen Shop des Geschäftspartners."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tu achètes directement dans la boutique du partenaire."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Acquisti direttamente nello shop del partner aziendale."
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تشتري مباشرة من متجر شريك الأعمال."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "你直接在合作伙伴自己的商店购买。"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Compras directamente en la tienda del socio."
+          }
+        },
+        "hr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kupuješ izravno u trgovini poslovnog partnera."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ты покупаешь прямо в магазине бизнес-партнёра."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Doğrudan iş ortağının kendi mağazasından satın alırsın."
+          }
+        }
+      }
+    },
     "You have done TheONE SKIN SCAN several times today. Please try again tomorrow.": {
       "extractionState": "manual",
       "localizations": {
@@ -21414,6 +25131,65 @@
           "stringUnit": {
             "state": "translated",
             "value": "Erişimin onaylandı, ancak ödemesi henüz yapılmadı. Giriş yapmak için ödemeyi theone-superapp.com üzerinden tamamla."
+          }
+        }
+      }
+    },
+    "Your budget, up to": {
+      "extractionState": "manual",
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dein Budget, bis zu"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ton budget, jusqu'à"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Il tuo budget, fino a"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ميزانيتك، حتى"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "你的预算，最高"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tu presupuesto, hasta"
+          }
+        },
+        "hr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tvoj budžet, do"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Твой бюджет, до"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bütçen, en fazla"
           }
         }
       }
@@ -21831,6 +25607,65 @@
         }
       }
     },
+    "Your price idea, if you have one": {
+      "extractionState": "manual",
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Deine Preisvorstellung, falls du eine hast"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ton idée de prix, si tu en as une"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La tua idea di prezzo, se ne hai una"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "السعر الذي تفكر فيه، إن وُجد"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "你心中的价格（如有）"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tu idea de precio, si tienes una"
+          }
+        },
+        "hr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tvoja ideja o cijeni, ako je imaš"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Твоя желаемая цена, если она есть"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aklındaki fiyat, varsa"
+          }
+        }
+      }
+    },
     "Your profile": {
       "extractionState": "manual",
       "localizations": {
@@ -21886,6 +25721,65 @@
           "stringUnit": {
             "state": "translated",
             "value": "Profilin"
+          }
+        }
+      }
+    },
+    "Your property is with the best brokers": {
+      "extractionState": "manual",
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Deine Immobilie ist bei den besten Maklern"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ton bien est entre les mains des meilleurs agents"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Il tuo immobile è dai migliori agenti"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "عقارك الآن لدى أفضل الوسطاء"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "你的房产已交给最好的经纪人"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tu propiedad está con los mejores agentes"
+          }
+        },
+        "hr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tvoja nekretnina je kod najboljih agenata"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Твоя недвижимость у лучших брокеров"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mülkün en iyi emlak danışmanlarında"
           }
         }
       }
@@ -22240,6 +26134,65 @@
           "stringUnit": {
             "state": "translated",
             "value": "İsteğin"
+          }
+        }
+      }
+    },
+    "Your wishes are with the best brokers": {
+      "extractionState": "manual",
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Deine Wünsche sind bei den besten Maklern"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tes souhaits sont entre les mains des meilleurs agents"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "I tuoi desideri sono dai migliori agenti"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "رغباتك الآن لدى أفضل الوسطاء"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "你的需求已交给最好的经纪人"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tus deseos están con los mejores agentes"
+          }
+        },
+        "hr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tvoje želje su kod najboljih agenata"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Твои пожелания у лучших брокеров"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "İsteklerin en iyi emlak danışmanlarında"
           }
         }
       }

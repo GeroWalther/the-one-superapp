@@ -82,7 +82,7 @@ struct DiscoverView: View {
                         Text(model.savedOnly
                              ? tr("Nothing saved yet.")
                              : tr("No business partners match this search."))
-                            .font(.system(size: 14))
+                            .font(.theone(14))
                             .foregroundStyle(Theme.inkSoft)
                             .padding(.top, 40)
                     }
@@ -134,7 +134,7 @@ struct DiscoverView: View {
     private func chip(_ label: String, active: Bool, action: @escaping () -> Void) -> some View {
         Button(action: action) {
             Text(tr(label))
-                .font(.system(size: 13, weight: active ? .semibold : .regular))
+                .font(.theone(13, weight: active ? .semibold : .regular))
                 .foregroundStyle(active ? Theme.onAccent : Theme.inkSoft)
                 .padding(.horizontal, 14)
                 .padding(.vertical, 7)
@@ -154,15 +154,18 @@ struct PartnerRow: View {
         HStack(alignment: .top, spacing: 12) {
             VStack(alignment: .leading, spacing: 4) {
                 Text(partner.name)
-                    .font(.system(size: 16, weight: .medium))
+                    .font(.theone(16, weight: .medium))
                     .foregroundStyle(Theme.ink)
 
-                Text("\(partner.city), \(partner.country)")
-                    .font(.system(size: 12.5))
-                    .foregroundStyle(Theme.inkFaint)
+                // Brands that sell through their own online shop show no place.
+                if partner.category != "beauty", !partner.city.isEmpty {
+                    Text("\(partner.city), \(partner.country)")
+                        .font(.theone(12.5))
+                        .foregroundStyle(Theme.inkFaint)
+                }
 
                 Text(partner.description)
-                    .font(.system(size: 13))
+                    .font(.theone(13))
                     .foregroundStyle(Theme.inkSoft)
                     .lineLimit(2)
                     .padding(.top, 2)

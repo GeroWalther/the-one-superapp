@@ -1,4 +1,5 @@
 import SwiftUI
+import CoreText
 
 /// The web palette, carried across so the app and the site read as one product.
 ///
@@ -11,9 +12,9 @@ enum Theme {
     static let paperTint = Color(red: 0.933, green: 0.949, blue: 0.957)
     static let panel = Color(red: 1.000, green: 1.000, blue: 1.000)
 
-    static let ink = Color(red: 0.169, green: 0.204, blue: 0.251)
-    static let inkSoft = Color(red: 0.353, green: 0.396, blue: 0.447)
-    static let inkFaint = Color(red: 0.545, green: 0.584, blue: 0.631)
+    static let ink = Color(red: 0.090, green: 0.114, blue: 0.141)
+    static let inkSoft = Color(red: 0.165, green: 0.196, blue: 0.231)
+    static let inkFaint = Color(red: 0.271, green: 0.306, blue: 0.345)
 
     static let aqua = Color(red: 0.180, green: 0.612, blue: 0.659)
     static let aquaSoft = Color(red: 0.310, green: 0.702, blue: 0.749)
@@ -25,6 +26,47 @@ enum Theme {
     static let onAccent = Color.white
 
     static let display = "Cormorant Garamond"
+
+    /// Headings, deep petrol like the headings of TheONE Business Information.
+    static let heading = Color(red: 0.051, green: 0.247, blue: 0.271)
+
+    /// Text that used to be aqua (labels, prices, links): deep petrol, so it
+    /// reads as well as the rest. Aqua stays for symbols, fills and lines.
+    static let accentText = Color(red: 0.039, green: 0.208, blue: 0.231)
+}
+
+/// TheONE's typeface, Inter, as in TheONE Business Information: one face
+/// for everything, headings and text alike. Scripts it lacks (Arabic,
+/// Chinese) fall back to the system's own.
+extension Font {
+    /// A heading: Inter for display sizes, regular, deep petrol in use.
+    static func theoneHeading(_ size: CGFloat, medium: Bool = false) -> Font {
+        .custom(medium ? "TheONEInter-Medium" : "TheONEInter-Regular", size: size)
+    }
+
+    /// Any other text: Inter cut for reading sizes, in the weight asked for.
+    static func theone(_ size: CGFloat, weight: Font.Weight = .regular) -> Font {
+        let face: String
+        switch weight {
+        case .ultraLight, .thin, .light: face = "Light"
+        case .medium: face = "Medium"
+        case .semibold: face = "SemiBold"
+        case .bold, .heavy, .black: face = "Bold"
+        default: face = "Regular"
+        }
+        return .custom("TheONEInterText-\(face)", size: size)
+    }
+}
+
+/// Makes the bundled fonts known to the app, once, at launch.
+enum TheONEFonts {
+    static func register() {
+        let urls = Bundle.main.urls(forResourcesWithExtension: "ttf", subdirectory: nil) ?? []
+        let nested = Bundle.main.urls(forResourcesWithExtension: "ttf", subdirectory: "Fonts") ?? []
+        for url in urls + nested {
+            CTFontManagerRegisterFontsForURL(url as CFURL, .process, nil)
+        }
+    }
 }
 
 extension View {
@@ -72,7 +114,7 @@ extension View {
 struct PrimaryButtonStyle: ButtonStyle {
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
-            .font(.system(size: 16, weight: .semibold))
+            .font(.theone(16, weight: .semibold))
             .foregroundStyle(Theme.onAccent)
             .frame(maxWidth: .infinity)
             .padding(.vertical, 14)
@@ -94,7 +136,7 @@ struct PrimaryButtonStyle: ButtonStyle {
 struct GhostButtonStyle: ButtonStyle {
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
-            .font(.system(size: 15, weight: .medium))
+            .font(.theone(15, weight: .medium))
             .foregroundStyle(Theme.ink)
             .frame(maxWidth: .infinity)
             .padding(.vertical, 13)

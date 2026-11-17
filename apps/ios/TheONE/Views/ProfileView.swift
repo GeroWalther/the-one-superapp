@@ -20,14 +20,14 @@ struct ProfileView: View {
                                 .frame(width: 68, height: 68)
                                 .overlay(
                                     Text(String(account.firstName.prefix(1)))
-                                        .font(.system(size: 26, weight: .semibold))
-                                        .foregroundStyle(Theme.aqua)
+                                        .font(.theone(26, weight: .semibold))
+                                        .foregroundStyle(Theme.accentText)
                                 )
                             Text(account.displayName)
-                                .font(.system(size: 22, weight: .light, design: .serif))
-                                .foregroundStyle(Theme.ink)
+                                .font(.theoneHeading(19))
+                                .foregroundStyle(Theme.heading)
                             Text(verbatim: "@\(account.username) · \(tr(account.role == "partner" ? "Business partner" : account.role.capitalized))")
-                                .font(.system(size: 13))
+                                .font(.theone(13))
                                 .foregroundStyle(Theme.inkFaint)
                         }
                         .padding(.top, 12)
@@ -35,11 +35,11 @@ struct ProfileView: View {
                         if let tip {
                             VStack(alignment: .leading, spacing: 8) {
                                 Text("TODAY")
-                                    .font(.system(size: 10, weight: .semibold))
+                                    .font(.theone(10, weight: .semibold))
                                     .tracking(MemberLanguage.spacing(2))
-                                    .foregroundStyle(Theme.aqua)
+                                    .foregroundStyle(Theme.accentText)
                                 Text(tip)
-                                    .font(.system(size: 15))
+                                    .font(.theone(15))
                                     .foregroundStyle(Theme.ink)
                             }
                             .frame(maxWidth: .infinity, alignment: .leading)
@@ -66,23 +66,23 @@ struct ProfileView: View {
                         if let profile {
                             VStack(alignment: .leading, spacing: 10) {
                                 Text("YOUR PROFILE")
-                                    .font(.system(size: 10, weight: .semibold))
+                                    .font(.theone(10, weight: .semibold))
                                     .tracking(MemberLanguage.spacing(2))
-                                    .foregroundStyle(Theme.aqua)
+                                    .foregroundStyle(Theme.accentText)
 
                                 Text("\(profile.city), \(profile.country)")
-                                    .font(.system(size: 14))
+                                    .font(.theone(14))
                                     .foregroundStyle(Theme.ink)
 
                                 if !profile.focusAreas.isEmpty {
                                     Text(profile.focusAreas.map(ProfileOptions.label).joined(separator: " · "))
-                                        .font(.system(size: 13))
+                                        .font(.theone(13))
                                         .foregroundStyle(Theme.inkSoft)
                                 }
 
                                 if let context = profile.context, !context.isEmpty {
                                     Text(context)
-                                        .font(.system(size: 13))
+                                        .font(.theone(13))
                                         .foregroundStyle(Theme.inkSoft)
                                 }
 
@@ -142,11 +142,11 @@ struct ProfileView: View {
     private func detailRow(_ label: String, _ value: String) -> some View {
         HStack {
             Text(tr(label))
-                .font(.system(size: 13))
+                .font(.theone(13))
                 .foregroundStyle(Theme.inkFaint)
             Spacer()
             Text(value)
-                .font(.system(size: 14))
+                .font(.theone(14))
                 .foregroundStyle(Theme.ink)
         }
         .padding(.horizontal, 16)

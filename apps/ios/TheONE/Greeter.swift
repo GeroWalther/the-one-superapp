@@ -25,6 +25,18 @@ final class Greeter {
         wantsAssistant += 1
     }
 
+    /// Says `words` aloud, as POWER AI, without opening anything.
+    func say(_ words: String) {
+        speech.speak(words, respectSilentSwitch: true)
+    }
+
+    /// Opens the assistant with POWER AI's own question already asked, so
+    /// the member simply answers, the way they would answer a friend.
+    func ask(_ question: String) {
+        text = question
+        wantsAssistant += 1
+    }
+
     private var greetedAccountId: String?
     private let speech = SpeechController()
 
@@ -152,3 +164,4 @@ final class Greeter {
                 : tr("Good evening, %@. How are you today?", name)
     }
 }
+

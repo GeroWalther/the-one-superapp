@@ -21,7 +21,7 @@ final class SpeechController: NSObject {
     private let engine = AVAudioEngine()
     private var request: SFSpeechAudioBufferRecognitionRequest?
     private var task: SFSpeechRecognitionTask?
-    private let synthesiser = AVSpeechSynthesizer()
+    nonisolated(unsafe) private let synthesiser = AVSpeechSynthesizer()
 
     override init() {
         super.init()
@@ -118,33 +118,42 @@ final class SpeechController: NSObject {
     func speak(_ text: String, respectSilentSwitch: Bool = false) {
         guard !text.isEmpty else { return }
         stopSpeaking()
-
-        do {
-            let session = AVAudioSession.sharedInstance()
-            if respectSilentSwitch {
-                try session.setCategory(.ambient, mode: .spokenAudio, options: .duckOthers)
-            } else {
-                try session.setCategory(.playback, mode: .spokenAudio, options: .duckOthers)
-            }
-            try session.setActive(true)
-        } catch {
-            return
-        }
-
-        // Markdown stars are for the eye; the voice should not trip over them.
-        let utterance = AVSpeechUtterance(string: text.replacingOccurrences(of: "**", with: ""))
-        utterance.voice = Self.bestVoice(for: MemberLanguage.of(text))
-        // A touch slower than the default reads as calm rather than hurried.
-        utterance.rate = AVSpeechUtteranceDefaultSpeechRate * 0.92
-
         isSpeaking = true
-        synthesiser.speak(utterance)
+
+        // Waking the audio session and choosing a voice can take a moment;
+        // done off the main thread, the screen stays answerable to the touch
+        // while POWER AI speaks.
+        let synthesiser = synthesiser
+        Self.audio.async {
+            do {
+                let session = AVAudioSession.sharedInstance()
+                if respectSilentSwitch {
+                    try session.setCategory(.ambient, mode: .spokenAudio, options: .duckOthers)
+                } else {
+                    try session.setCategory(.playback, mode: .spokenAudio, options: .duckOthers)
+                }
+                try session.setActive(true)
+            } catch {
+                Task { @MainActor in self.isSpeaking = false }
+                return
+            }
+
+            // Markdown stars are for the eye; the voice should not trip over them.
+            let utterance = AVSpeechUtterance(string: text.replacingOccurrences(of: "**", with: ""))
+            utterance.voice = Self.bestVoice(for: MemberLanguage.of(text))
+            // A touch slower than the default reads as calm rather than hurried.
+            utterance.rate = AVSpeechUtteranceDefaultSpeechRate * 0.92
+            synthesiser.speak(utterance)
+        }
     }
+
+    /// One line for everything audio, so speaking and stopping keep their order.
+    private nonisolated static let audio = DispatchQueue(label: "theone.speech", qos: .userInitiated)
 
     /// The best voice on this phone for the language: Premium over Enhanced
     /// over the compact default, the member's own region first. Premium voices
     /// are a free download in Settings > Accessibility > Spoken Content.
-    static func bestVoice(for languageTag: String) -> AVSpeechSynthesisVoice? {
+    nonisolated static func bestVoice(for languageTag: String) -> AVSpeechSynthesisVoice? {
         // "zh-Hans" or "ja": only the language part decides which voices fit.
         let language = String(languageTag.split(separator: "-").first ?? "en").lowercased()
         // A tie goes to the phone's own region, so a Swiss phone hears Swiss
@@ -166,8 +175,9 @@ final class SpeechController: NSObject {
     }
 
     func stopSpeaking() {
-        if synthesiser.isSpeaking {
-            synthesiser.stopSpeaking(at: .immediate)
+        let synthesiser = synthesiser
+        Self.audio.async {
+            if synthesiser.isSpeaking { synthesiser.stopSpeaking(at: .immediate) }
         }
         isSpeaking = false
     }

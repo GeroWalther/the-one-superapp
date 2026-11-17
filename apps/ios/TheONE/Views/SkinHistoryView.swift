@@ -19,10 +19,10 @@ struct SkinHistoryView: View {
                 } else if scans.isEmpty {
                     VStack(spacing: 14) {
                         Text(tr("No TheONE SKIN SCAN yet"))
-                            .font(.system(size: 22, weight: .light, design: .serif))
-                            .foregroundStyle(Theme.ink)
+                            .font(.theoneHeading(19))
+                            .foregroundStyle(Theme.heading)
                         Button(tr("Start TheONE SKIN SCAN"), action: onNewScan)
-                            .font(.system(size: 16, weight: .medium))
+                            .font(.theone(16, weight: .medium))
                     }
                 } else {
                     List {
@@ -90,10 +90,10 @@ struct SkinHistoryView: View {
                 .frame(width: 130, height: 170)
                 .clipShape(RoundedRectangle(cornerRadius: 18, style: .continuous))
             Text("\(title) · \(scan.overall)")
-                .font(.system(size: 13, weight: .medium))
+                .font(.theone(13, weight: .medium))
                 .foregroundStyle(Theme.ink)
             Text(scan.date.formatted(date: .abbreviated, time: .omitted))
-                .font(.system(size: 11))
+                .font(.theone(11))
                 .foregroundStyle(Theme.inkFaint)
         }
     }
@@ -103,12 +103,12 @@ struct SkinHistoryView: View {
             ScoreRing(score: scan.overall, size: 50, label: "")
             VStack(alignment: .leading, spacing: 3) {
                 Text(scan.date.formatted(date: .long, time: .shortened))
-                    .font(.system(size: 15, weight: .medium))
+                    .font(.theone(15, weight: .medium))
                     .foregroundStyle(Theme.ink)
                 if let previous {
                     let delta = scan.overall - previous.overall
                     Text(delta == 0 ? tr("Unchanged") : (delta > 0 ? "+\(delta)" : "\(delta)"))
-                        .font(.system(size: 13, weight: .semibold))
+                        .font(.theone(13, weight: .semibold))
                         .foregroundStyle(delta >= 0 ? Theme.aqua : Theme.inkSoft)
                 }
             }

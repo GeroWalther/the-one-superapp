@@ -131,7 +131,7 @@ struct AssistantView: View {
 
                 if let error = model.error {
                     Text(error)
-                        .font(.system(size: 13))
+                        .font(.theone(13))
                         .foregroundStyle(Color(red: 0.95, green: 0.45, blue: 0.45))
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .padding(.horizontal, 18)
@@ -235,8 +235,8 @@ struct AssistantView: View {
     private var intro: some View {
         VStack(alignment: .leading, spacing: 12) {
             Text("Ask me anything")
-                .font(.system(size: 26, weight: .light, design: .serif))
-                .foregroundStyle(Theme.ink)
+                .font(.theoneHeading(22))
+                .foregroundStyle(Theme.heading)
 
             if let words = greeter.text {
                 // The greeting from the start screen, as the assistant's
@@ -245,7 +245,7 @@ struct AssistantView: View {
                     .accessibilityIdentifier("assistant.greeting")
             } else {
                 Text("I know TheONE's verified business partners and what you told us when you applied. Tell me what you need, or just describe the problem.")
-                    .font(.system(size: 14))
+                    .font(.theone(14))
                     .foregroundStyle(Theme.inkSoft)
             }
 
@@ -259,8 +259,8 @@ struct AssistantView: View {
                         model.draft = tr(example)
                     } label: {
                         Text(tr(example))
-                            .font(.system(size: 13.5))
-                            .foregroundStyle(Theme.aquaSoft)
+                            .font(.theone(13.5))
+                            .foregroundStyle(Theme.accentText)
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .padding(.horizontal, 14)
                             .padding(.vertical, 11)
@@ -321,7 +321,7 @@ struct AssistantView: View {
             TextField("Message", text: $model.draft, axis: .vertical)
                 .accessibilityIdentifier("assistant.input")
                 .lineLimit(1...5)
-                .font(.system(size: 16))
+                .font(.theone(16))
                 .foregroundStyle(Theme.ink)
                 .padding(.horizontal, 14)
                 .padding(.vertical, 11)
@@ -370,8 +370,8 @@ private struct TurnBubble: View {
                 HStack(spacing: 6) {
                     ProgressView().controlSize(.mini).tint(Theme.aqua)
                     Text(tr(label(for: tool)))
-                        .font(.system(size: 12))
-                        .foregroundStyle(Theme.aqua)
+                        .font(.theone(12))
+                        .foregroundStyle(Theme.accentText)
                 }
             }
 
@@ -384,7 +384,7 @@ private struct TurnBubble: View {
                         options: .init(interpretedSyntax: .inlineOnlyPreservingWhitespace)
                     )) ?? AttributedString(turn.text)
                 )
-                    .font(.system(size: 15.5))
+                    .font(.theone(15.5))
                     .foregroundStyle(turn.role == .user ? Theme.onAccent : Theme.ink)
                     .padding(.horizontal, 14)
                     .padding(.vertical, 11)
