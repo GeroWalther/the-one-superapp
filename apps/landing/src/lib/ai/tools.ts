@@ -98,7 +98,7 @@ export const ASSISTANT_TOOLS: Anthropic.Tool[] = [
       properties: {
         kinds: {
           type: "array",
-          items: { type: "string", enum: ["product", "treatment", "program", "stay", "service"] },
+          items: { type: "string", enum: ["product", "treatment", "program", "stay", "flight", "property", "service"] },
         },
         concerns: {
           type: "array",

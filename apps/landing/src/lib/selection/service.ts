@@ -20,16 +20,38 @@ import { openConversation, sendMessage } from "../api/chat";
  * and treatments their latest skin analysis and profile point to.
  */
 
-export const SECTIONS = [
-  { key: "skincare", categories: ["beauty"], local: false },
-  { key: "aesthetics", categories: ["practice"], focus: ["beauty"], local: true },
-  { key: "longevity", categories: ["clinic"], local: true },
-  { key: "stays", categories: ["hotel", "resort", "wellness"], local: false },
-  { key: "medicine", categories: ["practice"], focus: ["health"], local: true },
-  { key: "property", categories: ["realEstate"], local: true },
-  { key: "insurance", categories: ["insurance"], local: false },
-  { key: "lifestyle", categories: ["other"], local: false },
-] as const;
+type Section = {
+  key: string;
+  categories: readonly string[];
+  focus?: readonly string[];
+  /** Ranked by the member's own city first: doctors, clinics, brokers. */
+  local: boolean;
+  /** Only these kinds of offering are shown in this area. */
+  kinds?: readonly OfferingDoc["kind"][];
+};
+
+/**
+ * Each TheONE function is its own area. TheONE SELECTION is only companies
+ * with products to buy; clinics, hotels and brokers live in their own.
+ */
+export const AREAS: Record<string, readonly Section[]> = {
+  selection: [
+    { key: "skincare", categories: ["beauty"], local: false, kinds: ["product"] },
+    { key: "products", categories: ["clinic", "practice", "wellness", "hotel", "resort", "other", "insurance", "realEstate"], local: false, kinds: ["product"] },
+  ],
+  longevity: [{ key: "longevity", categories: ["clinic"], local: true }],
+  health: [
+    { key: "prevention", categories: ["practice"], focus: ["health"], local: true },
+    { key: "wellnessClinics", categories: ["wellness"], local: true },
+  ],
+  hotels: [{ key: "hotels", categories: ["hotel", "resort"], local: false, kinds: ["stay"] }],
+  // TheONE TRAVEL is flights only, from whichever partner offers them.
+  travel: [
+    { key: "flights", categories: [], local: false, kinds: ["flight"] },
+    { key: "concierge", categories: [], focus: ["lifestyle"], local: false, kinds: ["service"] },
+  ],
+  realestate: [{ key: "realestate", categories: ["realEstate"], local: true }],
+};
 
 const PER_SECTION = 3;
 
@@ -90,7 +112,8 @@ function visibleTo(test: boolean) {
   return test ? {} : { isTestAccount: { $ne: true } };
 }
 
-export async function selectionFeed(accountId: string): Promise<SelectionFeed> {
+export async function selectionFeed(accountId: string, area = "selection"): Promise<SelectionFeed> {
+  const SECTIONS = AREAS[area] ?? AREAS.selection;
   const test = await isTest(accountId);
   const city = (await getMemberProfile(accountId))?.city?.trim().toLowerCase() ?? "";
 
@@ -115,11 +138,15 @@ export async function selectionFeed(accountId: string): Promise<SelectionFeed> {
   const sections = SECTIONS.map((section) => {
     // Only partners with something to offer: SELECTION shows what can be
     // bought, booked or asked for, not a directory.
+    const offered = (p: PartnerProfileDoc) =>
+      (offeringsOf.get(p._id.toHexString()) ?? []).filter(
+        (o) => !section.kinds || section.kinds.includes(o.kind),
+      );
     const fits = partners.filter(
       (p) =>
-        offeringsOf.has(p._id.toHexString()) &&
-        (section.categories as readonly string[]).includes(p.category) &&
-        (!("focus" in section) || (section.focus as readonly string[]).includes(p.focusArea)),
+        offered(p).length > 0 &&
+        (section.categories.length === 0 || section.categories.includes(p.category)) &&
+        (!section.focus || section.focus.includes(p.focusArea)),
     );
     // The member's own city first where it matters; then the rest, so an
     // area is never empty just because their city has no partner yet.
@@ -138,10 +165,14 @@ export async function selectionFeed(accountId: string): Promise<SelectionFeed> {
         country: p.country,
         description: p.description,
         images: p.images,
-        offerings: (offeringsOf.get(p._id.toHexString()) ?? []).map((o) => offeringView(o, p)),
+        offerings: offered(p).map((o) => offeringView(o, p)),
       })),
     };
   }).filter((s) => s.partners.length > 0);
+
+  // "Chosen for you" belongs to TheONE SELECTION: products only.
+  if (area !== "selection") return { forYou: [], sections };
+  const products = allOfferings.filter((o) => o.kind === "product");
 
   // Chosen for you: the latest skin reading first (its own product picks,
   // then whatever helps its two weakest scores), otherwise one offering from
@@ -160,13 +191,13 @@ export async function selectionFeed(accountId: string): Promise<SelectionFeed> {
     { sort: { createdAt: -1 } },
   );
   if (scan) {
-    const byOffering = new Map(allOfferings.map((o) => [o._id.toHexString(), o]));
+    const byOffering = new Map(products.map((o) => [o._id.toHexString(), o]));
     for (const pick of scan.offerings ?? []) {
       const o = byOffering.get(pick.offeringId.toHexString());
       if (o) add(o, pick.reason, "skin");
     }
     const weakest = [...scan.scores].sort((a, b) => a.score - b.score).slice(0, 2).map((s) => s.key);
-    for (const o of allOfferings) {
+    for (const o of products) {
       if (forYou.length >= 6) break;
       if (o.concerns.some((c) => weakest.includes(c))) add(o, null, "skin");
     }
@@ -174,7 +205,7 @@ export async function selectionFeed(accountId: string): Promise<SelectionFeed> {
   if (forYou.length < 4) {
     for (const section of sections) {
       const first = section.partners[0]?.offerings[0];
-      const doc = first && allOfferings.find((o) => o._id.toHexString() === first.id);
+      const doc = first && products.find((o) => o._id.toHexString() === first.id);
       if (doc) add(doc, null, "profile");
       if (forYou.length >= 6) break;
     }

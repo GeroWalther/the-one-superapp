@@ -172,6 +172,12 @@ struct AssistantView: View {
         .onChange(of: speech.transcript) { _, new in
             if speech.isListening { model.draft = new }
         }
+        .task {
+            if greeter.pendingSkinTalk {
+                greeter.pendingSkinTalk = false
+                discussSkin()
+            }
+        }
         .fullScreenCover(isPresented: $showSkin) {
             SkinScanView { _ in
                 showSkin = false

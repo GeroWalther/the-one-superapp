@@ -4,6 +4,9 @@ import SwiftUI
 /// it has chosen for this member. Never a market: two or three partners per
 /// area and city, each with the exact things they offer.
 struct SelectionView: View {
+    /// Which TheONE area this shows; SELECTION itself is products only.
+    var area: Area = .selection
+
     @State private var feed: SelectionFeed?
     @State private var error: String?
     @State private var showAllPartners = false
@@ -41,6 +44,16 @@ struct SelectionView: View {
                             }
                         }
 
+                        if feed.sections.isEmpty {
+                            Text(tr("TheONE is choosing the best partners in your city. They will appear here."))
+                                .font(.system(size: 15, design: .serif))
+                                .multilineTextAlignment(.center)
+                                .foregroundStyle(Theme.inkSoft)
+                                .frame(maxWidth: .infinity)
+                                .padding(.horizontal, 30)
+                        }
+
+                        if area == .selection {
                         Button { showAllPartners = true } label: {
                             Label(tr("All business partners"), systemImage: "magnifyingglass")
                                 .font(.system(size: 15, weight: .medium))
@@ -48,6 +61,7 @@ struct SelectionView: View {
                                 .frame(maxWidth: .infinity)
                         }
                         .padding(.bottom, 30)
+                        }
                     } else if let error {
                         Text(error)
                             .font(.system(size: 14))
@@ -62,7 +76,7 @@ struct SelectionView: View {
                 }
             }
             .background(HomeBackground())
-            .navigationTitle(Text(verbatim: "TheONE SELECTION"))
+            .navigationTitle(Text(verbatim: area.name))
             .navigationBarTitleDisplayMode(.inline)
             .brandedNavigationBar()
             .homeButton()
@@ -79,11 +93,12 @@ struct SelectionView: View {
 
     private var header: some View {
         VStack(spacing: 10) {
-            Text(verbatim: "TheONE SELECTION")
+            Text(verbatim: area.name)
                 .font(.system(size: 24, weight: .regular, design: .serif))
                 .tracking(2.5)
+                .multilineTextAlignment(.center)
                 .foregroundStyle(Theme.ink)
-            Text(tr("Hand-picked for you: only the best two or three in each area, with exactly what they offer."))
+            Text(area.line)
                 .font(.system(size: 15, weight: .light, design: .serif))
                 .multilineTextAlignment(.center)
                 .foregroundStyle(Theme.inkSoft)
@@ -168,7 +183,7 @@ struct SelectionView: View {
 
     private func load() async {
         do {
-            feed = try await APIClient.shared.send("/selection")
+            feed = try await APIClient.shared.send("/selection?area=\(area.rawValue)")
             error = nil
         } catch {
             self.error = (error as? APIError)?.errorDescription ?? tr("Could not load business partners.")

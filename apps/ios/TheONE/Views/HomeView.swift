@@ -10,14 +10,24 @@ struct HomeView: View {
     @Environment(SessionStore.self) private var session
     @Environment(Greeter.self) private var greeter
 
+    /// Where a tap on the start screen leads: a tab of the member area, one
+    /// of TheONE's own areas, or TheONE SKIN SCAN.
+    enum Target: Equatable {
+        case tab(MainTabs.Tab)
+        case area(Area)
+        case skin
+    }
+
     @State private var showLogin = false
+    @State private var areaCover: Area?
+    @State private var skinCover = false
     /// The member area shown over the start screen, opened on this tab.
     @State private var destination: MainTabs.Tab?
     /// Where a tap made while signed out was headed, once the sign-in is done.
-    @State private var afterLogin: MainTabs.Tab = .profile
+    @State private var afterLogin: Target = .tab(.profile)
     /// A tap made in the moment after launch, while the stored session is
     /// still being checked; it goes through as soon as the answer is in.
-    @State private var waiting: MainTabs.Tab?
+    @State private var waiting: Target?
 
     var body: some View {
         GeometryReader { proxy in
@@ -40,7 +50,7 @@ struct HomeView: View {
                         .foregroundStyle(Self.headline)
                         .padding(.top, 26)
 
-                    Button { open(.assistant) } label: {
+                    Button { open(.tab(.assistant)) } label: {
                         VortexView {
                             Text(verbatim: "POWER AI")
                                 .font(.system(size: 18, weight: .bold, design: .serif))
@@ -73,16 +83,34 @@ struct HomeView: View {
                             .accessibilityIdentifier("home.greeting")
                     }
 
+                    functions
+                        .padding(.top, 30)
+
                     Spacer(minLength: 32)
                 }
                 .frame(maxWidth: .infinity)
+            }
+            .fullScreenCover(item: $areaCover) { area in
+                SelectionView(area: area)
+                    .environment(\.closeToHome) { areaCover = nil }
+            }
+            .fullScreenCover(isPresented: $skinCover) {
+                SkinScanView { _ in
+                    // Talk it through in the assistant, as from inside it.
+                    skinCover = false
+                    greeter.pendingSkinTalk = true
+                    Task {
+                        try? await Task.sleep(for: .milliseconds(450))
+                        destination = .assistant
+                    }
+                }
             }
             .scrollBounceBehavior(.basedOnSize)
             .animation(.easeIn(duration: 0.6), value: greeter.text)
         }
         .background(HomeBackground())
         .overlay(alignment: .topTrailing) {
-            AvatarButton(signedIn: session.account != nil) { open(.profile) }
+            AvatarButton(signedIn: session.account != nil) { open(.tab(.profile)) }
             .padding(.trailing, 20)
             .padding(.top, 8)
         }
@@ -99,7 +127,7 @@ struct HomeView: View {
                 // Let the sheet finish leaving before the cover arrives;
                 // presenting both in one pass drops the second.
                 try? await Task.sleep(for: .milliseconds(450))
-                destination = afterLogin
+                go(afterLogin)
             }
         }
         .fullScreenCover(item: $destination) { tab in
@@ -107,26 +135,89 @@ struct HomeView: View {
                 .environment(\.closeToHome) { destination = nil }
         }
         .onChange(of: session.state) { _, _ in
-            guard let tab = waiting else { return }
+            guard let target = waiting else { return }
             waiting = nil
-            open(tab)
+            open(target)
         }
         // Signing out inside the member area returns here rather than leaving
         // an empty member area on screen.
         .onChange(of: session.account == nil) { _, signedOut in
-            if signedOut { destination = nil }
+            if signedOut {
+                destination = nil
+                areaCover = nil
+                skinCover = false
+            }
         }
     }
 
-    /// Opens the member area on `tab`, or the sign-in first when signed out.
-    private func open(_ tab: MainTabs.Tab) {
+    /// TheONE's functions, each with its own area, under the storm.
+    private var functions: some View {
+        let items: [(String, String, Target)] = [
+            ("TheONE SKIN SCAN", "face.smiling", .skin),
+            ("TheONE MATCH", "person.2", .tab(.match)),
+            (Area.selection.name, Area.selection.symbol, .tab(.selection)),
+            (Area.longevity.name, Area.longevity.symbol, .area(.longevity)),
+            (Area.health.name, Area.health.symbol, .area(.health)),
+            (Area.hotels.name, Area.hotels.symbol, .area(.hotels)),
+            (Area.travel.name, Area.travel.symbol, .area(.travel)),
+            (Area.realestate.name, Area.realestate.symbol, .area(.realestate)),
+        ]
+        return LazyVGrid(columns: [GridItem(.flexible(), spacing: 12), GridItem(.flexible(), spacing: 12)], spacing: 12) {
+            ForEach(items, id: \.0) { item in
+                Button { open(item.2) } label: {
+                    HStack(spacing: 10) {
+                        Image(systemName: item.1)
+                            .font(.system(size: 16, weight: .light))
+                            .foregroundStyle(.white)
+                            .frame(width: 34, height: 34)
+                            .background(
+                                Circle().fill(
+                                    LinearGradient(colors: [Vortex.aqua700, Vortex.abyss], startPoint: .topLeading, endPoint: .bottomTrailing)
+                                )
+                            )
+                        Text(verbatim: item.0)
+                            .font(.system(size: 12.5, weight: .semibold))
+                            .tracking(0.3)
+                            .foregroundStyle(Self.headline)
+                            .multilineTextAlignment(.leading)
+                            .lineLimit(2)
+                            .minimumScaleFactor(0.85)
+                        Spacer(minLength: 0)
+                    }
+                    .padding(.horizontal, 10)
+                    .padding(.vertical, 10)
+                    .frame(maxWidth: .infinity, minHeight: 58)
+                    .background(
+                        RoundedRectangle(cornerRadius: 16, style: .continuous)
+                            .fill(.white.opacity(0.82))
+                            .overlay(RoundedRectangle(cornerRadius: 16, style: .continuous).stroke(Vortex.aqua700.opacity(0.15), lineWidth: 1))
+                    )
+                }
+                .buttonStyle(StormPress())
+                .accessibilityIdentifier("home.fn.\(item.0)")
+            }
+        }
+        .padding(.horizontal, 20)
+    }
+
+    /// Goes where `target` leads, the member being signed in.
+    private func go(_ target: Target) {
+        switch target {
+        case .tab(let tab): destination = tab
+        case .area(let area): areaCover = area
+        case .skin: skinCover = true
+        }
+    }
+
+    /// Opens `target`, or the sign-in first when signed out.
+    private func open(_ target: Target) {
         switch session.state {
         // The stored session is still being checked; deciding now would open
         // the sign-in for a member who is about to be signed in.
-        case .loading: waiting = tab
-        case .signedIn: destination = tab
+        case .loading: waiting = target
+        case .signedIn: go(target)
         case .signedOut:
-            afterLogin = tab
+            afterLogin = target
             showLogin = true
         }
     }

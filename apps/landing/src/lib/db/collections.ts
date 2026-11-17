@@ -339,7 +339,7 @@ export type MatchProfileDoc = {
 export type OfferingDoc = {
   _id: ObjectId;
   partnerProfileId: ObjectId;
-  kind: "product" | "treatment" | "program" | "stay" | "service";
+  kind: "product" | "treatment" | "program" | "stay" | "flight" | "property" | "service";
   title: string;
   description: string;
   /** In the smallest unit (cents, Rappen); null when priced on request. */

@@ -13,7 +13,7 @@ final class TheONEUITests: XCTestCase {
         app = XCUIApplication()
         // The app follows the phone's language. MATCH is checked as a German
         // phone, the Japanese walkthrough as a Japanese one, the rest as is.
-        if name.contains("testMatchFlow") || name.contains("testSkinAnalysis") || name.contains("testSelection") {
+        if name.contains("testMatchFlow") || name.contains("testSkinAnalysis") || name.contains("testSelection") || name.contains("testHomeFunctions") {
             app.launchArguments += ["-AppleLanguages", "(de)", "-AppleLocale", "de_DE"]
         } else if name.contains("testJapaneseMember") {
             app.launchArguments += ["-AppleLanguages", "(ja)", "-AppleLocale", "ja_JP"]
@@ -553,5 +553,34 @@ final class TheONEUITests: XCTestCase {
         request.tap()
         sleep(5)
         capture("x7-chat")
+    }
+
+    /// The start screen's TheONE functions, and two of the areas they open.
+    func testHomeFunctions() throws {
+        assertOnLoginScreen()
+        type("testmember", into: app.textFields.firstMatch)
+        type("TestPassword2026!", into: app.secureTextFields.firstMatch)
+        app.buttons["login.submit"].tap()
+        dismissSystemPrompts()
+        XCTAssertTrue(app.tabBars.firstMatch.waitForExistence(timeout: 25))
+        dismissSystemPrompts()
+        goHome(leaving: app.tabBars.firstMatch)
+        sleep(3)
+        app.swipeUp()
+        sleep(1)
+        capture("h1-home-functions")
+
+        for (index, name) in ["TheONE TRAVEL", "TheONE HOTEL & RESORTS"].enumerated() {
+            let entry = app.buttons["home.fn.\(name)"]
+            XCTAssertTrue(entry.waitForExistence(timeout: 10), "\(name) missing on the start screen")
+            entry.tap()
+            sleep(5)
+            capture("h\(index + 2)-area")
+            app.swipeUp()
+            sleep(1)
+            capture("h\(index + 2)b-area-lower")
+            app.buttons["home.button"].firstMatch.tap()
+            sleep(2)
+        }
     }
 }

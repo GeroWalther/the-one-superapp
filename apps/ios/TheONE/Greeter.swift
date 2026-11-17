@@ -13,6 +13,10 @@ final class Greeter {
     /// so its first reply reads the member's answer with the greeting in mind.
     private(set) var text: String?
 
+    /// Set when TheONE SKIN SCAN was started from the start screen and the
+    /// member chose to talk it through: the assistant picks it up on opening.
+    var pendingSkinTalk = false
+
     private var greetedAccountId: String?
     private let speech = SpeechController()
 

@@ -46,6 +46,8 @@ struct Offering: Codable, Sendable, Hashable, Identifiable {
         case "product": tr("Request to buy")
         case "treatment", "program": tr("Request an appointment")
         case "stay": tr("Request a stay")
+        case "flight": tr("Request this flight")
+        case "property": tr("Request a viewing")
         default: tr("Send a request")
         }
     }
@@ -70,12 +72,16 @@ struct SelectionSection: Codable, Sendable, Hashable, Identifiable {
     var title: String {
         switch key {
         case "skincare": tr("Skincare")
+        case "products": tr("Nutrition and wellbeing")
         case "aesthetics": tr("Aesthetic doctors")
-        // A TheONE name, so English and the same in every language.
-        case "longevity": "TheONE LONGEVITY"
-        case "stays": tr("Hotels and resorts")
+        case "longevity": tr("Longevity clinics")
+        case "prevention": tr("Prevention")
+        case "wellnessClinics": tr("Health and wellness clinics")
+        case "hotels", "travel", "stays": tr("Hotels and resorts")
+        case "flights": tr("Flights")
+        case "concierge": tr("Private concierge")
+        case "realestate", "property": tr("Homes and brokers")
         case "medicine": tr("Medicine")
-        case "property": tr("Real Estate")
         case "insurance": tr("Insurance")
         default: tr("Lifestyle")
         }
@@ -86,10 +92,10 @@ struct SelectionSection: Codable, Sendable, Hashable, Identifiable {
 
     static func image(for key: String) -> String {
         switch key {
-        case "skincare", "aesthetics": "images/verticals/beauty-wellness.webp"
-        case "longevity", "medicine": "images/verticals/health-longevity-v3.webp"
-        case "stays": "images/verticals/luxury-hotels-v2.webp"
-        case "property": "images/verticals/real-estate-v2.webp"
+        case "skincare", "aesthetics", "products": "images/verticals/beauty-wellness.webp"
+        case "longevity", "medicine", "prevention", "wellnessClinics": "images/verticals/health-longevity-v3.webp"
+        case "hotels", "travel", "stays", "flights", "concierge": "images/verticals/luxury-hotels-v2.webp"
+        case "realestate", "property": "images/verticals/real-estate-v2.webp"
         case "insurance": "images/verticals/business-wealth.webp"
         default: "images/verticals/lifestyle.webp"
         }
@@ -97,14 +103,57 @@ struct SelectionSection: Codable, Sendable, Hashable, Identifiable {
 
     /// Which area an offering belongs to, for its fallback picture.
     static func key(for offering: Offering) -> String {
-        switch offering.partner.category {
+        if offering.kind == "flight" { return "flights" }
+        if offering.kind == "service", offering.partner.category == "other" { return "concierge" }
+        return switch offering.partner.category {
         case "beauty": "skincare"
-        case "practice": offering.concerns.isEmpty ? "medicine" : "aesthetics"
+        case "practice": offering.concerns.isEmpty ? "prevention" : "aesthetics"
         case "clinic": "longevity"
-        case "hotel", "resort", "wellness": "stays"
-        case "realEstate": "property"
+        case "wellness": "wellnessClinics"
+        case "hotel", "resort": "hotels"
+        case "realEstate": "realestate"
         case "insurance": "insurance"
-        default: "lifestyle"
+        default: "products"
+        }
+    }
+}
+
+/// Each TheONE function with its own area. The names are TheONE names:
+/// English, with TheONE in front, in every language.
+enum Area: String, Identifiable, CaseIterable, Sendable {
+    case selection, longevity, health, hotels, travel, realestate
+    var id: Self { self }
+
+    var name: String {
+        switch self {
+        case .selection: "TheONE SELECTION"
+        case .longevity: "TheONE LONGEVITY"
+        case .health: "TheONE HEALTH"
+        case .hotels: "TheONE HOTEL & RESORTS"
+        case .travel: "TheONE TRAVEL"
+        case .realestate: "TheONE REAL ESTATE"
+        }
+    }
+
+    var line: String {
+        switch self {
+        case .selection: tr("Hand-picked for you: only the best two or three in each area, with exactly what they offer.")
+        case .longevity: tr("Stay young for longer: the best longevity clinics in your city, with check-ups and programmes.")
+        case .health: tr("Stay healthy: prevention, health and wellness clinics, chosen for you.")
+        case .hotels: tr("The finest hotels and resorts, chosen for you.")
+        case .travel: tr("Flights with TheONE airline partners and your private travel concierge, chosen for you.")
+        case .realestate: tr("Exceptional homes and the best brokers in your city, for buying or selling.")
+        }
+    }
+
+    var symbol: String {
+        switch self {
+        case .selection: "sparkle"
+        case .longevity: "hourglass"
+        case .health: "heart.text.square"
+        case .hotels: "bed.double"
+        case .travel: "airplane"
+        case .realestate: "house"
         }
     }
 }
