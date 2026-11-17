@@ -348,6 +348,8 @@ export type OfferingDoc = {
   /** e.g. "from", "per night"; shown next to the price. */
   priceNote: string | null;
   imageUrl: string | null;
+  /** The product page in the partner's own shop, where it can be bought. */
+  url?: string | null;
   concerns: string[];
   published: boolean;
   isTestAccount?: boolean;
@@ -406,6 +408,48 @@ export type LongevityCourseDoc = {
   accountId: ObjectId;
   completed: string[];
   updatedAt: Date;
+};
+
+/**
+ * A member's home for sale through TheONE REAL ESTATE: what they told us, and
+ * the two or three brokers it went to, each with the conversation it opened.
+ */
+export type PropertySaleDoc = {
+  _id: ObjectId;
+  accountId: ObjectId;
+  propertyType: string;
+  city: string;
+  country: string;
+  rooms: number | null;
+  livingArea: number | null;
+  plotArea: number | null;
+  priceIdeaCents: number | null;
+  currency: string;
+  description: string;
+  timing: "now" | "months" | "exploring";
+  offMarket: boolean;
+  brokers: { partnerProfileId: ObjectId; name: string; city: string; conversationId: string }[];
+  createdAt: Date;
+};
+
+/**
+ * What a member is looking for through TheONE REAL ESTATE, sent to the two or
+ * three best brokers for that place, who answer from their portfolio.
+ */
+export type PropertySearchDoc = {
+  _id: ObjectId;
+  accountId: ObjectId;
+  propertyTypes: string[];
+  city: string;
+  country: string;
+  minRooms: number | null;
+  minLivingArea: number | null;
+  budgetCents: number | null;
+  currency: string;
+  description: string;
+  timing: "now" | "months" | "exploring";
+  brokers: { partnerProfileId: ObjectId; name: string; city: string; conversationId: string }[];
+  createdAt: Date;
 };
 
 /** One member's yes or no to one suggestion. A yes both ways is a match. */
@@ -576,6 +620,9 @@ async function ensureIndexes(): Promise<void> {
 
     db.collection<LongevityCourseDoc>("longevityCourse").createIndex({ accountId: 1 }, { unique: true }),
 
+    db.collection<PropertySaleDoc>("propertySales").createIndex({ accountId: 1, createdAt: -1 }),
+    db.collection<PropertySearchDoc>("propertySearches").createIndex({ accountId: 1, createdAt: -1 }),
+
     db.collection<OfferingDoc>("offerings").createIndexes([
       { key: { partnerProfileId: 1, published: 1 } },
       { key: { published: 1, concerns: 1 } },
@@ -617,6 +664,8 @@ export const skinScans = () => collection<SkinScanDoc>("skinScans");
 export const offerings = () => collection<OfferingDoc>("offerings");
 export const longevityChecks = () => collection<LongevityCheckDoc>("longevityChecks");
 export const longevityCourse = () => collection<LongevityCourseDoc>("longevityCourse");
+export const propertySales = () => collection<PropertySaleDoc>("propertySales");
+export const propertySearches = () => collection<PropertySearchDoc>("propertySearches");
 export const matchProfiles = () => collection<MatchProfileDoc>("matchProfiles");
 export const matchDecisions = () => collection<MatchDecisionDoc>("matchDecisions");
 export const appointmentRequests = () =>

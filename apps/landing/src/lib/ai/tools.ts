@@ -8,6 +8,7 @@ import { getMemberProfile } from "../profile/service";
 import { openConversation, sendMessage } from "../api/chat";
 import { listSkinScans } from "../skin/service";
 import { offeringsForAdvice } from "../selection/service";
+import { startPropertySale, listPropertySales, startPropertySearch, PROPERTY_TYPES } from "../realestate/service";
 import { COURSE, completeLesson, courseProgress, listLongevityChecks } from "../longevity/service";
 
 /**
@@ -111,6 +112,56 @@ export const ASSISTANT_TOOLS: Anthropic.Tool[] = [
       },
       additionalProperties: false,
     },
+  },
+  {
+    name: "sell_property",
+    description:
+      "TheONE REAL ESTATE: sends the member's home for sale to the two or three best TheONE brokers for its city, each in a conversation of its own, written in the broker's language. Call it once the member has said they want to sell and you know at least the type, city and country; ask for rooms, living area, plot, price idea and timing in one natural question, but never insist. Read the details back in one sentence and get their yes before you call it.",
+    input_schema: {
+      type: "object",
+      properties: {
+        propertyType: { type: "string", enum: [...PROPERTY_TYPES] },
+        city: { type: "string" },
+        country: { type: "string", description: "In English, e.g. Switzerland, Spain, United Arab Emirates." },
+        rooms: { type: "number" },
+        livingArea: { type: "number", description: "Square metres." },
+        plotArea: { type: "number", description: "Square metres." },
+        priceIdea: { type: "number", description: "Whole currency units, e.g. 4500000." },
+        currency: { type: "string", description: "ISO code, e.g. CHF, EUR, GBP, AED." },
+        description: { type: "string", description: "What makes the home special, in the member's words, translated to English." },
+        timing: { type: "string", enum: ["now", "months", "exploring"] },
+        offMarket: { type: "boolean", description: "True when the member wants a discreet sale." },
+      },
+      required: ["propertyType", "city", "country"],
+      additionalProperties: false,
+    },
+  },
+  {
+    name: "find_property",
+    description:
+      "TheONE REAL ESTATE, buying: sends what the member is looking for to the two or three best TheONE brokers for that place, who answer in the member's Messages with matching properties from their portfolio, off market ones too. Call it when the member wants a home and the estates shown by search_selection do not already fit, once you know at least the place and country; ask in one natural question for type, rooms, size, budget and what matters most, never insist. Read it back in one sentence and get their yes first.",
+    input_schema: {
+      type: "object",
+      properties: {
+        propertyTypes: { type: "array", items: { type: "string", enum: [...PROPERTY_TYPES] } },
+        city: { type: "string", description: "City or area, e.g. Küsnacht, Mayfair, Palm Jumeirah." },
+        country: { type: "string", description: "In English, e.g. Switzerland, United Kingdom." },
+        minRooms: { type: "number" },
+        minLivingArea: { type: "number", description: "Square metres." },
+        budget: { type: "number", description: "Upper limit in whole currency units." },
+        currency: { type: "string", description: "ISO code, e.g. CHF, EUR, GBP, AED." },
+        description: { type: "string", description: "What matters to the member, in their words, translated to English." },
+        timing: { type: "string", enum: ["now", "months", "exploring"] },
+      },
+      required: ["city", "country"],
+      additionalProperties: false,
+    },
+  },
+  {
+    name: "get_property_sales",
+    description:
+      "The member's homes for sale through TheONE REAL ESTATE and which brokers each went to. Call it when they ask how their sale is going or mention selling again.",
+    input_schema: { type: "object", properties: {}, additionalProperties: false },
   },
   {
     name: "complete_course_lesson",
@@ -285,6 +336,54 @@ export async function runAssistantTool(
             })),
           ),
         };
+      }
+
+      case "sell_property": {
+        const result = await startPropertySale({
+          accountId: account.id,
+          displayName: account.displayName,
+          property: input as never,
+        });
+        if (!result.ok) {
+          const why = {
+            invalid: "Missing or unclear type, city or country. Ask the member for it.",
+            limit: "Five sales a day is the limit; it can be sent again tomorrow.",
+            no_brokers: "TheONE has no broker for this place yet. Tell the member plainly and offer to look again soon.",
+          }[result.reason];
+          return { content: why, isError: result.reason === "invalid" };
+        }
+        return {
+          content: `Sent. Brokers reached, each with its own chat in the member's Messages: ${result.sale.brokers
+            .map((b) => `${b.name} (${b.city})`)
+            .join(", ")}. Tell the member who they are and that they will reply there.`,
+        };
+      }
+
+      case "find_property": {
+        const result = await startPropertySearch({
+          accountId: account.id,
+          displayName: account.displayName,
+          wish: input as never,
+        });
+        if (!result.ok) {
+          const why = {
+            invalid: "Missing place or country. Ask the member for it.",
+            limit: "Five searches a day is the limit; it can be sent again tomorrow.",
+            no_brokers: "TheONE has no broker for this place yet. Tell the member plainly and offer to look again soon.",
+          }[result.reason];
+          return { content: why, isError: result.reason === "invalid" };
+        }
+        return {
+          content: `Sent. Brokers reached, each with its own chat in the member's Messages: ${result.search.brokers
+            .map((b) => `${b.name} (${b.city})`)
+            .join(", ")}. Tell the member they will send matching properties from their portfolio there.`,
+        };
+      }
+
+      case "get_property_sales": {
+        const sales = await listPropertySales(account.id);
+        if (sales.length === 0) return { content: "No home for sale yet." };
+        return { content: JSON.stringify(sales.slice(0, 5)) };
       }
 
       case "complete_course_lesson": {

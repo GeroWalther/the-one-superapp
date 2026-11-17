@@ -55,7 +55,10 @@ export const AREAS: Record<string, readonly Section[]> = {
     { key: "flights", categories: [], local: false, kinds: ["flight"] },
     { key: "concierge", categories: [], focus: ["lifestyle"], local: false, kinds: ["service"] },
   ],
-  realestate: [{ key: "realestate", categories: ["realEstate"], local: true }],
+  // TheONE REAL ESTATE: the best brokers worldwide with their estates, those
+  // in the member's city first. Selling a home goes through the brokers for
+  // its own place (realestate/service.ts), not through this list.
+  realestate: [{ key: "estates", categories: ["realEstate"], local: true, kinds: ["property"], limit: 8 }],
 };
 
 const PER_SECTION = 3;
@@ -69,6 +72,8 @@ export type OfferingView = {
   currency: string;
   priceNote: string | null;
   imageUrl: string | null;
+  /** Where to buy it in the partner's own shop, when they have one. */
+  url: string | null;
   concerns: string[];
   partner: { id: string; name: string; category: string; city: string };
 };
@@ -81,6 +86,8 @@ export type SelectionPartner = {
   country: string;
   description: string;
   images: string[];
+  /** The partner's office, as they keep it in their profile. */
+  office: { street: string | null; postalCode: string | null; phone: string; email: string; website: string | null };
   offerings: OfferingView[];
 };
 
@@ -99,12 +106,13 @@ function offeringView(o: OfferingDoc, p: PartnerProfileDoc): OfferingView {
     currency: o.currency,
     priceNote: o.priceNote,
     imageUrl: o.imageUrl,
+    url: o.url ?? null,
     concerns: o.concerns,
     partner: { id: p._id.toHexString(), name: p.name, category: p.category, city: p.city },
   };
 }
 
-async function isTest(accountId: string): Promise<boolean> {
+export async function isTest(accountId: string): Promise<boolean> {
   const raw = (await (await accounts()).findOne(
     { _id: new ObjectId(accountId) },
     { projection: { isTestAccount: 1 } },
@@ -113,7 +121,7 @@ async function isTest(accountId: string): Promise<boolean> {
 }
 
 /** Seeded test partners and their offerings are shown to test accounts only. */
-function visibleTo(test: boolean) {
+export function visibleTo(test: boolean) {
   return test ? {} : { isTestAccount: { $ne: true } };
 }
 
@@ -170,6 +178,13 @@ export async function selectionFeed(accountId: string, area = "selection"): Prom
         country: p.country,
         description: p.description,
         images: p.images,
+        office: {
+          street: p.street,
+          postalCode: p.postalCode,
+          phone: p.contactPhone,
+          email: p.contactEmail,
+          website: p.website || null,
+        },
         offerings: offered(p).map((o) => offeringView(o, p)),
       })),
     };
@@ -244,7 +259,7 @@ export async function offeringsForAdvice(input: {
   });
 }
 
-const GERMAN_SPEAKING = new Set(["germany", "deutschland", "austria", "österreich", "switzerland", "schweiz", "liechtenstein"]);
+export const GERMAN_SPEAKING = new Set(["germany", "deutschland", "austria", "österreich", "switzerland", "schweiz", "liechtenstein"]);
 
 /**
  * A member asks for an offering: a conversation with the partner opens with

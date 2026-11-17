@@ -110,6 +110,25 @@ await upsertPartner("testestate", "Zurich Prime Estates", {
   targetClientele: "Members buying or selling exceptional property around Lake Zurich.",
   city: "Zurich", country: "Switzerland", street: "Bahnhofstrasse 45", postalCode: "8001", contactPhone: "+41 44 555 60 60",
 });
+// TheONE REAL ESTATE is worldwide: the best broker in each city.
+await upsertPartner("testestatelondon", "Mayfair Private Estates", {
+  category: "realEstate", focusArea: "property",
+  description: "London's discreet address for townhouses and lateral apartments in Mayfair, Belgravia and Chelsea; buying and selling, often off market.",
+  targetClientele: "Members buying or selling a London home of distinction.",
+  city: "London", country: "United Kingdom", street: "Mount Street 20", postalCode: "W1K 2HE", contactPhone: "+44 20 5555 6060",
+});
+await upsertPartner("testestatedubai", "Palm Prime Residences", {
+  category: "realEstate", focusArea: "property",
+  description: "Beachfront villas and sky penthouses on Palm Jumeirah and in Downtown Dubai, with full service from viewing to keys.",
+  targetClientele: "Members buying or selling in Dubai.",
+  city: "Dubai", country: "United Arab Emirates", street: "Palm Jumeirah, Crescent Road", postalCode: null, contactPhone: "+971 4 555 6060",
+});
+await upsertPartner("testestatemallorca", "Son Vida Estates Mallorca", {
+  category: "realEstate", focusArea: "property",
+  description: "Sea view villas and fincas in Son Vida, Andratx and the southwest of Mallorca; buying and selling with complete discretion.",
+  targetClientele: "Members buying or selling on Mallorca.",
+  city: "Palma", country: "Spain", street: "Carrer de Son Vida 1", postalCode: "07013", contactPhone: "+34 971 555 606",
+});
 
 await upsertPartner("testairline", "Alpine Air First", {
   category: "other", focusArea: "lifestyle",
@@ -166,6 +185,21 @@ const CATALOGUE = {
     ["property", "Penthouse, Zurich Seefeld", "Five and a half rooms, 210 m², terrace over the lake, two parking spaces.", 680000000, null, []],
     ["service", "Sell your property", "A discreet valuation and sale, also off market, to qualified buyers.", null, null, []],
   ],
+  testestatelondon: [
+    ["property", "Georgian Townhouse, Mayfair", "Six bedrooms over five floors, 640 m², garden, lift and mews garage.", 2450000000, null, [], "GBP"],
+    ["property", "Lateral Apartment, Belgravia", "Three bedrooms, 290 m², on one floor with a balcony over the garden square.", 895000000, null, [], "GBP"],
+    ["service", "Sell your property", "A discreet valuation and sale in London, also off market, to qualified buyers.", null, null, [], "GBP"],
+  ],
+  testestatedubai: [
+    ["property", "Beachfront Villa, Palm Jumeirah", "Six bedrooms, 1,100 m², private beach, pool and staff quarters.", 9500000000, null, [], "AED"],
+    ["property", "Sky Penthouse, Downtown Dubai", "Four bedrooms, 520 m², terrace with a pool facing the Burj Khalifa.", 4200000000, null, [], "AED"],
+    ["service", "Sell your property", "Valuation, marketing to qualified buyers and handover, all in one hand.", null, null, [], "AED"],
+  ],
+  testestatemallorca: [
+    ["property", "Sea View Villa, Son Vida", "Five bedrooms, 680 m², infinity pool and a view over the bay of Palma.", 1190000000, null, [], "EUR"],
+    ["property", "Finca, Andratx", "Restored finca with four bedrooms, 420 m², olive grove and sunset terrace.", 545000000, null, [], "EUR"],
+    ["service", "Sell your property", "A discreet valuation and sale on Mallorca, also off market.", null, null, [], "EUR"],
+  ],
   testairline: [
     ["flight", "Zurich to Dubai, First Class", "Daily evening departure, private suite with a flat bed, chauffeur at both ends.", 790000, "from", []],
     ["flight", "Zurich to New York, First Class", "Morning departure, lounge and fast track, arrival the same afternoon.", 950000, "from", []],
@@ -191,10 +225,10 @@ for (const [username, items] of Object.entries(CATALOGUE)) {
 
   await db.collection("offerings").deleteMany({ partnerProfileId: profile._id, isTestAccount: true });
   await db.collection("offerings").insertMany(
-    items.map(([kind, title, description, priceCents, priceNote, concerns], i) => ({
+    items.map(([kind, title, description, priceCents, priceNote, concerns, currency = "CHF"], i) => ({
       _id: new ObjectId(),
       partnerProfileId: profile._id,
-      kind, title, description, priceCents, currency: "CHF", priceNote,
+      kind, title, description, priceCents, currency, priceNote,
       imageUrl: null, concerns, published: true, isTestAccount: true,
       createdAt: new Date(now.getTime() + i), updatedAt: now,
     })),
