@@ -7,6 +7,11 @@ struct SelectionView: View {
     /// Which TheONE area this shows; SELECTION itself is products only.
     var area: Area = .selection
 
+    @Environment(Greeter.self) private var greeter
+    @State private var showCheck = false
+    @State private var lastCheck: LongevityCheck?
+    @State private var completedLessons: Set<String> = []
+
     @State private var feed: SelectionFeed?
     @State private var error: String?
     @State private var showAllPartners = false
@@ -16,6 +21,12 @@ struct SelectionView: View {
             ScrollView {
                 VStack(alignment: .leading, spacing: 30) {
                     header
+
+                    if area == .longevity {
+                        longevityCheckCard
+                        courseCard
+                    }
+                    if area == .health { mentalCard }
 
                     if let feed {
                         if !feed.forYou.isEmpty {
@@ -83,12 +94,163 @@ struct SelectionView: View {
             .navigationDestination(for: Offering.self) { OfferingDetailView(offering: $0) }
             .refreshable { await load() }
             .task { if feed == nil { await load() } }
+            .fullScreenCover(isPresented: $showCheck) {
+                LongevityCheckView { check in
+                    lastCheck = check
+                    showCheck = false
+                    greeter.talk(tr("I have just done my TheONE LONGEVITY CHECK. What do you recommend for me?"))
+                }
+            }
+            .task {
+                guard area == .longevity else { return }
+                struct Checks: Decodable { let checks: [LongevityCheck] }
+                if let response: Checks = try? await APIClient.shared.send("/longevity/checks") {
+                    lastCheck = response.checks.first
+                }
+            }
             .sheet(isPresented: $showAllPartners) {
                 DiscoverView()
                     // In a sheet the house would close the whole member area.
                     .environment(\.closeToHome, nil)
             }
         }
+    }
+
+    /// TheONE LONGEVITY COURSE: eight lessons POWER AI teaches in conversation.
+    private var courseCard: some View {
+        VStack(alignment: .leading, spacing: 12) {
+            Text(verbatim: "TheONE LONGEVITY COURSE")
+                .font(.system(size: 13, weight: .semibold))
+                .tracking(1.6)
+                .foregroundStyle(Theme.aqua)
+            Text(tr("Eight lessons with POWER AI, personal to you, each with one task for your week."))
+                .font(.system(size: 14))
+                .foregroundStyle(Theme.inkSoft)
+            Text(tr("%lld of 8 done", completedLessons.count))
+                .font(.system(size: 12, weight: .medium))
+                .foregroundStyle(Theme.inkFaint)
+            ForEach(Self.lessons, id: \.0) { lesson in
+                let done = completedLessons.contains(lesson.0)
+                Button {
+                    greeter.talk(tr("Teach me the lesson \"%@\" of TheONE LONGEVITY COURSE.", lesson.1))
+                } label: {
+                    HStack(spacing: 12) {
+                        Image(systemName: done ? "checkmark.circle.fill" : lesson.2)
+                            .font(.system(size: 18, weight: .light))
+                            .foregroundStyle(done ? Theme.aqua : Vortex.aqua700)
+                            .frame(width: 26)
+                        Text(lesson.1)
+                            .font(.system(size: 15))
+                            .foregroundStyle(Theme.ink)
+                        Spacer()
+                        Image(systemName: "play.circle")
+                            .foregroundStyle(Theme.aqua)
+                    }
+                    .padding(.vertical, 6)
+                }
+                .buttonStyle(.plain)
+                .accessibilityIdentifier("course.\(lesson.0)")
+            }
+        }
+        .padding(18)
+        .background(
+            RoundedRectangle(cornerRadius: 22, style: .continuous)
+                .fill(Theme.panel.opacity(0.88))
+                .overlay(RoundedRectangle(cornerRadius: 22, style: .continuous).stroke(Theme.line, lineWidth: 1))
+        )
+        .padding(.horizontal, 20)
+        .task {
+            struct Course: Decodable { let completed: [String] }
+            if let course: Course = try? await APIClient.shared.send("/longevity/course") {
+                completedLessons = Set(course.completed)
+            }
+        }
+    }
+
+    private static var lessons: [(String, String, String)] {
+        [
+            ("mindset", tr("The longevity mindset"), "sparkles"),
+            ("sleep", tr("Deep sleep"), "moon.stars"),
+            ("nutrition", tr("Eating for a long life"), "leaf"),
+            ("movement", tr("Strength and movement"), "figure.walk"),
+            ("stress", tr("Calm and resilience"), "wind"),
+            ("supplements", tr("Supplements that matter"), "pills"),
+            ("connection", tr("Connection and purpose"), "person.2"),
+            ("prevention", tr("Check-ups and prevention"), "stethoscope"),
+        ]
+    }
+
+    /// In TheONE HEALTH: a way to POWER AI when the member does not feel good.
+    private var mentalCard: some View {
+        VStack(alignment: .leading, spacing: 12) {
+            Text(tr("Not feeling good?"))
+                .font(.system(size: 20, weight: .light, design: .serif))
+                .foregroundStyle(Theme.ink)
+            Text(tr("POWER AI is here for you: someone to talk to, calm advice and the next small step."))
+                .font(.system(size: 14))
+                .foregroundStyle(Theme.inkSoft)
+            Button {
+                greeter.talk(tr("I am not feeling so good right now. Can you help me?"))
+            } label: {
+                Label(tr("Talk to POWER AI"), systemImage: "heart.circle")
+                    .font(.system(size: 16, weight: .medium))
+                    .foregroundStyle(Theme.onAccent)
+                    .frame(maxWidth: .infinity)
+                    .padding(.vertical, 14)
+                    .background(Capsule().fill(Theme.aqua))
+            }
+            .accessibilityIdentifier("health.talk")
+        }
+        .padding(18)
+        .background(
+            RoundedRectangle(cornerRadius: 22, style: .continuous)
+                .fill(Theme.panel.opacity(0.88))
+                .overlay(RoundedRectangle(cornerRadius: 22, style: .continuous).stroke(Theme.line, lineWidth: 1))
+        )
+        .padding(.horizontal, 20)
+    }
+
+    /// TheONE LONGEVITY's own check, with the latest result when there is one.
+    private var longevityCheckCard: some View {
+        VStack(spacing: 14) {
+            if let lastCheck {
+                NavigationLink {
+                    LongevityResultView(check: lastCheck, onDiscuss: nil)
+                        .background(HomeBackground())
+                } label: {
+                    HStack(spacing: 16) {
+                        ScoreRing(score: lastCheck.score, size: 64, label: "")
+                        VStack(alignment: .leading, spacing: 4) {
+                            Text(tr("Your longevity score"))
+                                .font(.system(size: 16, weight: .medium))
+                                .foregroundStyle(Theme.ink)
+                            Text(tr("See your plan"))
+                                .font(.system(size: 13))
+                                .foregroundStyle(Theme.aqua)
+                        }
+                        Spacer()
+                        Image(systemName: "chevron.right").foregroundStyle(Theme.inkFaint)
+                    }
+                }
+                .buttonStyle(.plain)
+            }
+            Button { showCheck = true } label: {
+                Label(tr("Start TheONE LONGEVITY CHECK"), systemImage: "hourglass")
+                    .font(.system(size: 16, weight: .medium))
+                    .foregroundStyle(Theme.onAccent)
+                    .frame(maxWidth: .infinity)
+                    .padding(.vertical, 15)
+                    .background(Capsule().fill(Theme.aqua))
+            }
+            .accessibilityIdentifier("longevity.open")
+        }
+        .padding(18)
+        .background(
+            RoundedRectangle(cornerRadius: 22, style: .continuous)
+                .fill(Theme.panel.opacity(0.88))
+                .overlay(RoundedRectangle(cornerRadius: 22, style: .continuous).stroke(Theme.line, lineWidth: 1))
+        )
+        .padding(.horizontal, 20)
     }
 
     private var header: some View {

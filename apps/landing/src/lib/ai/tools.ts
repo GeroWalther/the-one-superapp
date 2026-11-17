@@ -8,6 +8,7 @@ import { getMemberProfile } from "../profile/service";
 import { openConversation, sendMessage } from "../api/chat";
 import { listSkinScans } from "../skin/service";
 import { offeringsForAdvice } from "../selection/service";
+import { COURSE, completeLesson, courseProgress, listLongevityChecks } from "../longevity/service";
 
 /**
  * The assistant's tools.
@@ -110,6 +111,28 @@ export const ASSISTANT_TOOLS: Anthropic.Tool[] = [
       },
       additionalProperties: false,
     },
+  },
+  {
+    name: "complete_course_lesson",
+    description:
+      "Marks one TheONE LONGEVITY COURSE lesson as done for the member, after you have taught it and given its task. Lessons: mindset, sleep, nutrition, movement, stress, supplements, connection, prevention.",
+    input_schema: {
+      type: "object",
+      properties: {
+        lesson: {
+          type: "string",
+          enum: ["mindset", "sleep", "nutrition", "movement", "stress", "supplements", "connection", "prevention"],
+        },
+      },
+      required: ["lesson"],
+      additionalProperties: false,
+    },
+  },
+  {
+    name: "get_longevity_check",
+    description:
+      "The member's latest TheONE LONGEVITY CHECK results: longevity score and six pillars (sleep, stress, movement, nutrition, connection, prevention) 0 to 100 where higher is better, focus, a four week plan, and the exact clinic programmes and products picked for them. Call this whenever the member talks about energy, sleep, stress, ageing, health or living longer, or has just done the check.",
+    input_schema: { type: "object", properties: {}, additionalProperties: false },
   },
   {
     name: "get_skin_analysis",
@@ -262,6 +285,24 @@ export async function runAssistantTool(
             })),
           ),
         };
+      }
+
+      case "complete_course_lesson": {
+        const done = await completeLesson(account.id, String(input.lesson ?? ""));
+        if (!done) return { content: "Unknown lesson.", isError: true };
+        return { content: `Recorded. Lessons done: ${done.join(", ")} (of 8).` };
+      }
+
+      case "get_longevity_check": {
+        const checks = await listLongevityChecks(account.id, 3);
+        const course = { lessons: COURSE, completed: await courseProgress(account.id) };
+        if (checks.length === 0) {
+          return {
+            content:
+              "No TheONE LONGEVITY CHECK yet. Offer one: the member finds it in TheONE LONGEVITY on the start screen, thirteen quick questions.",
+          };
+        }
+        return { content: JSON.stringify({ checks, course }) };
       }
 
       case "get_skin_analysis": {

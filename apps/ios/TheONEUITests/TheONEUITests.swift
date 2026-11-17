@@ -13,7 +13,7 @@ final class TheONEUITests: XCTestCase {
         app = XCUIApplication()
         // The app follows the phone's language. MATCH is checked as a German
         // phone, the Japanese walkthrough as a Japanese one, the rest as is.
-        if name.contains("testMatchFlow") || name.contains("testSkinAnalysis") || name.contains("testSelection") || name.contains("testHomeFunctions") {
+        if name.contains("testMatchFlow") || name.contains("testSkinAnalysis") || name.contains("testSelection") || name.contains("testHomeFunctions") || name.contains("testLongevityCheck") {
             app.launchArguments += ["-AppleLanguages", "(de)", "-AppleLocale", "de_DE"]
         } else if name.contains("testJapaneseMember") {
             app.launchArguments += ["-AppleLanguages", "(ja)", "-AppleLocale", "ja_JP"]
@@ -582,5 +582,59 @@ final class TheONEUITests: XCTestCase {
             app.buttons["home.button"].firstMatch.tap()
             sleep(2)
         }
+    }
+
+    /// TheONE LONGEVITY CHECK from the start screen: thirteen answers, the
+    /// reading, and the talk with POWER AI about it.
+    func testLongevityCheck() throws {
+        assertOnLoginScreen()
+        type("testmember", into: app.textFields.firstMatch)
+        type("TestPassword2026!", into: app.secureTextFields.firstMatch)
+        app.buttons["login.submit"].tap()
+        dismissSystemPrompts()
+        XCTAssertTrue(app.tabBars.firstMatch.waitForExistence(timeout: 25))
+        dismissSystemPrompts()
+        goHome(leaving: app.tabBars.firstMatch)
+
+        sleep(2)
+        app.swipeUp()
+        let entry = app.buttons["home.fn.TheONE LONGEVITY"]
+        XCTAssertTrue(entry.waitForExistence(timeout: 10))
+        entry.tap()
+        let open = app.buttons["longevity.open"]
+        XCTAssertTrue(open.waitForExistence(timeout: 15))
+        capture("l1-area")
+        open.tap()
+        let start = app.buttons["longevity.start"]
+        XCTAssertTrue(start.waitForExistence(timeout: 10))
+        capture("l2-intro")
+        start.tap()
+
+        let answers = [
+            ("age", "45to54"), ("sleepHours", "6to7"), ("rested", "sometimes"), ("stress", "high"),
+            ("activeDays", "2to3"), ("strength", "no"), ("food", "mixed"), ("alcohol", "4to7"),
+            ("smoking", "never"), ("connection", "some"), ("checkup", "longer"), ("energy", "moderate"),
+            ("goal", "energy"),
+        ]
+        for (index, answer) in answers.enumerated() {
+            let option = app.buttons["longevity.\(answer.0).\(answer.1)"]
+            XCTAssertTrue(option.waitForExistence(timeout: 10), "no option for \(answer.0)")
+            if index == 1 { capture("l3-question") }
+            option.tap()
+        }
+        let submit = app.buttons["longevity.submit"]
+        XCTAssertTrue(submit.waitForExistence(timeout: 10))
+        submit.tap()
+
+        let discuss = app.buttons["longevity.discuss"]
+        XCTAssertTrue(discuss.waitForExistence(timeout: 90), "no result after the check")
+        capture("l4-result")
+        for step in 5...8 {
+            app.swipeUp()
+            capture("l\(step)-result-lower")
+        }
+        discuss.tap()
+        sleep(45)
+        capture("l9-assistant")
     }
 }

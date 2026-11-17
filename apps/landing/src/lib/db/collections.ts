@@ -379,6 +379,35 @@ export type SkinScanDoc = {
   createdAt: Date;
 };
 
+/**
+ * One TheONE LONGEVITY CHECK: the member's answers and POWER AI's reading.
+ * Lifestyle and prevention, never a diagnosis.
+ */
+export type LongevityCheckDoc = {
+  _id: ObjectId;
+  accountId: ObjectId;
+  language: string;
+  answers: Record<string, string>;
+  note: string;
+  score: number;
+  pillars: { key: string; score: number; note: string }[];
+  summary: string;
+  focus: string[];
+  plan: { week: number; steps: string[] }[];
+  offerings: { offeringId: ObjectId; reason: string }[];
+  seeDoctor: boolean;
+  doctorNote: string;
+  createdAt: Date;
+};
+
+/** How far a member is in TheONE LONGEVITY COURSE: lesson keys done. */
+export type LongevityCourseDoc = {
+  _id: ObjectId;
+  accountId: ObjectId;
+  completed: string[];
+  updatedAt: Date;
+};
+
 /** One member's yes or no to one suggestion. A yes both ways is a match. */
 export type MatchDecisionDoc = {
   _id: ObjectId;
@@ -543,6 +572,10 @@ async function ensureIndexes(): Promise<void> {
 
     db.collection<SkinScanDoc>("skinScans").createIndex({ accountId: 1, createdAt: -1 }),
 
+    db.collection<LongevityCheckDoc>("longevityChecks").createIndex({ accountId: 1, createdAt: -1 }),
+
+    db.collection<LongevityCourseDoc>("longevityCourse").createIndex({ accountId: 1 }, { unique: true }),
+
     db.collection<OfferingDoc>("offerings").createIndexes([
       { key: { partnerProfileId: 1, published: 1 } },
       { key: { published: 1, concerns: 1 } },
@@ -582,6 +615,8 @@ export const messages = () => collection<MessageDoc>("messages");
 export const aiThreads = () => collection<AiThreadDoc>("aiThreads");
 export const skinScans = () => collection<SkinScanDoc>("skinScans");
 export const offerings = () => collection<OfferingDoc>("offerings");
+export const longevityChecks = () => collection<LongevityCheckDoc>("longevityChecks");
+export const longevityCourse = () => collection<LongevityCourseDoc>("longevityCourse");
 export const matchProfiles = () => collection<MatchProfileDoc>("matchProfiles");
 export const matchDecisions = () => collection<MatchDecisionDoc>("matchDecisions");
 export const appointmentRequests = () =>

@@ -173,15 +173,15 @@ struct AssistantView: View {
             if speech.isListening { model.draft = new }
         }
         .task {
-            if greeter.pendingSkinTalk {
-                greeter.pendingSkinTalk = false
-                discussSkin()
+            if let message = greeter.pendingTalk {
+                greeter.pendingTalk = nil
+                discuss(message)
             }
         }
         .fullScreenCover(isPresented: $showSkin) {
             SkinScanView { _ in
                 showSkin = false
-                discussSkin()
+                discuss(tr("I have just done my TheONE SKIN SCAN. What do you recommend for me?"))
             }
         }
         .sheet(isPresented: $showSkinHistory) {
@@ -197,12 +197,12 @@ struct AssistantView: View {
 
     /// Back in the conversation after a scan: the member's own words open the
     /// talk, and the assistant reads the results with its skin tool.
-    private func discussSkin() {
+    private func discuss(_ message: String) {
         Task {
             try? await Task.sleep(for: .milliseconds(500))
             speech.stopListening()
             greeter.stop()
-            model.draft = tr("I have just done my TheONE SKIN SCAN. What do you recommend for me?")
+            model.draft = message
             await model.send(speech: speech, opening: greeter.text)
         }
     }

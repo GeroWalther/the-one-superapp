@@ -97,12 +97,7 @@ struct HomeView: View {
             .fullScreenCover(isPresented: $skinCover) {
                 SkinScanView { _ in
                     // Talk it through in the assistant, as from inside it.
-                    skinCover = false
-                    greeter.pendingSkinTalk = true
-                    Task {
-                        try? await Task.sleep(for: .milliseconds(450))
-                        destination = .assistant
-                    }
+                    greeter.talk(tr("I have just done my TheONE SKIN SCAN. What do you recommend for me?"))
                 }
             }
             .scrollBounceBehavior(.basedOnSize)
@@ -133,6 +128,16 @@ struct HomeView: View {
         .fullScreenCover(item: $destination) { tab in
             MainTabs(initialTab: tab)
                 .environment(\.closeToHome) { destination = nil }
+        }
+        // A result to talk through: close whatever is open over the start
+        // screen and bring up the assistant, which sends the member's words.
+        .onChange(of: greeter.wantsAssistant) { _, _ in
+            areaCover = nil
+            skinCover = false
+            Task {
+                try? await Task.sleep(for: .milliseconds(450))
+                destination = .assistant
+            }
         }
         .onChange(of: session.state) { _, _ in
             guard let target = waiting else { return }
