@@ -125,11 +125,7 @@ struct SelectionView: View {
 
     private func sectionBanner(_ section: SelectionSection) -> some View {
         ZStack(alignment: .bottomLeading) {
-            AsyncImage(url: Site.url(section.imagePath)) { image in
-                image.resizable().scaledToFill()
-            } placeholder: {
-                Theme.aquaTint
-            }
+            AreaPicture(path: section.imagePath, symbol: SelectionSection.symbol(for: section.key))
             .frame(height: 120)
             .frame(maxWidth: .infinity)
             .clipped()
@@ -243,12 +239,40 @@ struct OfferingImage: View {
     let offering: Offering
 
     var body: some View {
-        let url = offering.imageUrl.flatMap(URL.init(string:))
-            ?? Site.url(SelectionSection.image(for: SelectionSection.key(for: offering)))
-        AsyncImage(url: url) { image in
-            image.resizable().scaledToFill()
-        } placeholder: {
-            Theme.aquaTint
+        let key = SelectionSection.key(for: offering)
+        if let url = offering.imageUrl.flatMap(URL.init(string:)) {
+            AsyncImage(url: url) { image in
+                image.resizable().scaledToFill()
+            } placeholder: {
+                Theme.aquaTint
+            }
+        } else {
+            AreaPicture(path: SelectionSection.image(for: key), symbol: SelectionSection.symbol(for: key))
+        }
+    }
+}
+
+/// The area's website picture, or a petrol surface with a symbol.
+struct AreaPicture: View {
+    let path: String?
+    let symbol: String?
+
+    var body: some View {
+        if let path {
+            AsyncImage(url: Site.url(path)) { image in
+                image.resizable().scaledToFill()
+            } placeholder: {
+                Theme.aquaTint
+            }
+        } else {
+            ZStack {
+                LinearGradient(colors: [Vortex.aqua700, Vortex.abyss], startPoint: .topLeading, endPoint: .bottomTrailing)
+                if let symbol {
+                    Image(systemName: symbol)
+                        .font(.system(size: 34, weight: .ultraLight))
+                        .foregroundStyle(.white.opacity(0.85))
+                }
+            }
         }
     }
 }

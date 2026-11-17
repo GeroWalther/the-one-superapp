@@ -88,13 +88,24 @@ struct SelectionSection: Codable, Sendable, Hashable, Identifiable {
     }
 
     /// The website's picture for the area, shown until partners add their own.
-    var imagePath: String { SelectionSection.image(for: key) }
+    var imagePath: String? { SelectionSection.image(for: key) }
 
-    static func image(for key: String) -> String {
+    /// No borrowed picture where none fits (flights, concierge): those show a
+    /// plain petrol surface with a symbol until the partner adds a photo.
+    static func symbol(for key: String) -> String? {
         switch key {
+        case "flights": "airplane"
+        case "concierge": "person.crop.circle.badge.checkmark"
+        default: nil
+        }
+    }
+
+    static func image(for key: String) -> String? {
+        if symbol(for: key) != nil { return nil }
+        return switch key {
         case "skincare", "aesthetics", "products": "images/verticals/beauty-wellness.webp"
         case "longevity", "medicine", "prevention", "wellnessClinics": "images/verticals/health-longevity-v3.webp"
-        case "hotels", "travel", "stays", "flights", "concierge": "images/verticals/luxury-hotels-v2.webp"
+        case "hotels", "travel", "stays": "images/verticals/luxury-hotels-v2.webp"
         case "realestate", "property": "images/verticals/real-estate-v2.webp"
         case "insurance": "images/verticals/business-wealth.webp"
         default: "images/verticals/lifestyle.webp"

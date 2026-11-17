@@ -28,6 +28,8 @@ type Section = {
   local: boolean;
   /** Only these kinds of offering are shown in this area. */
   kinds?: readonly OfferingDoc["kind"][];
+  /** How many partners at most; three unless the area is exclusive. */
+  limit?: number;
 };
 
 /**
@@ -47,6 +49,7 @@ export const AREAS: Record<string, readonly Section[]> = {
   hotels: [{ key: "hotels", categories: ["hotel", "resort"], local: false, kinds: ["stay"] }],
   // TheONE TRAVEL is flights only, from whichever partner offers them.
   travel: [
+    // Up to three partner airlines, like every other area.
     { key: "flights", categories: [], local: false, kinds: ["flight"] },
     { key: "concierge", categories: [], focus: ["lifestyle"], local: false, kinds: ["service"] },
   ],
@@ -157,7 +160,7 @@ export async function selectionFeed(accountId: string, area = "selection"): Prom
     });
     return {
       key: section.key,
-      partners: ranked.slice(0, PER_SECTION).map((p) => ({
+      partners: ranked.slice(0, section.limit ?? PER_SECTION).map((p) => ({
         id: p._id.toHexString(),
         name: p.name,
         category: p.category,
