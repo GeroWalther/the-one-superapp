@@ -118,6 +118,13 @@ await upsertPartner("testairline", "Alpine Air First", {
   city: "Zurich", country: "Switzerland", street: "Flughafenstrasse 1", postalCode: "8058", contactPhone: "+41 44 555 70 70",
 });
 
+await upsertPartner("testsanatorium", "Seeblick Medical Sanatorium", {
+  category: "resort", focusArea: "health",
+  description: "A five star medical sanatorium on Lake Lucerne: physicians, therapists and a grand hotel under one roof, for recovery with every comfort.",
+  targetClientele: "Members who want to recover fully, with medical care in the calm of a grand hotel.",
+  city: "Weggis", country: "Switzerland", street: "Seestrasse 50", postalCode: "6353", contactPhone: "+41 41 555 80 80",
+});
+
 const CATALOGUE = {
   testskincare: [
     ["product", "Vitamin C Radiance Serum, 30 ml", "15 % stabilised vitamin C with ferulic acid: brighter, more even skin and visible glow in four weeks.", 14500, null, ["radiance", "pigmentation", "evenness"]],
@@ -164,6 +171,11 @@ const CATALOGUE = {
     ["flight", "Zurich to New York, First Class", "Morning departure, lounge and fast track, arrival the same afternoon.", 950000, "from", []],
     ["flight", "Private Jet, Zurich to Nice", "Light jet for up to six guests, departure at the time you choose.", 1800000, "from", []],
     ["service", "Private Travel Concierge", "One person for your whole journey: flights, transfers, hotels, tables and tickets, arranged and changed at any hour.", null, null, []],
+  ],
+  testsanatorium: [
+    ["program", "Full Recovery Programme", "Seven nights: medical check, personal therapy plan, physiotherapy, nutrition and spa, until you feel yourself again.", 980000, "from", []],
+    ["program", "Burnout Recovery", "Fourteen nights with physician, psychologist and sleep therapy in the calm of the lake.", 1650000, "from", []],
+    ["program", "Detox and Reset", "Five nights of guided detox, movement and rest, with daily medical care.", 590000, "from", []],
   ],
   testhotel: [
     ["stay", "Lake View Suite", "A suite over Lake Zurich with private spa access and breakfast on the terrace.", 95000, "per_night", []],

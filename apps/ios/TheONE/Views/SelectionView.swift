@@ -180,24 +180,35 @@ struct SelectionView: View {
         ]
     }
 
-    /// In TheONE HEALTH: a way to POWER AI when the member does not feel good.
+    /// In TheONE HEALTH: POWER AI as a good friend, for the body and the mind.
     private var mentalCard: some View {
         VStack(alignment: .leading, spacing: 12) {
-            Text(tr("Not feeling good?"))
+            Text(tr("How are you feeling?"))
                 .font(.system(size: 20, weight: .light, design: .serif))
                 .foregroundStyle(Theme.ink)
-            Text(tr("POWER AI is here for you: someone to talk to, calm advice and the next small step."))
+            Text(tr("Like a good friend, POWER AI listens to you, then connects you with a trusted doctor, a wellness clinic or a five star sanatorium, and stays at your side until you feel well again."))
                 .font(.system(size: 14))
                 .foregroundStyle(Theme.inkSoft)
             Button {
-                greeter.talk(tr("I am not feeling so good right now. Can you help me?"))
+                greeter.talk(tr("I would like to talk about my health."))
             } label: {
-                Label(tr("Talk to POWER AI"), systemImage: "heart.circle")
+                Label(tr("Talk about my health"), systemImage: "heart.text.square")
                     .font(.system(size: 16, weight: .medium))
                     .foregroundStyle(Theme.onAccent)
                     .frame(maxWidth: .infinity)
                     .padding(.vertical, 14)
                     .background(Capsule().fill(Theme.aqua))
+            }
+            .accessibilityIdentifier("health.body")
+            Button {
+                greeter.talk(tr("I am not feeling so good right now. Can you help me?"))
+            } label: {
+                Label(tr("I don't feel good mentally"), systemImage: "heart.circle")
+                    .font(.system(size: 16, weight: .medium))
+                    .foregroundStyle(Theme.aqua)
+                    .frame(maxWidth: .infinity)
+                    .padding(.vertical, 14)
+                    .background(Capsule().stroke(Theme.aqua, lineWidth: 1.2))
             }
             .accessibilityIdentifier("health.talk")
         }

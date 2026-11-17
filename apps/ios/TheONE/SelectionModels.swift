@@ -75,7 +75,8 @@ struct SelectionSection: Codable, Sendable, Hashable, Identifiable {
         case "products": tr("Nutrition and wellbeing")
         case "aesthetics": tr("Aesthetic doctors")
         case "longevity": tr("Longevity clinics")
-        case "prevention": tr("Prevention")
+        case "prevention": tr("Trusted doctors")
+        case "sanatoriums": tr("Five star sanatoriums")
         case "wellnessClinics": tr("Health and wellness clinics")
         case "hotels", "travel", "stays": tr("Hotels and resorts")
         case "flights": tr("Flights")
@@ -105,7 +106,7 @@ struct SelectionSection: Codable, Sendable, Hashable, Identifiable {
         return switch key {
         case "skincare", "aesthetics", "products": "images/verticals/beauty-wellness.webp"
         case "longevity", "medicine", "prevention", "wellnessClinics": "images/verticals/health-longevity-v3.webp"
-        case "hotels", "travel", "stays": "images/verticals/luxury-hotels-v2.webp"
+        case "hotels", "travel", "stays", "sanatoriums": "images/verticals/luxury-hotels-v2.webp"
         case "realestate", "property": "images/verticals/real-estate-v2.webp"
         case "insurance": "images/verticals/business-wealth.webp"
         default: "images/verticals/lifestyle.webp"

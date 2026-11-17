@@ -6550,6 +6550,65 @@
         }
       }
     },
+    "Five star sanatoriums": {
+      "extractionState": "manual",
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sanatorien mit 5 Sternen"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sanatoriums cinq étoiles"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sanatori a cinque stelle"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "مصحات خمس نجوم"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "五星级疗养院"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sanatorios de cinco estrellas"
+          }
+        },
+        "hr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sanatoriji s pet zvjezdica"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Санатории пять звёзд"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Beş yıldızlı sanatoryumlar"
+          }
+        }
+      }
+    },
     "Flights": {
       "extractionState": "manual",
       "localizations": {
@@ -8025,6 +8084,65 @@
         }
       }
     },
+    "How are you feeling?": {
+      "extractionState": "manual",
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wie geht es dir?"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Comment te sens-tu ?"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Come ti senti?"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "كيف تشعر؟"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "你感觉怎么样？"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "¿Cómo te sientes?"
+          }
+        },
+        "hr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kako se osjećaš?"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Как ты себя чувствуешь?"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nasıl hissediyorsun?"
+          }
+        }
+      }
+    },
     "How connected do you feel to the people close to you?": {
       "extractionState": "manual",
       "localizations": {
@@ -8851,6 +8969,65 @@
         }
       }
     },
+    "I don't feel good mentally": {
+      "extractionState": "manual",
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mir geht es mental nicht gut"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Je ne vais pas bien moralement"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Non sto bene mentalmente"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "لا أشعر أنني بخير نفسيًا"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "我心情不太好"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No me siento bien mentalmente"
+          }
+        },
+        "hr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Psihički mi nije dobro"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Мне плохо душевно"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ruhen iyi hissetmiyorum"
+          }
+        }
+      }
+    },
     "I have just done my TheONE LONGEVITY CHECK. What do you recommend for me?": {
       "extractionState": "manual",
       "localizations": {
@@ -9201,6 +9378,65 @@
           "stringUnit": {
             "state": "translated",
             "value": "Tanışmak isterim"
+          }
+        }
+      }
+    },
+    "I would like to talk about my health.": {
+      "extractionState": "manual",
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ich möchte über meine Gesundheit sprechen."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "J'aimerais parler de ma santé."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vorrei parlare della mia salute."
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "أود التحدث عن صحتي."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "我想聊聊我的健康。"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Me gustaría hablar de mi salud."
+          }
+        },
+        "hr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Želim razgovarati o svom zdravlju."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Я хочу поговорить о своём здоровье."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sağlığım hakkında konuşmak istiyorum."
           }
         }
       }
@@ -9673,6 +9909,65 @@
           "stringUnit": {
             "state": "translated",
             "value": "Yaşam tarzı ve önleme odaklıdır, tıbbi teşhis değildir."
+          }
+        }
+      }
+    },
+    "Like a good friend, POWER AI listens to you, then connects you with a trusted doctor, a wellness clinic or a five star sanatorium, and stays at your side until you feel well again.": {
+      "extractionState": "manual",
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wie ein guter Freund hört dir POWER AI zu, verbindet dich mit einem Arzt deines Vertrauens, einer Wellnessklinik oder einem 5-Sterne-Sanatorium und bleibt an deiner Seite, bis es dir wieder gut geht."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Comme un bon ami, POWER AI t'écoute, te met en relation avec un médecin de confiance, une clinique de bien-être ou un sanatorium cinq étoiles, et reste à tes côtés jusqu'à ce que tu te sentes mieux."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Come un buon amico, POWER AI ti ascolta, ti mette in contatto con un medico di fiducia, una clinica del benessere o un sanatorio a cinque stelle e resta al tuo fianco finché non stai di nuovo bene."
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "مثل صديق جيد، يستمع إليك POWER AI، ثم يربطك بطبيب موثوق أو عيادة عافية أو مصحة بخمس نجوم، ويبقى إلى جانبك حتى تشعر بالتحسن من جديد."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "像一位好朋友一样，POWER AI 倾听你的心声，再为你联系值得信赖的医生、养生诊所或五星级疗养院，并一直陪伴你，直到你重新感觉良好。"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Como un buen amigo, POWER AI te escucha, te conecta con un médico de confianza, una clínica de bienestar o un sanatorio de cinco estrellas y está a tu lado hasta que vuelvas a sentirte bien."
+          }
+        },
+        "hr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kao dobar prijatelj, POWER AI te sluša, povezuje te s liječnikom od povjerenja, wellness klinikom ili sanatorijem s pet zvjezdica i ostaje uz tebe dok se opet ne osjećaš dobro."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Как хороший друг, POWER AI выслушает тебя, свяжет с врачом, которому можно доверять, велнес клиникой или санаторием пять звёзд и будет рядом, пока тебе снова не станет хорошо."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "İyi bir dost gibi POWER AI seni dinler, seni güvenilir bir doktor, bir wellness kliniği ya da beş yıldızlı bir sanatoryumla buluşturur ve kendini yeniden iyi hissedene kadar yanında kalır."
           }
         }
       }
@@ -12214,65 +12509,6 @@
         }
       }
     },
-    "Not feeling good?": {
-      "extractionState": "manual",
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Fühlst du dich nicht gut?"
-          }
-        },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Tu ne te sens pas bien ?"
-          }
-        },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Non ti senti bene?"
-          }
-        },
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "لا تشعر بأنك بخير؟"
-          }
-        },
-        "zh-Hans": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "感觉不太好？"
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "¿No te sientes bien?"
-          }
-        },
-        "hr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ne osjećaš se dobro?"
-          }
-        },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Тебе нехорошо?"
-          }
-        },
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Kendini iyi hissetmiyor musun?"
-          }
-        }
-      }
-    },
     "Not now": {
       "extractionState": "manual",
       "localizations": {
@@ -13390,65 +13626,6 @@
           "stringUnit": {
             "state": "translated",
             "value": "HOBİLER"
-          }
-        }
-      }
-    },
-    "POWER AI is here for you: someone to talk to, calm advice and the next small step.": {
-      "extractionState": "manual",
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "POWER AI ist für dich da: jemand zum Reden, ruhiger Rat und der nächste kleine Schritt."
-          }
-        },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "POWER AI est là pour toi : quelqu'un à qui parler, des conseils apaisants et le prochain petit pas."
-          }
-        },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "POWER AI è qui per te: qualcuno con cui parlare, consigli calmi e il prossimo piccolo passo."
-          }
-        },
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "POWER AI هنا من أجلك: من تتحدث إليه، ونصيحة هادئة، والخطوة الصغيرة التالية."
-          }
-        },
-        "zh-Hans": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "POWER AI 在这里陪你：有人倾听，平静的建议，以及下一个小步骤。"
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "POWER AI está aquí para ti: alguien con quien hablar, consejo sereno y el siguiente pequeño paso."
-          }
-        },
-        "hr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "POWER AI je tu za tebe: netko za razgovor, smiren savjet i sljedeći mali korak."
-          }
-        },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "POWER AI рядом: с кем поговорить, спокойный совет и следующий маленький шаг."
-          }
-        },
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "POWER AI senin için burada: konuşacak biri, sakin bir öneri ve sıradaki küçük adım."
           }
         }
       }
@@ -17819,6 +17996,65 @@
         }
       }
     },
+    "Talk about my health": {
+      "extractionState": "manual",
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Über meine Gesundheit sprechen"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Parler de ma santé"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Parlare della mia salute"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "التحدث عن صحتي"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "聊聊我的健康"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hablar de mi salud"
+          }
+        },
+        "hr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Razgovaraj o mom zdravlju"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Поговорить о здоровье"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sağlığım hakkında konuş"
+          }
+        }
+      }
+    },
     "Talk it through with POWER AI": {
       "extractionState": "manual",
       "localizations": {
@@ -17868,65 +18104,6 @@
           "stringUnit": {
             "state": "translated",
             "value": "Обсудить с POWER AI"
-          }
-        },
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "POWER AI ile konuş"
-          }
-        }
-      }
-    },
-    "Talk to POWER AI": {
-      "extractionState": "manual",
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Mit POWER AI sprechen"
-          }
-        },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Parler à POWER AI"
-          }
-        },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Parla con POWER AI"
-          }
-        },
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "تحدّث مع POWER AI"
-          }
-        },
-        "zh-Hans": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "和 POWER AI 聊聊"
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Hablar con POWER AI"
-          }
-        },
-        "hr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Razgovaraj s POWER AI"
-          }
-        },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Поговорить с POWER AI"
           }
         },
         "tr": {
@@ -18936,6 +19113,65 @@
           "stringUnit": {
             "state": "translated",
             "value": "Seyahat"
+          }
+        }
+      }
+    },
+    "Trusted doctors": {
+      "extractionState": "manual",
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vertrauensärzte"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Médecins de confiance"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Medici di fiducia"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "أطباء موثوقون"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "值得信赖的医生"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Médicos de confianza"
+          }
+        },
+        "hr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Liječnici od povjerenja"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Врачи, которым доверяют"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Güvenilir doktorlar"
           }
         }
       }

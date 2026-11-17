@@ -570,7 +570,7 @@ final class TheONEUITests: XCTestCase {
         sleep(1)
         capture("h1-home-functions")
 
-        for (index, name) in ["TheONE TRAVEL", "TheONE HOTEL & RESORTS"].enumerated() {
+        for (index, name) in ["TheONE HEALTH"].enumerated() {
             let entry = app.buttons["home.fn.\(name)"]
             XCTAssertTrue(entry.waitForExistence(timeout: 10), "\(name) missing on the start screen")
             entry.tap()

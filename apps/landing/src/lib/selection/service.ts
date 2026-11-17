@@ -45,6 +45,8 @@ export const AREAS: Record<string, readonly Section[]> = {
   health: [
     { key: "prevention", categories: ["practice"], focus: ["health"], local: true },
     { key: "wellnessClinics", categories: ["wellness"], local: true },
+    // Medical sanatoriums in five star houses: worth the journey.
+    { key: "sanatoriums", categories: ["resort", "hotel"], focus: ["health"], local: false, kinds: ["program", "stay"] },
   ],
   hotels: [{ key: "hotels", categories: ["hotel", "resort"], local: false, kinds: ["stay"] }],
   // TheONE TRAVEL is flights only, from whichever partner offers them.
