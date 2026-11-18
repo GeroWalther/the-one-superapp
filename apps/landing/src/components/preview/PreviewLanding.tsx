@@ -186,11 +186,13 @@ export function PreviewLanding() {
             /* max-w-3xl, not 6xl: the hero sets this claim inside a max-w-3xl
                column, so an unconstrained line here would run to 1152px and
                set the identical words at a completely different measure. */
+            /* From iPad up it is held to one line, as the owner wants: it grows
+               with the screen to 32px, tighter tracked until there is room. */
             /* On a phone it is set for reading, not held to one line: squeezed
                onto one it came out around 17px, too small to read comfortably,
                so it takes two balanced lines at 22px instead. Above sm it
                returns to the tracked, centred setting. */
-            className="mx-auto mt-4 max-w-3xl text-balance text-center font-display text-[22px] font-bold leading-[1.3] tracking-[0.04em] text-[#0a2f34] sm:mx-auto sm:mt-6 sm:text-[24px] sm:tracking-[0.08em] lg:text-[28px]"
+            className="mx-auto mt-4 max-w-3xl text-balance text-center font-display text-[22px] font-bold leading-[1.3] tracking-[0.04em] text-[#0a2f34] sm:mx-auto sm:mt-6 sm:whitespace-nowrap sm:text-[clamp(24px,3.9vw,32px)] sm:tracking-[0.04em] lg:text-[32px] lg:tracking-[0.08em]"
           >
             {tHero("titleLine1")}{" "}
             {/* Inline, not a block: the two halves are one sentence, and forcing
@@ -201,6 +203,19 @@ export function PreviewLanding() {
                 size. No gradient — it thinned the phrase mid-word. */}
             <span className="text-[#8a6420]">{tHero("titleAccent")}</span>
           </h1>
+
+          {/* Under the claim: the promise, TheONE CHANGES EVERYTHING, at weight
+              700 on every screen (the owner's choice). English
+              in every language, in the claim's face. On iPad and desktop it is
+              set as large as the claim itself so it reads at a glance; the
+              phone keeps it a step smaller so it stays on one line. */}
+          <p
+            data-reveal
+            data-reveal-delay="180"
+            className="mx-auto mt-3 max-w-3xl text-balance text-center font-display text-[19px] font-bold leading-[1.3] tracking-[0.06em] text-[#0a2f34] sm:mt-5 sm:text-[clamp(26px,4.6vw,36px)] sm:tracking-[0.08em]"
+          >
+            {tHero("slogan")}
+          </p>
 
 
           {/* A hairline closing the masthead before the axis changes to the
@@ -213,7 +228,10 @@ export function PreviewLanding() {
             className="mx-auto mt-10 h-px w-24 bg-gradient-to-r from-transparent via-[#8a6420]/45 to-transparent sm:mt-12"
           />
 
-          <div className="mt-12 grid items-center gap-16 sm:mt-16 sm:gap-[72px] lg:mt-20  ">
+          {/* One column that may shrink below its content's natural width: an
+              auto column grew to the widest child and pushed the cards past
+              the right edge of a phone. */}
+          <div className="mt-12 grid grid-cols-[minmax(0,1fr)] items-center gap-16 sm:mt-16 sm:gap-[72px] lg:mt-20">
             {/* Centred while the column is stacked, so the phone doesn't sit
                 under a left-ragged block on one axis and a centred masthead on
                 another; left-aligned only once the split actually exists. */}
@@ -292,7 +310,7 @@ export function PreviewLanding() {
                   href={`/business-information/TheONE-Business-Information-${locale === "de" ? "DE" : "EN"}.pdf`}
                   target="_blank"
                   rel="noopener"
-                  className="btn mt-7 bg-gradient-to-br from-[#2e8f99] to-[#1a626b] px-6 py-3 text-[15px] font-semibold text-white shadow-[0_12px_28px_-14px_rgba(0,68,68,0.7)] hover:-translate-y-px"
+                  className="btn mt-7 max-w-full whitespace-normal bg-gradient-to-br from-[#2e8f99] to-[#1a626b] px-5 py-3 text-[15px] sm:whitespace-nowrap sm:px-6 font-semibold text-white shadow-[0_12px_28px_-14px_rgba(0,68,68,0.7)] hover:-translate-y-px"
                 >
                   <FileText className="h-4 w-4" strokeWidth={1.8} />
                   {t("viewBusinessInfo")}
