@@ -33,13 +33,19 @@ type Section = {
 };
 
 /**
+ * TheONE SELECTION shows every brand the owner has taken on: they choose who
+ * comes onto TheONE, so the page does not cut the list again.
+ */
+const SELECTION_LIMIT = 100;
+
+/**
  * Each TheONE function is its own area. TheONE SELECTION is only companies
  * with products to buy; clinics, hotels and brokers live in their own.
  */
 export const AREAS: Record<string, readonly Section[]> = {
   selection: [
-    { key: "skincare", categories: ["beauty"], local: false, kinds: ["product"] },
-    { key: "products", categories: ["clinic", "practice", "wellness", "hotel", "resort", "other", "insurance", "realEstate"], local: false, kinds: ["product"] },
+    { key: "skincare", categories: ["beauty"], local: false, kinds: ["product"], limit: SELECTION_LIMIT },
+    { key: "products", categories: ["clinic", "practice", "wellness", "hotel", "resort", "other", "insurance", "realEstate"], local: false, kinds: ["product"], limit: SELECTION_LIMIT },
   ],
   longevity: [{ key: "longevity", categories: ["clinic"], local: true }],
   health: [
@@ -86,6 +92,10 @@ export type SelectionPartner = {
   country: string;
   description: string;
   images: string[];
+  /** A line on the brand's section head, such as an award. */
+  tagline: string | null;
+  /** Seals on the brand's section head (award, quality). */
+  badges: string[];
   /** The partner's office, as they keep it in their profile. */
   office: { street: string | null; postalCode: string | null; phone: string; email: string; website: string | null };
   offerings: OfferingView[];
@@ -166,7 +176,9 @@ export async function selectionFeed(accountId: string, area = "selection"): Prom
     const ranked = fits.sort((a, b) => {
       const ah = section.local && city && a.city.trim().toLowerCase() === city ? 0 : 1;
       const bh = section.local && city && b.city.trim().toLowerCase() === city ? 0 : 1;
-      return ah - bh || a.name.localeCompare(b.name);
+      const ao = a.sortOrder ?? Number.MAX_SAFE_INTEGER;
+      const bo = b.sortOrder ?? Number.MAX_SAFE_INTEGER;
+      return ah - bh || ao - bo || a.name.localeCompare(b.name);
     });
     return {
       key: section.key,
@@ -178,6 +190,8 @@ export async function selectionFeed(accountId: string, area = "selection"): Prom
         country: p.country,
         description: p.description,
         images: p.images,
+        tagline: p.tagline ?? null,
+        badges: p.badges ?? [],
         office: {
           street: p.street,
           postalCode: p.postalCode,
@@ -192,7 +206,12 @@ export async function selectionFeed(accountId: string, area = "selection"): Prom
 
   // "Chosen for you" belongs to TheONE SELECTION: products only.
   if (area !== "selection") return { forYou: [], sections };
-  const products = allOfferings.filter((o) => o.kind === "product");
+
+  // Chosen for you only from the brands on the page.
+  const onPage = new Set(sections.flatMap((s) => s.partners.map((p) => p.id)));
+  const products = allOfferings.filter(
+    (o) => o.kind === "product" && onPage.has(o.partnerProfileId.toHexString()),
+  );
 
   // Chosen for you: the latest skin reading first (its own product picks,
   // then whatever helps its two weakest scores), otherwise one offering from

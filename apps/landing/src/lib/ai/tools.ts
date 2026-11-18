@@ -331,6 +331,7 @@ export async function runAssistantTool(
               title: o.title,
               partner: o.partner,
               helpsWith: o.concerns,
+              boughtIn: o.url ? "the brand's own shop, from the product page in TheONE SELECTION" : "a request to the business partner",
               price: o.priceCents === null ? "on request" : `${(o.priceCents / 100).toFixed(0)} ${o.currency}${o.priceNote ? " " + o.priceNote : ""}`,
               about: o.description,
             })),

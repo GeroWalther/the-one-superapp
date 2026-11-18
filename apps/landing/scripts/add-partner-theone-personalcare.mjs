@@ -108,7 +108,7 @@ await db.collection("partnerProfiles").updateOne(
       city: "", country: "", street: null, postalCode: null,
       website: SITE, contactEmail: email, contactPhone: "",
       images: [`${SITE}/images/theone/TheONE_yourSuccess.jpg`],
-      published: true, isTestAccount: false, updatedAt: now,
+      sortOrder: 2, published: true, isTestAccount: false, updatedAt: now,
     },
     $setOnInsert: { _id: new ObjectId(), createdAt: now },
   },

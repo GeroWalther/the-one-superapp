@@ -13,7 +13,7 @@ final class TheONEUITests: XCTestCase {
         app = XCUIApplication()
         // The app follows the phone's language. MATCH is checked as a German
         // phone, the Japanese walkthrough as a Japanese one, the rest as is.
-        if name.contains("testMatchFlow") || name.contains("testSkinAnalysis") || name.contains("testSelection") || name.contains("testHomeFunctions") || name.contains("testLongevityCheck") || name.contains("testRealEstate") || name.contains("testBeauty5") || name.contains("testPersonalCare") {
+        if name.contains("testMatchFlow") || name.contains("testSkinAnalysis") || name.contains("testSelection") || name.contains("testHomeFunctions") || name.contains("testLongevityCheck") || name.contains("testRealEstate") || name.contains("testBeauty5") || name.contains("testPersonalCare") || name.contains("testSelectionBrands") {
             app.launchArguments += ["-AppleLanguages", "(de)", "-AppleLocale", "de_DE"]
         } else if name.contains("testJapaneseMember") {
             app.launchArguments += ["-AppleLanguages", "(ja)", "-AppleLocale", "ja_JP"]
@@ -667,21 +667,71 @@ final class TheONEUITests: XCTestCase {
         XCTAssertTrue(app.buttons["opener.answer"].waitForExistence(timeout: 10))
         sleep(3)
         let brand = app.staticTexts["TheONE personalcare"].firstMatch
+        // Short drags until the brand sits near the top of the screen.
         func nudge() {
-            let from = app.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.75))
-            from.press(forDuration: 0.05, thenDragTo: app.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.45)))
+            app.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.62))
+                .press(forDuration: 0.05, thenDragTo: app.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.45)))
             sleep(1)
         }
-        for _ in 0..<25 where !(brand.exists && brand.frame.minY > 0 && brand.frame.minY < app.frame.height * 0.35) { nudge() }
+        let h = app.frame.height
+        for _ in 0..<60 where !(brand.exists && brand.frame.minY > h * 0.1 && brand.frame.minY < h * 0.3) { nudge() }
         XCTAssertTrue(brand.exists, "TheONE personalcare is not in TheONE SELECTION")
         capture("p1-personalcare")
-        let cards = app.buttons.matching(NSPredicate(format: "identifier == 'offering.card' AND label CONTAINS 'TheONE Women'"))
-        cards.firstMatch.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.4)).tap()
+        // "See all 3" right under the brand's name.
+        let ranges = app.buttons.matching(identifier: "partner.range").allElementsBoundByIndex
+        let range = ranges.filter { $0.frame.minY > brand.frame.minY }.min { $0.frame.minY < $1.frame.minY }
+        XCTAssertNotNil(range)
+        range?.tap()
         sleep(3)
-        capture("p2-product")
+        capture("p2-range")
+        app.coordinate(withNormalizedOffset: CGVector(dx: 0.3, dy: 0.38)).tap()
+        sleep(3)
+        capture("p3-product")
         app.swipeUp()
         sleep(1)
-        capture("p3-product-lower")
+        capture("p4-product-lower")
+    }
+
+    /// TheONE SELECTION brand by brand: each brand's own section, upright.
+    func testSelectionBrands() throws {
+        assertOnLoginScreen()
+        type("testmember", into: app.textFields.firstMatch)
+        type("TestPassword2026!", into: app.secureTextFields.firstMatch)
+        app.buttons["login.submit"].tap()
+        dismissSystemPrompts()
+        XCTAssertTrue(app.tabBars.firstMatch.waitForExistence(timeout: 25))
+        dismissSystemPrompts()
+        goHome(leaving: app.tabBars.firstMatch)
+        sleep(2)
+        app.swipeUp()
+        let entry = app.buttons["home.fn.TheONE SELECTION"]
+        XCTAssertTrue(entry.waitForExistence(timeout: 10))
+        entry.tap()
+        XCTAssertTrue(app.buttons["opener.answer"].waitForExistence(timeout: 10))
+        sleep(4)
+        func nudge() {
+            app.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.62))
+                .press(forDuration: 0.05, thenDragTo: app.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.45)))
+            sleep(1)
+        }
+        let h = app.frame.height
+        // Back up a little when the head has gone past the top.
+        func nudgeBack() {
+            app.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.45))
+                .press(forDuration: 0.05, thenDragTo: app.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.55)))
+            sleep(1)
+        }
+        for (index, name) in ["NATURA VERVAE"].enumerated() {
+            let head = app.buttons["brand.\(name)"]
+            for _ in 0..<80 {
+                let y = head.exists ? head.frame.minY : h
+                if y > h * 0.1 && y < h * 0.24 { break }
+                if y <= h * 0.1 { nudgeBack() } else { nudge() }
+            }
+            XCTAssertTrue(head.exists, "\(name) has no section")
+            sleep(2)
+            capture("s\(index + 1)-\(name)")
+        }
     }
 
     /// TheONE REAL ESTATE: POWER AI's greeting, the estates of the best

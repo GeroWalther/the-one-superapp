@@ -97,7 +97,7 @@ await db.collection("partnerProfiles").updateOne(
       city: "", country: "", street: null, postalCode: null, // no address or place: bought in the online shop (owner's wish)
       website: "https://beauty5.shop", contactEmail: email, contactPhone: "",
       images: ["https://beauty5.shop/wp-content/uploads/2026/11/skin-glow-frau-strand.jpg"],
-      published: true, isTestAccount: false, updatedAt: now,
+      sortOrder: 1, published: true, isTestAccount: false, updatedAt: now,
     },
     $setOnInsert: { _id: new ObjectId(), createdAt: now },
   },

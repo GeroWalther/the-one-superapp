@@ -120,19 +120,69 @@ final class SpeechController: NSObject {
         stopSpeaking()
         isSpeaking = true
 
+        // POWER AI's own voice first (the owner's voice, from the server);
+        // the phone's voice when it cannot come in time, so POWER AI is never
+        // silent. A newer `speak` or a `stop` makes an older one give way.
+        let turn = UUID()
+        currentTurn = turn
+        Task { @MainActor in
+            if let audio = await Self.cloudVoice(for: text), self.currentTurn == turn {
+                self.play(audio, respectSilentSwitch: respectSilentSwitch)
+                return
+            }
+            guard self.currentTurn == turn else { return }
+            self.speakOnPhone(text, respectSilentSwitch: respectSilentSwitch)
+        }
+    }
+
+    /// Which `speak` is current; an older one finishing late stays quiet.
+    private var currentTurn: UUID?
+    private var player: AVAudioPlayer?
+
+    /// POWER AI's voice from the server, or nil after a few seconds without it.
+    private static func cloudVoice(for text: String) async -> Data? {
+        guard await APIClient.shared.hasSession else { return nil }
+        return await withTaskGroup(of: Data?.self) { group in
+            group.addTask { try? await APIClient.shared.sendRaw("/voice/speak", method: "POST", body: ["text": text]) }
+            group.addTask { try? await Task.sleep(for: .seconds(8)); return nil }
+            let first = await group.next() ?? nil
+            group.cancelAll()
+            return first
+        }
+    }
+
+    nonisolated private static func activateSession(respectSilentSwitch: Bool) throws {
+        let session = AVAudioSession.sharedInstance()
+        if respectSilentSwitch {
+            try session.setCategory(.ambient, mode: .spokenAudio, options: .duckOthers)
+        } else {
+            try session.setCategory(.playback, mode: .spokenAudio, options: .duckOthers)
+        }
+        try session.setActive(true)
+    }
+
+    /// Plays POWER AI's voice; on any trouble the phone speaks instead.
+    private func play(_ audio: Data, respectSilentSwitch: Bool) {
+        do {
+            try Self.activateSession(respectSilentSwitch: respectSilentSwitch)
+            let player = try AVAudioPlayer(data: audio)
+            player.delegate = self
+            self.player = player
+            if !player.play() { isSpeaking = false }
+        } catch {
+            isSpeaking = false
+        }
+    }
+
+    /// The phone's own voice, in the language the words are written in.
+    private func speakOnPhone(_ text: String, respectSilentSwitch: Bool) {
         // Waking the audio session and choosing a voice can take a moment;
         // done off the main thread, the screen stays answerable to the touch
         // while POWER AI speaks.
         let synthesiser = synthesiser
         Self.audio.async {
             do {
-                let session = AVAudioSession.sharedInstance()
-                if respectSilentSwitch {
-                    try session.setCategory(.ambient, mode: .spokenAudio, options: .duckOthers)
-                } else {
-                    try session.setCategory(.playback, mode: .spokenAudio, options: .duckOthers)
-                }
-                try session.setActive(true)
+                try Self.activateSession(respectSilentSwitch: respectSilentSwitch)
             } catch {
                 Task { @MainActor in self.isSpeaking = false }
                 return
@@ -175,11 +225,25 @@ final class SpeechController: NSObject {
     }
 
     func stopSpeaking() {
+        currentTurn = nil
+        player?.stop()
+        player = nil
         let synthesiser = synthesiser
         Self.audio.async {
             if synthesiser.isSpeaking { synthesiser.stopSpeaking(at: .immediate) }
         }
         isSpeaking = false
+    }
+}
+
+extension SpeechController: AVAudioPlayerDelegate {
+    nonisolated func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
+        Task { @MainActor in
+            if self.player === player {
+                self.player = nil
+                self.isSpeaking = false
+            }
+        }
     }
 }
 

@@ -226,6 +226,12 @@ export type PartnerProfileDoc = {
   website: string | null;
   contactEmail: string;
   contactPhone: string;
+  /** Place in TheONE SELECTION, lowest first; brands without one follow by name. */
+  sortOrder?: number;
+  /** A short line on the brand's section head, e.g. an award; English as given. */
+  tagline?: string;
+  /** Seals shown on the brand's section head (award, quality), transparent PNGs. */
+  badges?: string[];
   images: string[];
   /** Hidden partners keep their data but disappear from search. */
   published: boolean;

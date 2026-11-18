@@ -98,6 +98,10 @@ struct SelectionPartner: Codable, Sendable, Hashable, Identifiable {
     let country: String
     let description: String
     let images: [String]
+    /// A line on the brand's section head, such as an award; English as given.
+    let tagline: String?
+    /// Seals on the brand's section head (award, quality).
+    let badges: [String]?
     let office: Office?
     let offerings: [Offering]
 }

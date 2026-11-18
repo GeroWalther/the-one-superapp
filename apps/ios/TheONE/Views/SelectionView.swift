@@ -58,7 +58,11 @@ struct SelectionView: View {
 
                         ForEach(feed.sections) { section in
                             VStack(alignment: .leading, spacing: 14) {
-                                sectionBanner(section)
+                                // TheONE SELECTION is one list of brands under
+                                // its own name, without banners in between.
+                                if area != .selection {
+                                    sectionBanner(section)
+                                }
                                 ForEach(section.partners) { partner in
                                     partnerBlock(partner, sectionKey: section.key)
                                 }
@@ -393,6 +397,17 @@ struct SelectionView: View {
 
     private func partnerBlock(_ partner: SelectionPartner, sectionKey: String) -> some View {
         VStack(alignment: .leading, spacing: 10) {
+            // TheONE SELECTION: each brand its own section, opened by the
+            // brand's own picture and name.
+            if area == .selection, let cover = partner.images.first.flatMap(URL.init(string:)) {
+                NavigationLink {
+                    PartnerDetailView(partnerId: partner.id)
+                } label: {
+                    brandBanner(partner.name, tagline: partner.tagline, badges: partner.badges ?? [], cover: cover)
+                }
+                .buttonStyle(.plain)
+                .accessibilityIdentifier("brand.\(partner.name)")
+            } else {
             NavigationLink {
                 PartnerDetailView(partnerId: partner.id)
             } label: {
@@ -415,9 +430,10 @@ struct SelectionView: View {
             }
             .buttonStyle(.plain)
             .padding(.horizontal, 20)
+            }
 
             // The whole range at a glance, not only what fits in one row.
-            if partner.offerings.count > 2 {
+            if partner.offerings.count > 2, area != .selection {
                 NavigationLink {
                     PartnerRangeView(partner: partner)
                 } label: {
@@ -435,20 +451,101 @@ struct SelectionView: View {
                 officeCard(office, city: partner.city)
             }
 
-            ScrollView(.horizontal, showsIndicators: false) {
-                HStack(spacing: 12) {
+            if area == .selection {
+                // TheONE SELECTION: the brand's whole range upright, two cards
+                // a row, like a shelf in a shop; no sideways rows.
+                let width = (UIScreen.main.bounds.width - 20 * 2 - 14) / 2
+                LazyVGrid(columns: [GridItem(.fixed(width), spacing: 14), GridItem(.fixed(width))], alignment: .leading, spacing: 14) {
                     ForEach(partner.offerings) { offering in
-                        // Narrow enough that a third card peeks in: the row goes on.
                         NavigationLink(value: offering) {
-                            OfferingCard(offering: offering, width: 158, showReason: false)
+                            OfferingCard(offering: offering, width: width, showReason: false)
                         }
                         .buttonStyle(.plain)
                         .accessibilityIdentifier("offering.card")
                     }
                 }
                 .padding(.horizontal, 20)
+                .padding(.bottom, 12)
+            } else {
+                ScrollView(.horizontal, showsIndicators: false) {
+                    HStack(spacing: 12) {
+                        ForEach(partner.offerings) { offering in
+                            // Narrow enough that a third card peeks in: the row goes on.
+                            NavigationLink(value: offering) {
+                                OfferingCard(offering: offering, width: 158, showReason: false)
+                            }
+                            .buttonStyle(.plain)
+                            .accessibilityIdentifier("offering.card")
+                        }
+                    }
+                    .padding(.horizontal, 20)
+                }
             }
         }
+    }
+
+    /// A brand's own section head: its picture, its name, a quiet arrow.
+    private func brandBanner(_ name: String, tagline: String?, badges: [String], cover: URL) -> some View {
+        ZStack(alignment: .bottomLeading) {
+            Color.clear
+                .frame(height: badges.isEmpty ? 150 : 200)
+                .frame(maxWidth: .infinity)
+                .overlay {
+                    AsyncImage(url: cover) { image in
+                        image.resizable().scaledToFill().allowsHitTesting(false)
+                    } placeholder: {
+                        Theme.aquaTint
+                    }
+                }
+                .clipped()
+            LinearGradient(colors: [.clear, Vortex.abyss.opacity(0.7)], startPoint: .center, endPoint: .bottom)
+            HStack(alignment: .bottom) {
+                VStack(alignment: .leading, spacing: 5) {
+                    if let tagline, !tagline.isEmpty {
+                        // An award line, kept in English like every claim.
+                        Text(verbatim: tagline)
+                            .font(.theone(10.5, weight: .semibold))
+                            .tracking(1.6)
+                            .foregroundStyle(.white.opacity(0.95))
+                            .lineLimit(2)
+                    }
+                    // With its seals on the picture the brand's name is already
+                    // there, in its own lettering; no second one in type.
+                    if badges.isEmpty {
+                        Text(name)
+                            .font(.theoneHeading(24, medium: true))
+                            .foregroundStyle(.white)
+                    }
+                }
+                Spacer()
+                Image(systemName: "chevron.right")
+                    .font(.system(size: 14, weight: .semibold))
+                    .foregroundStyle(.white.opacity(0.9))
+            }
+            .padding(16)
+        }
+        .frame(height: badges.isEmpty ? 150 : 200)
+        // The brand's seals (award, quality), top right, on the picture:
+        // side by side with air between, large enough to read.
+        .overlay(alignment: .topTrailing) {
+            HStack(spacing: 12) {
+                ForEach(badges.prefix(2), id: \.self) { badge in
+                    AsyncImage(url: URL(string: badge)) { image in
+                        image.resizable().scaledToFit()
+                    } placeholder: {
+                        Color.clear
+                    }
+                    .frame(width: 84, height: 84)
+                    .shadow(color: .black.opacity(0.12), radius: 6, y: 3)
+                }
+            }
+            .padding(.top, 16)
+            .padding(.trailing, 16)
+            .allowsHitTesting(false)
+        }
+        .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
+        .contentShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
+        .padding(.horizontal, 20)
     }
 
     private func officeCard(_ office: SelectionPartner.Office, city: String) -> some View {
@@ -579,7 +676,8 @@ struct OfferingCard: View {
                 Text(offering.title)
                     .font(.theone(14.5, weight: .medium))
                     .foregroundStyle(Theme.ink)
-                    .lineLimit(2)
+                    // Two lines always, so cards side by side are one height.
+                    .lineLimit(2, reservesSpace: true)
                     .multilineTextAlignment(.leading)
                 Text(offering.partner.name)
                     .font(.theone(12))
@@ -619,7 +717,17 @@ struct OfferingImage: View {
         let key = SelectionSection.key(for: offering)
         if let url = offering.imageUrl.flatMap(URL.init(string:)) {
             AsyncImage(url: url) { image in
-                image.resizable().scaledToFill().allowsHitTesting(false)
+                if offering.ownProductPhoto {
+                    // A packshot is shown whole on white: a tall bottle is
+                    // never cut at the cap or the foot.
+                    ZStack {
+                        Color.white
+                        image.resizable().scaledToFit()
+                    }
+                    .allowsHitTesting(false)
+                } else {
+                    image.resizable().scaledToFill().allowsHitTesting(false)
+                }
             } placeholder: {
                 Theme.aquaTint
             }

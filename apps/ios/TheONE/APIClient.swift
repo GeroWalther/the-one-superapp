@@ -17,6 +17,9 @@ actor APIClient {
     #endif
 
     private var accessToken: String?
+
+    /// Signed in: the cloud voice and other member-only calls can be tried.
+    var hasSession: Bool { accessToken != nil }
     private var refreshTask: Task<Bool, Never>?
 
     private let decoder = JSONDecoder()
