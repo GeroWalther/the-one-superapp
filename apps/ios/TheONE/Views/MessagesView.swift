@@ -13,10 +13,10 @@ struct MessagesView: View {
                 } else if conversations.isEmpty {
                     VStack(spacing: 10) {
                         Text("No conversations yet")
-                            .font(.system(size: 20, weight: .light, design: .serif))
-                            .foregroundStyle(Theme.ink)
+                            .font(.theoneHeading(17))
+                            .foregroundStyle(Theme.heading)
                         Text("Message a business partner from their page, or let the assistant put you in touch.")
-                            .font(.system(size: 14))
+                            .font(.theone(14))
                             .foregroundStyle(Theme.inkSoft)
                             .multilineTextAlignment(.center)
                             .padding(.horizontal, 40)
@@ -39,6 +39,7 @@ struct MessagesView: View {
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .paperBackground()
             .navigationTitle("Messages")
+            .homeButton()
             .brandedNavigationBar()
             .navigationDestination(for: ConversationSummary.self) { conversation in
                 ConversationView(
@@ -58,18 +59,18 @@ struct MessagesView: View {
                 .frame(width: 40, height: 40)
                 .overlay(
                     Text(String(conversation.counterpartName.prefix(1)))
-                        .font(.system(size: 15, weight: .semibold))
-                        .foregroundStyle(Theme.aqua)
+                        .font(.theone(15, weight: .semibold))
+                        .foregroundStyle(Theme.accentText)
                 )
 
             VStack(alignment: .leading, spacing: 3) {
                 Text(conversation.counterpartName)
-                    .font(.system(size: 15.5, weight: .medium))
+                    .font(.theone(15.5, weight: .medium))
                     .foregroundStyle(Theme.ink)
                 Text(conversation.lastMessagePreview.isEmpty
-                     ? "No messages yet"
+                     ? tr("No messages yet")
                      : conversation.lastMessagePreview)
-                    .font(.system(size: 13))
+                    .font(.theone(13))
                     .foregroundStyle(Theme.inkFaint)
                     .lineLimit(1)
             }
@@ -129,7 +130,7 @@ struct ConversationView: View {
             HStack(spacing: 10) {
                 TextField("Message", text: $draft, axis: .vertical)
                     .lineLimit(1...5)
-                    .font(.system(size: 16))
+                    .font(.theone(16))
                     .foregroundStyle(Theme.ink)
                     .padding(.horizontal, 14)
                     .padding(.vertical, 11)
@@ -169,7 +170,7 @@ struct ConversationView: View {
         HStack {
             if message.mine { Spacer(minLength: 50) }
             Text(message.body)
-                .font(.system(size: 15.5))
+                .font(.theone(15.5))
                 .foregroundStyle(message.mine ? Theme.onAccent : Theme.ink)
                 .padding(.horizontal, 14)
                 .padding(.vertical, 10)

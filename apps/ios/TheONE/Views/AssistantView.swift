@@ -12,7 +12,7 @@ final class AssistantModel {
 
     private var threadId: String?
 
-    func send(speech: SpeechController, locale: String) async {
+    func send(speech: SpeechController, opening: String? = nil) async {
         let message = draft.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !message.isEmpty, !isStreaming else { return }
 
@@ -20,6 +20,10 @@ final class AssistantModel {
         error = nil
         speech.stopSpeaking()
 
+        // The greeting stays at the top of the conversation it opened.
+        if turns.isEmpty, threadId == nil, let opening {
+            turns.append(AssistantTurn(role: .assistant, text: opening))
+        }
         turns.append(AssistantTurn(role: .user, text: message))
         turns.append(AssistantTurn(role: .assistant, text: ""))
         let replyIndex = turns.count - 1
@@ -32,7 +36,10 @@ final class AssistantModel {
 
         guard let request = await APIClient.shared.assistantRequest(
             message: message,
-            threadId: threadId
+            threadId: threadId,
+            // Only a new conversation carries the greeting; an ongoing one
+            // already has it on the server.
+            opening: threadId == nil ? opening : nil
         ) else {
             error = APIError.unauthorized.errorDescription
             return
@@ -44,7 +51,7 @@ final class AssistantModel {
             guard let http = response as? HTTPURLResponse, http.statusCode == 200 else {
                 error = (response as? HTTPURLResponse)?.statusCode == 503
                     ? APIError.notConfigured.errorDescription
-                    : APIError.server("The assistant is unavailable.").errorDescription
+                    : APIError.server(tr("The assistant is unavailable.")).errorDescription
                 turns.removeSubrange(replyIndex...)
                 return
             }
@@ -76,7 +83,7 @@ final class AssistantModel {
                 case "done":
                     turns[replyIndex].runningTool = nil
                     if speakReplies {
-                        speech.speak(turns[replyIndex].text, locale: locale)
+                        speech.speak(turns[replyIndex].text)
                     }
 
                 case "error":
@@ -84,8 +91,8 @@ final class AssistantModel {
                     error = code == "assistant_not_configured"
                         ? APIError.notConfigured.errorDescription
                         : code == "refused"
-                            ? "I can't help with that one."
-                            : "Something went wrong. Please try again."
+                            ? tr("I can't help with that one.")
+                            : tr("Something went wrong. Please try again.")
                     if turns[replyIndex].text.isEmpty {
                         turns.removeSubrange(replyIndex...)
                     }
@@ -111,8 +118,11 @@ final class AssistantModel {
 
 struct AssistantView: View {
     @Environment(SessionStore.self) private var session
+    @Environment(Greeter.self) private var greeter
     @State private var model = AssistantModel()
     @State private var speech = SpeechController()
+    @State private var showSkin = false
+    @State private var showSkinHistory = false
 
     var body: some View {
         NavigationStack {
@@ -121,7 +131,7 @@ struct AssistantView: View {
 
                 if let error = model.error {
                     Text(error)
-                        .font(.system(size: 13))
+                        .font(.theone(13))
                         .foregroundStyle(Color(red: 0.95, green: 0.45, blue: 0.45))
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .padding(.horizontal, 18)
@@ -132,13 +142,24 @@ struct AssistantView: View {
             }
             .paperBackground()
             .navigationTitle("Assistant")
+            .homeButton()
             .navigationBarTitleDisplayMode(.inline)
             .brandedNavigationBar()
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     Menu {
+                        Button {
+                            showSkin = true
+                        } label: {
+                            Label { Text(verbatim: "TheONE SKIN SCAN") } icon: { Image(systemName: "face.smiling") }
+                        }
+                        Button {
+                            showSkinHistory = true
+                        } label: {
+                            Label(tr("TheONE SKIN SCAN: my results"), systemImage: "chart.line.uptrend.xyaxis")
+                        }
                         Toggle("Speak replies", isOn: $model.speakReplies)
-                        Button("New conversation") {
+                        Button("Clear conversation") {
                             speech.stopSpeaking()
                             model.reset()
                         }
@@ -150,6 +171,39 @@ struct AssistantView: View {
         }
         .onChange(of: speech.transcript) { _, new in
             if speech.isListening { model.draft = new }
+        }
+        .task {
+            if let message = greeter.pendingTalk {
+                greeter.pendingTalk = nil
+                discuss(message)
+            }
+        }
+        .fullScreenCover(isPresented: $showSkin) {
+            SkinScanView { _ in
+                showSkin = false
+                discuss(tr("I have just done my TheONE SKIN SCAN. What do you recommend for me?"))
+            }
+        }
+        .sheet(isPresented: $showSkinHistory) {
+            SkinHistoryView {
+                showSkinHistory = false
+                Task {
+                    try? await Task.sleep(for: .milliseconds(450))
+                    showSkin = true
+                }
+            }
+        }
+    }
+
+    /// Back in the conversation after a scan: the member's own words open the
+    /// talk, and the assistant reads the results with its skin tool.
+    private func discuss(_ message: String) {
+        Task {
+            try? await Task.sleep(for: .milliseconds(500))
+            speech.stopListening()
+            greeter.stop()
+            model.draft = message
+            await model.send(speech: speech, opening: greeter.text)
         }
     }
 
@@ -181,12 +235,19 @@ struct AssistantView: View {
     private var intro: some View {
         VStack(alignment: .leading, spacing: 12) {
             Text("Ask me anything")
-                .font(.system(size: 26, weight: .light, design: .serif))
-                .foregroundStyle(Theme.ink)
+                .font(.theoneHeading(22))
+                .foregroundStyle(Theme.heading)
 
-            Text("I know TheONE's verified business partners and what you told us when you applied. Tell me what you need — or just describe the problem.")
-                .font(.system(size: 14))
-                .foregroundStyle(Theme.inkSoft)
+            if let words = greeter.text {
+                // The greeting from the start screen, as the assistant's
+                // opening line: the member's answer continues from it.
+                TurnBubble(turn: AssistantTurn(role: .assistant, text: words))
+                    .accessibilityIdentifier("assistant.greeting")
+            } else {
+                Text("I know TheONE's verified business partners and what you told us when you applied. Tell me what you need, or just describe the problem.")
+                    .font(.theone(14))
+                    .foregroundStyle(Theme.inkSoft)
+            }
 
             VStack(alignment: .leading, spacing: 8) {
                 ForEach([
@@ -195,11 +256,11 @@ struct AssistantView: View {
                     "I need somewhere quiet to work for a month.",
                 ], id: \.self) { example in
                     Button {
-                        model.draft = example
+                        model.draft = tr(example)
                     } label: {
-                        Text(example)
-                            .font(.system(size: 13.5))
-                            .foregroundStyle(Theme.aquaSoft)
+                        Text(tr(example))
+                            .font(.theone(13.5))
+                            .foregroundStyle(Theme.accentText)
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .padding(.horizontal, 14)
                             .padding(.vertical, 11)
@@ -222,9 +283,23 @@ struct AssistantView: View {
     private var composer: some View {
         HStack(alignment: .bottom, spacing: 10) {
             Button {
+                speech.stopListening()
+                showSkin = true
+            } label: {
+                Image(systemName: "face.smiling")
+                    .font(.system(size: 21))
+                    .foregroundStyle(Theme.inkSoft)
+                    .frame(width: 42, height: 42)
+                    .background(Circle().fill(Theme.paperSoft))
+            }
+            .accessibilityLabel(Text(verbatim: "TheONE SKIN SCAN"))
+            .accessibilityIdentifier("assistant.skin")
+
+            Button {
                 if speech.isListening {
                     speech.stopListening()
                 } else {
+                    greeter.stop()
                     // Permission is requested here rather than when the tab
                     // opens: a microphone prompt before the member has shown
                     // any interest in talking reads as intrusive, and it lands
@@ -241,11 +316,12 @@ struct AssistantView: View {
                     .frame(width: 42, height: 42)
                     .background(Circle().fill(Theme.paperSoft))
             }
-            .accessibilityLabel(speech.isListening ? "Stop dictation" : "Dictate")
+            .accessibilityLabel(tr(speech.isListening ? "Stop dictation" : "Dictate"))
 
             TextField("Message", text: $model.draft, axis: .vertical)
+                .accessibilityIdentifier("assistant.input")
                 .lineLimit(1...5)
-                .font(.system(size: 16))
+                .font(.theone(16))
                 .foregroundStyle(Theme.ink)
                 .padding(.horizontal, 14)
                 .padding(.vertical, 11)
@@ -260,10 +336,11 @@ struct AssistantView: View {
 
             Button {
                 speech.stopListening()
+                greeter.stop()
                 Task {
                     await model.send(
                         speech: speech,
-                        locale: session.account?.locale ?? "en"
+                        opening: greeter.text
                     )
                 }
             } label: {
@@ -276,6 +353,7 @@ struct AssistantView: View {
             .disabled(model.isStreaming || model.draft.trimmingCharacters(in: .whitespaces).isEmpty)
             .opacity(model.draft.trimmingCharacters(in: .whitespaces).isEmpty ? 0.5 : 1)
             .accessibilityLabel("Send")
+            .accessibilityIdentifier("assistant.send")
         }
         .padding(.horizontal, 16)
         .padding(.vertical, 12)
@@ -291,15 +369,22 @@ private struct TurnBubble: View {
             if let tool = turn.runningTool {
                 HStack(spacing: 6) {
                     ProgressView().controlSize(.mini).tint(Theme.aqua)
-                    Text(label(for: tool))
-                        .font(.system(size: 12))
-                        .foregroundStyle(Theme.aqua)
+                    Text(tr(label(for: tool)))
+                        .font(.theone(12))
+                        .foregroundStyle(Theme.accentText)
                 }
             }
 
             if !turn.text.isEmpty {
-                Text(turn.text)
-                    .font(.system(size: 15.5))
+                // The assistant sometimes marks a name in **bold**; shown as
+                // bold rather than as stars.
+                Text(
+                    (try? AttributedString(
+                        markdown: turn.text,
+                        options: .init(interpretedSyntax: .inlineOnlyPreservingWhitespace)
+                    )) ?? AttributedString(turn.text)
+                )
+                    .font(.theone(15.5))
                     .foregroundStyle(turn.role == .user ? Theme.onAccent : Theme.ink)
                     .padding(.horizontal, 14)
                     .padding(.vertical, 11)

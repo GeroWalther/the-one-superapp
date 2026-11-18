@@ -94,17 +94,17 @@ enum APIError: LocalizedError, Sendable {
     var errorDescription: String? {
         switch self {
         case .unauthorized:
-            "Those details do not match an account."
+            tr("Those details do not match an account.")
         case .paymentRequired:
-            "Your access is approved but not yet paid for. Finish checkout on theone-superapp.vercel.app to sign in."
+            tr("Your access is approved but not yet paid for. Finish checkout on theone-superapp.com to sign in.")
         case .inactive:
-            "This account is not active. Please contact us."
+            tr("This account is not active. Please contact us.")
         case .notConfigured:
-            "The assistant is not available right now."
+            tr("The assistant is not available right now.")
         case .server(let message):
             message
         case .network:
-            "Could not reach TheONE. Check your connection."
+            tr("Could not reach TheONE. Check your connection.")
         }
     }
 }
@@ -142,6 +142,10 @@ enum ProfileOptions {
     static let goals = ["clarity", "access", "longevity", "network"]
 
     static func label(_ raw: String) -> String {
+        tr(english(raw))
+    }
+
+    private static func english(_ raw: String) -> String {
         switch raw {
         case "health": return "Health & Longevity"
         case "hotels": return "Luxury Hotels"

@@ -1,0 +1,58 @@
+{
+ "username": "naturavervae",
+ "name": "NATURA VERVAE",
+ "email": "info@naturavervae.com",
+ "website": "https://www.naturavervae.com",
+ "locale": "de",
+ "sortOrder": 4,
+ "cover": "https://www.naturavervae.com/images/home/molekuel-hintergrund.jpg",
+ "description": "Longevity Skincare mit der Biological Longevity Formula: drei hochaktive Seren für jünger aussehende Haut. Longevity Brand of the Year 2026, World Beauty & Wellness Awards. Made in Germany.",
+ "targetClientele": "Alle, die ihre Haut mit wirksamer Longevity-Pflege aus der Natur länger jung erhalten möchten.",
+ "products": [
+  {
+   "title": "TELOMERE Serum",
+   "description": "Advanced Longevity Care: Serum zur Aktivierung der Telomerase mit flavonoidreicher Helmkraut-Wurzel, für ein glattes, jugendlich gepflegtes Hautbild. Erhältlich in 30 ml, 50 ml und 100 ml.\n\nEigenschaften\n• Ultimativer Schutz der Telomere\n• Sehr hoher Flavonoid-Gehalt der asiatischen Helmkraut-Wurzel\n• Kann die Gesichtsverjüngung fördern\n• Verbessert die Hautfeuchtigkeit und verfeinert das Hautbild\n• Wirksamkeitsstudien der Inhaltsstoffe belegen die verjüngende Wirkung",
+   "priceCents": 15900,
+   "priceNote": "from",
+   "currency": "EUR",
+   "image": "https://www.naturavervae.com/images/skincare/telomere-serum.jpg",
+   "url": "https://www.naturavervae.com/de/boutique/telomere-serum",
+   "concerns": [
+    "lines",
+    "radiance",
+    "hydration"
+   ]
+  },
+  {
+   "title": "BIO-TOX Serum",
+   "description": "Lifting-Serum mit dem Award-Winner-Wirkstoff Acetyl Hexapeptide-1: natürliche, Botulinumtoxin-ähnliche Wirkung für sichtbar glattere, entspannte Gesichtszüge. Erhältlich in 30 ml und 50 ml.\n\nEigenschaften\n• Natürliche, Botulinumtoxin-ähnliche Wirkung, die die Haut nachhaltig verjüngen kann\n• Der erste kosmetische Wirkstoff, der eine sofortige Verjüngung zeigt\n• Sichtbar glattere, entspannte, frische Gesichtszüge\n• Verringerung der Faltentiefe\n• Ultraniedermolekulare Hyaluronsäure für intensive Feuchtigkeit",
+   "priceCents": 7900,
+   "priceNote": "from",
+   "currency": "EUR",
+   "image": "https://www.naturavervae.com/images/skincare/bio-tox-serum.jpg",
+   "url": "https://www.naturavervae.com/de/boutique/bio-tox-serum",
+   "concerns": [
+    "lines"
+   ]
+  },
+  {
+   "title": "Centella Asiatica Serum",
+   "description": "Serum mit doppelter Centella Asiatica gegen vorzeitige Hautalterung: fördert die Regeneration, unterstützt die Kollagenproduktion und kann Rötungen mildern. Für Tag und Nacht. Erhältlich in 30 ml, 50 ml und 100 ml.\n\nEigenschaften\n• Einsatz bei der Bekämpfung vorzeitiger Hautalterung\n• Kann die Hautfeuchtigkeit verbessern und intensive Regeneration fördern\n• Unterstützt die Kollagenproduktion und kann zur Hautstraffung beitragen\n• Kann hautberuhigende Eigenschaften unterstützen\n• Bei Couperose: kann die Gefäßwände stärken und Rötungen mildern",
+   "priceCents": 3990,
+   "priceNote": "from",
+   "currency": "EUR",
+   "image": "https://www.naturavervae.com/images/skincare/centella-asiatica-serum.jpg",
+   "url": "https://www.naturavervae.com/de/boutique/centella-asiatica-serum",
+   "concerns": [
+    "redness",
+    "hydration"
+   ]
+  }
+ ],
+ "tagline": "BEST LONGEVITY BRAND OF THE YEAR 2026",
+ "badges": [
+  "https://www.naturavervae.com/images/home/award.png",
+  "https://www.naturavervae.com/images/home/qualitaetssiegel.png"
+ ],
+ "published": false
+}

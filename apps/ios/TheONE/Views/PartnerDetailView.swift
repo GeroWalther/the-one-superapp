@@ -14,27 +14,31 @@ struct PartnerDetailView: View {
                 VStack(alignment: .leading, spacing: 18) {
                     VStack(alignment: .leading, spacing: 6) {
                         Text(partner.name)
-                            .font(.system(size: 27, weight: .light, design: .serif))
-                            .foregroundStyle(Theme.ink)
-                        Text([partner.street, partner.postalCode, partner.city, partner.country]
-                            .compactMap { $0 }
-                            .joined(separator: ", "))
-                            .font(.system(size: 13))
-                            .foregroundStyle(Theme.inkFaint)
+                            .font(.theoneHeading(23))
+                            .foregroundStyle(Theme.heading)
+                        // A brand that sells through its own online shop shows
+                        // no address: where it sits does not matter to a buyer.
+                        if partner.category != "beauty" {
+                            Text([partner.street, partner.postalCode, partner.city, partner.country]
+                                .compactMap { $0 }
+                                .joined(separator: ", "))
+                                .font(.theone(13))
+                                .foregroundStyle(Theme.inkFaint)
+                        }
                     }
 
                     Text(partner.description)
-                        .font(.system(size: 15))
+                        .font(.theone(15))
                         .foregroundStyle(Theme.inkSoft)
 
                     if let clientele = partner.targetClientele, !clientele.isEmpty {
                         VStack(alignment: .leading, spacing: 5) {
                             Text("TYPICAL CLIENTS")
-                                .font(.system(size: 10, weight: .semibold))
-                                .tracking(2)
-                                .foregroundStyle(Theme.aqua)
+                                .font(.theone(10, weight: .semibold))
+                                .tracking(MemberLanguage.spacing(2))
+                                .foregroundStyle(Theme.accentText)
                             Text(clientele)
-                                .font(.system(size: 14))
+                                .font(.theone(14))
                                 .foregroundStyle(Theme.inkSoft)
                         }
                     }
@@ -42,7 +46,9 @@ struct PartnerDetailView: View {
                     // Contact details are the point of the directory, so they
                     // are actionable rather than text to copy out by hand.
                     VStack(spacing: 10) {
-                        contactRow("phone.fill", partner.contactPhone, url: URL(string: "tel://\(partner.contactPhone.filter { $0.isNumber || $0 == "+" })"))
+                        if !partner.contactPhone.isEmpty {
+                            contactRow("phone.fill", partner.contactPhone, url: URL(string: "tel://\(partner.contactPhone.filter { $0.isNumber || $0 == "+" })"))
+                        }
                         contactRow("envelope.fill", partner.contactEmail, url: URL(string: "mailto:\(partner.contactEmail)"))
                         if let website = partner.website, let url = URL(string: website) {
                             contactRow("safari.fill", website, url: url)
@@ -50,17 +56,31 @@ struct PartnerDetailView: View {
                     }
                     .glassCard()
 
-                    Button {
-                        Task { await openChat(with: partner) }
-                    } label: {
-                        Text(openingChat ? "Opening…" : "Message this business partner")
+                    if partner.category == "beauty", let shop = Self.shopURL(partner.website) {
+                        // A brand with its own shop: everything is bought there,
+                        // so the way to it replaces a message.
+                        Link(destination: shop) {
+                            Label(tr("Visit the shop"), systemImage: "bag")
+                                .font(.theone(16, weight: .medium))
+                                .foregroundStyle(Theme.onAccent)
+                                .frame(maxWidth: .infinity)
+                                .padding(.vertical, 15)
+                                .background(Capsule().fill(Theme.aqua))
+                        }
+                        .accessibilityIdentifier("partner.shop")
+                    } else {
+                        Button {
+                            Task { await openChat(with: partner) }
+                        } label: {
+                            Text(tr(openingChat ? "Opening…" : "Message this business partner"))
+                        }
+                        .buttonStyle(PrimaryButtonStyle())
+                        .disabled(openingChat)
                     }
-                    .buttonStyle(PrimaryButtonStyle())
-                    .disabled(openingChat)
 
                     if let error {
                         Text(error)
-                            .font(.system(size: 13))
+                            .font(.theone(13))
                             .foregroundStyle(Color(red: 0.95, green: 0.45, blue: 0.45))
                     }
                 }
@@ -74,9 +94,18 @@ struct PartnerDetailView: View {
         .paperBackground()
         .navigationBarTitleDisplayMode(.inline)
         .navigationDestination(item: $conversationId) { id in
-            ConversationView(conversationId: id, title: partner?.name ?? "Business partner")
+            ConversationView(conversationId: id, title: partner?.name ?? tr("Business partner"))
         }
         .task { await load() }
+    }
+
+    /// The partner's shop, marked as coming from TheONE for their analytics.
+    static func shopURL(_ website: String?) -> URL? {
+        guard let website, var parts = URLComponents(string: website) else { return nil }
+        parts.queryItems = (parts.queryItems ?? []) + [
+            URLQueryItem(name: "utm_source", value: "theone"), URLQueryItem(name: "utm_medium", value: "app"),
+        ]
+        return parts.url
     }
 
     private func contactRow(_ icon: String, _ label: String, url: URL?) -> some View {
@@ -86,7 +115,7 @@ struct PartnerDetailView: View {
                 .foregroundStyle(Theme.aqua)
                 .frame(width: 22)
             Text(label)
-                .font(.system(size: 14.5))
+                .font(.theone(14.5))
                 .foregroundStyle(Theme.ink)
             Spacer()
         }
@@ -99,7 +128,7 @@ struct PartnerDetailView: View {
             let response: DetailResponse = try await APIClient.shared.send("/partners/\(partnerId)")
             partner = response.partner
         } catch {
-            self.error = (error as? APIError)?.errorDescription ?? "Could not load this business partner."
+            self.error = (error as? APIError)?.errorDescription ?? tr("Could not load this business partner.")
         }
     }
 
@@ -115,7 +144,7 @@ struct PartnerDetailView: View {
             )
             conversationId = response.conversationId
         } catch {
-            self.error = (error as? APIError)?.errorDescription ?? "Could not open the conversation."
+            self.error = (error as? APIError)?.errorDescription ?? tr("Could not open the conversation.")
         }
     }
 

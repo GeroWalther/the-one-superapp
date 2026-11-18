@@ -3,6 +3,7 @@ import { apiError, authenticateRequest } from "@/lib/api/auth";
 import { aiThreads } from "@/lib/db/collections";
 import {
   isAssistantConfigured,
+  languageTag,
   runAssistant,
   type AssistantTurn,
 } from "@/lib/ai/assistant";
@@ -22,7 +23,7 @@ export async function POST(request: Request) {
     return apiError("assistant_not_configured", 503);
   }
 
-  let body: { message?: string; threadId?: string };
+  let body: { message?: string; threadId?: string; opening?: string; language?: unknown };
   try {
     body = await request.json();
   } catch {
@@ -46,6 +47,14 @@ export async function POST(request: Request) {
     content: entry.content,
   }));
 
+  // The greeting is kept on the thread, so every later turn still knows how
+  // the conversation began.
+  const opening =
+    thread?.opening ??
+    (typeof body.opening === "string"
+      ? body.opening.trim().slice(0, 400) || undefined
+      : undefined);
+
   const threadId = thread?._id ?? new ObjectId();
   const encoder = new TextEncoder();
 
@@ -65,6 +74,8 @@ export async function POST(request: Request) {
           account: auth.account,
           history,
           message,
+          opening,
+          language: languageTag(body.language),
         })) {
           if (event.type === "done") finalText = event.text;
           send(event);
@@ -85,6 +96,7 @@ export async function POST(request: Request) {
               accountId,
               title: message.slice(0, 60),
               createdAt: now,
+              ...(opening ? { opening } : {}),
             },
             $push: {
               messages: {

@@ -226,6 +226,12 @@ export type PartnerProfileDoc = {
   website: string | null;
   contactEmail: string;
   contactPhone: string;
+  /** Place in TheONE SELECTION, lowest first; brands without one follow by name. */
+  sortOrder?: number;
+  /** A short line on the brand's section head, e.g. an award; English as given. */
+  tagline?: string;
+  /** Seals shown on the brand's section head (award, quality), transparent PNGs. */
+  badges?: string[];
   images: string[];
   /** Hidden partners keep their data but disappear from search. */
   published: boolean;
@@ -269,6 +275,8 @@ export type AiThreadDoc = {
   accountId: ObjectId;
   title: string;
   messages: AiMessage[];
+  /** The greeting the app spoke before the member's first message. */
+  opening?: string;
   createdAt: Date;
   updatedAt: Date;
 };
@@ -281,6 +289,181 @@ export type AppointmentRequestDoc = {
   summary: string;
   preferredTiming: string | null;
   status: "requested" | "acknowledged" | "declined";
+  createdAt: Date;
+};
+
+/**
+ * A member's TheONE MATCH profile: who they are and who they hope to meet.
+ *
+ * Kept apart from `accounts.profile` on purpose. Dating details are among the
+ * most personal things a member tells us, so they live in one collection that
+ * can be shown, paused or erased as a whole, and nothing else reads them.
+ */
+export type MatchProfileDoc = {
+  _id: ObjectId;
+  accountId: ObjectId;
+  /** Copied from the account at save time; the only name a suggestion shows. */
+  firstName: string;
+  gender: "woman" | "man";
+  seeking: "woman" | "man";
+  birthYear: number;
+  heightCm: number;
+  hairColor: string;
+  eyeColor: string;
+  figure: string;
+  profession: string;
+  city: string;
+  hobbies: string[];
+  intention: string;
+  about: string;
+  wishes: {
+    ageMin: number;
+    ageMax: number;
+    heightMin: number | null;
+    heightMax: number | null;
+    /** Empty means "no preference". */
+    hairColors: string[];
+    eyeColors: string[];
+    figures: string[];
+  };
+  photos: string[];
+  /** Paused profiles keep their data but are suggested to no one. */
+  visible: boolean;
+  /** Seeded test accounts only ever meet each other, never a real member. */
+  isTest: boolean;
+  createdAt: Date;
+  updatedAt: Date;
+};
+
+/**
+ * One thing a business partner offers in TheONE SELECTION: a product to buy,
+ * a treatment or programme to book, a stay to request.
+ *
+ * `concerns` are the skin analysis keys it helps with, so a reading can point
+ * at the exact product or treatment rather than at a brand.
+ */
+export type OfferingDoc = {
+  _id: ObjectId;
+  partnerProfileId: ObjectId;
+  kind: "product" | "treatment" | "program" | "stay" | "flight" | "property" | "service";
+  title: string;
+  description: string;
+  /** In the smallest unit (cents, Rappen); null when priced on request. */
+  priceCents: number | null;
+  currency: string;
+  /** e.g. "from", "per night"; shown next to the price. */
+  priceNote: string | null;
+  imageUrl: string | null;
+  /** The product page in the partner's own shop, where it can be bought. */
+  url?: string | null;
+  concerns: string[];
+  published: boolean;
+  isTestAccount?: boolean;
+  createdAt: Date;
+  updatedAt: Date;
+};
+
+/**
+ * One TheONE skin analysis: the scores and advice, never the photo.
+ *
+ * The face photo is read once to write this and then discarded; a member who
+ * wants a before and after keeps their own photos on their phone.
+ */
+export type SkinScanDoc = {
+  _id: ObjectId;
+  accountId: ObjectId;
+  language: string;
+  overall: number;
+  scores: { key: string; score: number; note: string }[];
+  summary: string;
+  focus: string[];
+  morning: string[];
+  evening: string[];
+  partners: { partnerProfileId: ObjectId; reason: string }[];
+  /** The exact products and treatments chosen for this skin. */
+  offerings?: { offeringId: ObjectId; reason: string }[];
+  seeDoctor: boolean;
+  doctorNote: string;
+  createdAt: Date;
+};
+
+/**
+ * One TheONE LONGEVITY CHECK: the member's answers and POWER AI's reading.
+ * Lifestyle and prevention, never a diagnosis.
+ */
+export type LongevityCheckDoc = {
+  _id: ObjectId;
+  accountId: ObjectId;
+  language: string;
+  answers: Record<string, string>;
+  note: string;
+  score: number;
+  pillars: { key: string; score: number; note: string }[];
+  summary: string;
+  focus: string[];
+  plan: { week: number; steps: string[] }[];
+  offerings: { offeringId: ObjectId; reason: string }[];
+  seeDoctor: boolean;
+  doctorNote: string;
+  createdAt: Date;
+};
+
+/** How far a member is in TheONE LONGEVITY COURSE: lesson keys done. */
+export type LongevityCourseDoc = {
+  _id: ObjectId;
+  accountId: ObjectId;
+  completed: string[];
+  updatedAt: Date;
+};
+
+/**
+ * A member's home for sale through TheONE REAL ESTATE: what they told us, and
+ * the two or three brokers it went to, each with the conversation it opened.
+ */
+export type PropertySaleDoc = {
+  _id: ObjectId;
+  accountId: ObjectId;
+  propertyType: string;
+  city: string;
+  country: string;
+  rooms: number | null;
+  livingArea: number | null;
+  plotArea: number | null;
+  priceIdeaCents: number | null;
+  currency: string;
+  description: string;
+  timing: "now" | "months" | "exploring";
+  offMarket: boolean;
+  brokers: { partnerProfileId: ObjectId; name: string; city: string; conversationId: string }[];
+  createdAt: Date;
+};
+
+/**
+ * What a member is looking for through TheONE REAL ESTATE, sent to the two or
+ * three best brokers for that place, who answer from their portfolio.
+ */
+export type PropertySearchDoc = {
+  _id: ObjectId;
+  accountId: ObjectId;
+  propertyTypes: string[];
+  city: string;
+  country: string;
+  minRooms: number | null;
+  minLivingArea: number | null;
+  budgetCents: number | null;
+  currency: string;
+  description: string;
+  timing: "now" | "months" | "exploring";
+  brokers: { partnerProfileId: ObjectId; name: string; city: string; conversationId: string }[];
+  createdAt: Date;
+};
+
+/** One member's yes or no to one suggestion. A yes both ways is a match. */
+export type MatchDecisionDoc = {
+  _id: ObjectId;
+  fromId: ObjectId;
+  toId: ObjectId;
+  decision: "like" | "pass";
   createdAt: Date;
 };
 
@@ -427,6 +610,30 @@ async function ensureIndexes(): Promise<void> {
       { key: { at: 1 }, expireAfterSeconds: 60 * 60 * 24 * 395, name: "at_ttl" },
     ]),
 
+    db.collection<MatchProfileDoc>("matchProfiles").createIndexes([
+      { key: { accountId: 1 }, unique: true },
+      { key: { gender: 1, seeking: 1, visible: 1, isTest: 1, birthYear: 1 } },
+    ]),
+
+    db.collection<MatchDecisionDoc>("matchDecisions").createIndexes([
+      { key: { fromId: 1, toId: 1 }, unique: true },
+      { key: { toId: 1, decision: 1 } },
+    ]),
+
+    db.collection<SkinScanDoc>("skinScans").createIndex({ accountId: 1, createdAt: -1 }),
+
+    db.collection<LongevityCheckDoc>("longevityChecks").createIndex({ accountId: 1, createdAt: -1 }),
+
+    db.collection<LongevityCourseDoc>("longevityCourse").createIndex({ accountId: 1 }, { unique: true }),
+
+    db.collection<PropertySaleDoc>("propertySales").createIndex({ accountId: 1, createdAt: -1 }),
+    db.collection<PropertySearchDoc>("propertySearches").createIndex({ accountId: 1, createdAt: -1 }),
+
+    db.collection<OfferingDoc>("offerings").createIndexes([
+      { key: { partnerProfileId: 1, published: 1 } },
+      { key: { published: 1, concerns: 1 } },
+    ]),
+
     db.collection<RefreshTokenDoc>("refreshTokens").createIndexes([
       { key: { tokenHash: 1 }, unique: true },
       { key: { accountId: 1 } },
@@ -459,6 +666,14 @@ export const savedPartners = () => collection<SavedPartnerDoc>("savedPartners");
 export const conversations = () => collection<ConversationDoc>("conversations");
 export const messages = () => collection<MessageDoc>("messages");
 export const aiThreads = () => collection<AiThreadDoc>("aiThreads");
+export const skinScans = () => collection<SkinScanDoc>("skinScans");
+export const offerings = () => collection<OfferingDoc>("offerings");
+export const longevityChecks = () => collection<LongevityCheckDoc>("longevityChecks");
+export const longevityCourse = () => collection<LongevityCourseDoc>("longevityCourse");
+export const propertySales = () => collection<PropertySaleDoc>("propertySales");
+export const propertySearches = () => collection<PropertySearchDoc>("propertySearches");
+export const matchProfiles = () => collection<MatchProfileDoc>("matchProfiles");
+export const matchDecisions = () => collection<MatchDecisionDoc>("matchDecisions");
 export const appointmentRequests = () =>
   collection<AppointmentRequestDoc>("appointmentRequests");
 export const refreshTokens = () => collection<RefreshTokenDoc>("refreshTokens");

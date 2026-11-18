@@ -78,13 +78,13 @@ struct EditProfileView: View {
                     TextField("Anything else worth knowing", text: $context, axis: .vertical)
                         .lineLimit(3...8)
                 } footer: {
-                    Text("Conditions, preferences, constraints — the assistant reads this before advising you.")
+                    Text("Conditions, preferences, constraints: the assistant reads this before advising you.")
                 }
 
                 if let error {
                     Section {
                         Text(error)
-                            .font(.system(size: 13))
+                            .font(.theone(13))
                             .foregroundStyle(.red)
                     }
                 }
@@ -96,7 +96,7 @@ struct EditProfileView: View {
                     Button("Cancel") { dismiss() }
                 }
                 ToolbarItem(placement: .confirmationAction) {
-                    Button(saving ? "Saving…" : "Save") {
+                    Button(tr(saving ? "Saving…" : "Save")) {
                         Task { await save() }
                     }
                     .disabled(!canSave)
@@ -138,7 +138,7 @@ struct EditProfileView: View {
         } catch let apiError as APIError {
             error = apiError.errorDescription
         } catch {
-            self.error = "Could not save your profile. Please try again."
+            self.error = tr("Could not save your profile. Please try again.")
         }
     }
 }

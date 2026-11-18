@@ -5,6 +5,8 @@
 	<!-- Only standard HTTPS, so no export-compliance paperwork per upload. -->
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
+	<key>NSCameraUsageDescription</key>
+	<string>TheONE uses the camera for your skin analysis. The photo is only used for the analysis and is not stored by TheONE.</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>TheONE uses the microphone so you can speak to your concierge instead of typing.</string>
 	<key>NSSpeechRecognitionUsageDescription</key>
@@ -16,16 +18,12 @@
 		<key>NSAllowsLocalNetworking</key>
 		<true/>
 	</dict>
-	<!-- The mark on white. RootView's loading state draws the same mark at the
-	     same size, so launch hands over to the app without a visible jump. -->
+	<!-- Plain start-screen colour, no image: the app opens straight on the
+	     start screen, whose top is this colour, so launch hands over without a jump. -->
 	<key>UILaunchScreen</key>
 	<dict>
 		<key>UIColorName</key>
 		<string>LaunchBackground</string>
-		<key>UIImageName</key>
-		<string>LaunchMark</string>
-		<key>UIImageRespectsSafeAreaInsets</key>
-		<false/>
 	</dict>
 </dict>
 </plist>

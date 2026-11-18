@@ -19,18 +19,18 @@ struct LoginView: View {
                     .padding(.top, 16)
 
                 Text("MEMBERS & BUSINESS PARTNERS")
-                    .font(.system(size: 10, weight: .semibold))
-                    .tracking(3)
-                    .foregroundStyle(Theme.aqua)
+                    .font(.theone(10, weight: .semibold))
+                    .tracking(MemberLanguage.spacing(3))
+                    .foregroundStyle(Theme.accentText)
                     .padding(.top, 34)
 
                 Text("Sign in")
-                    .font(.system(size: 32, weight: .light, design: .serif))
-                    .foregroundStyle(Theme.ink)
+                    .font(.theoneHeading(28))
+                    .foregroundStyle(Theme.heading)
                     .padding(.top, 8)
 
                 Text("Only live accounts can use the app.")
-                    .font(.system(size: 14))
+                    .font(.theone(14))
                     .foregroundStyle(Theme.inkSoft)
                     .padding(.top, 6)
 
@@ -61,13 +61,13 @@ struct LoginView: View {
                                 Image(systemName: showPassword ? "eye.slash" : "eye")
                                     .foregroundStyle(Theme.inkFaint)
                             }
-                            .accessibilityLabel(showPassword ? "Hide password" : "Show password")
+                            .accessibilityLabel(tr(showPassword ? "Hide password" : "Show password"))
                         }
                     }
 
                     if let error = session.signInError {
                         Text(error)
-                            .font(.system(size: 13))
+                            .font(.theone(13))
                             .foregroundStyle(Color(red: 0.95, green: 0.45, blue: 0.45))
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .padding(.horizontal, 2)
@@ -76,9 +76,10 @@ struct LoginView: View {
                     Button {
                         Task { await session.signIn(identifier: identifier, password: password) }
                     } label: {
-                        Text(session.isWorking ? "Signing in…" : "Sign in")
+                        Text(tr(session.isWorking ? "Signing in…" : "Sign in"))
                     }
                     .buttonStyle(PrimaryButtonStyle())
+                    .accessibilityIdentifier("login.submit")
                     .disabled(session.isWorking || identifier.isEmpty || password.isEmpty)
                     .opacity(identifier.isEmpty || password.isEmpty ? 0.6 : 1)
                 }
@@ -87,15 +88,15 @@ struct LoginView: View {
 
                 VStack(spacing: 10) {
                     Text("Not a member yet?")
-                        .font(.system(size: 13))
+                        .font(.theone(13))
                         .foregroundStyle(Theme.inkFaint)
 
                     // Enrolment is a long, reviewed form with payment at the
                     // end, so it lives on the web rather than being rebuilt
                     // here where it would immediately drift.
                     Link("Apply for access", destination: enrolURL)
-                        .font(.system(size: 14, weight: .medium))
-                        .foregroundStyle(Theme.aqua)
+                        .font(.theone(14, weight: .medium))
+                        .foregroundStyle(Theme.accentText)
                 }
                 .padding(.top, 26)
 
@@ -113,11 +114,11 @@ struct LoginView: View {
         @ViewBuilder content: () -> Content
     ) -> some View {
         VStack(alignment: .leading, spacing: 7) {
-            Text(label)
-                .font(.system(size: 13, weight: .medium))
+            Text(tr(label))
+                .font(.theone(13, weight: .medium))
                 .foregroundStyle(Theme.ink)
             content()
-                .font(.system(size: 16))
+                .font(.theone(16))
                 .foregroundStyle(Theme.ink)
                 .padding(.horizontal, 14)
                 .padding(.vertical, 12)

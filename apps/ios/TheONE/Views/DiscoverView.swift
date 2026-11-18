@@ -35,7 +35,7 @@ final class DiscoverModel {
             let response: PartnersResponse = try await APIClient.shared.send(path)
             partners = response.partners
         } catch {
-            self.error = (error as? APIError)?.errorDescription ?? "Could not load business partners."
+            self.error = (error as? APIError)?.errorDescription ?? tr("Could not load business partners.")
         }
     }
 
@@ -80,9 +80,9 @@ struct DiscoverView: View {
                         ProgressView().tint(Theme.aqua).padding(.top, 40)
                     } else if model.partners.isEmpty {
                         Text(model.savedOnly
-                             ? "Nothing saved yet."
-                             : "No business partners match this search.")
-                            .font(.system(size: 14))
+                             ? tr("Nothing saved yet.")
+                             : tr("No business partners match this search."))
+                            .font(.theone(14))
                             .foregroundStyle(Theme.inkSoft)
                             .padding(.top, 40)
                     }
@@ -101,6 +101,7 @@ struct DiscoverView: View {
             }
             .paperBackground()
             .navigationTitle("Discover")
+            .homeButton()
             .brandedNavigationBar()
             .navigationDestination(for: PartnerSummary.self) { partner in
                 PartnerDetailView(partnerId: partner.id)
@@ -132,8 +133,8 @@ struct DiscoverView: View {
 
     private func chip(_ label: String, active: Bool, action: @escaping () -> Void) -> some View {
         Button(action: action) {
-            Text(label)
-                .font(.system(size: 13, weight: active ? .semibold : .regular))
+            Text(tr(label))
+                .font(.theone(13, weight: active ? .semibold : .regular))
                 .foregroundStyle(active ? Theme.onAccent : Theme.inkSoft)
                 .padding(.horizontal, 14)
                 .padding(.vertical, 7)
@@ -153,15 +154,18 @@ struct PartnerRow: View {
         HStack(alignment: .top, spacing: 12) {
             VStack(alignment: .leading, spacing: 4) {
                 Text(partner.name)
-                    .font(.system(size: 16, weight: .medium))
+                    .font(.theone(16, weight: .medium))
                     .foregroundStyle(Theme.ink)
 
-                Text("\(partner.city), \(partner.country)")
-                    .font(.system(size: 12.5))
-                    .foregroundStyle(Theme.inkFaint)
+                // Brands that sell through their own online shop show no place.
+                if partner.category != "beauty", !partner.city.isEmpty {
+                    Text("\(partner.city), \(partner.country)")
+                        .font(.theone(12.5))
+                        .foregroundStyle(Theme.inkFaint)
+                }
 
                 Text(partner.description)
-                    .font(.system(size: 13))
+                    .font(.theone(13))
                     .foregroundStyle(Theme.inkSoft)
                     .lineLimit(2)
                     .padding(.top, 2)
@@ -175,7 +179,7 @@ struct PartnerRow: View {
                     .foregroundStyle(partner.saved ? Theme.aqua : Theme.inkFaint)
             }
             .buttonStyle(.plain)
-            .accessibilityLabel(partner.saved ? "Remove bookmark" : "Save business partner")
+            .accessibilityLabel(tr(partner.saved ? "Remove bookmark" : "Save business partner"))
         }
         .glassCard()
     }

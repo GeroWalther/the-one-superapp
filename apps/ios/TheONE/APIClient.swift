@@ -17,6 +17,9 @@ actor APIClient {
     #endif
 
     private var accessToken: String?
+
+    /// Signed in: the cloud voice and other member-only calls can be tried.
+    var hasSession: Bool { accessToken != nil }
     private var refreshTask: Task<Bool, Never>?
 
     private let decoder = JSONDecoder()
@@ -109,7 +112,7 @@ actor APIClient {
         do {
             return try decoder.decode(T.self, from: data)
         } catch {
-            throw APIError.server("Unexpected response from TheONE.")
+            throw APIError.server(tr("Unexpected response from TheONE."))
         }
     }
 
@@ -121,7 +124,7 @@ actor APIClient {
         authenticated: Bool = true,
         allowRetry: Bool = true
     ) async throws -> Data {
-        var request = URLRequest(url: baseURL.appendingPathComponent(path.hasPrefix("/") ? String(path.dropFirst()) : path))
+        var request = URLRequest(url: url(for: path))
         request.httpMethod = method
         request.setValue("application/json", forHTTPHeaderField: "content-type")
 
@@ -161,8 +164,74 @@ actor APIClient {
         return data
     }
 
+    /// `appendingPathComponent` escapes a `?`, so a query is attached separately.
+    private func url(for path: String) -> URL {
+        let trimmed = path.hasPrefix("/") ? String(path.dropFirst()) : path
+        let parts = trimmed.split(separator: "?", maxSplits: 1).map(String.init)
+        let base = baseURL.appendingPathComponent(parts[0])
+        guard parts.count == 2,
+              var components = URLComponents(url: base, resolvingAgainstBaseURL: false)
+        else { return base }
+        components.percentEncodedQuery = parts[1]
+        return components.url ?? base
+    }
+
+    /// Uploads one JPEG as multipart form field `image`, and decodes the answer.
+    func upload<T: Decodable>(
+        _ path: String,
+        jpeg: Data,
+        fields: [String: String] = [:],
+        timeout: TimeInterval = 120,
+        allowRetry: Bool = true
+    ) async throws -> T {
+        let boundary = "TheONE-\(UUID().uuidString)"
+        var request = URLRequest(url: url(for: path))
+        request.httpMethod = "POST"
+        request.timeoutInterval = timeout
+        request.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "content-type")
+        if let accessToken {
+            request.setValue("Bearer \(accessToken)", forHTTPHeaderField: "authorization")
+        }
+
+        var body = Data()
+        for (name, value) in fields {
+            body.append(Data("--\(boundary)\r\nContent-Disposition: form-data; name=\"\(name)\"\r\n\r\n\(value)\r\n".utf8))
+        }
+        body.append(Data("--\(boundary)\r\n".utf8))
+        body.append(Data("Content-Disposition: form-data; name=\"image\"; filename=\"photo.jpg\"\r\n".utf8))
+        body.append(Data("Content-Type: image/jpeg\r\n\r\n".utf8))
+        body.append(jpeg)
+        body.append(Data("\r\n--\(boundary)--\r\n".utf8))
+        request.httpBody = body
+
+        let data: Data
+        let response: URLResponse
+        do {
+            (data, response) = try await URLSession.shared.data(for: request)
+        } catch {
+            throw APIError.network
+        }
+        guard let http = response as? HTTPURLResponse else { throw APIError.network }
+
+        if http.statusCode == 401, allowRetry {
+            if await refresh() {
+                return try await upload(path, jpeg: jpeg, fields: fields, timeout: timeout, allowRetry: false)
+            }
+            clear()
+            throw APIError.unauthorized
+        }
+        guard (200..<300).contains(http.statusCode) else {
+            throw Self.mapError(status: http.statusCode, data: data)
+        }
+        do {
+            return try decoder.decode(T.self, from: data)
+        } catch {
+            throw APIError.server(tr("Unexpected response from TheONE."))
+        }
+    }
+
     /// Builds a request the streaming assistant endpoint can consume.
-    func assistantRequest(message: String, threadId: String?) -> URLRequest? {
+    func assistantRequest(message: String, threadId: String?, opening: String? = nil) -> URLRequest? {
         guard let accessToken else { return nil }
 
         var request = URLRequest(url: baseURL.appendingPathComponent("assistant"))
@@ -171,8 +240,10 @@ actor APIClient {
         request.setValue("Bearer \(accessToken)", forHTTPHeaderField: "authorization")
         request.timeoutInterval = 180
 
-        var payload: [String: Any] = ["message": message]
+        // Replies follow the member's language, starting from the phone's.
+        var payload: [String: Any] = ["message": message, "language": MemberLanguage.tag]
         if let threadId { payload["threadId"] = threadId }
+        if let opening { payload["opening"] = opening }
         request.httpBody = try? JSONSerialization.data(withJSONObject: payload)
 
         return request
@@ -185,9 +256,17 @@ actor APIClient {
     }
 
     private static func mapError(status: Int, data: Data) -> APIError {
-        let code = (try? JSONSerialization.jsonObject(with: data) as? [String: Any])?["code"] as? String
+        let json = (try? JSONSerialization.jsonObject(with: data)) as? [String: Any]
+        let code = json?["code"] as? String
+
+        // A reason written for the member (e.g. how to retake a skin photo).
+        if let message = json?["message"] as? String, !message.isEmpty {
+            return .server(message)
+        }
 
         switch code {
+        case "too_many": return .server(tr("You have done TheONE SKIN SCAN several times today. Please try again tomorrow."))
+        case "unusable": return .server(tr("Your face could not be seen clearly. Please try again in good light, facing the camera."))
         case "payment_required": return .paymentRequired
         case "account_inactive": return .inactive
         case "invalid_credentials", "missing_token", "invalid_token": return .unauthorized
@@ -196,8 +275,8 @@ actor APIClient {
         }
 
         if status == 401 { return .unauthorized }
-        if status == 429 { return .server("Too many attempts. Please wait a moment.") }
-        return .server("Something went wrong (\(status)).")
+        if status == 429 { return .server(tr("Too many attempts. Please wait a moment.")) }
+        return .server(tr("Something went wrong (%lld).", status))
     }
 }
 

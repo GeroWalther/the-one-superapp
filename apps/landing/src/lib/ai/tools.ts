@@ -6,6 +6,10 @@ import type { PublicAccount } from "../auth/accounts";
 import { getPartner, searchPartners, setSaved } from "../api/partners";
 import { getMemberProfile } from "../profile/service";
 import { openConversation, sendMessage } from "../api/chat";
+import { listSkinScans } from "../skin/service";
+import { offeringsForAdvice } from "../selection/service";
+import { startPropertySale, listPropertySales, startPropertySearch, PROPERTY_TYPES } from "../realestate/service";
+import { COURSE, completeLesson, courseProgress, listLongevityChecks } from "../longevity/service";
 
 /**
  * The assistant's tools.
@@ -37,7 +41,7 @@ export const ASSISTANT_TOOLS: Anthropic.Tool[] = [
         query: {
           type: "string",
           description:
-            "Free text describing the need, e.g. 'dentist', 'longevity clinic', 'spa'.",
+            "Free text describing the need, always in English whatever language the member speaks, e.g. 'dentist', 'longevity clinic', 'spa'. The directory is written in English and German.",
         },
         focusArea: {
           type: "string",
@@ -55,7 +59,7 @@ export const ASSISTANT_TOOLS: Anthropic.Tool[] = [
         city: {
           type: "string",
           description:
-            "Restrict to a city. Use the member's own city for 'near me' requests.",
+            "Restrict to a city, spelled in Latin letters as locals write it (Zurich, Munich, Vienna). Use the member's own city for 'near me' requests.",
         },
       },
       additionalProperties: false,
@@ -88,6 +92,106 @@ export const ASSISTANT_TOOLS: Anthropic.Tool[] = [
     },
   },
   {
+    name: "search_selection",
+    description:
+      "TheONE SELECTION: the exact products, treatments, programmes and stays that TheONE's business partners offer, with prices. Use it to recommend one specific item rather than a brand. Filter by kind and by the TheONE SKIN SCAN keys an item helps with (hydration, lines, pigmentation, redness, pores, evenness, radiance).",
+    input_schema: {
+      type: "object",
+      properties: {
+        kinds: {
+          type: "array",
+          items: { type: "string", enum: ["product", "treatment", "program", "stay", "flight", "property", "service"] },
+        },
+        concerns: {
+          type: "array",
+          items: {
+            type: "string",
+            enum: ["hydration", "lines", "pigmentation", "redness", "pores", "evenness", "radiance"],
+          },
+        },
+      },
+      additionalProperties: false,
+    },
+  },
+  {
+    name: "sell_property",
+    description:
+      "TheONE REAL ESTATE: sends the member's home for sale to the two or three best TheONE brokers for its city, each in a conversation of its own, written in the broker's language. Call it once the member has said they want to sell and you know at least the type, city and country; ask for rooms, living area, plot, price idea and timing in one natural question, but never insist. Read the details back in one sentence and get their yes before you call it.",
+    input_schema: {
+      type: "object",
+      properties: {
+        propertyType: { type: "string", enum: [...PROPERTY_TYPES] },
+        city: { type: "string" },
+        country: { type: "string", description: "In English, e.g. Switzerland, Spain, United Arab Emirates." },
+        rooms: { type: "number" },
+        livingArea: { type: "number", description: "Square metres." },
+        plotArea: { type: "number", description: "Square metres." },
+        priceIdea: { type: "number", description: "Whole currency units, e.g. 4500000." },
+        currency: { type: "string", description: "ISO code, e.g. CHF, EUR, GBP, AED." },
+        description: { type: "string", description: "What makes the home special, in the member's words, translated to English." },
+        timing: { type: "string", enum: ["now", "months", "exploring"] },
+        offMarket: { type: "boolean", description: "True when the member wants a discreet sale." },
+      },
+      required: ["propertyType", "city", "country"],
+      additionalProperties: false,
+    },
+  },
+  {
+    name: "find_property",
+    description:
+      "TheONE REAL ESTATE, buying: sends what the member is looking for to the two or three best TheONE brokers for that place, who answer in the member's Messages with matching properties from their portfolio, off market ones too. Call it when the member wants a home and the estates shown by search_selection do not already fit, once you know at least the place and country; ask in one natural question for type, rooms, size, budget and what matters most, never insist. Read it back in one sentence and get their yes first.",
+    input_schema: {
+      type: "object",
+      properties: {
+        propertyTypes: { type: "array", items: { type: "string", enum: [...PROPERTY_TYPES] } },
+        city: { type: "string", description: "City or area, e.g. Küsnacht, Mayfair, Palm Jumeirah." },
+        country: { type: "string", description: "In English, e.g. Switzerland, United Kingdom." },
+        minRooms: { type: "number" },
+        minLivingArea: { type: "number", description: "Square metres." },
+        budget: { type: "number", description: "Upper limit in whole currency units." },
+        currency: { type: "string", description: "ISO code, e.g. CHF, EUR, GBP, AED." },
+        description: { type: "string", description: "What matters to the member, in their words, translated to English." },
+        timing: { type: "string", enum: ["now", "months", "exploring"] },
+      },
+      required: ["city", "country"],
+      additionalProperties: false,
+    },
+  },
+  {
+    name: "get_property_sales",
+    description:
+      "The member's homes for sale through TheONE REAL ESTATE and which brokers each went to. Call it when they ask how their sale is going or mention selling again.",
+    input_schema: { type: "object", properties: {}, additionalProperties: false },
+  },
+  {
+    name: "complete_course_lesson",
+    description:
+      "Marks one TheONE LONGEVITY COURSE lesson as done for the member, after you have taught it and given its task. Lessons: mindset, sleep, nutrition, movement, stress, supplements, connection, prevention.",
+    input_schema: {
+      type: "object",
+      properties: {
+        lesson: {
+          type: "string",
+          enum: ["mindset", "sleep", "nutrition", "movement", "stress", "supplements", "connection", "prevention"],
+        },
+      },
+      required: ["lesson"],
+      additionalProperties: false,
+    },
+  },
+  {
+    name: "get_longevity_check",
+    description:
+      "The member's latest TheONE LONGEVITY CHECK results: longevity score and six pillars (sleep, stress, movement, nutrition, connection, prevention) 0 to 100 where higher is better, focus, a four week plan, and the exact clinic programmes and products picked for them. Call this whenever the member talks about energy, sleep, stress, ageing, health or living longer, or has just done the check.",
+    input_schema: { type: "object", properties: {}, additionalProperties: false },
+  },
+  {
+    name: "get_skin_analysis",
+    description:
+      "The member's latest TheONE SKIN SCAN results (face scans): scores 0 to 100 where higher is better, focus areas, routine, and the business partners suggested with them. Call this whenever the member talks about their skin, looking younger or more radiant, or has just done a scan.",
+    input_schema: { type: "object", properties: {}, additionalProperties: false },
+  },
+  {
     name: "request_appointment",
     description:
       "Request an appointment with a partner on the member's behalf. This opens an in-app conversation and messages the partner directly. Only call this after the member has clearly agreed to being put in touch — never speculatively, and never without naming which partner you are contacting.",
@@ -98,11 +202,17 @@ export const ASSISTANT_TOOLS: Anthropic.Tool[] = [
         summary: {
           type: "string",
           description:
-            "What the member needs, in one or two sentences, written for the partner to read.",
+            "What the member needs, in one or two sentences, written for the partner to read. Write it in the partner's language (German for a partner in a German-speaking country, otherwise English), never in the member's language if that differs, and if the member speaks another language, say which, so the partner can prepare.",
         },
         preferredTiming: {
           type: "string",
-          description: "The member's stated availability, if they gave any.",
+          description:
+            "The member's stated availability, if they gave any, in the partner's language (German or English), like the summary.",
+        },
+        memberLanguage: {
+          type: "string",
+          description:
+            "The language the member speaks with you, named in English (\"Japanese\"), so the partner can prepare.",
         },
       },
       required: ["partnerId", "summary"],
@@ -112,6 +222,15 @@ export const ASSISTANT_TOOLS: Anthropic.Tool[] = [
 ];
 
 export type ToolResult = { content: string; isError?: boolean };
+
+/** Partner countries whose businesses read German; everyone else gets English. */
+const GERMAN_SPEAKING = new Set([
+  "germany", "deutschland", "austria", "österreich", "switzerland", "schweiz",
+  "liechtenstein", "luxembourg", "luxemburg",
+]);
+
+/** Latin letters, digits, punctuation, symbols and spaces only. */
+const LATIN_ONLY = /^[\p{Script=Latin}\p{N}\p{P}\p{S}\p{Z}\s]*$/u;
 
 export async function runAssistantTool(
   name: string,
@@ -196,6 +315,107 @@ export async function runAssistantTool(
           : { content: "No such partner.", isError: true };
       }
 
+      case "search_selection": {
+        const items = await offeringsForAdvice({
+          accountId: account.id,
+          kinds: Array.isArray(input.kinds) ? (input.kinds as never[]) : undefined,
+          concerns: Array.isArray(input.concerns) ? (input.concerns as string[]) : undefined,
+          limit: 30,
+        });
+        if (items.length === 0) return { content: "Nothing in TheONE SELECTION matches yet." };
+        return {
+          content: JSON.stringify(
+            items.map((o) => ({
+              id: o.id,
+              kind: o.kind,
+              title: o.title,
+              partner: o.partner,
+              helpsWith: o.concerns,
+              boughtIn: o.url ? "the brand's own shop, from the product page in TheONE SELECTION" : "a request to the business partner",
+              price: o.priceCents === null ? "on request" : `${(o.priceCents / 100).toFixed(0)} ${o.currency}${o.priceNote ? " " + o.priceNote : ""}`,
+              about: o.description,
+            })),
+          ),
+        };
+      }
+
+      case "sell_property": {
+        const result = await startPropertySale({
+          accountId: account.id,
+          displayName: account.displayName,
+          property: input as never,
+        });
+        if (!result.ok) {
+          const why = {
+            invalid: "Missing or unclear type, city or country. Ask the member for it.",
+            limit: "Five sales a day is the limit; it can be sent again tomorrow.",
+            no_brokers: "TheONE has no broker for this place yet. Tell the member plainly and offer to look again soon.",
+          }[result.reason];
+          return { content: why, isError: result.reason === "invalid" };
+        }
+        return {
+          content: `Sent. Brokers reached, each with its own chat in the member's Messages: ${result.sale.brokers
+            .map((b) => `${b.name} (${b.city})`)
+            .join(", ")}. Tell the member who they are and that they will reply there.`,
+        };
+      }
+
+      case "find_property": {
+        const result = await startPropertySearch({
+          accountId: account.id,
+          displayName: account.displayName,
+          wish: input as never,
+        });
+        if (!result.ok) {
+          const why = {
+            invalid: "Missing place or country. Ask the member for it.",
+            limit: "Five searches a day is the limit; it can be sent again tomorrow.",
+            no_brokers: "TheONE has no broker for this place yet. Tell the member plainly and offer to look again soon.",
+          }[result.reason];
+          return { content: why, isError: result.reason === "invalid" };
+        }
+        return {
+          content: `Sent. Brokers reached, each with its own chat in the member's Messages: ${result.search.brokers
+            .map((b) => `${b.name} (${b.city})`)
+            .join(", ")}. Tell the member they will send matching properties from their portfolio there.`,
+        };
+      }
+
+      case "get_property_sales": {
+        const sales = await listPropertySales(account.id);
+        if (sales.length === 0) return { content: "No home for sale yet." };
+        return { content: JSON.stringify(sales.slice(0, 5)) };
+      }
+
+      case "complete_course_lesson": {
+        const done = await completeLesson(account.id, String(input.lesson ?? ""));
+        if (!done) return { content: "Unknown lesson.", isError: true };
+        return { content: `Recorded. Lessons done: ${done.join(", ")} (of 8).` };
+      }
+
+      case "get_longevity_check": {
+        const checks = await listLongevityChecks(account.id, 3);
+        const course = { lessons: COURSE, completed: await courseProgress(account.id) };
+        if (checks.length === 0) {
+          return {
+            content:
+              "No TheONE LONGEVITY CHECK yet. Offer one: the member finds it in TheONE LONGEVITY on the start screen, thirteen quick questions.",
+          };
+        }
+        return { content: JSON.stringify({ checks, course }) };
+      }
+
+      case "get_skin_analysis": {
+        const scans = await listSkinScans(account.id, 3);
+        if (scans.length === 0) {
+          return {
+            content:
+              "No TheONE SKIN SCAN yet. Offer one: the member taps the face scan button next to the microphone in the assistant.",
+          };
+        }
+        return { content: JSON.stringify(scans) };
+      }
+
       case "request_appointment": {
         const partner = await getPartner({
           accountId,
@@ -222,6 +442,21 @@ export async function runAssistantTool(
           typeof input.preferredTiming === "string" && input.preferredTiming
             ? input.preferredTiming
             : null;
+
+        /* A member abroad may speak no English, but the clinic reading this
+           has to understand it. Partners work in German or English, so text
+           in another script is turned back to be written again. */
+        const partnerLanguage = GERMAN_SPEAKING.has(partner.country.trim().toLowerCase())
+          ? "German"
+          : "English";
+        if (!LATIN_ONLY.test(summary) || (preferredTiming && !LATIN_ONLY.test(preferredTiming))) {
+          return {
+            content: `Nothing was sent. The partner reads ${partnerLanguage}: write summary and preferredTiming in ${partnerLanguage}, set memberLanguage, and call request_appointment again. Keep talking to the member in their own language.`,
+            isError: true,
+          };
+        }
+        const memberLanguage =
+          typeof input.memberLanguage === "string" ? input.memberLanguage.trim().slice(0, 40) : "";
 
         await (
           await appointmentRequests()
@@ -250,6 +485,9 @@ export async function runAssistantTool(
               `Appointment request from ${account.displayName}:`,
               summary,
               preferredTiming ? `Preferred timing: ${preferredTiming}` : null,
+              memberLanguage && !/^(english|german|deutsch)$/i.test(memberLanguage)
+                ? `The member speaks ${memberLanguage}.`
+                : null,
             ]
               .filter(Boolean)
               .join("\n\n"),
