@@ -80,6 +80,13 @@ final class AssistantModel {
                     // pause and visible progress.
                     turns[replyIndex].runningTool = event["name"] as? String
 
+                case "email":
+                    // The email arrives as a card; the reply text says it is ready.
+                    if let payload = event["draft"] as? [String: Any],
+                       let draft = EmailDraft(payload) {
+                        turns[replyIndex].email = draft
+                    }
+
                 case "done":
                     turns[replyIndex].runningTool = nil
                     if speakReplies {
@@ -109,6 +116,22 @@ final class AssistantModel {
         }
     }
 
+    /// The member sent the email from the Mail sheet.
+    func markSent(_ turnID: UUID) {
+        guard let index = turns.firstIndex(where: { $0.id == turnID }),
+              var email = turns[index].email
+        else { return }
+        email.sent = true
+        turns[index].email = email
+        let name = email.toName ?? email.toEmail ?? ""
+        turns.append(AssistantTurn(
+            role: .assistant,
+            text: name.isEmpty
+                ? tr("Your email is on its way.")
+                : String(format: tr("Your email to %@ is on its way."), name)
+        ))
+    }
+
     func reset() {
         turns = []
         threadId = nil
@@ -123,6 +146,9 @@ struct AssistantView: View {
     @State private var speech = SpeechController()
     @State private var showSkin = false
     @State private var showSkinHistory = false
+    @State private var mailRequest: MailRequest?
+    @State private var mailFallback: MailRequest?
+    @FocusState private var composerFocused: Bool
 
     var body: some View {
         NavigationStack {
@@ -184,6 +210,16 @@ struct AssistantView: View {
                 discuss(tr("I have just done my TheONE SKIN SCAN. What do you recommend for me?"))
             }
         }
+        .sheet(item: $mailRequest) { request in
+            MailComposer(request: request) { sent in
+                mailRequest = nil
+                if sent { model.markSent(request.turnID) }
+            }
+            .ignoresSafeArea()
+        }
+        .sheet(item: $mailFallback) { request in
+            MailFallbackSheet(request: request)
+        }
         .sheet(isPresented: $showSkinHistory) {
             SkinHistoryView {
                 showSkinHistory = false
@@ -191,6 +227,42 @@ struct AssistantView: View {
                     try? await Task.sleep(for: .milliseconds(450))
                     showSkin = true
                 }
+            }
+        }
+    }
+
+    /// The member asks for changes in their own words; the composer is
+    /// prefilled so they only add what to change.
+    private func changeEmail() {
+        greeter.stop()
+        speech.stopSpeaking()
+        model.draft = tr("Please change the email: ")
+        composerFocused = true
+    }
+
+    /// Opens the email in the Mail sheet. Without an address, the name is
+    /// looked up in the member's contacts first; without a mail account, the
+    /// default mail app or a copyable text takes over.
+    private func openEmail(_ turn: AssistantTurn) {
+        guard let email = turn.email else { return }
+        speech.stopSpeaking()
+        Task {
+            var address = email.toEmail
+            if address == nil, let name = email.toName {
+                address = await ContactsLookup.email(for: name)
+            }
+            let request = MailRequest(
+                turnID: turn.id,
+                to: address.map { [$0] } ?? [],
+                subject: email.subject,
+                body: email.body
+            )
+            if MailComposer.isAvailable {
+                mailRequest = request
+            } else if let url = request.mailtoURL, await UIApplication.shared.open(url) {
+                return
+            } else {
+                mailFallback = request
             }
         }
     }
@@ -214,8 +286,12 @@ struct AssistantView: View {
                     if model.turns.isEmpty { intro }
 
                     ForEach(model.turns) { turn in
-                        TurnBubble(turn: turn)
-                            .id(turn.id)
+                        TurnBubble(
+                            turn: turn,
+                            onChangeEmail: changeEmail,
+                            onOpenEmail: { openEmail(turn) }
+                        )
+                        .id(turn.id)
                     }
                 }
                 .padding(.horizontal, 18)
@@ -320,6 +396,7 @@ struct AssistantView: View {
 
             TextField("Message", text: $model.draft, axis: .vertical)
                 .accessibilityIdentifier("assistant.input")
+                .focused($composerFocused)
                 .lineLimit(1...5)
                 .font(.theone(16))
                 .foregroundStyle(Theme.ink)
@@ -363,6 +440,8 @@ struct AssistantView: View {
 
 private struct TurnBubble: View {
     let turn: AssistantTurn
+    var onChangeEmail: () -> Void = {}
+    var onOpenEmail: () -> Void = {}
 
     var body: some View {
         VStack(alignment: turn.role == .user ? .trailing : .leading, spacing: 6) {
@@ -396,6 +475,10 @@ private struct TurnBubble: View {
                     )
                     .frame(maxWidth: 300, alignment: turn.role == .user ? .trailing : .leading)
             }
+
+            if let email = turn.email {
+                EmailDraftCard(draft: email, onChange: onChangeEmail, onOpen: onOpenEmail)
+            }
         }
         .frame(maxWidth: .infinity, alignment: turn.role == .user ? .trailing : .leading)
     }
@@ -407,6 +490,7 @@ private struct TurnBubble: View {
         case "get_member_profile": "Reading your profile…"
         case "request_appointment": "Sending your request…"
         case "save_partner": "Saving…"
+        case "draft_email": "Writing your email…"
         default: "Working…"
         }
     }

@@ -3,7 +3,7 @@ import Anthropic from "@anthropic-ai/sdk";
 import type { PublicAccount } from "../auth/accounts";
 import { aiThreads } from "../db/collections";
 import { ObjectId } from "mongodb";
-import { ASSISTANT_TOOLS, runAssistantTool } from "./tools";
+import { ASSISTANT_TOOLS, emailDraftFrom, runAssistantTool, type EmailDraft } from "./tools";
 
 /**
  * TheONE's concierge, running server-side.
@@ -99,6 +99,8 @@ Call get_member_profile before giving personal recommendations. Their focus area
 # Acting
 You can save partners and request appointments. Ask before you act on the member's behalf, then do it properly: name the partner, say what you sent, and give them the direct contact details too so they are never dependent on you.
 
+You can write emails for the member to anyone they name: a friend, their landlord, a doctor, a business. Use draft_email; the member sees the email as a card, can ask you to change it, and sends it themselves from their own address. You never send an email yourself and never claim you did. Do not ask for the recipient's address if you do not have it: the app finds it in their contacts or they type it in.
+
 Partner IDs are only valid within the turn that produced them — earlier turns in this conversation are replayed to you as plain text, so an ID you used before is gone. Before calling save_partner or request_appointment, call search_partners in this turn and use the exact id from its result. Never reconstruct or guess an ID, and never conclude a partner does not exist because an ID failed.
 
 # Health, money, and law
@@ -153,6 +155,8 @@ export type AssistantTurn = { role: "user" | "assistant"; content: string };
 export type StreamEvent =
   | { type: "text"; text: string }
   | { type: "tool"; name: string }
+  /** An email the assistant wrote, for the app to show as a card. */
+  | { type: "email"; draft: EmailDraft }
   | { type: "done"; text: string }
   | { type: "error"; code: string };
 
@@ -286,6 +290,10 @@ export async function* runAssistant(input: {
         (toolUse.input ?? {}) as Record<string, unknown>,
         input.account,
       );
+      if (toolUse.name === "draft_email" && !result.isError) {
+        const draft = emailDraftFrom((toolUse.input ?? {}) as Record<string, unknown>);
+        if (draft) yield { type: "email", draft };
+      }
       results.push({
         type: "tool_result",
         tool_use_id: toolUse.id,

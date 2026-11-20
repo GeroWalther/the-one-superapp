@@ -78,8 +78,40 @@ struct AssistantTurn: Identifiable, Sendable, Hashable {
     var text: String
     /// The tool currently running, shown while the model works.
     var runningTool: String?
+    /// An email the assistant wrote in this turn, shown as a card under the text.
+    var email: EmailDraft?
 
     enum Role: Sendable, Hashable { case user, assistant }
+}
+
+/// An email POWER AI wrote for the member. The member reviews and sends it
+/// from their own mail account; the app never sends it on its own.
+struct EmailDraft: Sendable, Hashable {
+    var toName: String?
+    var toEmail: String?
+    var subject: String
+    var body: String
+    var sent = false
+
+    init?(_ event: [String: Any]) {
+        guard let subject = event["subject"] as? String, !subject.isEmpty,
+              let body = event["body"] as? String, !body.isEmpty
+        else { return nil }
+        self.subject = subject
+        self.body = body
+        toName = (event["toName"] as? String).flatMap { $0.isEmpty ? nil : $0 }
+        toEmail = (event["toEmail"] as? String).flatMap { $0.isEmpty ? nil : $0 }
+    }
+
+    /// Who the card is addressed to, as the member reads it.
+    var recipientLine: String {
+        switch (toName, toEmail) {
+        case let (name?, email?): "\(name) <\(email)>"
+        case let (name?, nil): name
+        case let (nil, email?): email
+        default: ""
+        }
+    }
 }
 
 /// A failure worth showing the member, separated from noise worth logging.

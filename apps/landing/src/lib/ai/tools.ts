@@ -219,7 +219,60 @@ export const ASSISTANT_TOOLS: Anthropic.Tool[] = [
       additionalProperties: false,
     },
   },
+  {
+    name: "draft_email",
+    description:
+      "Show the member an email you wrote for them, as a card they can edit and then send from their own phone with their own email address. Call it whenever the member asks you to write, answer, reply to or send an email to anyone, straight away and without announcing it first. You never send it yourself: the member reads it, changes it if they like, and sends it. Write it in their voice and sign it with their first name. Write it in the language the recipient reads; when you do not know, use the member's language. If the member wants changes, call this tool again with the full revised email.",
+    input_schema: {
+      type: "object",
+      properties: {
+        toName: {
+          type: "string",
+          description: "The recipient's name as the member said it (\"Anna\", \"Dr. Weber\"). The app looks it up in the member's contacts.",
+        },
+        toEmail: {
+          type: "string",
+          description:
+            "The recipient's email address, only if the member gave it or it is in this conversation. Never guess or invent an address; leave it out instead.",
+        },
+        subject: { type: "string", description: "A short, natural subject line." },
+        body: {
+          type: "string",
+          description: "The full email text, from greeting to signature, as plain text with line breaks. No markdown.",
+        },
+      },
+      required: ["subject", "body"],
+      additionalProperties: false,
+    },
+  },
 ];
+
+/** The fields of an email the assistant drafted, as the app receives them. */
+export type EmailDraft = { toName?: string; toEmail?: string; subject: string; body: string };
+
+const EMAIL_ADDRESS = /^[^\s@<>(),;:"]+@[^\s@<>(),;:"]+\.[^\s@<>(),;:"]{2,}$/;
+
+/**
+ * Cleans the draft_email input. The assistant's own text has dashes swapped
+ * for commas while it streams; the email is written for the member to send,
+ * so it gets the same treatment, and an address that is not one is dropped
+ * rather than prefilled.
+ */
+export function emailDraftFrom(input: Record<string, unknown>): EmailDraft | null {
+  const text = (value: unknown, max: number) =>
+    typeof value === "string" ? value.replace(/\s*[–—]\s*/g, ", ").trim().slice(0, max) : "";
+  const subject = text(input.subject, 200);
+  const body = text(input.body, 6000);
+  if (!subject || !body) return null;
+  const toName = text(input.toName, 120);
+  const toEmail = typeof input.toEmail === "string" ? input.toEmail.trim() : "";
+  return {
+    subject,
+    body,
+    ...(toName ? { toName } : {}),
+    ...(EMAIL_ADDRESS.test(toEmail) && toEmail.length <= 254 ? { toEmail } : {}),
+  };
+}
 
 export type ToolResult = { content: string; isError?: boolean };
 
@@ -496,6 +549,21 @@ export async function runAssistantTool(
 
         return {
           content: `Request sent to ${partner.name}. They have been messaged in the app and will reply there. Their direct line is ${partner.contactPhone}.`,
+        };
+      }
+
+      case "draft_email": {
+        const draft = emailDraftFrom(input);
+        if (!draft) {
+          return { content: "The email needs a subject and a body.", isError: true };
+        }
+        return {
+          content: JSON.stringify({
+            shown: true,
+            note:
+              "The member now sees this email as a card with buttons to change it or open it in their mail app, where they send it themselves. Do not repeat the email text. Say in one short sentence that it is ready and that they can change it or send it." +
+              (draft.toEmail ? "" : " No address was given: the app looks the name up in their contacts, or they type it in."),
+          }),
         };
       }
 
