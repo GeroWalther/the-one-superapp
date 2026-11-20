@@ -96,6 +96,9 @@ export type SelectionPartner = {
   tagline: string | null;
   /** Seals on the brand's section head (award, quality). */
   badges: string[];
+  /** Words on the brand's boutique window, German and English. */
+  labels: string[];
+  labelsEn: string[];
   /** The partner's office, as they keep it in their profile. */
   office: { street: string | null; postalCode: string | null; phone: string; email: string; website: string | null };
   offerings: OfferingView[];
@@ -192,6 +195,8 @@ export async function selectionFeed(accountId: string, area = "selection"): Prom
         images: p.images,
         tagline: p.tagline ?? null,
         badges: p.badges ?? [],
+        labels: p.labels ?? [],
+        labelsEn: p.labelsEn ?? [],
         office: {
           street: p.street,
           postalCode: p.postalCode,

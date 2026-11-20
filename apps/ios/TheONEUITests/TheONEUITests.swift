@@ -765,6 +765,19 @@ final class TheONEUITests: XCTestCase {
             sleep(2)
             capture("s\(index + 1)-\(name)")
         }
+
+        // Inside a boutique: its picture, story, signature and collection.
+        let window = app.buttons["brand.BIOPLANTPHARMA"]
+        window.tap()
+        XCTAssertTrue(app.descendants(matching: .any)["boutique.BIOPLANTPHARMA"].waitForExistence(timeout: 10), "the boutique did not open")
+        sleep(4)
+        capture("b1-boutique")
+        app.swipeUp()
+        sleep(2)
+        capture("b2-boutique")
+        app.swipeUp()
+        sleep(2)
+        capture("b3-boutique")
     }
 
     /// TheONE REAL ESTATE: POWER AI's greeting, the estates of the best

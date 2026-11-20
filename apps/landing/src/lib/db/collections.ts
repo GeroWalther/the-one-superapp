@@ -232,6 +232,9 @@ export type PartnerProfileDoc = {
   tagline?: string;
   /** Seals shown on the brand's section head (award, quality), transparent PNGs. */
   badges?: string[];
+  /** Words on the brand's boutique window, in German and in English ("Wirkstoffpflege", "Active care"). */
+  labels?: string[];
+  labelsEn?: string[];
   images: string[];
   /** Hidden partners keep their data but disappear from search. */
   published: boolean;

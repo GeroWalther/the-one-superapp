@@ -102,7 +102,18 @@ struct SelectionPartner: Codable, Sendable, Hashable, Identifiable {
     let tagline: String?
     /// Seals on the brand's section head (award, quality).
     let badges: [String]?
+    /// Words on the boutique window, German and English ("Wirkstoffpflege").
+    let labels: [String]?
+    let labelsEn: [String]?
     let office: Office?
+
+    /// The boutique window's words in the member's language.
+    var windowLabels: [String] {
+        let german = labels ?? []
+        let english = labelsEn ?? []
+        if MemberLanguage.tag.hasPrefix("de") { return german.isEmpty ? english : german }
+        return english.isEmpty ? german : english
+    }
     let offerings: [Offering]
 }
 

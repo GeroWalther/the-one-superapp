@@ -32,6 +32,12 @@ enum Theme {
 
     /// Text that used to be aqua (labels, prices, links): deep petrol, so it
     /// reads as well as the rest. Aqua stays for symbols, fills and lines.
+    /// Champagne gold, only in TheONE MARKETPLACE: fine lines, small labels,
+    /// prices. The rest of the app stays without gold.
+    static let gold = Color(red: 0.659, green: 0.529, blue: 0.290)
+    static let goldLine = Color(red: 0.788, green: 0.671, blue: 0.431)
+    static let goldTint = Color(red: 0.969, green: 0.953, blue: 0.918)
+
     static let accentText = Color(red: 0.039, green: 0.208, blue: 0.231)
 }
 

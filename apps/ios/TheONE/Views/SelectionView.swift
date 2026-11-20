@@ -346,11 +346,20 @@ struct SelectionView: View {
 
     private var header: some View {
         VStack(spacing: 10) {
+            if area == .selection {
+                Text(verbatim: "PRIVATE BOUTIQUES")
+                    .font(.theone(11, weight: .medium))
+                    .tracking(2.6)
+                    .foregroundStyle(Theme.gold)
+            }
             Text(verbatim: area.name)
                 .font(.theoneHeading(21))
                 .tracking(2.5)
                 .multilineTextAlignment(.center)
                 .foregroundStyle(Theme.heading)
+            if area == .selection {
+                Rectangle().fill(Theme.goldLine).frame(width: 46, height: 1)
+            }
             Text(area.line)
                 .font(.theoneHeading(15))
                 .multilineTextAlignment(.center)
@@ -395,7 +404,26 @@ struct SelectionView: View {
         .padding(.horizontal, 20)
     }
 
+    @ViewBuilder
     private func partnerBlock(_ partner: SelectionPartner, sectionKey: String) -> some View {
+        if area == .selection {
+            // TheONE MARKETPLACE: each brand a window, its boutique behind it.
+            NavigationLink {
+                BoutiqueView(
+                    partner: partner,
+                    pick: feed?.forYou.first { $0.partner.id == partner.id }
+                )
+            } label: {
+                BoutiqueStorefront(partner: partner)
+            }
+            .buttonStyle(.plain)
+            .accessibilityIdentifier("brand.\(partner.name)")
+        } else {
+            standardBlock(partner, sectionKey: sectionKey)
+        }
+    }
+
+    private func standardBlock(_ partner: SelectionPartner, sectionKey: String) -> some View {
         VStack(alignment: .leading, spacing: 10) {
             // TheONE MARKETPLACE: each brand its own section, opened by the
             // brand's own picture and name.

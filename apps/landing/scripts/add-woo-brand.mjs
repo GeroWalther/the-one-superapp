@@ -87,6 +87,8 @@ await db.collection("partnerProfiles").updateOne(
       ...(config.sortOrder ? { sortOrder: config.sortOrder } : {}),
       tagline: config.tagline ?? null,
       badges: config.badges ?? [],
+      labels: config.labels ?? [],
+      labelsEn: config.labelsEn ?? [],
       // "published": false in the config hides a brand from the app without
       // deleting anything (e.g. until the brand has paid).
       published: config.published !== false, isTestAccount: false, updatedAt: now,
