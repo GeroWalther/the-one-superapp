@@ -118,7 +118,8 @@ struct BoutiqueView: View {
                     }
                     .padding(.horizontal, 20)
 
-                    if let pick { powerAIPick(pick) }
+                    // POWER AI's pick, unless it is the signature shown below.
+                    if let pick, pick.id != partner.offerings.first?.id { powerAIPick(pick) }
 
                     if let signature = partner.offerings.first {
                         VStack(alignment: .leading, spacing: 10) {
@@ -181,6 +182,8 @@ struct BoutiqueView: View {
         var text = partner.description.trimmingCharacters(in: .whitespaces)
         if let line = partner.tagline, !line.isEmpty, text.lowercased().hasPrefix(line.lowercased()) {
             text = String(text.dropFirst(line.count)).trimmingCharacters(in: CharacterSet(charactersIn: " .:,"))
+            // What follows the line starts a sentence of its own.
+            text = text.prefix(1).uppercased() + text.dropFirst()
         }
         return text
     }
