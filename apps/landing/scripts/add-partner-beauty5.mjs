@@ -1,5 +1,5 @@
 /**
- * Adds BEAUTY5 (beauty5.shop, Palma de Mallorca) to TheONE SELECTION as a
+ * Adds BEAUTY5 (beauty5.shop, Palma de Mallorca) to TheONE MARKETPLACE as a
  * business partner, with its products, prices, texts and pictures taken from
  * the shop itself (WooCommerce Store API). The texts stay the manufacturer's
  * own, word for word.

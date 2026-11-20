@@ -548,7 +548,7 @@ final class TheONEUITests: XCTestCase {
         capture("s10-assistant")
     }
 
-    /// TheONE SELECTION: chosen for you, the areas, one offering in full, and
+    /// TheONE MARKETPLACE: chosen for you, the areas, one offering in full, and
     /// the request that opens a chat with the partner.
     func testSelection() throws {
         assertOnLoginScreen()
@@ -559,7 +559,7 @@ final class TheONEUITests: XCTestCase {
         XCTAssertTrue(app.tabBars.firstMatch.waitForExistence(timeout: 25))
         dismissSystemPrompts()
 
-        let header = app.staticTexts["TheONE SELECTION"]
+        let header = app.staticTexts["TheONE MARKETPLACE"]
         for _ in 0..<4 where !header.exists {
             dismissSystemPrompts()
             app.tabBars.buttons.element(boundBy: 1).tap()
@@ -627,7 +627,7 @@ final class TheONEUITests: XCTestCase {
         }
     }
 
-    /// BEAUTY5 in TheONE SELECTION: its products, one product, its profile.
+    /// BEAUTY5 in TheONE MARKETPLACE: its products, one product, its profile.
     func testBeauty5() throws {
         assertOnLoginScreen()
         type("testmember", into: app.textFields.firstMatch)
@@ -639,7 +639,7 @@ final class TheONEUITests: XCTestCase {
         goHome(leaving: app.tabBars.firstMatch)
         sleep(2)
         app.swipeUp()
-        let entry = app.buttons["home.fn.TheONE SELECTION"]
+        let entry = app.buttons["home.fn.TheONE MARKETPLACE"]
         XCTAssertTrue(entry.waitForExistence(timeout: 10))
         entry.tap()
         XCTAssertTrue(app.buttons["opener.answer"].waitForExistence(timeout: 10))
@@ -652,7 +652,7 @@ final class TheONEUITests: XCTestCase {
             sleep(1)
         }
         for _ in 0..<20 where !(brand.exists && brand.frame.minY > 0 && brand.frame.minY < app.frame.height * 0.35) { nudge() }
-        XCTAssertTrue(brand.exists, "BEAUTY5 is not in TheONE SELECTION")
+        XCTAssertTrue(brand.exists, "BEAUTY5 is not in TheONE MARKETPLACE")
         capture("b1-beauty5-products")
         // The whole range, then one product from it.
         let range = app.buttons.matching(identifier: "partner.range").firstMatch
@@ -680,7 +680,7 @@ final class TheONEUITests: XCTestCase {
         }
     }
 
-    /// TheONE personalcare in TheONE SELECTION: its products and one of them.
+    /// TheONE personalcare in TheONE MARKETPLACE: its products and one of them.
     func testPersonalCare() throws {
         assertOnLoginScreen()
         type("testmember", into: app.textFields.firstMatch)
@@ -692,7 +692,7 @@ final class TheONEUITests: XCTestCase {
         goHome(leaving: app.tabBars.firstMatch)
         sleep(2)
         app.swipeUp()
-        let entry = app.buttons["home.fn.TheONE SELECTION"]
+        let entry = app.buttons["home.fn.TheONE MARKETPLACE"]
         XCTAssertTrue(entry.waitForExistence(timeout: 10))
         entry.tap()
         XCTAssertTrue(app.buttons["opener.answer"].waitForExistence(timeout: 10))
@@ -706,7 +706,7 @@ final class TheONEUITests: XCTestCase {
         }
         let h = app.frame.height
         for _ in 0..<60 where !(brand.exists && brand.frame.minY > h * 0.1 && brand.frame.minY < h * 0.3) { nudge() }
-        XCTAssertTrue(brand.exists, "TheONE personalcare is not in TheONE SELECTION")
+        XCTAssertTrue(brand.exists, "TheONE personalcare is not in TheONE MARKETPLACE")
         capture("p1-personalcare")
         // "See all 3" right under the brand's name.
         let ranges = app.buttons.matching(identifier: "partner.range").allElementsBoundByIndex
@@ -723,7 +723,7 @@ final class TheONEUITests: XCTestCase {
         capture("p4-product-lower")
     }
 
-    /// TheONE SELECTION brand by brand: each brand's own section, upright.
+    /// TheONE MARKETPLACE brand by brand: each brand's own section, upright.
     func testSelectionBrands() throws {
         assertOnLoginScreen()
         type("testmember", into: app.textFields.firstMatch)
@@ -735,11 +735,12 @@ final class TheONEUITests: XCTestCase {
         goHome(leaving: app.tabBars.firstMatch)
         sleep(2)
         app.swipeUp()
-        let entry = app.buttons["home.fn.TheONE SELECTION"]
+        let entry = app.buttons["home.fn.TheONE MARKETPLACE"]
         XCTAssertTrue(entry.waitForExistence(timeout: 10))
         entry.tap()
         XCTAssertTrue(app.buttons["opener.answer"].waitForExistence(timeout: 10))
         sleep(4)
+        capture("s0-marketplace")
         func nudge() {
             app.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.62))
                 .press(forDuration: 0.05, thenDragTo: app.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.45)))
@@ -752,7 +753,8 @@ final class TheONEUITests: XCTestCase {
                 .press(forDuration: 0.05, thenDragTo: app.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.55)))
             sleep(1)
         }
-        for (index, name) in ["NATURA VERVAE"].enumerated() {
+        // NATURA VERVAE stays hidden until the brand has paid.
+        for (index, name) in ["BEAUTY5", "TheONE personalcare", "BIOPLANTPHARMA"].enumerated() {
             let head = app.buttons["brand.\(name)"]
             for _ in 0..<80 {
                 let y = head.exists ? head.frame.minY : h
@@ -763,6 +765,19 @@ final class TheONEUITests: XCTestCase {
             sleep(2)
             capture("s\(index + 1)-\(name)")
         }
+
+        // Inside a boutique: its picture, story, signature and collection.
+        let window = app.buttons["brand.BIOPLANTPHARMA"]
+        window.tap()
+        XCTAssertTrue(app.descendants(matching: .any)["boutique.BIOPLANTPHARMA"].waitForExistence(timeout: 10), "the boutique did not open")
+        sleep(4)
+        capture("b1-boutique")
+        app.swipeUp()
+        sleep(2)
+        capture("b2-boutique")
+        app.swipeUp()
+        sleep(2)
+        capture("b3-boutique")
     }
 
     /// TheONE REAL ESTATE: POWER AI's greeting, the estates of the best

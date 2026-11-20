@@ -47,10 +47,10 @@ struct MainTabs: View {
             AssistantView()
                 .tabItem { Label("Assistant", systemImage: "sparkles") }
                 .tag(Tab.assistant)
-            // TheONE SELECTION took the place of the plain partner list, which
+            // TheONE MARKETPLACE took the place of the plain partner list, which
             // is still one tap away inside it.
             SelectionView()
-                .tabItem { Label { Text(verbatim: "TheONE SELECTION") } icon: { Image(systemName: "sparkle") } }
+                .tabItem { Label { Text(verbatim: "TheONE MARKETPLACE") } icon: { Image(systemName: "bag") } }
                 .tag(Tab.selection)
             MatchView()
                 .tabItem { Label { Text(verbatim: "TheONE MATCH") } icon: { Image(systemName: "person.2") } }

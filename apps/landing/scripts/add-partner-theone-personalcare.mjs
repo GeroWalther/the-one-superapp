@@ -1,5 +1,5 @@
 /**
- * Adds TheONE personalcare (www.theone-personalcare.com) to TheONE SELECTION
+ * Adds TheONE personalcare (www.theone-personalcare.com) to TheONE MARKETPLACE
  * as a business partner: its three products with prices, pictures and the
  * shop's own texts, word for word, each linking to its page in the shop,
  * where it is bought. Like BEAUTY5, no address: everything is bought online.

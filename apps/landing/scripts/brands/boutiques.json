@@ -1,0 +1,36 @@
+[
+  {
+    "name": "BEAUTY5",
+    "tagline": "High Tech Nature Skincare",
+    "labels": [
+      "Hautpflege"
+    ],
+    "labelsEn": [
+      "Skincare"
+    ],
+    "cover": "https://beauty5.shop/wp-content/uploads/2025/07/skin-glow.jpg"
+  },
+  {
+    "name": "TheONE personalcare",
+    "labels": [
+      "Wirkstoffpflege"
+    ],
+    "labelsEn": [
+      "Active care"
+    ],
+    "cover": "https://www.theone-superapp.com/marketplace/theone-personalcare-cover.jpg"
+  },
+  {
+    "name": "BIOPLANTPHARMA",
+    "tagline": "Where MEDICAL PLANTS meet SCIENCE",
+    "labels": [
+      "Heilpflanzen",
+      "Made in France"
+    ],
+    "labelsEn": [
+      "Medicinal plants",
+      "Made in France"
+    ],
+    "cover": "https://www.theone-superapp.com/marketplace/bioplantpharma-cover.jpg"
+  }
+]

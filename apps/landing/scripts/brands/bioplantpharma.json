@@ -9,6 +9,26 @@
   "cover": "https://www.bioplantpharma.com/wp-content/uploads/2024/01/bioplant-scaled.jpg",
   "description": "Where MEDICAL PLANTS meet SCIENCE. International company dedicated to the development and distribution of active BIOPLANTS products.",
   "targetClientele": "Everyone who wants effective care from medicinal plants and science, for face, body, hair and wellbeing.",
-  "order": [809, 838, 790, 841, 812, 792, 435, 848, 490],
-  "concerns": { "809": ["lines"], "838": ["lines"], "790": ["redness"] }
+  "order": [
+    435,
+    809,
+    838,
+    790,
+    841,
+    812,
+    792,
+    848,
+    490
+  ],
+  "concerns": {
+    "809": [
+      "lines"
+    ],
+    "838": [
+      "lines"
+    ],
+    "790": [
+      "redness"
+    ]
+  }
 }

@@ -27,7 +27,7 @@ struct SkinScan: Codable, Sendable, Hashable, Identifiable {
     let morning: [String]
     let evening: [String]
     let partners: [SkinPartner]
-    /// The exact products and treatments from TheONE SELECTION for this skin.
+    /// The exact products and treatments from TheONE MARKETPLACE for this skin.
     let products: [Offering]?
     let seeDoctor: Bool
     let doctorNote: String

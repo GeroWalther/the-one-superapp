@@ -226,12 +226,15 @@ export type PartnerProfileDoc = {
   website: string | null;
   contactEmail: string;
   contactPhone: string;
-  /** Place in TheONE SELECTION, lowest first; brands without one follow by name. */
+  /** Place in TheONE MARKETPLACE, lowest first; brands without one follow by name. */
   sortOrder?: number;
   /** A short line on the brand's section head, e.g. an award; English as given. */
   tagline?: string;
   /** Seals shown on the brand's section head (award, quality), transparent PNGs. */
   badges?: string[];
+  /** Words on the brand's boutique window, in German and in English ("Wirkstoffpflege", "Active care"). */
+  labels?: string[];
+  labelsEn?: string[];
   images: string[];
   /** Hidden partners keep their data but disappear from search. */
   published: boolean;
@@ -336,7 +339,7 @@ export type MatchProfileDoc = {
 };
 
 /**
- * One thing a business partner offers in TheONE SELECTION: a product to buy,
+ * One thing a business partner offers in TheONE MARKETPLACE: a product to buy,
  * a treatment or programme to book, a stay to request.
  *
  * `concerns` are the skin analysis keys it helps with, so a reading can point
