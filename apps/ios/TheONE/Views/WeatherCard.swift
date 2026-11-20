@@ -264,14 +264,21 @@ struct WeatherWeekView: View {
                                     Text(weekday(day.date))
                                         .font(.theone(15, weight: .medium))
                                         .foregroundStyle(Theme.ink)
-                                        .frame(width: 92, alignment: .leading)
+                                        .frame(width: 88, alignment: .leading)
                                     WeatherIcon(symbol: WeatherSymbol.image(day.symbol), size: 34)
-                                    if day.rainMm >= 0.3 {
-                                        Text(String(format: "%.0f mm", day.rainMm))
-                                            .font(.theone(12))
-                                            .foregroundStyle(Theme.accentText)
+                                    VStack(alignment: .leading, spacing: 1) {
+                                        Text(WeatherSymbol.name(day.symbol))
+                                            .font(.theone(13.5))
+                                            .foregroundStyle(Theme.ink)
+                                            .lineLimit(1)
+                                            .minimumScaleFactor(0.8)
+                                        if day.rainMm >= 0.3 {
+                                            Text(String(format: "%.0f mm", day.rainMm))
+                                                .font(.theone(12))
+                                                .foregroundStyle(Theme.accentText)
+                                        }
                                     }
-                                    Spacer()
+                                    Spacer(minLength: 6)
                                     Text("↑ \(Int(day.max.rounded()))°  ↓ \(Int(day.min.rounded()))°")
                                         .font(.theone(15))
                                         .foregroundStyle(Theme.ink)
