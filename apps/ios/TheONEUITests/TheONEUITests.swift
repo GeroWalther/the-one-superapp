@@ -456,6 +456,36 @@ final class TheONEUITests: XCTestCase {
         capture("w2-week")
     }
 
+    /// The BEAUTY5 boutique, top to bottom. Screenshots for the owner.
+    func testBoutiqueBeauty5() throws {
+        assertOnLoginScreen()
+        type("testmember", into: app.textFields.firstMatch)
+        type("TestPassword2026!", into: app.secureTextFields.firstMatch)
+        app.buttons["login.submit"].tap()
+        dismissSystemPrompts()
+        XCTAssertTrue(app.tabBars.firstMatch.waitForExistence(timeout: 25))
+        dismissSystemPrompts()
+        goHome(leaving: app.tabBars.firstMatch)
+        sleep(2)
+        app.swipeUp()
+        let entry = app.buttons["home.fn.TheONE MARKETPLACE"]
+        XCTAssertTrue(entry.waitForExistence(timeout: 10))
+        entry.tap()
+        XCTAssertTrue(app.buttons["opener.answer"].waitForExistence(timeout: 10))
+        let window = app.buttons["brand.BEAUTY5"]
+        for _ in 0..<12 where !(window.exists && window.isHittable) { app.swipeUp(); sleep(1) }
+        XCTAssertTrue(window.exists, "no BEAUTY5 window")
+        window.tap()
+        XCTAssertTrue(app.descendants(matching: .any)["boutique.BEAUTY5"].waitForExistence(timeout: 10), "the boutique did not open")
+        sleep(5)
+        capture("beauty5-1")
+        for index in 2...4 {
+            app.swipeUp()
+            sleep(2)
+            capture("beauty5-\(index)")
+        }
+    }
+
     // MARK: - Language tours
 
     private static let tours: [(test: String, language: String, locale: String, question: String)] = [
