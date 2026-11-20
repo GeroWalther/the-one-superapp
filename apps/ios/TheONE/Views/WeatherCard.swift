@@ -148,6 +148,15 @@ enum WeatherSymbol {
         }
     }
 
+    /// "9 °C", or "48 °F" where the member's region uses Fahrenheit.
+    static func temperature(_ celsius: Double) -> String {
+        let formatter = MeasurementFormatter()
+        formatter.locale = Locale.current
+        formatter.unitStyle = .medium
+        formatter.numberFormatter.maximumFractionDigits = 0
+        return formatter.string(from: Measurement(value: celsius, unit: UnitTemperature.celsius))
+    }
+
     static func name(_ code: String) -> String {
         switch code {
         case let c where c.contains("thunder"): tr("Thunderstorms")
@@ -177,7 +186,7 @@ struct WeatherCard: View {
                     HStack(alignment: .center, spacing: 12) {
                         WeatherIcon(symbol: WeatherSymbol.image(report.now.symbol, night: isNight), size: 46)
                         VStack(alignment: .leading, spacing: 1) {
-                            Text("\(Int(report.now.temperature.rounded()))°")
+                            Text(WeatherSymbol.temperature(report.now.temperature))
                                 .font(.theoneHeading(28))
                                 .foregroundStyle(Theme.heading)
                             Text(WeatherSymbol.name(report.now.symbol))
@@ -192,7 +201,7 @@ struct WeatherCard: View {
                                     .foregroundStyle(Theme.ink)
                                     .lineLimit(1)
                             }
-                            Text("↑ \(Int(report.today.max.rounded()))°  ↓ \(Int(report.today.min.rounded()))°")
+                            Text("↑ \(WeatherSymbol.temperature(report.today.max))  ↓ \(WeatherSymbol.temperature(report.today.min))")
                                 .font(.theone(13))
                                 .foregroundStyle(Theme.inkSoft)
                         }
@@ -279,7 +288,7 @@ struct WeatherWeekView: View {
                                         }
                                     }
                                     Spacer(minLength: 6)
-                                    Text("↑ \(Int(day.max.rounded()))°  ↓ \(Int(day.min.rounded()))°")
+                                    Text("↑ \(WeatherSymbol.temperature(day.max))  ↓ \(WeatherSymbol.temperature(day.min))")
                                         .font(.theone(15))
                                         .foregroundStyle(Theme.ink)
                                 }
@@ -308,7 +317,7 @@ struct WeatherWeekView: View {
                 }
                 .padding(20)
             }
-            .paperBackground()
+            .background(HomeBackground())
             .navigationTitle(model.place ?? tr("Weather"))
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
