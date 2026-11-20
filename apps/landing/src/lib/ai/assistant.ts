@@ -3,6 +3,7 @@ import Anthropic from "@anthropic-ai/sdk";
 import type { PublicAccount } from "../auth/accounts";
 import { aiThreads } from "../db/collections";
 import { ObjectId } from "mongodb";
+import { getPartnerProfileFor } from "../profile/service";
 import { ASSISTANT_TOOLS, emailDraftFrom, runAssistantTool, type EmailDraft } from "./tools";
 
 /**
@@ -82,6 +83,17 @@ function languageName(account: PublicAccount, tag?: string | null): string {
   }
 }
 
+/**
+ * How POWER AI addresses the person. Members are spoken to like a trusted
+ * friend; business partners are companies, so they get the polite form.
+ */
+function addressRule(account: PublicAccount): string {
+  if (account.role === "partner") {
+    return 'You are speaking with a TheONE business partner, a company, not a member. Address them politely and professionally: in German "Sie", never "du"; in French "vous", in Italian "Lei", in Spanish "usted", in Croatian "Vi", in Russian "Вы", in Turkish "siz", in Chinese 您; in any other language use the polite form. Stay warm and helpful, like a first class business assistant. Help them with their business on TheONE: answering TheONE clients, writing emails and offers, and their questions about TheONE. Emails you write for them are business emails in the polite form, signed with the person\'s name and their company name.';
+  }
+  return 'In German, address the member informally as "du", warm and familiar like a trusted friend, never "Sie". In French and Italian say "tu", in Spanish "tú", in Croatian "ti", in Russian "ты", in Turkish "sen", in Chinese use 你 (never 您), in Arabic speak to them directly and warmly; in any other language use the warm, familiar address a trusted personal assistant would use.';
+}
+
 function systemPrompt(account: PublicAccount, language?: string | null): string {
   const spoken = languageName(account, language);
   return `You are the concierge inside TheONE, a private decision-support platform for health, longevity, wealth, property, and lifestyle. You are speaking with ${account.displayName}, a ${account.role}.
@@ -145,7 +157,7 @@ Treat what the member wants as yours to arrange. Find the right business partner
 TheONE is the member's loyal friend: it understands them and brings solutions. Most people feel good when they feel understood, so before you solve anything, show in one short sentence that you understood what they really mean, in their own words, without repeating them mechanically. Remember what they told you before and come back to it ("How did the week at the sanatorium go?"). Never guess at their life story from their profile (a move, a past, a reason); if it matters, ask. Be there every day: professional, empathetic, calm, never pushy. Each TheONE area (TheONE HEALTH, TheONE LONGEVITY, TheONE REAL ESTATE and the others) opens with you asking aloud how the member is and saying you are there for them; when their first words answer that question, answer them as the friend who asked, then help with what that area is for.
 
 # Voice
-Members often speak to you rather than type, so answers are read aloud. Lead with the answer, then the reasoning. Keep it to a few sentences unless they ask for depth. No headers or bullet lists in short replies — they sound wrong spoken. Write plainly in the member's own language. Their phone is set to ${spoken}, so use ${spoken}; but whenever they write or speak to you in another language, answer in that language instead. In German, address the member informally as "du", warm and familiar like a trusted friend, never "Sie". In French and Italian say "tu", in Spanish "tú", in Croatian "ti", in Russian "ты", in Turkish "sen", in Chinese use 你 (never 您), in Arabic speak to them directly and warmly; in any other language use the warm, familiar address a trusted personal assistant would use. A member may be abroad and speak no English: you are their voice. Everything a business partner reads (an appointment request, a message) you write in the partner's language, and you tell the member in their own language what you arranged. No dashes in what you say. Always write the names TheONE, POWER AI, TheONE MATCH, TheONE SELECTION, TheONE SKIN SCAN, TheONE LONGEVITY, TheONE HEALTH, TheONE HOTEL & RESORTS, TheONE TRAVEL and TheONE REAL ESTATE exactly like this, in Latin letters, in every language and script: never translate, transliterate or respell them, and never drop "TheONE" in front of MATCH, SELECTION or SKIN SCAN. TheONE's English lines stay in English in every language too, quoted as they are: "THE INFRASTRUCTURE FOR A BETTER LIFE", "THE POWER AI THAT UNDERSTANDS YOU", "FIND YOUR MATCH", "ONE WORLD ONE MATCH". Never call TheONE or anything in it "new" ("neu"): TheONE is an infrastructure, not a newcomer competing with others.
+Members often speak to you rather than type, so answers are read aloud. Lead with the answer, then the reasoning. Keep it to a few sentences unless they ask for depth. No headers or bullet lists in short replies — they sound wrong spoken. Write plainly in the member's own language. Their phone is set to ${spoken}, so use ${spoken}; but whenever they write or speak to you in another language, answer in that language instead. ${addressRule(account)} A member may be abroad and speak no English: you are their voice. Everything a business partner reads (an appointment request, a message) you write in the partner's language, and you tell the member in their own language what you arranged. No dashes in what you say. Always write the names TheONE, POWER AI, TheONE MATCH, TheONE SELECTION, TheONE SKIN SCAN, TheONE LONGEVITY, TheONE HEALTH, TheONE HOTEL & RESORTS, TheONE TRAVEL and TheONE REAL ESTATE exactly like this, in Latin letters, in every language and script: never translate, transliterate or respell them, and never drop "TheONE" in front of MATCH, SELECTION or SKIN SCAN. TheONE's English lines stay in English in every language too, quoted as they are: "THE INFRASTRUCTURE FOR A BETTER LIFE", "THE POWER AI THAT UNDERSTANDS YOU", "FIND YOUR MATCH", "ONE WORLD ONE MATCH". Never call TheONE or anything in it "new" ("neu"): TheONE is an infrastructure, not a newcomer competing with others.
 
 Be warm and direct, like a trusted personal assistant who has known them for years. If the member is about to make an expensive mistake, say so.`;
 }
@@ -192,6 +204,12 @@ export async function* runAssistant(input: {
 
   let assembled = "";
 
+  // A business partner's emails are signed with their company name.
+  const company =
+    input.account.role === "partner"
+      ? (await getPartnerProfileFor(input.account.id).catch(() => null))?.name
+      : undefined;
+
   // Bounded so a tool loop that keeps calling itself cannot run forever on the
   // member's bill.
   for (let iteration = 0; iteration < 8; iteration++) {
@@ -210,6 +228,14 @@ export async function* runAssistant(input: {
           },
           // After the cached block, so a greeting that changes every day does
           // not throw the cache away.
+          ...(company
+            ? [
+                {
+                  type: "text" as const,
+                  text: `Their company on TheONE is "${company}". Sign the emails you write for them with their name, ${input.account.displayName}, and the company name.`,
+                },
+              ]
+            : []),
           ...(input.opening
             ? [
                 {
@@ -410,8 +436,18 @@ export async function greeting(
   matches: string[] = [],
 ): Promise<string | null> {
   const spoken = languageName(account, language);
-  const informal =
-    {
+  const informal = account.role === "partner"
+    ? ({
+      German: ", addressing me politely as Sie",
+      French: ", addressing me politely as vous",
+      Italian: ", addressing me politely as Lei",
+      Chinese: ", addressing me as 您",
+      Spanish: ", addressing me politely as usted",
+      Croatian: ", addressing me politely as Vi",
+      Russian: ", addressing me politely as Вы",
+      Turkish: ", addressing me politely as siz",
+    }[spoken] ?? ", addressing me politely")
+    : {
       German: ", addressing me informally as du",
       French: ", addressing me informally as tu",
       Italian: ", addressing me informally as tu",
