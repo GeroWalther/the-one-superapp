@@ -13,7 +13,7 @@ final class TheONEUITests: XCTestCase {
         app = XCUIApplication()
         // The app follows the phone's language. MATCH is checked as a German
         // phone, the Japanese walkthrough as a Japanese one, the rest as is.
-        if name.contains("testMatchFlow") || name.contains("testSkinAnalysis") || name.contains("testSelection") || name.contains("testHomeFunctions") || name.contains("testLongevityCheck") || name.contains("testRealEstate") || name.contains("testBeauty5") || name.contains("testPersonalCare") || name.contains("testSelectionBrands") {
+        if name.contains("testMatchFlow") || name.contains("testSkinAnalysis") || name.contains("testSelection") || name.contains("testHomeFunctions") || name.contains("testLongevityCheck") || name.contains("testRealEstate") || name.contains("testBeauty5") || name.contains("testPersonalCare") || name.contains("testSelectionBrands") || name.contains("testPowerAIEmail") {
             app.launchArguments += ["-AppleLanguages", "(de)", "-AppleLocale", "de_DE"]
         } else if name.contains("testJapaneseMember") {
             app.launchArguments += ["-AppleLanguages", "(ja)", "-AppleLocale", "ja_JP"]
@@ -402,6 +402,37 @@ final class TheONEUITests: XCTestCase {
         app.buttons["assistant.send"].tap()
         sleep(40)
         capture("j02-answer")
+    }
+
+    /// POWER AI writes an email on request: the card shows recipient, subject
+    /// and text, "Mail öffnen" opens it for the member to send. The simulator
+    /// has no mail account, so the copy sheet stands in for the Mail sheet.
+    func testPowerAIEmail() throws {
+        assertOnLoginScreen()
+        type("testmember", into: app.textFields.firstMatch)
+        type("TestPassword2026!", into: app.secureTextFields.firstMatch)
+        app.buttons["login.submit"].tap()
+        dismissSystemPrompts()
+        XCTAssertTrue(app.tabBars.firstMatch.waitForExistence(timeout: 25))
+        dismissSystemPrompts()
+        goHome(leaving: app.tabBars.firstMatch)
+
+        app.buttons["home.storm"].tap()
+        let field = app.descendants(matching: .any)["assistant.input"].firstMatch
+        XCTAssertTrue(field.waitForExistence(timeout: 15))
+        type("Schreib bitte Anna, dass ich am Freitag erst um 20 Uhr zum Essen komme. Ihre Adresse ist anna.berger@example.com", into: field)
+        app.buttons["assistant.send"].tap()
+
+        let card = app.descendants(matching: .any)["email.card"].firstMatch
+        XCTAssertTrue(card.waitForExistence(timeout: 90), "no email card appeared")
+        sleep(6)
+        capture("m01-card")
+
+        let open = app.buttons["email.open"]
+        XCTAssertTrue(open.waitForExistence(timeout: 10))
+        open.tap()
+        sleep(4)
+        capture("m02-open")
     }
 
     // MARK: - Language tours

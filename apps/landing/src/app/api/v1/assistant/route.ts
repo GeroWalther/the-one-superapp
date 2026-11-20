@@ -68,6 +68,9 @@ export async function POST(request: Request) {
       send({ type: "thread", threadId: threadId.toHexString() });
 
       let finalText = "";
+      // The email card is not part of the reply text, but the next turn has to
+      // know what was drafted ("make it warmer"), so it is kept in the history.
+      let drafted = "";
 
       try {
         for await (const event of runAssistant({
@@ -78,6 +81,10 @@ export async function POST(request: Request) {
           language: languageTag(body.language),
         })) {
           if (event.type === "done") finalText = event.text;
+          if (event.type === "email") {
+            const d = event.draft;
+            drafted = `\n\n[Email draft shown to the member as a card]\nTo: ${d.toName ?? ""}${d.toEmail ? ` <${d.toEmail}>` : ""}\nSubject: ${d.subject}\n\n${d.body}`;
+          }
           send(event);
         }
       } catch (error) {
@@ -104,7 +111,7 @@ export async function POST(request: Request) {
                   { role: "user" as const, content: message, createdAt: now },
                   {
                     role: "assistant" as const,
-                    content: finalText,
+                    content: finalText + drafted,
                     createdAt: new Date(),
                   },
                 ],
