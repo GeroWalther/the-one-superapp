@@ -201,9 +201,7 @@ struct WeatherCard: View {
                                     .foregroundStyle(Theme.ink)
                                     .lineLimit(1)
                             }
-                            Text("↑ \(WeatherSymbol.temperature(report.today.max))  ↓ \(WeatherSymbol.temperature(report.today.min))")
-                                .font(.theone(13))
-                                .foregroundStyle(Theme.inkSoft)
+                            TemperatureRange(high: report.today.max, low: report.today.min, size: 13.5)
                         }
                     }
                     if let outfit = report.outfit, !outfit.isEmpty {
@@ -288,9 +286,7 @@ struct WeatherWeekView: View {
                                         }
                                     }
                                     Spacer(minLength: 6)
-                                    Text("↑ \(WeatherSymbol.temperature(day.max))  ↓ \(WeatherSymbol.temperature(day.min))")
-                                        .font(.theone(15))
-                                        .foregroundStyle(Theme.ink)
+                                    TemperatureRange(high: day.max, low: day.min, size: 15)
                                 }
                                 .padding(.vertical, 12)
                                 Divider().overlay(Theme.line)
@@ -351,5 +347,27 @@ struct WeatherIcon: View {
             .font(.system(size: size * 0.5))
             .frame(width: size, height: size)
             .background(Circle().fill(Theme.heading.opacity(0.88)))
+    }
+}
+
+/// "9 °C / 5 °C": the day's highest in full ink, the lowest a shade lighter.
+/// The unit follows the member's region (°F in the United States).
+struct TemperatureRange: View {
+    let high: Double
+    let low: Double
+    let size: CGFloat
+
+    var body: some View {
+        HStack(spacing: 4) {
+            Text(WeatherSymbol.temperature(high))
+                .foregroundStyle(Theme.ink)
+            Text(verbatim: "/")
+                .foregroundStyle(Theme.inkFaint)
+            Text(WeatherSymbol.temperature(low))
+                .foregroundStyle(Theme.inkFaint)
+        }
+        .font(.theone(size, weight: .medium))
+        .lineLimit(1)
+        .fixedSize()
     }
 }
