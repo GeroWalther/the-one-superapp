@@ -43,8 +43,15 @@ struct BoutiqueStorefront: View {
             Rectangle().fill(Theme.goldLine).frame(height: 1)
 
             HStack(spacing: 6) {
-                ForEach(partner.windowLabels.prefix(2), id: \.self) { label in
-                    BoutiqueChip(text: label)
+                // Two words when they fit whole, otherwise the first one:
+                // a word is never cut off.
+                ViewThatFits(in: .horizontal) {
+                    HStack(spacing: 6) {
+                        ForEach(partner.windowLabels.prefix(2), id: \.self) { BoutiqueChip(text: $0).fixedSize() }
+                    }
+                    HStack(spacing: 6) {
+                        ForEach(partner.windowLabels.prefix(1), id: \.self) { BoutiqueChip(text: $0).fixedSize() }
+                    }
                 }
                 Spacer(minLength: 8)
                 HStack(spacing: 5) {
@@ -323,7 +330,12 @@ struct CoverImage: View {
         Group {
             if let image {
                 if fill {
-                    Image(uiImage: image).resizable().scaledToFill()
+                    // A very wide picture (a row of pictures) shows its start,
+                    // not its middle, so lettering in it never meets the name.
+                    let wide = image.size.width / max(image.size.height, 1) > 2.6
+                    Color.clear.overlay(alignment: wide ? .leading : .center) {
+                        Image(uiImage: image).resizable().scaledToFill()
+                    }
                 } else {
                     let ratio = image.size.width / max(image.size.height, 1)
                     let height = ratio > 1.6 ? width / ratio : 250
