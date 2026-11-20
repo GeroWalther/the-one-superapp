@@ -19,6 +19,7 @@ struct HomeView: View {
     }
 
     @State private var showLogin = false
+    @State private var weather = WeatherModel()
     @State private var areaCover: Area?
     @State private var skinCover = false
     /// The member area shown over the start screen, opened on this tab.
@@ -82,6 +83,13 @@ struct HomeView: View {
                             .accessibilityIdentifier("home.greeting")
                     }
 
+                    // The weather where the member is, and what to wear.
+                    if session.account != nil {
+                        WeatherCard(model: weather)
+                            .padding(.horizontal, 20)
+                            .padding(.top, 22)
+                    }
+
                     functions
                         .padding(.top, 30)
 
@@ -100,6 +108,9 @@ struct HomeView: View {
                 }
             }
             .scrollBounceBehavior(.basedOnSize)
+            .task(id: session.account?.id) {
+                if session.account != nil { await weather.load() }
+            }
             .animation(.easeIn(duration: 0.6), value: greeter.text)
         }
         .background(HomeBackground())
