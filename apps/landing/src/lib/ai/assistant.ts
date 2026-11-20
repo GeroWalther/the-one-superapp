@@ -516,3 +516,38 @@ Greet me by my first name, ${account.firstName || account.displayName}, in a way
     return null;
   }
 }
+
+/**
+ * What to wear today, from the day's forecast: one or two short sentences in
+ * the member's language, as POWER AI would say it. Null when the assistant is
+ * not configured or the call fails; the app then shows the forecast alone.
+ */
+export async function outfitAdvice(
+  account: PublicAccount,
+  language: string | null | undefined,
+  day: { min: number; max: number; now: number; condition: string; rainMm: number; windMs: number; place: string },
+): Promise<string | null> {
+  const client = anthropic();
+  if (!client) return null;
+  const spoken = languageName(account, language);
+  const polite = account.role === "partner";
+  try {
+    const response = await client.messages.create({
+      model: ASSISTANT_MODEL,
+      max_tokens: 200,
+      messages: [
+        {
+          role: "user",
+          content: `The weather in ${day.place} for the next twelve hours: now ${Math.round(day.now)}°C, between ${Math.round(day.min)}°C and ${Math.round(day.max)}°C, ${day.condition}, ${day.rainMm >= 0.3 ? `${day.rainMm.toFixed(1)} mm of rain` : "no rain"}, wind up to ${Math.round(day.windMs * 3.6)} km/h.
+
+As POWER AI, the member's personal assistant in TheONE, tell me in one or two short, elegant sentences (at most 30 words in total) what to wear today and what to take along (layers, a coat, an umbrella only if rain is expected, sunglasses only if it is sunny). Practical and stylish, no brand names, no emoji, no dashes, no greeting. Write it in ${spoken}, addressing me ${polite ? "politely (Sie, vous, Lei, usted)" : "informally (du, tu, tú)"}. Reply with the sentences only.`,
+        },
+      ],
+    });
+    const text = response.content.find((b): b is Anthropic.TextBlock => b.type === "text");
+    return text?.text.trim().replace(/\s*[–—]\s*/g, ", ") || null;
+  } catch (error) {
+    console.error("[weather] outfit advice failed:", error);
+    return null;
+  }
+}

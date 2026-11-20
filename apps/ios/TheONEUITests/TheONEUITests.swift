@@ -13,7 +13,7 @@ final class TheONEUITests: XCTestCase {
         app = XCUIApplication()
         // The app follows the phone's language. MATCH is checked as a German
         // phone, the Japanese walkthrough as a Japanese one, the rest as is.
-        if name.contains("testMatchFlow") || name.contains("testSkinAnalysis") || name.contains("testSelection") || name.contains("testHomeFunctions") || name.contains("testLongevityCheck") || name.contains("testRealEstate") || name.contains("testBeauty5") || name.contains("testPersonalCare") || name.contains("testSelectionBrands") || name.contains("testPowerAIEmail") || name.contains("testBoutiqueBeauty5") {
+        if name.contains("testMatchFlow") || name.contains("testWeather") || name.contains("testBoutiqueBeauty5") || name.contains("testPowerAIEmail") || name.contains("testSkinAnalysis") || name.contains("testSelection") || name.contains("testHomeFunctions") || name.contains("testLongevityCheck") || name.contains("testRealEstate") || name.contains("testBeauty5") || name.contains("testPersonalCare") || name.contains("testSelectionBrands") || name.contains("testPowerAIEmail") {
             app.launchArguments += ["-AppleLanguages", "(de)", "-AppleLocale", "de_DE"]
         } else if name.contains("testJapaneseMember") {
             app.launchArguments += ["-AppleLanguages", "(ja)", "-AppleLocale", "ja_JP"]
@@ -433,6 +433,27 @@ final class TheONEUITests: XCTestCase {
         open.tap()
         sleep(4)
         capture("m02-open")
+    }
+
+    /// The weather on the start screen with POWER AI's word on what to wear,
+    /// and the week ahead.
+    func testWeather() throws {
+        assertOnLoginScreen()
+        type("testmember", into: app.textFields.firstMatch)
+        type("TestPassword2026!", into: app.secureTextFields.firstMatch)
+        app.buttons["login.submit"].tap()
+        dismissSystemPrompts()
+        XCTAssertTrue(app.tabBars.firstMatch.waitForExistence(timeout: 25))
+        dismissSystemPrompts()
+        goHome(leaving: app.tabBars.firstMatch)
+        let card = app.buttons["weather.card"]
+        XCTAssertTrue(card.waitForExistence(timeout: 60), "no weather on the start screen")
+        for _ in 0..<6 where !card.isHittable { app.swipeUp(); sleep(1) }
+        sleep(2)
+        capture("w1-home")
+        card.tap()
+        sleep(3)
+        capture("w2-week")
     }
 
     /// The BEAUTY5 boutique, top to bottom. Screenshots for the owner.
