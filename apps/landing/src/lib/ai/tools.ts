@@ -94,7 +94,7 @@ export const ASSISTANT_TOOLS: Anthropic.Tool[] = [
   {
     name: "search_selection",
     description:
-      "TheONE SELECTION: the exact products, treatments, programmes and stays that TheONE's business partners offer, with prices. Use it to recommend one specific item rather than a brand. Filter by kind and by the TheONE SKIN SCAN keys an item helps with (hydration, lines, pigmentation, redness, pores, evenness, radiance).",
+      "TheONE MARKETPLACE: the exact products, treatments, programmes and stays that TheONE's business partners offer, with prices. Use it to recommend one specific item rather than a brand. Filter by kind and by the TheONE SKIN SCAN keys an item helps with (hydration, lines, pigmentation, redness, pores, evenness, radiance).",
     input_schema: {
       type: "object",
       properties: {
@@ -375,7 +375,7 @@ export async function runAssistantTool(
           concerns: Array.isArray(input.concerns) ? (input.concerns as string[]) : undefined,
           limit: 30,
         });
-        if (items.length === 0) return { content: "Nothing in TheONE SELECTION matches yet." };
+        if (items.length === 0) return { content: "Nothing in TheONE MARKETPLACE matches yet." };
         return {
           content: JSON.stringify(
             items.map((o) => ({
@@ -384,7 +384,7 @@ export async function runAssistantTool(
               title: o.title,
               partner: o.partner,
               helpsWith: o.concerns,
-              boughtIn: o.url ? "the brand's own shop, from the product page in TheONE SELECTION" : "a request to the business partner",
+              boughtIn: o.url ? "the brand's own shop, from the product page in TheONE MARKETPLACE" : "a request to the business partner",
               price: o.priceCents === null ? "on request" : `${(o.priceCents / 100).toFixed(0)} ${o.currency}${o.priceNote ? " " + o.priceNote : ""}`,
               about: o.description,
             })),

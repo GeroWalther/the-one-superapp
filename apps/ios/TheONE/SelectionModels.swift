@@ -1,6 +1,6 @@
 import Foundation
 
-/// TheONE SELECTION wire types. Field names match the API exactly.
+/// TheONE MARKETPLACE wire types. Field names match the API exactly.
 
 struct OfferingPartner: Codable, Sendable, Hashable {
     let id: String
@@ -61,7 +61,7 @@ struct Offering: Codable, Sendable, Hashable, Identifiable {
         case "practice", "wellness": return "HEALTH"
         case "hotel", "resort": return kind == "program" ? "HEALTH" : "HOTEL & RESORTS"
         case "realEstate": return "REAL ESTATE"
-        default: return "SELECTION"
+        default: return "MARKETPLACE"
         }
     }
 
@@ -184,7 +184,7 @@ enum Area: String, Identifiable, CaseIterable, Sendable {
 
     var name: String {
         switch self {
-        case .selection: "TheONE SELECTION"
+        case .selection: "TheONE MARKETPLACE"
         case .longevity: "TheONE LONGEVITY"
         case .health: "TheONE HEALTH"
         case .hotels: "TheONE HOTEL & RESORTS"
@@ -195,7 +195,7 @@ enum Area: String, Identifiable, CaseIterable, Sendable {
 
     var line: String {
         switch self {
-        case .selection: tr("Hand-picked for you: only the best two or three in each area, with exactly what they offer.")
+        case .selection: tr("Curated brands, chosen by TheONE. Discover and buy directly in the brand's shop.")
         case .longevity: tr("Stay young for longer: the best longevity clinics in your city, with check-ups and programmes.")
         case .health: tr("Stay healthy: prevention, health and wellness clinics, chosen for you.")
         case .hotels: tr("The finest hotels and resorts, chosen for you.")

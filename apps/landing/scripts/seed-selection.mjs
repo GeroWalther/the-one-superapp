@@ -1,5 +1,5 @@
 /**
- * Seeds TheONE SELECTION test offerings for the seeded test partners, plus a
+ * Seeds TheONE MARKETPLACE test offerings for the seeded test partners, plus a
  * test hotel in Zurich, so every area has something to show.
  *
  *   node --env-file=.env.local scripts/seed-selection.mjs
@@ -61,7 +61,7 @@ const now = new Date();
 }
 
 // More test partners so every TheONE area has something: a nutrition
-// brand (TheONE SELECTION), a prevention clinic (TheONE HEALTH) and a broker
+// brand (TheONE MARKETPLACE), a prevention clinic (TheONE HEALTH) and a broker
 // (TheONE REAL ESTATE).
 async function upsertPartner(username, name, profile) {
   const email = `${username}@theone.test`;

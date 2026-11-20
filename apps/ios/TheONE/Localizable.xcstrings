@@ -5547,6 +5547,65 @@
         }
       }
     },
+    "Curated brands, chosen by TheONE. Discover and buy directly in the brand's shop.": {
+      "extractionState": "manual",
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ausgewählte Marken, von TheONE für dich gewählt. Entdecken und direkt im Shop der Marke kaufen."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Des marques sélectionnées par TheONE. Découvre et achète directement dans la boutique de la marque."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Marchi selezionati da TheONE. Scopri e acquista direttamente nel negozio del marchio."
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "علامات تجارية مختارة من TheONE. اكتشف واشترِ مباشرة من متجر العلامة."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "由 TheONE 精选的品牌。发现并直接在品牌官方商店购买。"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Marcas seleccionadas por TheONE. Descubre y compra directamente en la tienda de la marca."
+          }
+        },
+        "hr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Brendovi koje je odabrao TheONE. Otkrij i kupi izravno u trgovini brenda."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Бренды, отобранные TheONE. Открывай и покупай прямо в магазине бренда."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "TheONE'ın seçtiği markalar. Keşfet ve doğrudan markanın mağazasından satın al."
+          }
+        }
+      }
+    },
     "Currency": {
       "extractionState": "manual",
       "localizations": {

@@ -1,5 +1,5 @@
 /**
- * Adds a brand with a WooCommerce shop to TheONE SELECTION, as its own
+ * Adds a brand with a WooCommerce shop to TheONE MARKETPLACE, as its own
  * section: profile, cover picture, and every product with price, picture and
  * the shop's own text, word for word, each linking to its page in the shop.
  * Brands sold online show no address.

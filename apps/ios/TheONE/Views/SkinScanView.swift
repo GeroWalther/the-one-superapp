@@ -330,7 +330,7 @@ struct SkinResultView: View {
 
                 if let products = scan.products, !products.isEmpty {
                     VStack(alignment: .leading, spacing: 12) {
-                        Text(verbatim: "TheONE SELECTION")
+                        Text(verbatim: "TheONE MARKETPLACE")
                             .font(.theone(11, weight: .medium))
                             .tracking(MemberLanguage.spacing(2.2))
                             .foregroundStyle(Theme.accentText)

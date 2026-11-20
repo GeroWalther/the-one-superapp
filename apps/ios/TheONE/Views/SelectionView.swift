@@ -1,10 +1,10 @@
 import SwiftUI
 
-/// TheONE SELECTION: what TheONE has chosen, area by area, and above it what
+/// TheONE MARKETPLACE: what TheONE has chosen, area by area, and above it what
 /// it has chosen for this member. Never a market: two or three partners per
 /// area and city, each with the exact things they offer.
 struct SelectionView: View {
-    /// Which TheONE area this shows; SELECTION itself is products only.
+    /// Which TheONE area this shows; MARKETPLACE itself is products only.
     var area: Area = .selection
 
     @Environment(Greeter.self) private var greeter
@@ -58,7 +58,7 @@ struct SelectionView: View {
 
                         ForEach(feed.sections) { section in
                             VStack(alignment: .leading, spacing: 14) {
-                                // TheONE SELECTION is one list of brands under
+                                // TheONE MARKETPLACE is one list of brands under
                                 // its own name, without banners in between.
                                 if area != .selection {
                                     sectionBanner(section)
@@ -397,7 +397,7 @@ struct SelectionView: View {
 
     private func partnerBlock(_ partner: SelectionPartner, sectionKey: String) -> some View {
         VStack(alignment: .leading, spacing: 10) {
-            // TheONE SELECTION: each brand its own section, opened by the
+            // TheONE MARKETPLACE: each brand its own section, opened by the
             // brand's own picture and name.
             if area == .selection, let cover = partner.images.first.flatMap(URL.init(string:)) {
                 NavigationLink {
@@ -452,7 +452,7 @@ struct SelectionView: View {
             }
 
             if area == .selection {
-                // TheONE SELECTION: the brand's whole range upright, two cards
+                // TheONE MARKETPLACE: the brand's whole range upright, two cards
                 // a row, like a shelf in a shop; no sideways rows.
                 let width = (UIScreen.main.bounds.width - 20 * 2 - 14) / 2
                 LazyVGrid(columns: [GridItem(.fixed(width), spacing: 14), GridItem(.fixed(width))], alignment: .leading, spacing: 14) {

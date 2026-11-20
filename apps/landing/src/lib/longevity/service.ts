@@ -241,7 +241,7 @@ export async function runLongevityCheck(input: {
 
   // What may be recommended: programmes and treatments from clinics in the
   // member's city (longevity, prevention, health and wellness), and products
-  // from TheONE SELECTION, which travel.
+  // from TheONE MARKETPLACE, which travel.
   const city = (await getMemberProfile(input.account.id))?.city?.trim().toLowerCase() ?? "";
   const all = await offeringsForAdvice({
     accountId: input.account.id,
@@ -277,7 +277,7 @@ Rules:
 - plan: four weeks, two or three specific steps each, building on each other, realistic for a busy life. Be clear and decisive: one specific thing per step, no "or", no "maybe".
 - When a check-up is due (the last one more than a year ago, or never) and the catalogue has a clinic check-up, pick that check-up and name it in doctorNote as the way to get checked, rather than pointing elsewhere.
 - picks: two or three exact items from the TheONE catalogue below, by exact id: at most one clinic programme, check-up or wellness resort stay and one or two products, each with one sentence on which pillar it serves and why it fits. Only what truly fits; never invent an id; empty if nothing fits.
-- Write every text in ${spoken}, addressing the member${informal}. Never use dashes; use a comma or a colon. Write TheONE, POWER AI, TheONE LONGEVITY, TheONE SELECTION and TheONE MATCH exactly like this, always with TheONE in front. Never call TheONE "new".`;
+- Write every text in ${spoken}, addressing the member${informal}. Never use dashes; use a comma or a colon. Write TheONE, POWER AI, TheONE LONGEVITY, TheONE MARKETPLACE and TheONE MATCH exactly like this, always with TheONE in front. Never call TheONE "new".`;
 
   let response: Anthropic.Beta.BetaMessage;
   try {

@@ -96,7 +96,7 @@ export type SkinScan = {
   morning: string[];
   evening: string[];
   partners: SkinPartner[];
-  /** The exact products and treatments chosen for this skin, from SELECTION. */
+  /** The exact products and treatments chosen for this skin, from MARKETPLACE. */
   products: (OfferingView & { reason: string })[];
   seeDoctor: boolean;
   doctorNote: string;
@@ -334,10 +334,10 @@ Rules:
 - If the photo does not show one face clearly enough (no face, several faces, very dark, blurred, heavy filter or make-up that hides the skin), set usable to false, explain in problem in one friendly sentence how to retake it, and leave the other fields empty or zero.
 - Scores are 0 to 100 where higher is always better: hydration (looks well hydrated), lines (few fine lines and wrinkles), pigmentation (few dark spots), redness (calm, little redness), pores (refined pores), evenness (even tone and texture), radiance (glow). Give all seven, each with one short, kind, specific note. overall is your overall impression, 0 to 100.
 - summary: two or three warm sentences addressed to the member${informal}. focus: the two most worthwhile things to work on. morning and evening: a short, realistic routine, three to five steps each, ingredient-led (e.g. vitamin C serum, SPF 50, retinol at night), no brand names in the routine.
-- products: the two or three exact products and treatments from the TheONE SELECTION catalogue below that will make the biggest visible difference for this skin, by exact id, each with one sentence naming the score it improves and why it fits. Choose products whose helpsWith matches this skin's weakest scores; prefer one product for daily care and one treatment when the scores call for it. Never invent an id; if nothing fits, return an empty list.
+- products: the two or three exact products and treatments from the TheONE MARKETPLACE catalogue below that will make the biggest visible difference for this skin, by exact id, each with one sentence naming the score it improves and why it fits. Choose products whose helpsWith matches this skin's weakest scores; prefer one product for daily care and one treatment when the scores call for it. Never invent an id; if nothing fits, return an empty list.
 - partners: up to three entries from the directory below, by exact id, whose products or treatments fit this skin: skincare brands for products, aesthetic doctors and practices for treatments, longevity clinics for the bigger picture. TheONE recommends only two or three hand-picked doctors or clinics per city, so name at most three in total and choose the very best fit. Each with a one-sentence reason. If none fits, return an empty list. Never invent a partner or an id.
 - Be clear and decisive, like an expert who knows exactly what this skin needs. In the routine, name one specific thing per step and nothing vague: no "or", no "maybe", no lists of alternatives. Recommend only what truly fits these scores; every partner reason names the concrete product or treatment from that partner's description and which score it improves.
-- Write every text in ${spoken}, addressing the member${informal}. Never use dashes; use a comma or a colon. Write TheONE, POWER AI, TheONE MATCH, TheONE SELECTION and TheONE SKIN SCAN exactly like this, always with TheONE in front; this reading is the member's TheONE SKIN SCAN. Never call TheONE "new".`;
+- Write every text in ${spoken}, addressing the member${informal}. Never use dashes; use a comma or a colon. Write TheONE, POWER AI, TheONE MATCH, TheONE MARKETPLACE and TheONE SKIN SCAN exactly like this, always with TheONE in front; this reading is the member's TheONE SKIN SCAN. Never call TheONE "new".`;
 
   let response: Anthropic.Beta.BetaMessage;
   try {
@@ -361,7 +361,7 @@ Rules:
             },
             {
               type: "text",
-              text: `This is my face. Please scan my skin.\n\nTheONE business partners you may recommend (JSON):\n${JSON.stringify(directory)}\n\nTheONE SELECTION catalogue of their products and treatments (JSON):\n${JSON.stringify(catalogue)}`,
+              text: `This is my face. Please scan my skin.\n\nTheONE business partners you may recommend (JSON):\n${JSON.stringify(directory)}\n\nTheONE MARKETPLACE catalogue of their products and treatments (JSON):\n${JSON.stringify(catalogue)}`,
             },
           ],
         },

@@ -12,7 +12,7 @@ import { getMemberProfile } from "../profile/service";
 import { openConversation, sendMessage } from "../api/chat";
 
 /**
- * TheONE SELECTION: what TheONE has chosen for this member, not a market.
+ * TheONE MARKETPLACE: what TheONE has chosen for this member, not a market.
  *
  * Each area shows at most three business partners, from the member's own city
  * where it matters (a doctor, a clinic, a hotel nearby); skincare travels and
@@ -33,13 +33,13 @@ type Section = {
 };
 
 /**
- * TheONE SELECTION shows every brand the owner has taken on: they choose who
+ * TheONE MARKETPLACE shows every brand the owner has taken on: they choose who
  * comes onto TheONE, so the page does not cut the list again.
  */
 const SELECTION_LIMIT = 100;
 
 /**
- * Each TheONE function is its own area. TheONE SELECTION is only companies
+ * Each TheONE function is its own area. TheONE MARKETPLACE is only companies
  * with products to buy; clinics, hotels and brokers live in their own.
  */
 export const AREAS: Record<string, readonly Section[]> = {
@@ -159,7 +159,7 @@ export async function selectionFeed(accountId: string, area = "selection"): Prom
   }
 
   const sections = SECTIONS.map((section) => {
-    // Only partners with something to offer: SELECTION shows what can be
+    // Only partners with something to offer: MARKETPLACE shows what can be
     // bought, booked or asked for, not a directory.
     const offered = (p: PartnerProfileDoc) =>
       (offeringsOf.get(p._id.toHexString()) ?? []).filter(
@@ -204,7 +204,7 @@ export async function selectionFeed(accountId: string, area = "selection"): Prom
     };
   }).filter((s) => s.partners.length > 0);
 
-  // "Chosen for you" belongs to TheONE SELECTION: products only.
+  // "Chosen for you" belongs to TheONE MARKETPLACE: products only.
   if (area !== "selection") return { forYou: [], sections };
 
   // Chosen for you only from the brands on the page.
@@ -305,8 +305,8 @@ export async function requestOffering(input: {
 
   const german = GERMAN_SPEAKING.has(partner.country.trim().toLowerCase());
   const body = german
-    ? `Anfrage über TheONE SELECTION von ${input.displayName}: ${offering.title}. Bitte melden Sie sich mit Verfügbarkeit und den nächsten Schritten.`
-    : `Request via TheONE SELECTION from ${input.displayName}: ${offering.title}. Please reply with availability and next steps.`;
+    ? `Anfrage über TheONE MARKETPLACE von ${input.displayName}: ${offering.title}. Bitte melden Sie sich mit Verfügbarkeit und den nächsten Schritten.`
+    : `Request via TheONE MARKETPLACE from ${input.displayName}: ${offering.title}. Please reply with availability and next steps.`;
   await sendMessage({ conversationId, accountId, body });
 
   return { conversationId, partnerName: partner.name };
