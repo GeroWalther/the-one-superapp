@@ -355,6 +355,124 @@
         }
       }
     },
+    "%lld years older": {
+      "extractionState": "manual",
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld Jahre älter"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld ans plus âgé"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld anni più grande"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld años mayor"
+          }
+        },
+        "hr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld godina stariji"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "На %lld лет старше"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld yaş daha büyük"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "أكبر بـ %lld سنوات"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "年长 %lld 岁"
+          }
+        }
+      }
+    },
+    "%lld years younger": {
+      "extractionState": "manual",
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld Jahre jünger"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld ans plus jeune"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld anni più giovane"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld años más joven"
+          }
+        },
+        "hr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld godina mlađi"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "На %lld лет моложе"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld yaş daha genç"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "أصغر بـ %lld سنوات"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "年轻 %lld 岁"
+          }
+        }
+      }
+    },
     "0 to 1 days": {
       "extractionState": "manual",
       "localizations": {
@@ -3364,6 +3482,65 @@
         }
       }
     },
+    "Birth year": {
+      "extractionState": "manual",
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Geburtsjahr"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Année de naissance"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Anno di nascita"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Año de nacimiento"
+          }
+        },
+        "hr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Godina rođenja"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Год рождения"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Doğum yılı"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "سنة الميلاد"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "出生年份"
+          }
+        }
+      }
+    },
     "Black": {
       "extractionState": "manual",
       "localizations": {
@@ -4186,6 +4363,65 @@
           "stringUnit": {
             "state": "translated",
             "value": "Değiştir"
+          }
+        }
+      }
+    },
+    "Change birth year": {
+      "extractionState": "manual",
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Geburtsjahr ändern"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Modifier l'année de naissance"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Modifica l'anno di nascita"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cambiar año de nacimiento"
+          }
+        },
+        "hr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Promijeni godinu rođenja"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Изменить год рождения"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Doğum yılını değiştir"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تغيير سنة الميلاد"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "修改出生年份"
           }
         }
       }
@@ -5130,6 +5366,65 @@
           "stringUnit": {
             "state": "translated",
             "value": "İletişim yalnızca ikiniz de evet dediğinizde açılır."
+          }
+        }
+      }
+    },
+    "Continue": {
+      "extractionState": "manual",
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Weiter"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Continuer"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Continua"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Continuar"
+          }
+        },
+        "hr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nastavi"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Далее"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Devam"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "متابعة"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "继续"
           }
         }
       }
@@ -6550,6 +6845,65 @@
         }
       }
     },
+    "Discover how young you really are": {
+      "extractionState": "manual",
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Entdecke, wie jung du wirklich bist"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Découvre à quel point tu es jeune"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Scopri quanto sei giovane davvero"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Descubre lo joven que eres de verdad"
+          }
+        },
+        "hr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Otkrij koliko si zapravo mlad"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Узнай, насколько ты молод на самом деле"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gerçekte ne kadar genç olduğunu keşfet"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "اكتشف كم أنت شاب حقًا"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "发现你真正有多年轻"
+          }
+        }
+      }
+    },
     "Discreet": {
       "extractionState": "manual",
       "localizations": {
@@ -7667,6 +8021,65 @@
           "stringUnit": {
             "state": "translated",
             "value": "Her isteğin karşılanıyor, sen de karşındakinin her isteğini karşılıyorsun."
+          }
+        }
+      }
+    },
+    "Exactly your age": {
+      "extractionState": "manual",
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Genau dein Alter"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Exactement ton âge"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Esattamente la tua età"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Exactamente tu edad"
+          }
+        },
+        "hr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Točno tvoja dob"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ровно твой возраст"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tam olarak yaşın"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "عمرك تمامًا"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "正好是你的年龄"
           }
         }
       }
@@ -11329,6 +11742,65 @@
         }
       }
     },
+    "I have just looked at my TheONE AGE. How do I become younger?": {
+      "extractionState": "manual",
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ich habe mir gerade mein TheONE AGE angesehen. Wie werde ich jünger?"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Je viens de regarder mon TheONE AGE. Comment rajeunir ?"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ho appena guardato il mio TheONE AGE. Come divento più giovane?"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Acabo de ver mi TheONE AGE. ¿Cómo me vuelvo más joven?"
+          }
+        },
+        "hr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Upravo sam pogledao svoj TheONE AGE. Kako da postanem mlađi?"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Я только что посмотрел свой TheONE AGE. Как мне стать моложе?"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "TheONE AGE'ime az önce baktım. Nasıl daha genç olurum?"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "لقد اطلعت للتو على TheONE AGE الخاص بي. كيف أصبح أصغر سنًا؟"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "我刚看了我的 TheONE AGE。我怎样才能变得更年轻？"
+          }
+        }
+      }
+    },
     "I know TheONE's verified business partners and what you told us when you applied. Tell me what you need, or just describe the problem.": {
       "extractionState": "manual",
       "localizations": {
@@ -11860,6 +12332,65 @@
         }
       }
     },
+    "In which year were you born?": {
+      "extractionState": "manual",
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "In welchem Jahr bist du geboren?"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "En quelle année es-tu né ?"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "In che anno sei nato?"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "¿En qué año naciste?"
+          }
+        },
+        "hr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Koje si godine rođen?"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "В каком году ты родился?"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hangi yıl doğdun?"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "في أي سنة وُلدت؟"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "你是哪一年出生的？"
+          }
+        }
+      }
+    },
     "Insurance": {
       "extractionState": "manual",
       "localizations": {
@@ -12210,6 +12741,65 @@
           "stringUnit": {
             "state": "translated",
             "value": "Yaşam tarzı ve önleme odaklıdır, tıbbi teşhis değildir."
+          }
+        }
+      }
+    },
+    "Lifestyle orientation, not a medical finding.": {
+      "extractionState": "manual",
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Orientierung für deinen Lebensstil, kein medizinischer Befund."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Une orientation pour ton mode de vie, pas un avis médical."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Un orientamento per il tuo stile di vita, non un referto medico."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Una orientación para tu estilo de vida, no un diagnóstico médico."
+          }
+        },
+        "hr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Smjernica za tvoj način života, ne medicinski nalaz."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ориентир для образа жизни, не медицинское заключение."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Yaşam tarzın için bir yön, tıbbi bulgu değil."
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "توجيه لنمط حياتك، وليس تشخيصًا طبيًا."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "生活方式参考，并非医学诊断。"
           }
         }
       }
@@ -15695,6 +16285,124 @@
         }
       }
     },
+    "One year older": {
+      "extractionState": "manual",
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ein Jahr älter"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Un an plus âgé"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Un anno più grande"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Un año mayor"
+          }
+        },
+        "hr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Godinu dana stariji"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "На год старше"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bir yaş daha büyük"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "أكبر بسنة"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "年长一岁"
+          }
+        }
+      }
+    },
+    "One year younger": {
+      "extractionState": "manual",
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ein Jahr jünger"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Un an plus jeune"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Un anno più giovane"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Un año más joven"
+          }
+        },
+        "hr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Godinu dana mlađi"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "На год моложе"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bir yaş daha genç"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "أصغر بسنة"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "年轻一岁"
+          }
+        }
+      }
+    },
     "Only live accounts can use the app.": {
       "extractionState": "manual",
       "localizations": {
@@ -18173,6 +18881,65 @@
         }
       }
     },
+    "Repeat TheONE LONGEVITY CHECK": {
+      "extractionState": "manual",
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "TheONE LONGEVITY CHECK wiederholen"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Refaire le TheONE LONGEVITY CHECK"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ripeti il TheONE LONGEVITY CHECK"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Repetir el TheONE LONGEVITY CHECK"
+          }
+        },
+        "hr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ponovi TheONE LONGEVITY CHECK"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Пройти TheONE LONGEVITY CHECK ещё раз"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "TheONE LONGEVITY CHECK'i tekrarla"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "أعد TheONE LONGEVITY CHECK"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "再做一次 TheONE LONGEVITY CHECK"
+          }
+        }
+      }
+    },
     "Request a stay": {
       "extractionState": "manual",
       "localizations": {
@@ -18995,6 +19762,65 @@
           "stringUnit": {
             "state": "translated",
             "value": "Kaydediliyor…"
+          }
+        }
+      }
+    },
+    "Scan my skin again": {
+      "extractionState": "manual",
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Haut erneut scannen"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Scanner à nouveau ma peau"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Scansiona di nuovo la pelle"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Escanear mi piel otra vez"
+          }
+        },
+        "hr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ponovno skeniraj kožu"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сканировать кожу ещё раз"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cildimi tekrar tara"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "افحص بشرتي مرة أخرى"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "再次扫描皮肤"
           }
         }
       }
@@ -20175,6 +21001,65 @@
           "stringUnit": {
             "state": "translated",
             "value": "Kayak"
+          }
+        }
+      }
+    },
+    "Skin": {
+      "extractionState": "manual",
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Haut"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Peau"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pelle"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Piel"
+          }
+        },
+        "hr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Koža"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Кожа"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cilt"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "البشرة"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "皮肤"
           }
         }
       }
@@ -23011,6 +23896,124 @@
         }
       }
     },
+    "TheONE AGE is computed from how you live and how your skin looks. Do your TheONE LONGEVITY CHECK or your TheONE SKIN SCAN, both together give the most precise number.": {
+      "extractionState": "manual",
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "TheONE AGE wird aus deinem Lebensstil und deiner Haut berechnet. Mach deinen TheONE LONGEVITY CHECK oder deinen TheONE SKIN SCAN, beide zusammen ergeben die genaueste Zahl."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "TheONE AGE est calculé à partir de ton mode de vie et de ta peau. Fais ton TheONE LONGEVITY CHECK ou ton TheONE SKIN SCAN, les deux ensemble donnent le chiffre le plus précis."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "TheONE AGE si calcola dal tuo stile di vita e dalla tua pelle. Fai il tuo TheONE LONGEVITY CHECK o il tuo TheONE SKIN SCAN, insieme danno il numero più preciso."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "TheONE AGE se calcula a partir de tu estilo de vida y de tu piel. Haz tu TheONE LONGEVITY CHECK o tu TheONE SKIN SCAN, juntos dan el número más preciso."
+          }
+        },
+        "hr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "TheONE AGE izračunava se iz tvog načina života i tvoje kože. Napravi svoj TheONE LONGEVITY CHECK ili TheONE SKIN SCAN, oboje zajedno daju najprecizniji broj."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "TheONE AGE рассчитывается по твоему образу жизни и состоянию кожи. Пройди TheONE LONGEVITY CHECK или TheONE SKIN SCAN, вместе они дают самое точное число."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "TheONE AGE yaşam tarzından ve cildinden hesaplanır. TheONE LONGEVITY CHECK ya da TheONE SKIN SCAN yap, ikisi birlikte en doğru sayıyı verir."
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "يُحسب TheONE AGE من نمط حياتك ومن بشرتك. قم بـ TheONE LONGEVITY CHECK أو TheONE SKIN SCAN، ومعًا يعطيان الرقم الأدق."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "TheONE AGE 根据你的生活方式和皮肤状况计算。完成 TheONE LONGEVITY CHECK 或 TheONE SKIN SCAN，两者结合得出最精确的数字。"
+          }
+        }
+      }
+    },
+    "TheONE AGE starts from your calendar age.": {
+      "extractionState": "manual",
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "TheONE AGE geht von deinem Kalenderalter aus."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "TheONE AGE part de ton âge civil."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "TheONE AGE parte dalla tua età anagrafica."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "TheONE AGE parte de tu edad cronológica."
+          }
+        },
+        "hr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "TheONE AGE polazi od tvoje kalendarske dobi."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "TheONE AGE исходит из твоего паспортного возраста."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "TheONE AGE takvim yaşından yola çıkar."
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "يبدأ TheONE AGE من عمرك الفعلي."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "TheONE AGE 以你的实际年龄为起点。"
+          }
+        }
+      }
+    },
     "TheONE SKIN SCAN: my results": {
       "extractionState": "manual",
       "localizations": {
@@ -25843,6 +26846,65 @@
         }
       }
     },
+    "Where you win back years": {
+      "extractionState": "manual",
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hier holst du Jahre zurück"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Où tu regagnes des années"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dove riguadagni anni"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dónde recuperas años"
+          }
+        },
+        "hr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ovdje vraćaš godine"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Где ты возвращаешь годы"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Yılları geri kazandığın yer"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "حيث تستعيد سنواتك"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "在这里赢回岁月"
+          }
+        }
+      }
+    },
     "While paused, nobody is shown your profile. Your details are kept.": {
       "extractionState": "manual",
       "localizations": {
@@ -26964,6 +28026,65 @@
         }
       }
     },
+    "Your TheONE AGE over time": {
+      "extractionState": "manual",
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dein TheONE AGE im Verlauf"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ton TheONE AGE dans le temps"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Il tuo TheONE AGE nel tempo"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tu TheONE AGE en el tiempo"
+          }
+        },
+        "hr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tvoj TheONE AGE kroz vrijeme"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Твой TheONE AGE во времени"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zaman içinde TheONE AGE'in"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "TheONE AGE الخاص بك عبر الزمن"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "你的 TheONE AGE 变化"
+          }
+        }
+      }
+    },
     "Your access is approved but not yet paid for. Finish checkout on theone-superapp.com to sign in.": {
       "extractionState": "manual",
       "localizations": {
@@ -27023,6 +28144,65 @@
         }
       }
     },
+    "Your biological age in one number": {
+      "extractionState": "manual",
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dein biologisches Alter in einer Zahl"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ton âge biologique en un seul chiffre"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La tua età biologica in un solo numero"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tu edad biológica en un solo número"
+          }
+        },
+        "hr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tvoja biološka dob u jednom broju"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Твой биологический возраст в одном числе"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Biyolojik yaşın tek bir sayıda"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "عمرك البيولوجي في رقم واحد"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "你的生理年龄，一个数字"
+          }
+        }
+      }
+    },
     "Your budget, up to": {
       "extractionState": "manual",
       "localizations": {
@@ -27078,6 +28258,65 @@
           "stringUnit": {
             "state": "translated",
             "value": "Bütçen, en fazla"
+          }
+        }
+      }
+    },
+    "Your calendar age: %lld": {
+      "extractionState": "manual",
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dein Kalenderalter: %lld"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ton âge civil : %lld"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La tua età anagrafica: %lld"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tu edad cronológica: %lld"
+          }
+        },
+        "hr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tvoja kalendarska dob: %lld"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Твой паспортный возраст: %lld"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Takvim yaşın: %lld"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "عمرك الفعلي: %lld"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "你的实际年龄：%lld"
           }
         }
       }
@@ -27491,6 +28730,65 @@
           "stringUnit": {
             "state": "translated",
             "value": "Dört haftalık planın"
+          }
+        }
+      }
+    },
+    "Your goal": {
+      "extractionState": "manual",
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dein Ziel"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ton objectif"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Il tuo obiettivo"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tu objetivo"
+          }
+        },
+        "hr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tvoj cilj"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Твоя цель"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hedefin"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "هدفك"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "你的目标"
           }
         }
       }
@@ -28553,6 +29851,65 @@
           "stringUnit": {
             "state": "translated",
             "value": "güzel karşılaşmalar"
+          }
+        }
+      }
+    },
+    "up to %@ years": {
+      "extractionState": "manual",
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "bis zu %@ Jahre"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "jusqu'à %@ ans"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "fino a %@ anni"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "hasta %@ años"
+          }
+        },
+        "hr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "do %@ godina"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "до %@ лет"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ yıla kadar"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "حتى %@ سنوات"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "最多 %@ 岁"
           }
         }
       }

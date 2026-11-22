@@ -16,12 +16,15 @@ struct HomeView: View {
         case tab(MainTabs.Tab)
         case area(Area)
         case skin
+        case age
     }
 
     @State private var showLogin = false
     @State private var weather = WeatherModel()
     @State private var areaCover: Area?
     @State private var skinCover = false
+    @State private var ageCover = false
+    @State private var age = TheONEAgeModel()
     /// The member area shown over the start screen, opened on this tab.
     @State private var destination: MainTabs.Tab?
     /// Where a tap made while signed out was headed, once the sign-in is done.
@@ -90,6 +93,13 @@ struct HomeView: View {
                             .padding(.top, 22)
                     }
 
+                    // TheONE AGE: the biological age in one number.
+                    if session.account != nil {
+                        TheONEAgeCard(model: age) { open(.age) }
+                            .padding(.horizontal, 20)
+                            .padding(.top, 14)
+                    }
+
                     functions
                         .padding(.top, 30)
 
@@ -107,9 +117,16 @@ struct HomeView: View {
                     greeter.talk(tr("I have just done my TheONE SKIN SCAN. What do you recommend for me?"))
                 }
             }
+            .fullScreenCover(isPresented: $ageCover, onDismiss: { Task { await age.load() } }) {
+                TheONEAgeView(model: age) { words in greeter.talk(words) }
+            }
             .scrollBounceBehavior(.basedOnSize)
             .task(id: session.account?.id) {
-                if session.account != nil { await weather.load() }
+                if session.account != nil {
+                    async let forecast: Void = weather.load()
+                    async let biological: Void = age.load()
+                    _ = await (forecast, biological)
+                }
             }
             .animation(.easeIn(duration: 0.6), value: greeter.text)
         }
@@ -154,6 +171,7 @@ struct HomeView: View {
                 destination = nil
                 areaCover = nil
                 skinCover = false
+                ageCover = false
             }
         }
     }
@@ -213,6 +231,7 @@ struct HomeView: View {
     private func openAssistant() {
         areaCover = nil
         skinCover = false
+        ageCover = false
         Task {
             try? await Task.sleep(for: .milliseconds(450))
             destination = .assistant
@@ -225,6 +244,7 @@ struct HomeView: View {
         case .tab(let tab): destination = tab
         case .area(let area): areaCover = area
         case .skin: skinCover = true
+        case .age: ageCover = true
         }
     }
 

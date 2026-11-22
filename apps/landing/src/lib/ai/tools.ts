@@ -10,6 +10,7 @@ import { listSkinScans } from "../skin/service";
 import { offeringsForAdvice } from "../selection/service";
 import { startPropertySale, listPropertySales, startPropertySearch, PROPERTY_TYPES } from "../realestate/service";
 import { COURSE, completeLesson, courseProgress, listLongevityChecks } from "../longevity/service";
+import { getTheoneAge } from "../age/service";
 
 /**
  * The assistant's tools.
@@ -183,6 +184,12 @@ export const ASSISTANT_TOOLS: Anthropic.Tool[] = [
     name: "get_longevity_check",
     description:
       "The member's latest TheONE LONGEVITY CHECK results: longevity score and six pillars (sleep, stress, movement, nutrition, connection, prevention) 0 to 100 where higher is better, focus, a four week plan, and the exact clinic programmes and products picked for them. Call this whenever the member talks about energy, sleep, stress, ageing, health or living longer, or has just done the check.",
+    input_schema: { type: "object", properties: {}, additionalProperties: false },
+  },
+  {
+    name: "get_theone_age",
+    description:
+      "The member's TheONE AGE: their biological age as one number, computed from their calendar age, their latest TheONE LONGEVITY CHECK and their latest TheONE SKIN SCAN, with how many years younger or older that is, the levers (pillars or skin) that would win back the most years, the target TheONE AGE once those are pulled, and the history over time. Call this whenever the member asks how old they really are, about their biological age, about ageing or looking or feeling younger, or after they have done a check or scan.",
     input_schema: { type: "object", properties: {}, additionalProperties: false },
   },
   {
@@ -456,6 +463,23 @@ export async function runAssistantTool(
           };
         }
         return { content: JSON.stringify({ checks, course }) };
+      }
+
+      case "get_theone_age": {
+        const age = await getTheoneAge(account.id);
+        if (age.status === "needsBirthYear") {
+          return {
+            content:
+              "TheONE AGE does not know the member's birth year yet. Ask for it, then tell them to open TheONE AGE on the start screen and enter it there.",
+          };
+        }
+        if (age.status === "needsData") {
+          return {
+            content:
+              "TheONE AGE needs a TheONE LONGEVITY CHECK or a TheONE SKIN SCAN first. Offer the check (TheONE LONGEVITY on the start screen) or the scan (the button next to the microphone).",
+          };
+        }
+        return { content: JSON.stringify(age) };
       }
 
       case "get_skin_analysis": {

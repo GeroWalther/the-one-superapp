@@ -411,6 +411,17 @@ export type LongevityCheckDoc = {
   createdAt: Date;
 };
 
+/**
+ * TheONE AGE: what the member told us to compute it. Only the birth year; the
+ * number itself is always computed fresh from their checks and scans.
+ */
+export type TheoneAgeDoc = {
+  _id: ObjectId;
+  accountId: ObjectId;
+  birthYear: number;
+  updatedAt: Date;
+};
+
 /** How far a member is in TheONE LONGEVITY COURSE: lesson keys done. */
 export type LongevityCourseDoc = {
   _id: ObjectId;
@@ -629,6 +640,8 @@ async function ensureIndexes(): Promise<void> {
 
     db.collection<LongevityCourseDoc>("longevityCourse").createIndex({ accountId: 1 }, { unique: true }),
 
+    db.collection<TheoneAgeDoc>("theoneAge").createIndex({ accountId: 1 }, { unique: true }),
+
     db.collection<PropertySaleDoc>("propertySales").createIndex({ accountId: 1, createdAt: -1 }),
     db.collection<PropertySearchDoc>("propertySearches").createIndex({ accountId: 1, createdAt: -1 }),
 
@@ -673,6 +686,7 @@ export const skinScans = () => collection<SkinScanDoc>("skinScans");
 export const offerings = () => collection<OfferingDoc>("offerings");
 export const longevityChecks = () => collection<LongevityCheckDoc>("longevityChecks");
 export const longevityCourse = () => collection<LongevityCourseDoc>("longevityCourse");
+export const theoneAge = () => collection<TheoneAgeDoc>("theoneAge");
 export const propertySales = () => collection<PropertySaleDoc>("propertySales");
 export const propertySearches = () => collection<PropertySearchDoc>("propertySearches");
 export const matchProfiles = () => collection<MatchProfileDoc>("matchProfiles");

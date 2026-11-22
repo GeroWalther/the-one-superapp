@@ -13,7 +13,7 @@ final class TheONEUITests: XCTestCase {
         app = XCUIApplication()
         // The app follows the phone's language. MATCH is checked as a German
         // phone, the Japanese walkthrough as a Japanese one, the rest as is.
-        if name.contains("testMatchFlow") || name.contains("testWeather") || name.contains("testBoutiqueBeauty5") || name.contains("testPowerAIEmail") || name.contains("testSkinAnalysis") || name.contains("testSelection") || name.contains("testHomeFunctions") || name.contains("testLongevityCheck") || name.contains("testRealEstate") || name.contains("testBeauty5") || name.contains("testPersonalCare") || name.contains("testSelectionBrands") || name.contains("testPowerAIEmail") {
+        if name.contains("testMatchFlow") || name.contains("testWeather") || name.contains("testBoutiqueBeauty5") || name.contains("testPowerAIEmail") || name.contains("testSkinAnalysis") || name.contains("testSelection") || name.contains("testHomeFunctions") || name.contains("testLongevityCheck") || name.contains("testTheONEAge") || name.contains("testRealEstate") || name.contains("testBeauty5") || name.contains("testPersonalCare") || name.contains("testSelectionBrands") || name.contains("testPowerAIEmail") {
             app.launchArguments += ["-AppleLanguages", "(de)", "-AppleLocale", "de_DE"]
         } else if name.contains("testJapaneseMember") {
             app.launchArguments += ["-AppleLanguages", "(ja)", "-AppleLocale", "ja_JP"]
@@ -905,6 +905,38 @@ final class TheONEUITests: XCTestCase {
 
     /// TheONE LONGEVITY CHECK from the start screen: thirteen answers, the
     /// reading, and the talk with POWER AI about it.
+    /// TheONE AGE: the card on the start screen opens the number, the years
+    /// to win back and the goal, computed from the member's check and scan.
+    func testTheONEAge() throws {
+        assertOnLoginScreen()
+        type("testmember", into: app.textFields.firstMatch)
+        type("TestPassword2026!", into: app.secureTextFields.firstMatch)
+        app.buttons["login.submit"].tap()
+        dismissSystemPrompts()
+        XCTAssertTrue(app.tabBars.firstMatch.waitForExistence(timeout: 25))
+        dismissSystemPrompts()
+        goHome(leaving: app.tabBars.firstMatch)
+
+        let card = app.buttons["home.age"]
+        XCTAssertTrue(card.waitForExistence(timeout: 15))
+        sleep(2)
+        capture("a1-home-card")
+        card.tap()
+
+        let value = app.otherElements["age.value"].exists ? app.otherElements["age.value"] : app.descendants(matching: .any)["age.value"]
+        XCTAssertTrue(value.waitForExistence(timeout: 15))
+        XCTAssertTrue(app.staticTexts["Hier holst du Jahre zurück".uppercased()].exists || app.staticTexts["HIER HOLST DU JAHRE ZURÜCK"].exists)
+        capture("a2-age")
+        app.swipeUp()
+        sleep(1)
+        XCTAssertTrue(app.descendants(matching: .any)["age.target"].exists)
+        capture("a3-age-levers")
+        app.swipeUp()
+        sleep(1)
+        capture("a4-age-actions")
+        XCTAssertTrue(app.buttons["age.discuss"].exists)
+    }
+
     func testLongevityCheck() throws {
         assertOnLoginScreen()
         type("testmember", into: app.textFields.firstMatch)
