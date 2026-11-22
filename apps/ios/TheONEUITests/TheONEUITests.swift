@@ -13,9 +13,9 @@ final class TheONEUITests: XCTestCase {
         app = XCUIApplication()
         // The app follows the phone's language. MATCH is checked as a German
         // phone, the Japanese walkthrough as a Japanese one, the rest as is.
-        if name.contains("testMatchFlow") || name.contains("testWeather") || name.contains("testBoutiqueBeauty5") || name.contains("testPowerAIEmail") || name.contains("testSkinAnalysis") || name.contains("testSelection") || name.contains("testHomeFunctions") || name.contains("testLongevityCheck") || name.contains("testRealEstate") || name.contains("testBeauty5") || name.contains("testPersonalCare") || name.contains("testSelectionBrands") || name.contains("testPowerAIEmail") {
+        if name.contains("testMatchFlow") || name.contains("testWeather") || name.contains("testBoutiqueBeauty5") || name.contains("testPowerAIEmail") || name.contains("testSkinAnalysis") || name.contains("testSelection") || name.contains("testHomeFunctions") || name.contains("testLongevityCheck") || name.contains("testTheONEAge") || name.contains("testOneSentencePlan") || name.contains("testRealEstate") || name.contains("testBeauty5") || name.contains("testPersonalCare") || name.contains("testSelectionBrands") || name.contains("testPowerAIEmail") {
             app.launchArguments += ["-AppleLanguages", "(de)", "-AppleLocale", "de_DE"]
-        } else if name.contains("testJapaneseMember") {
+        } else if name.contains("testJapaneseMember") || name.contains("testLiveInterpreter") {
             app.launchArguments += ["-AppleLanguages", "(ja)", "-AppleLocale", "ja_JP"]
         } else if let tour = Self.tours.first(where: { name.contains($0.test) }) {
             app.launchArguments += ["-AppleLanguages", "(\(tour.language))", "-AppleLocale", tour.locale]
@@ -402,6 +402,69 @@ final class TheONEUITests: XCTestCase {
         app.buttons["assistant.send"].tap()
         sleep(40)
         capture("j02-answer")
+    }
+
+    /// The live interpreter: a Japanese member reads the clinic's German
+    /// reply in Japanese, marked as translated, with the original a tap away.
+    func testLiveInterpreter() throws {
+        assertOnLoginScreen()
+        type("testmember", into: app.textFields.firstMatch)
+        type("TestPassword2026!", into: app.secureTextFields.firstMatch)
+        app.buttons["login.submit"].tap()
+        dismissSystemPrompts()
+        XCTAssertTrue(app.tabBars.firstMatch.waitForExistence(timeout: 25))
+        dismissSystemPrompts()
+
+        let tab = app.tabBars.buttons["bubble.left.and.bubble.right"]
+        XCTAssertTrue(tab.waitForExistence(timeout: 15))
+        let clinic = app.staticTexts["Alpine Longevity Clinic"].firstMatch
+        for _ in 0..<3 where !clinic.exists {
+            dismissSystemPrompts()
+            tab.tap()
+            _ = clinic.waitForExistence(timeout: 10)
+        }
+        XCTAssertTrue(clinic.exists, "no conversation with the clinic")
+        clinic.tap()
+
+        let translated = app.descendants(matching: .any)["chat.translated"].firstMatch
+        XCTAssertTrue(translated.waitForExistence(timeout: 30), "no translated message")
+        sleep(1)
+        capture("i01-japanese")
+        translated.tap()
+        sleep(1)
+        capture("i02-original")
+    }
+
+    /// One sentence, everything arranged: POWER AI turns a wish into one
+    /// plan card, and one tap sends it to every partner in it.
+    func testOneSentencePlan() throws {
+        assertOnLoginScreen()
+        type("testmember", into: app.textFields.firstMatch)
+        type("TestPassword2026!", into: app.secureTextFields.firstMatch)
+        app.buttons["login.submit"].tap()
+        dismissSystemPrompts()
+        XCTAssertTrue(app.tabBars.firstMatch.waitForExistence(timeout: 25))
+        dismissSystemPrompts()
+        goHome(leaving: app.tabBars.firstMatch)
+
+        app.buttons["home.storm"].tap()
+        let field = app.descendants(matching: .any)["assistant.input"].firstMatch
+        XCTAssertTrue(field.waitForExistence(timeout: 15))
+        type("Ich brauche in zwei Wochen ein Wochenende zum Erholen, Freitag bis Sonntag, für mich allein.", into: field)
+        app.buttons["assistant.send"].tap()
+
+        let card = app.descendants(matching: .any)["plan.card"].firstMatch
+        XCTAssertTrue(card.waitForExistence(timeout: 120), "no plan card appeared")
+        sleep(8)
+        capture("p01-plan")
+
+        let confirm = app.buttons["plan.confirm"]
+        XCTAssertTrue(confirm.waitForExistence(timeout: 10))
+        confirm.tap()
+        let sent = app.descendants(matching: .any)["plan.sent"].firstMatch
+        XCTAssertTrue(sent.waitForExistence(timeout: 30), "the plan was not sent")
+        sleep(2)
+        capture("p02-sent")
     }
 
     /// POWER AI writes an email on request: the card shows recipient, subject
@@ -905,6 +968,38 @@ final class TheONEUITests: XCTestCase {
 
     /// TheONE LONGEVITY CHECK from the start screen: thirteen answers, the
     /// reading, and the talk with POWER AI about it.
+    /// TheONE AGE: the card on the start screen opens the number, the years
+    /// to win back and the goal, computed from the member's check and scan.
+    func testTheONEAge() throws {
+        assertOnLoginScreen()
+        type("testmember", into: app.textFields.firstMatch)
+        type("TestPassword2026!", into: app.secureTextFields.firstMatch)
+        app.buttons["login.submit"].tap()
+        dismissSystemPrompts()
+        XCTAssertTrue(app.tabBars.firstMatch.waitForExistence(timeout: 25))
+        dismissSystemPrompts()
+        goHome(leaving: app.tabBars.firstMatch)
+
+        let card = app.buttons["home.age"]
+        XCTAssertTrue(card.waitForExistence(timeout: 15))
+        sleep(2)
+        capture("a1-home-card")
+        card.tap()
+
+        let value = app.otherElements["age.value"].exists ? app.otherElements["age.value"] : app.descendants(matching: .any)["age.value"]
+        XCTAssertTrue(value.waitForExistence(timeout: 15))
+        XCTAssertTrue(app.staticTexts["Hier holst du Jahre zurück".uppercased()].exists || app.staticTexts["HIER HOLST DU JAHRE ZURÜCK"].exists)
+        capture("a2-age")
+        app.swipeUp()
+        sleep(1)
+        XCTAssertTrue(app.descendants(matching: .any)["age.target"].exists)
+        capture("a3-age-levers")
+        app.swipeUp()
+        sleep(1)
+        capture("a4-age-actions")
+        XCTAssertTrue(app.buttons["age.discuss"].exists)
+    }
+
     func testLongevityCheck() throws {
         assertOnLoginScreen()
         type("testmember", into: app.textFields.firstMatch)

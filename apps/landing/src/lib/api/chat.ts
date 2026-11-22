@@ -7,6 +7,7 @@ import {
   partnerProfiles,
   type ConversationDoc,
 } from "../db/collections";
+import { baseLanguage, ensureTranslations } from "../chat/translate";
 
 /**
  * In-app messaging between members and partners.
@@ -30,6 +31,10 @@ export type ChatMessage = {
   body: string;
   mine: boolean;
   createdAt: string;
+  /** The message in the reader's language, when it was written in another. */
+  translation?: string;
+  /** The language it was written in (ISO 639-1), when translated. */
+  language?: string;
 };
 
 function sortedPair(a: ObjectId, b: ObjectId): ObjectId[] {
@@ -149,6 +154,8 @@ async function assertParticipant(
 export async function listMessages(input: {
   conversationId: string;
   accountId: ObjectId;
+  /** The reader's language; messages from the other side are translated into it. */
+  language?: string | null;
 }): Promise<ChatMessage[] | null> {
   const conversation = await assertParticipant(
     input.conversationId,
@@ -168,13 +175,29 @@ export async function listMessages(input: {
     { $addToSet: { readBy: input.accountId } },
   );
 
-  return docs.map((doc) => ({
-    id: doc._id.toHexString(),
-    senderId: doc.senderId.toHexString(),
-    body: doc.body,
-    mine: doc.senderId.equals(input.accountId),
-    createdAt: doc.createdAt.toISOString(),
-  }));
+  // The live interpreter: what the other side wrote, in the reader's language.
+  const target = baseLanguage(input.language);
+  if (target) {
+    await ensureTranslations(
+      docs.filter((d) => !d.senderId.equals(input.accountId)),
+      target,
+    );
+  }
+
+  return docs.map((doc) => {
+    const mine = doc.senderId.equals(input.accountId);
+    const translation = !mine && target && doc.language && doc.language !== target
+      ? doc.translations?.[target]
+      : undefined;
+    return {
+      id: doc._id.toHexString(),
+      senderId: doc.senderId.toHexString(),
+      body: doc.body,
+      mine,
+      createdAt: doc.createdAt.toISOString(),
+      ...(translation && translation !== doc.body ? { translation, language: doc.language } : {}),
+    };
+  });
 }
 
 export async function sendMessage(input: {

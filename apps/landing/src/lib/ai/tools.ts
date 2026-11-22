@@ -10,6 +10,8 @@ import { listSkinScans } from "../skin/service";
 import { offeringsForAdvice } from "../selection/service";
 import { startPropertySale, listPropertySales, startPropertySearch, PROPERTY_TYPES } from "../realestate/service";
 import { COURSE, completeLesson, courseProgress, listLongevityChecks } from "../longevity/service";
+import { getTheoneAge } from "../age/service";
+import { confirmPlan, proposePlan, type PlanView } from "../plans/service";
 
 /**
  * The assistant's tools.
@@ -186,6 +188,12 @@ export const ASSISTANT_TOOLS: Anthropic.Tool[] = [
     input_schema: { type: "object", properties: {}, additionalProperties: false },
   },
   {
+    name: "get_theone_age",
+    description:
+      "The member's TheONE AGE: their biological age as one number, computed from their calendar age, their latest TheONE LONGEVITY CHECK and their latest TheONE SKIN SCAN, with how many years younger or older that is, the levers (pillars or skin) that would win back the most years, the target TheONE AGE once those are pulled, and the history over time. Call this whenever the member asks how old they really are, about their biological age, about ageing or looking or feeling younger, or after they have done a check or scan.",
+    input_schema: { type: "object", properties: {}, additionalProperties: false },
+  },
+  {
     name: "get_skin_analysis",
     description:
       "The member's latest TheONE SKIN SCAN results (face scans): scores 0 to 100 where higher is better, focus areas, routine, and the business partners suggested with them. Call this whenever the member talks about their skin, looking younger or more radiant, or has just done a scan.",
@@ -216,6 +224,50 @@ export const ASSISTANT_TOOLS: Anthropic.Tool[] = [
         },
       },
       required: ["partnerId", "summary"],
+      additionalProperties: false,
+    },
+  },
+  {
+    name: "propose_plan",
+    description:
+      "Shows the member one complete plan as a card: everything their wish needs from TheONE's business partners at once (for example flight, hotel or resort stay, spa treatment or programme, and products), with one button to request it all. Call it whenever the member states a wish that needs more than one partner, such as a trip, a weekend to recover, a getaway, an event: first find the exact items with search_selection (one per need), then call this right away instead of describing the options. Nothing is sent to anyone by this tool.",
+    input_schema: {
+      type: "object",
+      properties: {
+        wish: { type: "string", description: "The member's wish in their own words." },
+        title: { type: "string", description: "A short, warm title for the plan in the member's language (\"Dein Erholungswochenende am Meer\")." },
+        when: { type: "string", description: "When, as the member reads it, in their language (\"12. bis 14. Dezember\")." },
+        startDate: { type: "string", description: "First day, YYYY-MM-DD, if known." },
+        endDate: { type: "string", description: "Last day, YYYY-MM-DD, if known." },
+        guests: { type: "integer", description: "How many people, if known." },
+        partnerNoteEn: { type: "string", description: "One or two sentences for the partners in English: what the member wants and anything they should prepare." },
+        partnerNoteDe: { type: "string", description: "The same note in German, for partners in German-speaking countries." },
+        items: {
+          type: "array",
+          description: "Up to six exact items from search_selection, in the order they happen.",
+          items: {
+            type: "object",
+            properties: {
+              offeringId: { type: "string" },
+              note: { type: "string", description: "One short line in the member's language on why it fits or when it happens." },
+            },
+            required: ["offeringId", "note"],
+            additionalProperties: false,
+          },
+        },
+      },
+      required: ["wish", "title", "when", "partnerNoteEn", "partnerNoteDe", "items"],
+      additionalProperties: false,
+    },
+  },
+  {
+    name: "confirm_plan",
+    description:
+      "Sends the plan from propose_plan to every partner in it at once, each in their own conversation. Only call this after the member has clearly said yes to that plan in this conversation (\"ja, mach das\", \"book it all\"); the member can also tap the button on the card, which does the same.",
+    input_schema: {
+      type: "object",
+      properties: { planId: { type: "string" } },
+      required: ["planId"],
       additionalProperties: false,
     },
   },
@@ -274,7 +326,12 @@ export function emailDraftFrom(input: Record<string, unknown>): EmailDraft | nul
   };
 }
 
-export type ToolResult = { content: string; isError?: boolean };
+export type ToolResult = {
+  content: string;
+  isError?: boolean;
+  /** A plan for the app to show as a card (propose_plan, confirm_plan). */
+  plan?: PlanView;
+};
 
 /** Partner countries whose businesses read German; everyone else gets English. */
 const GERMAN_SPEAKING = new Set([
@@ -458,6 +515,23 @@ export async function runAssistantTool(
         return { content: JSON.stringify({ checks, course }) };
       }
 
+      case "get_theone_age": {
+        const age = await getTheoneAge(account.id);
+        if (age.status === "needsBirthYear") {
+          return {
+            content:
+              "TheONE AGE does not know the member's birth year yet. Ask for it, then tell them to open TheONE AGE on the start screen and enter it there.",
+          };
+        }
+        if (age.status === "needsData") {
+          return {
+            content:
+              "TheONE AGE needs a TheONE LONGEVITY CHECK or a TheONE SKIN SCAN first. Offer the check (TheONE LONGEVITY on the start screen) or the scan (the button next to the microphone).",
+          };
+        }
+        return { content: JSON.stringify(age) };
+      }
+
       case "get_skin_analysis": {
         const scans = await listSkinScans(account.id, 3);
         if (scans.length === 0) {
@@ -549,6 +623,40 @@ export async function runAssistantTool(
 
         return {
           content: `Request sent to ${partner.name}. They have been messaged in the app and will reply there. Their direct line is ${partner.contactPhone}.`,
+        };
+      }
+
+      case "propose_plan": {
+        const outcome = await proposePlan({
+          account,
+          wish: input.wish,
+          title: input.title,
+          when: input.when,
+          startDate: input.startDate,
+          endDate: input.endDate,
+          guests: input.guests,
+          partnerNoteEn: input.partnerNoteEn,
+          partnerNoteDe: input.partnerNoteDe,
+          items: input.items,
+        });
+        if (!outcome.ok) return { content: outcome.message, isError: true };
+        return {
+          content: JSON.stringify({
+            shown: true,
+            planId: outcome.plan.id,
+            note:
+              "The member now sees this plan as a card with every item, the prices and one button to request it all. Do not list the items again. In one or two warm sentences say what you put together and ask whether you should send it to everyone. If they say yes in words, call confirm_plan with this planId.",
+          }),
+          plan: outcome.plan,
+        };
+      }
+
+      case "confirm_plan": {
+        const plan = await confirmPlan(account, String(input.planId ?? ""));
+        if (!plan) return { content: "No such plan. Use the planId from propose_plan.", isError: true };
+        return {
+          content: `Sent. ${plan.conversations.map((c) => c.partnerName).join(", ") || "No partner"} received the request in the app and will reply there. Products are bought in the brand's shop from the card.`,
+          plan,
         };
       }
 

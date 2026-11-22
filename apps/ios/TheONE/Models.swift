@@ -68,6 +68,11 @@ struct ChatMessage: Codable, Identifiable, Sendable, Hashable {
     let body: String
     let mine: Bool
     let createdAt: String
+    /// The live interpreter: the message in the reader's language, when it
+    /// was written in another.
+    var translation: String? = nil
+    /// The language it was written in (ISO 639-1), when translated.
+    var language: String? = nil
 }
 
 /// One turn in the assistant transcript. Not a wire type — the streaming
@@ -80,6 +85,10 @@ struct AssistantTurn: Identifiable, Sendable, Hashable {
     var runningTool: String?
     /// An email the assistant wrote in this turn, shown as a card under the text.
     var email: EmailDraft?
+    /// A plan POWER AI put together in this turn, shown as a card.
+    var plan: AssistantPlan?
+    /// The plan's one tap is on its way.
+    var planSending = false
 
     enum Role: Sendable, Hashable { case user, assistant }
 }

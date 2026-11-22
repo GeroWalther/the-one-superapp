@@ -265,6 +265,10 @@ export type MessageDoc = {
   body: string;
   readBy: ObjectId[];
   createdAt: Date;
+  /** The language the message is written in (ISO 639-1), once known. */
+  language?: string;
+  /** The live interpreter's translations, by ISO 639-1 code. */
+  translations?: Record<string, string>;
 };
 
 export type AiMessage = {
@@ -409,6 +413,42 @@ export type LongevityCheckDoc = {
   seeDoctor: boolean;
   doctorNote: string;
   createdAt: Date;
+};
+
+/**
+ * TheONE AGE: what the member told us to compute it. Only the birth year; the
+ * number itself is always computed fresh from their checks and scans.
+ */
+export type TheoneAgeDoc = {
+  _id: ObjectId;
+  accountId: ObjectId;
+  birthYear: number;
+  updatedAt: Date;
+};
+
+/**
+ * One sentence, everything arranged: the plan POWER AI put together from a
+ * member's wish (flight, stay, treatment, products), sent to every partner
+ * with one tap once the member says yes.
+ */
+export type PlanDoc = {
+  _id: ObjectId;
+  accountId: ObjectId;
+  /** The member's own words. */
+  wish: string;
+  title: string;
+  /** When, as the member reads it. */
+  when: string;
+  startDate: string | null;
+  endDate: string | null;
+  guests: number | null;
+  partnerNoteEn: string;
+  partnerNoteDe: string;
+  items: { offeringId: ObjectId; note: string }[];
+  status: "proposed" | "sent";
+  conversations: { partnerName: string; conversationId: string }[];
+  createdAt: Date;
+  sentAt: Date | null;
 };
 
 /** How far a member is in TheONE LONGEVITY COURSE: lesson keys done. */
@@ -629,6 +669,9 @@ async function ensureIndexes(): Promise<void> {
 
     db.collection<LongevityCourseDoc>("longevityCourse").createIndex({ accountId: 1 }, { unique: true }),
 
+    db.collection<TheoneAgeDoc>("theoneAge").createIndex({ accountId: 1 }, { unique: true }),
+    db.collection<PlanDoc>("plans").createIndex({ accountId: 1, createdAt: -1 }),
+
     db.collection<PropertySaleDoc>("propertySales").createIndex({ accountId: 1, createdAt: -1 }),
     db.collection<PropertySearchDoc>("propertySearches").createIndex({ accountId: 1, createdAt: -1 }),
 
@@ -673,6 +716,8 @@ export const skinScans = () => collection<SkinScanDoc>("skinScans");
 export const offerings = () => collection<OfferingDoc>("offerings");
 export const longevityChecks = () => collection<LongevityCheckDoc>("longevityChecks");
 export const longevityCourse = () => collection<LongevityCourseDoc>("longevityCourse");
+export const theoneAge = () => collection<TheoneAgeDoc>("theoneAge");
+export const plans = () => collection<PlanDoc>("plans");
 export const propertySales = () => collection<PropertySaleDoc>("propertySales");
 export const propertySearches = () => collection<PropertySearchDoc>("propertySearches");
 export const matchProfiles = () => collection<MatchProfileDoc>("matchProfiles");

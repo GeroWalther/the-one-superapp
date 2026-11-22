@@ -71,6 +71,8 @@ export async function POST(request: Request) {
       // The email card is not part of the reply text, but the next turn has to
       // know what was drafted ("make it warmer"), so it is kept in the history.
       let drafted = "";
+      // Likewise the plan card: a "yes" in the next turn needs its id.
+      let planned = "";
 
       try {
         for await (const event of runAssistant({
@@ -84,6 +86,9 @@ export async function POST(request: Request) {
           if (event.type === "email") {
             const d = event.draft;
             drafted = `\n\n[Email draft shown to the member as a card]\nTo: ${d.toName ?? ""}${d.toEmail ? ` <${d.toEmail}>` : ""}\nSubject: ${d.subject}\n\n${d.body}`;
+          }
+          if (event.type === "plan") {
+            planned = `\n\n[Plan shown to the member as a card: planId ${event.plan.id}, status ${event.plan.status}]`;
           }
           send(event);
         }
@@ -111,7 +116,7 @@ export async function POST(request: Request) {
                   { role: "user" as const, content: message, createdAt: now },
                   {
                     role: "assistant" as const,
-                    content: finalText + drafted,
+                    content: finalText + drafted + planned,
                     createdAt: new Date(),
                   },
                 ],
