@@ -49,7 +49,14 @@ struct MessagesView: View {
             }
             .refreshable { await load() }
         }
-        .task { await load() }
+        .task {
+            // Live: replies appear while the conversation is open, already
+            // in the member's language.
+            while !Task.isCancelled {
+                await load()
+                try? await Task.sleep(for: .seconds(6))
+            }
+        }
     }
 
     private func row(_ conversation: ConversationSummary) -> some View {
@@ -107,6 +114,8 @@ struct ConversationView: View {
     @State private var messages: [ChatMessage] = []
     @State private var draft = ""
     @State private var isSending = false
+    /// Translated messages the member chose to see in the original.
+    @State private var showingOriginal: Set<String> = []
 
     var body: some View {
         VStack(spacing: 0) {
@@ -169,27 +178,63 @@ struct ConversationView: View {
     private func bubble(_ message: ChatMessage) -> some View {
         HStack {
             if message.mine { Spacer(minLength: 50) }
-            Text(message.body)
-                .font(.theone(15.5))
-                .foregroundStyle(message.mine ? Theme.onAccent : Theme.ink)
-                .padding(.horizontal, 14)
-                .padding(.vertical, 10)
-                .background(
-                    RoundedRectangle(cornerRadius: 18, style: .continuous)
-                        .fill(message.mine
-                              ? AnyShapeStyle(Theme.aquaSoft)
-                              : AnyShapeStyle(Theme.paperSoft))
-                )
+            VStack(alignment: .leading, spacing: 6) {
+                Text(shownText(message))
+                    .font(.theone(15.5))
+                    .foregroundStyle(message.mine ? Theme.onAccent : Theme.ink)
+                if message.translation != nil {
+                    // The live interpreter's mark, and the way back to the original.
+                    Button {
+                        if showingOriginal.contains(message.id) {
+                            showingOriginal.remove(message.id)
+                        } else {
+                            showingOriginal.insert(message.id)
+                        }
+                    } label: {
+                        HStack(spacing: 4) {
+                            Image(systemName: "globe")
+                            Text(showingOriginal.contains(message.id)
+                                 ? tr("Show translation")
+                                 : tr("Translated by POWER AI from %@ · Original", Self.languageName(message.language)))
+                        }
+                        .font(.theone(11.5))
+                        .foregroundStyle(Theme.accentText)
+                    }
+                    .buttonStyle(.plain)
+                    .accessibilityIdentifier("chat.translated")
+                }
+            }
+            .padding(.horizontal, 14)
+            .padding(.vertical, 10)
+            .background(
+                RoundedRectangle(cornerRadius: 18, style: .continuous)
+                    .fill(message.mine
+                          ? AnyShapeStyle(Theme.aquaSoft)
+                          : AnyShapeStyle(Theme.paperSoft))
+            )
             if !message.mine { Spacer(minLength: 50) }
         }
     }
 
+    private func shownText(_ message: ChatMessage) -> String {
+        guard let translation = message.translation, !showingOriginal.contains(message.id) else { return message.body }
+        return translation
+    }
+
+    /// "Deutsch", "日本語"… the source language named in the member's language.
+    private static func languageName(_ code: String?) -> String {
+        guard let code else { return "" }
+        return Locale(identifier: MemberLanguage.tag).localizedString(forLanguageCode: code) ?? code
+    }
+
     private func load() async {
         do {
+            // The member's language: the other side's words come back in it.
+            let lang = MemberLanguage.tag.addingPercentEncoding(withAllowedCharacters: .alphanumerics.union(["-"])) ?? "en"
             let response: MessagesResponse = try await APIClient.shared.send(
-                "/conversations/\(conversationId)/messages"
+                "/conversations/\(conversationId)/messages?lang=\(lang)"
             )
-            messages = response.messages
+            if response.messages != messages { messages = response.messages }
         } catch {
             // A failed load leaves the thread empty rather than showing a
             // half-state; the send box still works.

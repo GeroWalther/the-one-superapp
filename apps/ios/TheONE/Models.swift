@@ -68,6 +68,11 @@ struct ChatMessage: Codable, Identifiable, Sendable, Hashable {
     let body: String
     let mine: Bool
     let createdAt: String
+    /// The live interpreter: the message in the reader's language, when it
+    /// was written in another.
+    var translation: String? = nil
+    /// The language it was written in (ISO 639-1), when translated.
+    var language: String? = nil
 }
 
 /// One turn in the assistant transcript. Not a wire type — the streaming

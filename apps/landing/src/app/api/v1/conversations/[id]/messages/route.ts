@@ -11,9 +11,13 @@ export async function GET(
   if (!auth.ok) return auth.response;
 
   const { id } = await params;
+  // The reader's language: the app sends the phone's (?lang=ja-JP); without
+  // it, the account's own language, so a partner reads German or English.
+  const lang = new URL(request.url).searchParams.get("lang") || auth.account.locale;
   const messages = await listMessages({
     conversationId: id,
     accountId: new ObjectId(auth.account.id),
+    language: lang,
   });
 
   // Null covers both "no such conversation" and "not yours" — telling the two

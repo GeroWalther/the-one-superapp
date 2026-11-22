@@ -15,7 +15,7 @@ final class TheONEUITests: XCTestCase {
         // phone, the Japanese walkthrough as a Japanese one, the rest as is.
         if name.contains("testMatchFlow") || name.contains("testWeather") || name.contains("testBoutiqueBeauty5") || name.contains("testPowerAIEmail") || name.contains("testSkinAnalysis") || name.contains("testSelection") || name.contains("testHomeFunctions") || name.contains("testLongevityCheck") || name.contains("testTheONEAge") || name.contains("testOneSentencePlan") || name.contains("testRealEstate") || name.contains("testBeauty5") || name.contains("testPersonalCare") || name.contains("testSelectionBrands") || name.contains("testPowerAIEmail") {
             app.launchArguments += ["-AppleLanguages", "(de)", "-AppleLocale", "de_DE"]
-        } else if name.contains("testJapaneseMember") {
+        } else if name.contains("testJapaneseMember") || name.contains("testLiveInterpreter") {
             app.launchArguments += ["-AppleLanguages", "(ja)", "-AppleLocale", "ja_JP"]
         } else if let tour = Self.tours.first(where: { name.contains($0.test) }) {
             app.launchArguments += ["-AppleLanguages", "(\(tour.language))", "-AppleLocale", tour.locale]
@@ -404,9 +404,37 @@ final class TheONEUITests: XCTestCase {
         capture("j02-answer")
     }
 
-    /// POWER AI writes an email on request: the card shows recipient, subject
-    /// and text, "Mail öffnen" opens it for the member to send. The simulator
-    /// has no mail account, so the copy sheet stands in for the Mail sheet.
+    /// The live interpreter: a Japanese member reads the clinic's German
+    /// reply in Japanese, marked as translated, with the original a tap away.
+    func testLiveInterpreter() throws {
+        assertOnLoginScreen()
+        type("testmember", into: app.textFields.firstMatch)
+        type("TestPassword2026!", into: app.secureTextFields.firstMatch)
+        app.buttons["login.submit"].tap()
+        dismissSystemPrompts()
+        XCTAssertTrue(app.tabBars.firstMatch.waitForExistence(timeout: 25))
+        dismissSystemPrompts()
+
+        let tab = app.tabBars.buttons["bubble.left.and.bubble.right"]
+        XCTAssertTrue(tab.waitForExistence(timeout: 15))
+        let clinic = app.staticTexts["Alpine Longevity Clinic"].firstMatch
+        for _ in 0..<3 where !clinic.exists {
+            dismissSystemPrompts()
+            tab.tap()
+            _ = clinic.waitForExistence(timeout: 10)
+        }
+        XCTAssertTrue(clinic.exists, "no conversation with the clinic")
+        clinic.tap()
+
+        let translated = app.descendants(matching: .any)["chat.translated"].firstMatch
+        XCTAssertTrue(translated.waitForExistence(timeout: 30), "no translated message")
+        sleep(1)
+        capture("i01-japanese")
+        translated.tap()
+        sleep(1)
+        capture("i02-original")
+    }
+
     /// One sentence, everything arranged: POWER AI turns a wish into one
     /// plan card, and one tap sends it to every partner in it.
     func testOneSentencePlan() throws {
@@ -439,6 +467,9 @@ final class TheONEUITests: XCTestCase {
         capture("p02-sent")
     }
 
+    /// POWER AI writes an email on request: the card shows recipient, subject
+    /// and text, "Mail öffnen" opens it for the member to send. The simulator
+    /// has no mail account, so the copy sheet stands in for the Mail sheet.
     func testPowerAIEmail() throws {
         assertOnLoginScreen()
         type("testmember", into: app.textFields.firstMatch)

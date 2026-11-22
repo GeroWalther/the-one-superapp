@@ -265,6 +265,10 @@ export type MessageDoc = {
   body: string;
   readBy: ObjectId[];
   createdAt: Date;
+  /** The language the message is written in (ISO 639-1), once known. */
+  language?: string;
+  /** The live interpreter's translations, by ISO 639-1 code. */
+  translations?: Record<string, string>;
 };
 
 export type AiMessage = {
