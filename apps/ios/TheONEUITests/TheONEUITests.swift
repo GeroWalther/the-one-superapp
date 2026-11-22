@@ -13,7 +13,7 @@ final class TheONEUITests: XCTestCase {
         app = XCUIApplication()
         // The app follows the phone's language. MATCH is checked as a German
         // phone, the Japanese walkthrough as a Japanese one, the rest as is.
-        if name.contains("testMatchFlow") || name.contains("testWeather") || name.contains("testBoutiqueBeauty5") || name.contains("testPowerAIEmail") || name.contains("testSkinAnalysis") || name.contains("testSelection") || name.contains("testHomeFunctions") || name.contains("testLongevityCheck") || name.contains("testTheONEAge") || name.contains("testRealEstate") || name.contains("testBeauty5") || name.contains("testPersonalCare") || name.contains("testSelectionBrands") || name.contains("testPowerAIEmail") {
+        if name.contains("testMatchFlow") || name.contains("testWeather") || name.contains("testBoutiqueBeauty5") || name.contains("testPowerAIEmail") || name.contains("testSkinAnalysis") || name.contains("testSelection") || name.contains("testHomeFunctions") || name.contains("testLongevityCheck") || name.contains("testTheONEAge") || name.contains("testOneSentencePlan") || name.contains("testRealEstate") || name.contains("testBeauty5") || name.contains("testPersonalCare") || name.contains("testSelectionBrands") || name.contains("testPowerAIEmail") {
             app.launchArguments += ["-AppleLanguages", "(de)", "-AppleLocale", "de_DE"]
         } else if name.contains("testJapaneseMember") {
             app.launchArguments += ["-AppleLanguages", "(ja)", "-AppleLocale", "ja_JP"]
@@ -407,6 +407,38 @@ final class TheONEUITests: XCTestCase {
     /// POWER AI writes an email on request: the card shows recipient, subject
     /// and text, "Mail öffnen" opens it for the member to send. The simulator
     /// has no mail account, so the copy sheet stands in for the Mail sheet.
+    /// One sentence, everything arranged: POWER AI turns a wish into one
+    /// plan card, and one tap sends it to every partner in it.
+    func testOneSentencePlan() throws {
+        assertOnLoginScreen()
+        type("testmember", into: app.textFields.firstMatch)
+        type("TestPassword2026!", into: app.secureTextFields.firstMatch)
+        app.buttons["login.submit"].tap()
+        dismissSystemPrompts()
+        XCTAssertTrue(app.tabBars.firstMatch.waitForExistence(timeout: 25))
+        dismissSystemPrompts()
+        goHome(leaving: app.tabBars.firstMatch)
+
+        app.buttons["home.storm"].tap()
+        let field = app.descendants(matching: .any)["assistant.input"].firstMatch
+        XCTAssertTrue(field.waitForExistence(timeout: 15))
+        type("Ich brauche in zwei Wochen ein Wochenende zum Erholen, Freitag bis Sonntag, für mich allein.", into: field)
+        app.buttons["assistant.send"].tap()
+
+        let card = app.descendants(matching: .any)["plan.card"].firstMatch
+        XCTAssertTrue(card.waitForExistence(timeout: 120), "no plan card appeared")
+        sleep(8)
+        capture("p01-plan")
+
+        let confirm = app.buttons["plan.confirm"]
+        XCTAssertTrue(confirm.waitForExistence(timeout: 10))
+        confirm.tap()
+        let sent = app.descendants(matching: .any)["plan.sent"].firstMatch
+        XCTAssertTrue(sent.waitForExistence(timeout: 30), "the plan was not sent")
+        sleep(2)
+        capture("p02-sent")
+    }
+
     func testPowerAIEmail() throws {
         assertOnLoginScreen()
         type("testmember", into: app.textFields.firstMatch)

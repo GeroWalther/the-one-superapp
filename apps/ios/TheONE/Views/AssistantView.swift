@@ -87,6 +87,12 @@ final class AssistantModel {
                         turns[replyIndex].email = draft
                     }
 
+                case "plan":
+                    // One sentence, everything arranged: the plan as a card.
+                    if let object = event["plan"], let plan = AssistantPlan.from(object) {
+                        turns[replyIndex].plan = plan
+                    }
+
                 case "done":
                     turns[replyIndex].runningTool = nil
                     if speakReplies {
@@ -130,6 +136,25 @@ final class AssistantModel {
                 ? tr("Your email is on its way.")
                 : String(format: tr("Your email to %@ is on its way."), name)
         ))
+    }
+
+    /// The member's one tap: the plan goes to every partner at once.
+    func confirmPlan(_ turnID: UUID) async {
+        guard let index = turns.firstIndex(where: { $0.id == turnID }),
+              let plan = turns[index].plan, !plan.isSent, !turns[index].planSending
+        else { return }
+        turns[index].planSending = true
+        struct Response: Decodable { let plan: AssistantPlan }
+        do {
+            let response: Response = try await APIClient.shared.send("/plans/\(plan.id)/confirm", method: "POST")
+            if let i = turns.firstIndex(where: { $0.id == turnID }) {
+                turns[i].plan = response.plan
+                turns[i].planSending = false
+            }
+        } catch {
+            if let i = turns.firstIndex(where: { $0.id == turnID }) { turns[i].planSending = false }
+            self.error = (error as? APIError)?.errorDescription ?? tr("Something went wrong. Please try again.")
+        }
     }
 
     func reset() {
@@ -289,7 +314,8 @@ struct AssistantView: View {
                         TurnBubble(
                             turn: turn,
                             onChangeEmail: changeEmail,
-                            onOpenEmail: { openEmail(turn) }
+                            onOpenEmail: { openEmail(turn) },
+                            onConfirmPlan: { Task { await model.confirmPlan(turn.id) } }
                         )
                         .id(turn.id)
                     }
@@ -442,6 +468,7 @@ private struct TurnBubble: View {
     let turn: AssistantTurn
     var onChangeEmail: () -> Void = {}
     var onOpenEmail: () -> Void = {}
+    var onConfirmPlan: () -> Void = {}
 
     var body: some View {
         VStack(alignment: turn.role == .user ? .trailing : .leading, spacing: 6) {
@@ -479,6 +506,10 @@ private struct TurnBubble: View {
             if let email = turn.email {
                 EmailDraftCard(draft: email, onChange: onChangeEmail, onOpen: onOpenEmail)
             }
+
+            if let plan = turn.plan {
+                PlanCard(plan: plan, sending: turn.planSending, onConfirm: onConfirmPlan)
+            }
         }
         .frame(maxWidth: .infinity, alignment: turn.role == .user ? .trailing : .leading)
     }
@@ -491,6 +522,9 @@ private struct TurnBubble: View {
         case "request_appointment": "Sending your request…"
         case "save_partner": "Saving…"
         case "draft_email": "Writing your email…"
+        case "search_selection": "Choosing the best for you…"
+        case "propose_plan": "Putting your plan together…"
+        case "confirm_plan": "Sending your plan…"
         default: "Working…"
         }
     }

@@ -80,6 +80,10 @@ struct AssistantTurn: Identifiable, Sendable, Hashable {
     var runningTool: String?
     /// An email the assistant wrote in this turn, shown as a card under the text.
     var email: EmailDraft?
+    /// A plan POWER AI put together in this turn, shown as a card.
+    var plan: AssistantPlan?
+    /// The plan's one tap is on its way.
+    var planSending = false
 
     enum Role: Sendable, Hashable { case user, assistant }
 }

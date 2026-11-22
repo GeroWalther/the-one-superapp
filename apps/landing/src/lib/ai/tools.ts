@@ -11,6 +11,7 @@ import { offeringsForAdvice } from "../selection/service";
 import { startPropertySale, listPropertySales, startPropertySearch, PROPERTY_TYPES } from "../realestate/service";
 import { COURSE, completeLesson, courseProgress, listLongevityChecks } from "../longevity/service";
 import { getTheoneAge } from "../age/service";
+import { confirmPlan, proposePlan, type PlanView } from "../plans/service";
 
 /**
  * The assistant's tools.
@@ -227,6 +228,50 @@ export const ASSISTANT_TOOLS: Anthropic.Tool[] = [
     },
   },
   {
+    name: "propose_plan",
+    description:
+      "Shows the member one complete plan as a card: everything their wish needs from TheONE's business partners at once (for example flight, hotel or resort stay, spa treatment or programme, and products), with one button to request it all. Call it whenever the member states a wish that needs more than one partner, such as a trip, a weekend to recover, a getaway, an event: first find the exact items with search_selection (one per need), then call this right away instead of describing the options. Nothing is sent to anyone by this tool.",
+    input_schema: {
+      type: "object",
+      properties: {
+        wish: { type: "string", description: "The member's wish in their own words." },
+        title: { type: "string", description: "A short, warm title for the plan in the member's language (\"Dein Erholungswochenende am Meer\")." },
+        when: { type: "string", description: "When, as the member reads it, in their language (\"12. bis 14. Dezember\")." },
+        startDate: { type: "string", description: "First day, YYYY-MM-DD, if known." },
+        endDate: { type: "string", description: "Last day, YYYY-MM-DD, if known." },
+        guests: { type: "integer", description: "How many people, if known." },
+        partnerNoteEn: { type: "string", description: "One or two sentences for the partners in English: what the member wants and anything they should prepare." },
+        partnerNoteDe: { type: "string", description: "The same note in German, for partners in German-speaking countries." },
+        items: {
+          type: "array",
+          description: "Up to six exact items from search_selection, in the order they happen.",
+          items: {
+            type: "object",
+            properties: {
+              offeringId: { type: "string" },
+              note: { type: "string", description: "One short line in the member's language on why it fits or when it happens." },
+            },
+            required: ["offeringId", "note"],
+            additionalProperties: false,
+          },
+        },
+      },
+      required: ["wish", "title", "when", "partnerNoteEn", "partnerNoteDe", "items"],
+      additionalProperties: false,
+    },
+  },
+  {
+    name: "confirm_plan",
+    description:
+      "Sends the plan from propose_plan to every partner in it at once, each in their own conversation. Only call this after the member has clearly said yes to that plan in this conversation (\"ja, mach das\", \"book it all\"); the member can also tap the button on the card, which does the same.",
+    input_schema: {
+      type: "object",
+      properties: { planId: { type: "string" } },
+      required: ["planId"],
+      additionalProperties: false,
+    },
+  },
+  {
     name: "draft_email",
     description:
       "Show the member an email you wrote for them, as a card they can edit and then send from their own phone with their own email address. Call it whenever the member asks you to write, answer, reply to or send an email to anyone, straight away and without announcing it first. You never send it yourself: the member reads it, changes it if they like, and sends it. Write it in their voice and sign it with their first name. Write it in the language the recipient reads; when you do not know, use the member's language. If the member wants changes, call this tool again with the full revised email.",
@@ -281,7 +326,12 @@ export function emailDraftFrom(input: Record<string, unknown>): EmailDraft | nul
   };
 }
 
-export type ToolResult = { content: string; isError?: boolean };
+export type ToolResult = {
+  content: string;
+  isError?: boolean;
+  /** A plan for the app to show as a card (propose_plan, confirm_plan). */
+  plan?: PlanView;
+};
 
 /** Partner countries whose businesses read German; everyone else gets English. */
 const GERMAN_SPEAKING = new Set([
@@ -573,6 +623,40 @@ export async function runAssistantTool(
 
         return {
           content: `Request sent to ${partner.name}. They have been messaged in the app and will reply there. Their direct line is ${partner.contactPhone}.`,
+        };
+      }
+
+      case "propose_plan": {
+        const outcome = await proposePlan({
+          account,
+          wish: input.wish,
+          title: input.title,
+          when: input.when,
+          startDate: input.startDate,
+          endDate: input.endDate,
+          guests: input.guests,
+          partnerNoteEn: input.partnerNoteEn,
+          partnerNoteDe: input.partnerNoteDe,
+          items: input.items,
+        });
+        if (!outcome.ok) return { content: outcome.message, isError: true };
+        return {
+          content: JSON.stringify({
+            shown: true,
+            planId: outcome.plan.id,
+            note:
+              "The member now sees this plan as a card with every item, the prices and one button to request it all. Do not list the items again. In one or two warm sentences say what you put together and ask whether you should send it to everyone. If they say yes in words, call confirm_plan with this planId.",
+          }),
+          plan: outcome.plan,
+        };
+      }
+
+      case "confirm_plan": {
+        const plan = await confirmPlan(account, String(input.planId ?? ""));
+        if (!plan) return { content: "No such plan. Use the planId from propose_plan.", isError: true };
+        return {
+          content: `Sent. ${plan.conversations.map((c) => c.partnerName).join(", ") || "No partner"} received the request in the app and will reply there. Products are bought in the brand's shop from the card.`,
+          plan,
         };
       }
 
