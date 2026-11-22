@@ -18,6 +18,8 @@ final class Greeter {
     var pendingTalk: String?
     /// Bumped to ask the start screen to open the assistant for that talk.
     var wantsAssistant = 0
+    /// The assistant was opened from TheONE WISH: the member's answer is a wish.
+    var wishMode = false
 
     /// Opens the assistant with `message` as the member's first words.
     func talk(_ message: String) {
@@ -59,6 +61,7 @@ final class Greeter {
 
         // Signed out while waiting: say nothing to whoever holds the phone now.
         guard greetedAccountId == account.id else { return }
+        wishMode = false
         text = words
         speech.speak(words, respectSilentSwitch: true)
         markAnnounced(matches.map(\.id), for: account.id)

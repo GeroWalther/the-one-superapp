@@ -447,9 +447,17 @@ final class TheONEUITests: XCTestCase {
         dismissSystemPrompts()
         goHome(leaving: app.tabBars.firstMatch)
 
-        app.buttons["home.storm"].tap()
+        let wish = app.buttons["home.wish"]
+        XCTAssertTrue(wish.waitForExistence(timeout: 15))
+        sleep(2)
+        app.swipeUp()
+        sleep(1)
+        capture("p00-home-wish")
+        wish.tap()
         let field = app.descendants(matching: .any)["assistant.input"].firstMatch
         XCTAssertTrue(field.waitForExistence(timeout: 15))
+        sleep(2)
+        capture("p00b-wish-question")
         type("Ich brauche in zwei Wochen ein Wochenende zum Erholen, Freitag bis Sonntag, für mich allein.", into: field)
         app.buttons["assistant.send"].tap()
 

@@ -12,7 +12,7 @@ final class AssistantModel {
 
     private var threadId: String?
 
-    func send(speech: SpeechController, opening: String? = nil) async {
+    func send(speech: SpeechController, opening: String? = nil, mode: String? = nil) async {
         let message = draft.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !message.isEmpty, !isStreaming else { return }
 
@@ -39,7 +39,8 @@ final class AssistantModel {
             threadId: threadId,
             // Only a new conversation carries the greeting; an ongoing one
             // already has it on the server.
-            opening: threadId == nil ? opening : nil
+            opening: threadId == nil ? opening : nil,
+            mode: threadId == nil ? mode : nil
         ) else {
             error = APIError.unauthorized.errorDescription
             return
@@ -300,7 +301,7 @@ struct AssistantView: View {
             speech.stopListening()
             greeter.stop()
             model.draft = message
-            await model.send(speech: speech, opening: greeter.text)
+            await model.send(speech: speech, opening: greeter.text, mode: greeter.wishMode ? "wish" : nil)
         }
     }
 
@@ -443,7 +444,8 @@ struct AssistantView: View {
                 Task {
                     await model.send(
                         speech: speech,
-                        opening: greeter.text
+                        opening: greeter.text,
+                        mode: greeter.wishMode ? "wish" : nil
                     )
                 }
             } label: {

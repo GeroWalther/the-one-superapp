@@ -284,6 +284,8 @@ export type AiThreadDoc = {
   messages: AiMessage[];
   /** The greeting the app spoke before the member's first message. */
   opening?: string;
+  /** "wish": the conversation began in TheONE WISH. */
+  mode?: "wish";
   createdAt: Date;
   updatedAt: Date;
 };
