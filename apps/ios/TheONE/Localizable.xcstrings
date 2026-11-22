@@ -16403,6 +16403,65 @@
         }
       }
     },
+    "One sentence. Everything arranged.": {
+      "extractionState": "manual",
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ein Satz. Alles erledigt."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Une phrase. Tout est organisé."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Una frase. Tutto organizzato."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Una frase. Todo organizado."
+          }
+        },
+        "hr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Jedna rečenica. Sve sređeno."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Одна фраза. Всё устроено."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tek cümle. Her şey ayarlandı."
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "جملة واحدة. وكل شيء جاهز."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "一句话，一切安排妥当。"
+          }
+        }
+      }
+    },
     "One tap and every partner receives your request in the app.": {
       "extractionState": "manual",
       "localizations": {
@@ -23365,6 +23424,65 @@
         }
       }
     },
+    "Tell POWER AI your wish": {
+      "extractionState": "manual",
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sag POWER AI deinen Wunsch"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dis ton souhait à POWER AI"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Di' a POWER AI il tuo desiderio"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dile a POWER AI tu deseo"
+          }
+        },
+        "hr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Reci POWER AI svoju želju"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Скажи POWER AI своё желание"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "POWER AI'ya dileğini söyle"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "أخبر POWER AI بأمنيتك"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "把你的愿望告诉 POWER AI"
+          }
+        }
+      }
+    },
     "Tell TheONE about your property once. It goes to the two or three best brokers for its place, discreetly if you wish, and they reply to you directly in your messages.": {
       "extractionState": "manual",
       "localizations": {
@@ -26724,6 +26842,65 @@
           "stringUnit": {
             "state": "translated",
             "value": "TheONE'dan beklentin"
+          }
+        }
+      }
+    },
+    "What is your wish? Tell me in one sentence, and I will arrange everything for you.": {
+      "extractionState": "manual",
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Was ist dein Wunsch? Sag ihn mir in einem Satz, und ich erledige alles für dich."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Quel est ton souhait ? Dis-le-moi en une phrase, et j'organise tout pour toi."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Qual è il tuo desiderio? Dimmelo in una frase e organizzo tutto per te."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "¿Cuál es tu deseo? Dímelo en una frase y lo organizo todo por ti."
+          }
+        },
+        "hr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Koja je tvoja želja? Reci mi je u jednoj rečenici i ja ću sve srediti za tebe."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Какое у тебя желание? Скажи мне одной фразой, и я всё устрою для тебя."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dileğin nedir? Bana tek cümleyle söyle, her şeyi senin için ayarlayayım."
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ما أمنيتك؟ قلها لي في جملة واحدة، وسأرتب كل شيء من أجلك."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "你的愿望是什么？用一句话告诉我，我会为你安排好一切。"
           }
         }
       }

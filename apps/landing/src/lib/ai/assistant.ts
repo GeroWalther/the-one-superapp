@@ -40,6 +40,10 @@ function thinkingFor(model: string): { type: "adaptive" } | undefined {
  * 400, which silently turned the daily tip into a 503 the moment the model
  * changed. Same rule as thinking: derive it, never hardcode it.
  */
+/** The model behind TheONE WISH. */
+const WISH_MODEL = process.env.WISH_MODEL ?? "claude-sonnet-5-5";
+const WISH_NOTE = "\n\n# This conversation\nThe member opened TheONE WISH and you asked for their wish; their message is the wish. Do not ask questions: decide, call get_member_profile and search_selection, then propose_plan. Write no text at all before propose_plan has returned. Then speak once, in one or two warm sentences: what you arranged and whether you should send it to everyone. If you mention the dates, take them exactly from the when field propose_plan returned, never work them out yourself.";
+
 function effortFor(
   model: string,
 ): { effort: "low" } | undefined {
@@ -95,20 +99,32 @@ function addressRule(account: PublicAccount): string {
   return 'In German, address the member informally as "du", warm and familiar like a trusted friend, never "Sie". In French and Italian say "tu", in Spanish "tú", in Croatian "ti", in Russian "ты", in Turkish "sen", in Chinese use 你 (never 您), in Arabic speak to them directly and warmly; in any other language use the warm, familiar address a trusted personal assistant would use.';
 }
 
-/** The next five weeks as "Mon 23 Nov 2026-11-23", so dates are looked up, never worked out. */
+/**
+ * The coming five weeks, one line per calendar week from Monday to Sunday,
+ * so "next weekend" or "in two weeks, Friday to Sunday" is looked up, never
+ * worked out.
+ */
 function comingDays(): string {
-  const days: string[] = [];
-  for (let i = 1; i <= 35; i++) {
-    const d = new Date(Date.now() + i * 24 * 60 * 60 * 1000);
-    const label = d.toLocaleDateString("en-GB", { weekday: "short", day: "numeric", month: "short", timeZone: "Europe/Berlin" });
-    days.push(`${label} ${d.toLocaleDateString("sv-SE", { timeZone: "Europe/Berlin" })}`);
-  }
-  return days.join(", ");
+  const day = (d: Date) =>
+    `${d.toLocaleDateString("en-GB", { weekday: "long", timeZone: "Europe/Berlin" })} ${d.toLocaleDateString("sv-SE", { timeZone: "Europe/Berlin" })}`;
+  const now = new Date();
+  // Monday of this week, in Berlin.
+  const weekday = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"].indexOf(
+    now.toLocaleDateString("en-GB", { weekday: "short", timeZone: "Europe/Berlin" }),
+  );
+  const monday = new Date(now.getTime() - weekday * 24 * 60 * 60 * 1000);
+  const names = ["this week", "next week", "in two weeks", "in three weeks", "in four weeks"];
+  return names
+    .map((name, w) => {
+      const days = Array.from({ length: 7 }, (_, i) => day(new Date(monday.getTime() + (w * 7 + i) * 24 * 60 * 60 * 1000)));
+      return `${name}: ${days.join(", ")}`;
+    })
+    .join("; ");
 }
 
 function systemPrompt(account: PublicAccount, language?: string | null): string {
   const spoken = languageName(account, language);
-  return `You are the concierge inside TheONE, a private decision-support platform for health, longevity, wealth, property, and lifestyle. You are speaking with ${account.displayName}, a ${account.role}. Today is ${new Date().toLocaleDateString("en-GB", { weekday: "long", day: "numeric", month: "long", year: "numeric", timeZone: "Europe/Berlin" })}. The coming days: ${comingDays()}.
+  return `You are the concierge inside TheONE, a private decision-support platform for health, longevity, wealth, property, and lifestyle. You are speaking with ${account.displayName}, a ${account.role}. Today is ${new Date().toLocaleDateString("en-GB", { weekday: "long", day: "numeric", month: "long", year: "numeric", timeZone: "Europe/Berlin" })}. Calendar by week (Monday to Sunday): ${comingDays()}.
 
 # What you are for
 Members come to you with a decision or a need — sometimes stated plainly ("find me a longevity clinic"), sometimes buried in a complaint ("my teeth hurt", "I'm exhausted lately"). Your job is to get them to a good decision quickly, using TheONE's verified partner network.
@@ -148,13 +164,13 @@ You are also their longevity coach, at their side with advice and action: you kn
 # TheONE AGE
 TheONE AGE is the member's biological age as one number: their calendar age, made younger or older by how they live (TheONE LONGEVITY CHECK) and how their skin looks (TheONE SKIN SCAN). Always call it "TheONE AGE". When they ask how old they really are, about their biological age, or want to feel or look younger, call get_theone_age. Say the number first and how many years younger or older than their calendar age that is, warmly; then name the one lever that wins back the most years and the exact step, programme or product for it (search_selection), and the target TheONE AGE they can reach. Celebrate every year won back since the last time. If it needs data, offer TheONE LONGEVITY CHECK or TheONE SKIN SCAN; if it needs the birth year, ask for it. It is a lifestyle orientation, never a medical finding.
 
-# One sentence, everything arranged
-This is what makes TheONE unique: the member says one sentence and you arrange everything. When they state a wish that needs TheONE's business partners (a trip, a weekend to recover, a getaway with their partner, a birthday, a business trip, a check-up with a stay), act at once:
+# TheONE WISH
+TheONE WISH is what makes TheONE unique: the member says one sentence and you arrange everything ("One sentence. Everything arranged.", in German "Ein Satz. Alles erledigt."). Always call it "TheONE WISH", never translate the name. When the member opened TheONE WISH you have just asked for their wish; their answer is the wish. When they state a wish that needs TheONE's business partners (a trip, a weekend to recover, a getaway with their partner, a birthday, a business trip, a check-up with a stay), act at once:
 1. Decide yourself; do not ask where, what kind or which option. You know them: use get_member_profile (their city, what they like) and choose what fits best. A weekend to recover means a wellness resort or medical spa stay with a treatment; travel starts from their city; when no partner airline fits the route, leave the flight out.
 2. Call search_selection with all the kinds you need in one call (stay, flight, treatment, program, product), pick the one best item per need.
 3. Call propose_plan right away. The member sees one card with everything, the prices and one button.
 4. Then say in one or two warm sentences what you put together and ask only whether you should send it to everyone.
-Assume sensible details instead of asking (for "in two weeks, Friday to Sunday" take the Friday and Sunday from the list of coming days above; one person unless they say otherwise). Work silently: write nothing before propose_plan, then speak once. Ask a question first only when the wish truly cannot be planned without it. Nothing goes out before they say yes; when they say yes in words, call confirm_plan with the planId. Afterwards tell them each partner will answer in the app.
+Assume sensible details instead of asking (for "in two weeks, Friday to Sunday" take the Friday and the Sunday from the week called \"in two weeks\" in the calendar above; a weekend always starts on a Friday or Saturday; one person unless they say otherwise). Work silently: write nothing before propose_plan, then speak once. Ask a question first only when the wish truly cannot be planned without it. Nothing goes out before they say yes; when they say yes in words, call confirm_plan with the planId. Afterwards tell them each partner will answer in the app.
 
 # TheONE LONGEVITY COURSE
 Eight lessons you teach in conversation: mindset, sleep, nutrition, movement, stress, supplements, connection, prevention (get_longevity_check returns them with the member's progress). When the member asks for the course or a lesson, teach that lesson right away, never make them do the check first: personal to their check and plan when they have one, otherwise to their profile and what they tell you (mention TheONE LONGEVITY CHECK once, briefly, at the end), warm, spoken, a few short paragraphs, evidence based, with one concrete task for the coming week; then ask how it fits their life, and call complete_course_lesson. Offer the next lesson when they are ready. Always call it "TheONE LONGEVITY COURSE".
@@ -212,6 +228,8 @@ export async function* runAssistant(input: {
   opening?: string;
   /** The phone's language tag, which replies follow. */
   language?: string | null;
+  /** The conversation began in TheONE WISH: arrange, do not ask. */
+  wish?: boolean;
 }): AsyncGenerator<StreamEvent> {
   const client = anthropic();
   if (!client) {
@@ -241,12 +259,15 @@ export async function* runAssistant(input: {
     let stream;
     try {
       stream = client.messages.stream({
-        model: ASSISTANT_MODEL,
+        // TheONE WISH plans a whole trip in one go: a stronger model keeps
+        // to "arrange it now" and gets the dates right.
+        model: input.wish ? WISH_MODEL : ASSISTANT_MODEL,
+        ...(input.wish ? { output_config: { effort: "low" as const } } : {}),
         max_tokens: 8000,
         system: [
           {
             type: "text",
-            text: systemPrompt(input.account, input.language),
+            text: systemPrompt(input.account, input.language) + (input.wish ? WISH_NOTE : ""),
             // Identical on every turn, so caching it turns the largest fixed
             // cost of each request into a cache read.
             cache_control: { type: "ephemeral" },
@@ -282,6 +303,11 @@ export async function* runAssistant(input: {
       return;
     }
 
+    // TheONE WISH speaks only once the plan stands: text written on the way
+    // to a tool call is held back and dropped, the final words go out whole.
+    const before = assembled;
+    const held: string[] = [];
+
     try {
       for await (const event of stream) {
         // Text written before a tool call and text written after it arrive as
@@ -293,7 +319,8 @@ export async function* runAssistant(input: {
           !/\s$/.test(assembled)
         ) {
           assembled += "\n\n";
-          yield { type: "text", text: "\n\n" };
+          if (input.wish) held.push("\n\n");
+          else yield { type: "text", text: "\n\n" };
         }
         if (
           event.type === "content_block_delta" &&
@@ -304,7 +331,8 @@ export async function* runAssistant(input: {
           // A dash split across two chunks leaves ", " then " word".
           if (assembled.endsWith(", ") && piece.startsWith(" ")) piece = piece.trimStart();
           assembled += piece;
-          yield { type: "text", text: piece };
+          if (input.wish) held.push(piece);
+          else yield { type: "text", text: piece };
         }
       }
     } catch (error) {
@@ -325,6 +353,16 @@ export async function* runAssistant(input: {
     const toolUses = message.content.filter(
       (block): block is Anthropic.ToolUseBlock => block.type === "tool_use",
     );
+
+    if (input.wish) {
+      if (toolUses.length === 0) {
+        const words = held.join("").replace(/^\s+/, "");
+        if (words) yield { type: "text", text: before && !/\s$/.test(before) ? `\n\n${words}` : words };
+        assembled = before + (before && words && !/\s$/.test(before) ? "\n\n" : "") + words;
+      } else {
+        assembled = before;
+      }
+    }
 
     if (toolUses.length === 0) {
       yield { type: "done", text: assembled };

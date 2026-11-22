@@ -23,7 +23,7 @@ export async function POST(request: Request) {
     return apiError("assistant_not_configured", 503);
   }
 
-  let body: { message?: string; threadId?: string; opening?: string; language?: unknown };
+  let body: { message?: string; threadId?: string; opening?: string; language?: unknown; mode?: unknown };
   try {
     body = await request.json();
   } catch {
@@ -55,6 +55,9 @@ export async function POST(request: Request) {
       ? body.opening.trim().slice(0, 400) || undefined
       : undefined);
 
+  // TheONE WISH: the conversation began with the member's wish, and stays so.
+  const wish = thread?.mode === "wish" || (!thread && body.mode === "wish");
+
   const threadId = thread?._id ?? new ObjectId();
   const encoder = new TextEncoder();
 
@@ -80,6 +83,7 @@ export async function POST(request: Request) {
           history,
           message,
           opening,
+          wish,
           language: languageTag(body.language),
         })) {
           if (event.type === "done") finalText = event.text;
@@ -109,6 +113,7 @@ export async function POST(request: Request) {
               title: message.slice(0, 60),
               createdAt: now,
               ...(opening ? { opening } : {}),
+              ...(wish ? { mode: "wish" as const } : {}),
             },
             $push: {
               messages: {

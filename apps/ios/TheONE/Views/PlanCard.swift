@@ -68,7 +68,7 @@ struct PlanCard: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 14) {
             VStack(alignment: .leading, spacing: 4) {
-                Text(tr("Your plan").uppercased())
+                Text(verbatim: "TheONE WISH")
                     .font(.theone(10.5, weight: .medium))
                     .tracking(MemberLanguage.spacing(2))
                     .foregroundStyle(Theme.accentText)

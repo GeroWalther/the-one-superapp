@@ -230,7 +230,7 @@ export const ASSISTANT_TOOLS: Anthropic.Tool[] = [
   {
     name: "propose_plan",
     description:
-      "Shows the member one complete plan as a card: everything their wish needs from TheONE's business partners at once (for example flight, hotel or resort stay, spa treatment or programme, and products), with one button to request it all. Call it whenever the member states a wish that needs more than one partner, such as a trip, a weekend to recover, a getaway, an event: first find the exact items with search_selection (one per need), then call this right away instead of describing the options. Nothing is sent to anyone by this tool.",
+      "TheONE WISH: shows the member one complete plan as a card: everything their wish needs from TheONE's business partners at once (for example flight, hotel or resort stay, spa treatment or programme, and products), with one button to request it all. Call it whenever the member states a wish that needs more than one partner, such as a trip, a weekend to recover, a getaway, an event: first find the exact items with search_selection (one per need), then call this right away instead of describing the options. Nothing is sent to anyone by this tool.",
     input_schema: {
       type: "object",
       properties: {
@@ -644,8 +644,9 @@ export async function runAssistantTool(
           content: JSON.stringify({
             shown: true,
             planId: outcome.plan.id,
+            when: outcome.plan.when,
             note:
-              "The member now sees this plan as a card with every item, the prices and one button to request it all. Do not list the items again. In one or two warm sentences say what you put together and ask whether you should send it to everyone. If they say yes in words, call confirm_plan with this planId.",
+              "The member now sees this plan as a card with every item, the prices and one button to request it all. The dates on the card are the field when above; if you mention dates, use exactly these. Do not list the items again. In one or two warm sentences say what you put together and ask whether you should send it to everyone. If they say yes in words, call confirm_plan with this planId.",
           }),
           plan: outcome.plan,
         };

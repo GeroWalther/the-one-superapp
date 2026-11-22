@@ -17,6 +17,7 @@ struct HomeView: View {
         case area(Area)
         case skin
         case age
+        case wish
     }
 
     @State private var showLogin = false
@@ -98,6 +99,13 @@ struct HomeView: View {
                         TheONEAgeCard(model: age) { open(.age) }
                             .padding(.horizontal, 20)
                             .padding(.top, 14)
+                    }
+
+                    // TheONE WISH: one sentence, everything arranged.
+                    if session.account != nil {
+                        TheONEWishCard { open(.wish) }
+                            .padding(.horizontal, 20)
+                            .padding(.top, 12)
                     }
 
                     functions
@@ -245,6 +253,11 @@ struct HomeView: View {
         case .area(let area): areaCover = area
         case .skin: skinCover = true
         case .age: ageCover = true
+        case .wish:
+            // POWER AI asks, aloud and in writing; the member answers in one sentence.
+            greeter.say(TheONEWishCard.question)
+            greeter.ask(TheONEWishCard.question)
+            greeter.wishMode = true
         }
     }
 
